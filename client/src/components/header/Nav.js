@@ -7,22 +7,25 @@ class Nav extends Component {
   }
 
   render() {
-    const { week } = this.props
+    const { nextWeek, previousWeek } = this.props
+
     return (
       <div>
         {
           this.props.nextWeek ?
-          (
-              <button onClick={() => this.props.nextWeek()}>
+            (
+              <button onClick={() => nextWeek()}>
                 Next
               </button>
-          )
+            )
+
           :
-          (
-              <button onClick={() => this.props.previousWeek()}>
+
+            (
+              <button onClick={() => previousWeek()}>
                 Previous
               </button>
-          )
+            )
         }
 
       </div>

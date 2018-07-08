@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 
-class DateBar extends Component {
+class Total extends Component {
   constructor(props) {
     super(props)
+
 
   }
 
   render() {
+
     return (
       <div>
+
 
 
       </div>
@@ -16,4 +19,4 @@ class DateBar extends Component {
   }
 }
 
-export default DateBar
+export default Total

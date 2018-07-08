@@ -18,7 +18,6 @@ class Shift extends Component {
         <div>{start}</div>
         <div>{finish}</div>
 
-
       </div>
     )
   }

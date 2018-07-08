@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import StaffMemberShifts from './StaffMemberShifts'
+import ShiftRow from './ShiftRow'
+
 
 class Roster extends Component {
   constructor(props) {
@@ -16,9 +17,7 @@ class Roster extends Component {
           {
             staff.map((staffMember) => {
               return (
-                <StaffMemberShifts
-                  staffMember={staffMember}
-                />
+                <ShiftRow staffMember={staffMember} />
               )
             })
           }
