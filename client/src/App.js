@@ -12,7 +12,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      columnHeading: 'flags',
+      sideBarHeading: 'flags',
     }
 
 
@@ -20,12 +20,12 @@ class App extends Component {
 
   selectRosters = () => {
 
-    this.setState({ columnHeading: 'flags' })
+    this.setState({ sideBarHeading: 'flags' })
   }
 
   selectTimesheets = () => {
 
-    this.setState({ columnHeading: 'staff' })
+    this.setState({ sideBarHeading: 'staff' })
   }
 
 
@@ -66,7 +66,7 @@ class App extends Component {
               weekDate={week.date}
               nextWeek={this.nextWeek}
               previousWeek={this.previousWeek}
-              columnHeading={this.state.columnHeading}
+              sideBarHeading={this.state.sideBarHeading}
               />
             </div>
 

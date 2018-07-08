@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 
-class ColumnHeading extends Component {
+class sideBarHeading extends Component {
   constructor(props) {
     super(props)
 
   }
 
   render() {
-    const { columnHeading } = this.props
+    const { sideBarHeading } = this.props
     return (
       <div>
 
-        {columnHeading}
+        {sideBarHeading}
 
       </div>
     )
   }
 }
 
-export default ColumnHeading
+export default sideBarHeading
