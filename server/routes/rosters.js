@@ -3,7 +3,7 @@ const Roster = require('../models/roster')
 const router = express.Router();
 
 // Get all rosters
-router.get('/rosters', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     let roster = await Roster.find()
     res.send(roster)
@@ -13,7 +13,7 @@ router.get('/rosters', async (req, res) => {
 })
 
 // Get roster by ID
-router.get('/rosters/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     let roster = await Roster.find({_id: req.params.id})
     res.send(roster)
@@ -23,7 +23,8 @@ router.get('/rosters/:id', async (req, res) => {
 })
 
 // Create new roster
-router.post('/rosters', async (req, res) => {
+router.post('/', async (req, res) => {
+  console.log(req.body)
   try {
     let roster = await Roster.create(req.body)
     res.send(roster)

@@ -1,9 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-const rosterRoutes = require('./routes/rosters')
-const timesheetRoutes = require('./routes/timesheets')
-const userRoutes = require('./routes/users')
 
 const port = 4000
 
@@ -13,7 +10,10 @@ const app = express()
 app.use(bodyParser.json())
 
 // Routes
-app.use('/', rosterRoutes, timesheetRoutes, userRoutes)
+// app.use('/', timesheetRoutes, rosterRoutes, userRoutes)
+app.use('/timesheets', require('./routes/timesheets'))
+app.use('/rosters', require('./routes/rosters'))
+app.use('/users', require('./routes/users'))
 
 // Mongoose
 mongoose.connect('mongodb://localhost/prac_react_db', (err) => {
