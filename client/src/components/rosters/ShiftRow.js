@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Shift from './Shift'
 
-class StaffMemberShifts extends Component {
+class ShiftRow extends Component {
   constructor(props) {
     super(props)
 
@@ -14,6 +14,8 @@ class StaffMemberShifts extends Component {
       <div>
 
         <h3>
+        {/* Here we want to display the name so need to query user data which
+          should be stored in App state and passed down to this component */}
           {staffID}
         </h3>
 
@@ -33,13 +35,10 @@ class StaffMemberShifts extends Component {
           }
         </div>
 
-        <div>
-        </div>
-
       </div>
     )
 
   }
 }
 
-export default StaffMemberShifts
+export default ShiftRow
