@@ -37,9 +37,9 @@ class Summary extends Component {
     timesheetData.map((staffMember) => {
       const totalsRow = {}
       totalsRow.staffID = staffMember.staffID
-      payRateCategories.map((cat) => {
-        payRateCategoriesTotalsRows[cat] = null
-      })
+      // payRateCategories.map((cat) => {
+        // totalsRow[cat] = null
+      // })
       staffMember.shifts.map((shift) => {
         // if (!totalsRow[shift.category]) {
           // totalsRow[shift.category] = (((shift.finish - shift.start)*0.00000027777777777778).toFixed(2))
@@ -99,15 +99,15 @@ class Summary extends Component {
         }
 
       })
-      console.log(totalsRow)
       payRateCategoriesTotalsRows.push(totalsRow)
+    //
     })
 
     const finalTotalsRows = payRateCategoriesTotalsRows.map((row) => {
-      for (let cat in row) {
-        if (row[cat])
-        console.log(row[cat])
-      }
+      // for (let cat in row) {
+      //   if (row[cat])
+      //   console.log(row[cat])
+      // }
     })
 
     this.setState({

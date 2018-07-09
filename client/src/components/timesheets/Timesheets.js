@@ -75,6 +75,7 @@ class Timesheets extends Component {
     const { week } = this.props
     const staffNames = []
     const timesheetData = []
+    [ { staffID:'', shifts: [ ]}]
 
     week.staff.map((staffMember) => {
       // When have user model will loop through it and
