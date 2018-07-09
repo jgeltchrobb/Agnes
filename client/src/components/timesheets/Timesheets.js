@@ -9,69 +9,12 @@ class Timesheets extends Component {
     // individual: staffID
     this.state = {
       individual: '',
+      timesheetData: [],
+      staffNames: []
+
 
     }
   }
-  //
-  // componentWillMount = () => {
-  //
-  //   function roundUp (time) {
-  //     var mins = time.getMinutes()
-  //
-  //     if (mins < 15) {
-  //       mins = 15
-  //     } else if (15 < mins && mins < 30) {
-  //       mins = 30
-  //     } else if (30 < mins && mins < 45) {
-  //       mins = 45
-  //     } else if (45 < mins && mins < 61) {
-  //       mins = 60
-  //     }
-  //     time.setMinutes(mins)
-  //     return time
-  //   }
-  //
-  //   function roundDown (time) {
-  //     var mins = time.getMinutes()
-  //
-  //     if (mins > 45) {
-  //       mins = 45
-  //     } else if (45 > mins && mins > 30) {
-  //       mins = 30
-  //     } else if (30 > mins && mins > 15) {
-  //       mins = 15
-  //     } else if (15 > mins) {
-  //       mins = 0
-  //     }
-  //     time.setMinutes(mins)
-  //     return time
-  //   }
-  //
-  //   function startTime (rStart, aStart) {
-  //     // If no clock time then return rostered
-  //     if (aStart) {
-  //       if (aStart <= rStart) {
-  //         return rStart
-  //       } else {
-  //         // Do post request to create flag!
-  //         return roundUp(aStart)
-  //       }
-  //     } else return rStart
-  //   }
-  //
-  //
-  //   function finishTime (rFinish, aFinish) {
-  //     // If no clock time then what is it?
-  //     if (aFinish) {
-  //         if (aFinish >= rFinish) {
-  //           return rFinish
-  //         } else {
-  //           // Do post request to create flag!
-  //           return roundDown(aFinish)
-  //         }
-  //       } else return rFinish
-  //   }
-  // }
 
   roundUp = (time) => {
     var mins = time.getMinutes()
@@ -84,6 +27,22 @@ class Timesheets extends Component {
       mins = 45
     } else if (45 < mins && mins < 61) {
       mins = 60
+    }
+    time.setMinutes(mins)
+    return time
+  }
+
+  roundDown = (time) => {
+    var mins = time.getMinutes()
+
+    if (mins > 45) {
+      mins = 45
+    } else if (45 > mins && mins > 30) {
+      mins = 30
+    } else if (30 > mins && mins > 15) {
+      mins = 15
+    } else if (15 > mins) {
+      mins = 0
     }
     time.setMinutes(mins)
     return time
@@ -113,29 +72,13 @@ class Timesheets extends Component {
     } else return rFinish
   }
 
-  roundDown = (time) => {
-    var mins = time.getMinutes()
-
-    if (mins > 45) {
-      mins = 45
-    } else if (45 > mins && mins > 30) {
-      mins = 30
-    } else if (30 > mins && mins > 15) {
-      mins = 15
-    } else if (15 > mins) {
-      mins = 0
-    }
-    time.setMinutes(mins)
-    return time
-  }
-
-
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const { week } = this.props
     const staffNames = []
     const timesheetData = []
 
-    week.staff.map((staffMember) => {
+
+    await week.staff.map((staffMember) => {
       // When have user model will loop through it and
       // if (staffID === staffMember.staffID) then push to staffNames
       // {staffID: 'name'}
@@ -174,20 +117,12 @@ class Timesheets extends Component {
       )
     })
 
-    this.setState({
+    await this.setState({
       staffNames:     staffNames,
       timesheetData:  timesheetData
     })
-  }
 
-  // this.setMainDataState(staffNames, timesheetData)
-  // setMainDataState = (staffNames, timesheetData) => {
-  //
-  //   this.setState({
-  //     staffNames:     staffNames,
-  //     timesheetData:  timesheetData
-  //   })
-  // }
+  }
 
   setIndividual = (staffID) => {
     this.setState({ individual: staffID })
@@ -263,6 +198,7 @@ class Timesheets extends Component {
         </div>
       )
     }
+
   }
 
 }
