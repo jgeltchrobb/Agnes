@@ -3,7 +3,7 @@ const User = require('../models/user')
 const router = express.Router()
 
 // Get all users
-router.get('/users', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     let users = await User.find()
     res.send(users)
@@ -13,7 +13,7 @@ router.get('/users', async (req, res) => {
 })
 
 // Get user by ID
-router.get('/users/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     let user = await User.find({_id: req.params.id})
     res.send(user)
@@ -23,7 +23,7 @@ router.get('/users/:id', async (req, res) => {
 })
 
 // Create new user
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     let user = await User.create(req.body)
     res.send(user)
@@ -33,7 +33,7 @@ router.post('/users', async (req, res) => {
 })
 
 // Update user details
-router.put('/users/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     let user = await User.update({ _id: req.params.id}, req.body)
     res.send(user)
