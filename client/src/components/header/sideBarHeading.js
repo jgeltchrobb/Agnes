@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class sideBarHeading extends Component {
+class SideBarHeading extends Component {
   constructor(props) {
     super(props)
 
@@ -18,4 +18,4 @@ class sideBarHeading extends Component {
   }
 }
 
-export default sideBarHeading
+export default SideBarHeading

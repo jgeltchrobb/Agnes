@@ -24,7 +24,6 @@ class ShiftRow extends Component {
             shifts.map((shift) => {
               return (
                 <Shift
-                  day={shift.day}
                   catagory={shift.shiftCategory}
                   staffID={staffID}
                   start={shift.start.rostered}

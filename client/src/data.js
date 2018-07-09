@@ -1,114 +1,107 @@
 import React from 'react'
 
 const week = {
-  date: "2018-07-2",
+  date: new Date("July 2 2018"),
   staff:
   [
     {
       staffID: 1, shifts:
       [
         {
-          day: 'monday',
-          date: "2018-07-2",
+          date: new Date("July 2 2018"),
           shiftCategory: "floor",
           start: {
-            rostered: 8,
-            actual: 9,
+            rostered: new Date("July 2 2018 8:00"),
+            actual: new Date("July 2 2018 9:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 15,
+            rostered: new Date("July 2 2018 16:00"),
+            actual: new Date("July 2 2018 15:00"),
             flag: false
           }
         },
         {
-          day: 'tuesday',
-          date: "2018-07-3",
+          date: new Date("July 3 2018"),
           shiftCategory: "room",
           start: {
-            rostered: 8,
-            actual: 7,
+            rostered: new Date("July 3 2018 8:00"),
+            actual: new Date("July 3 2018 7:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 17,
+            rostered: new Date("July 3 2018 16:00"),
+            actual: new Date("July 3 2018 17:00"),
             flag: false
           }
         },
         {
-          day: 'wednesday',
-          date: "2018-07-4",
+          date: new Date("July 4 2018"),
           shiftCategory: "Kitchen",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 4 2018 8:00"),
+            actual: new Date("July 4 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 4 2018 16:00"),
+            actual: new Date("July 4 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'thursday',
-          date: "2018-07-5",
+          date: new Date("July 5 2018"),
           shiftCategory: "floor",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 5 2018 8:00"),
+            actual: new Date("July 5 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 5 2018 16:00"),
+            actual: new Date("July 5 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'friday',
-          date: "2018-07-6",
+          date: new Date("July 6 2018"),
           shiftCategory: "room",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 6 2018 8:00"),
+            actual: new Date("July 6 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 6 2018 16:00"),
+            actual: new Date("July 6 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'saterday',
-          date: "2018-07-7",
+          date: new Date("July 7 2018"),
           shiftCategory: "Kitchen",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 7 2018 8:00"),
+            actual: new Date("July 7 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 7 2018 16:00"),
+            actual: new Date("July 7 2018 16:00"),
             flag: false
           }
         },
         {
-          day:'sunday',
-          date: "2018-07-8",
+          date: new Date("July 8 2018"),
           shiftCategory: "floor",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 8 2018 8:00"),
+            actual: new Date("July 8 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 8 2018 16:00"),
+            actual: new Date("July 8 2018 16:00"),
             flag: false
           }
         }, // end of saterday
@@ -120,107 +113,100 @@ const week = {
       staffID: 2, shifts:
       [
         {
-          day: 'monday',
-          date: "2018-07-2",
+          date: new Date("July 2 2018"),
           shiftCategory: "room",
           start: {
-            rostered: 8,
-            actual: 9,
+            rostered: new Date("July 2 2018 8:00"),
+            actual: new Date("July 2 2018 9:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 15,
+            rostered: new Date("July 2 2018 16:00"),
+            actual: new Date("July 2 2018 15:00"),
             flag: false
           }
         },
         {
-          day: 'tuesday',
-          date: "2018-07-3",
+          date: new Date("July 3 2018"),
           shiftCategory: "kitchen",
           start: {
-            rostered: 8,
-            actual: 7,
+            rostered: new Date("July 3 2018 8:00"),
+            actual: new Date("July 3 2018 7:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 17,
+            rostered: new Date("July 3 2018 16:00"),
+            actual: new Date("July 3 2018 17:00"),
             flag: false
           }
         },
         {
-          days: 'wednesday',
-          date: "2018-07-4",
+          date: new Date("July 4 2018"),
           shiftCategory: "floor",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 4 2018 8:00"),
+            actual: new Date("July 4 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 4 2018 16:00"),
+            actual: new Date("July 4 2018 16:00"),
             flag: false
           }
         },
         {
-          days: 'thursday',
-          date: "2018-07-5",
+          date: new Date("July 5 2018"),
           shiftCategory: "room",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 5 2018 8:00"),
+            actual: new Date("July 5 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 5 2018 16:00"),
+            actual: new Date("July 5 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'friday',
-          date: "2018-07-6",
+          date: new Date("July 6 2018"),
           shiftCategory: "kitchen",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 6 2018 8:00"),
+            actual: new Date("July 6 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 6 2018 16:00"),
+            actual: new Date("July 6 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'saterday',
-          date: "2018-07-7",
+          date: new Date("July 7 2018"),
           shiftCategory: "floor",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 7 2018 8:00"),
+            actual: new Date("July 7 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 7 2018 16:00"),
+            actual: new Date("July 7 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'sunday',
-          date: "2018-07-8",
+          date: new Date("July 8 2018"),
           shiftCategory: "room",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 8 2018 8:00"),
+            actual: new Date("July 8 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 8 2018 16:00"),
+            actual: new Date("July 8 2018 16:00"),
             flag: false
           }
         }, // end of saterday
@@ -231,107 +217,100 @@ const week = {
       staffID: 3, shifts:
       [
         {
-          day: 'monday',
-          date: "2018-07-2",
+          date: new Date("July 2 2018"),
           shiftCategory: "kitchen",
           start: {
-            rostered: 8,
-            actual: 9,
+            rostered: new Date("July 2 2018 8:00"),
+            actual: new Date("July 2 2018 9:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 15,
+            rostered: new Date("July 2 2018 16:00"),
+            actual: new Date("July 2 2018 17:00"),
             flag: false
           }
         },
         {
-          day: 'tuesday',
-          date: "2018-07-3",
+          date: new Date("July 3 2018"),
           shiftCategory: "floor",
           start: {
-            rostered: 8,
-            actual: 7,
+            rostered: new Date("July 3 2018 8:00"),
+            actual: new Date("July 3 2018 7:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 17,
+            rostered: new Date("July 3 2018 16:00"),
+            actual: new Date("July 3 2018 17:00"),
             flag: false
           }
         },
         {
-          day: 'wednesday',
-          date: "2018-07-4",
+          date: new Date("July 4 2018"),
           shiftCategory: "room",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 4 2018 8:00"),
+            actual: new Date("July 4 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 4 2018 17:00"),
+            actual: new Date("July 4 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'thursday',
-          date: "2018-07-5",
+          date: new Date("July 5 2018"),
           shiftCategory: "kitchen",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 5 2018 8:00"),
+            actual: new Date("July 5 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 5 2018 16:00"),
+            actual: new Date("July 5 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'friday',
-          date: "2018-07-6",
+          date: new Date("July 6 2018"),
           shiftCategory: "floor",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 6 2018 8:00"),
+            actual: new Date("July 6 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 6 2018 16:00"),
+            actual: new Date("July 6 2018 16:00"),
             flag: false
           }
         },
         {
-          day: 'saterday',
-          date: "2018-07-7",
+          date: new Date("July 7 2018"),
           shiftCategory: "room",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 7 2018 8:00"),
+            actual: new Date("July 7 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 7 2018 18:00"),
+            actual: new Date("July 7 2018 19:00"),
             flag: false
           }
         },
         {
-          day: 'sunday',
-          date: "2018-07-8",
+          date: new Date("July 8 2018"),
           shiftCategory: "kitchen",
           start: {
-            rostered: 8,
-            actual: 8,
+            rostered: new Date("July 8 2018 8:00"),
+            actual: new Date("July 8 2018 8:00"),
             flag: false
           },
           finish: {
-            rostered: 16,
-            actual: 16,
+            rostered: new Date("July 8 2018 16:00"),
+            actual: new Date("July 8 2018 16:00"),
             flag: false
           }
         }, // end of saterday
