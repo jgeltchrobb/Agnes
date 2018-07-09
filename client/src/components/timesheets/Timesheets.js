@@ -9,6 +9,8 @@ class Timesheets extends Component {
     // individual: staffID
     this.state = {
       individual: '',
+      // staffNames: [],
+      // timesheetData: []
 
     }
   }
@@ -117,7 +119,6 @@ class Timesheets extends Component {
       staffNames:     staffNames,
       timesheetData:  timesheetData
     })
-    console.log(this.state)
 
   }
 
@@ -133,6 +134,7 @@ class Timesheets extends Component {
 
     if ( !this.state.individual ) {
       if (!(this.state.staffNames && this.state.timesheetData)) return ''
+      // console.log(this.state)
       return (
         <div>
 

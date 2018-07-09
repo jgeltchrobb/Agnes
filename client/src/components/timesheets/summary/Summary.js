@@ -5,34 +5,31 @@ import TotalsRow from '../TotalsRow'
 class Summary extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      // fullTotalsRows: []
+    }
 
   }
 
   componentDidMount = () => {
     const { staffNames, timesheetData } = this.props
 
-    console.log(staffNames)
-
   // Flags:
   // - if they clock in late OR don't clock in
   //   ( if don't clock how do we deal? - if late -> actual,
   //      if none default to 1 min before clockout )
   // -
-    const totalsRows = []
-    const payCategories = ['Ordinary','Sat','Sun','Night']
-    // PayCategories will be automatically added to the column headings
-    // They will also be added as keys to the totalsRow:
-    // - corresponding hours will be added to each one based on the conditional:
-    //   ( If earlier than 8pm, give a two hour buffer set as 20 in
-    // var DayShiftDefinitionClockinBeforeHours )
-    const entitlements = ['Annual Leave','Sick Leave','Long Service Leave','Sleep-over Bonus']
-    // Entitlements will separately entered into a FORM and then show up as columns
-    // after any public holiday / Wayne hours
-    //
+    const payRateCategoriesTotalsRows = []
+    const payRateCategories = [
+      'Ordinary', 'Sat', 'Sun', 'Night', 'Public Holiday',
+      'Wayne Ordinary', 'Wayne Sat', 'Wayne Sun', 'Wayne Night', 'Wayne Public Holiday',
+    ]
+    const entitlements = ['Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus']
+
     // Have a check box (Default false) in the roster shift modle for:
     // - PUBLIC HOLIDAYS
     // - WAYNE SHIFT
-    // IF CHECKED THEY WILL BE added to the column headings and apear in a column below it
+    // They must be added to the schema as booleans for each shift - default false
 
     var DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
@@ -40,8 +37,8 @@ class Summary extends Component {
     timesheetData.map((staffMember) => {
       const totalsRow = {}
       totalsRow.staffID = staffMember.staffID
-      payCategories.map((cat) => {
-        totalsRow[cat] = null
+      payRateCategories.map((cat) => {
+        payRateCategoriesTotalsRows[cat] = null
       })
       staffMember.shifts.map((shift) => {
         // if (!totalsRow[shift.category]) {
@@ -51,36 +48,70 @@ class Summary extends Component {
         // }
         // Filter hours into categories:
 
-        if (shift.start.getHours() < DayShiftDefinitionClockinBeforeHours) {
-          //   - if (shift.start.getHours() < 20) {
-          //      if (sat) {
-          //        add to sat
-          //      } else if (Sun) {
-          //        add to Sun
-          //      } else {
-          //        add to Ordinary
-          //      }
-          //    } else { add to Night }
-          if (
-            shift.start.getDay() === 6
-          ) {
-            totalsRow['Sat']      += (Number(((shift.finish - shift.start) * milliToHours).toFixed(2)))
-          } else if (
-            shift.start.getDay() === 0) {
-            totalsRow['Sun']      += (Number(((shift.finish - shift.start) * milliToHours).toFixed(2)))
+        //   - if (shift.start.getHours() < 20) {
+        //      if (sat) {
+        //        add to sat
+        //      } else if (Sun) {
+        //        add to Sun
+        //      } else {
+        //        add to Ordinary
+        //      }
+        //    } else { add to Night }
+        const shiftHours = (Number(((shift.finish - shift.start) * milliToHours).toFixed(2)))
+
+        if (!shift.publicHoliday) {
+
+          if (shift.start.getHours() < DayShiftDefinitionClockinBeforeHours) {
+
+            if (shift.start.getDay() === 6) {
+              if (shift.wayneShift) {
+                totalsRow['Wayne Sat']          += shiftHours
+              } else {
+                totalsRow['Sat']                += shiftHours
+              }
+            } else if (shift.start.getDay() === 0) {
+                if (shift.wayneShift) {
+                  totalsRow['Wayne Sun']        += shiftHours
+                } else {
+                  totalsRow['Sun']              += shiftHours
+                }
+            } else {
+                if (shift.wayneShift) {
+                  totalsRow['Wayne Ordinary']   += shiftHours
+                } else {
+                  totalsRow['Ordinary']         += shiftHours
+                }
+            }
+
           } else {
-            totalsRow['Ordinary'] += (Number(((shift.finish - shift.start) * milliToHours).toFixed(2)))
+              if (shift.wayneShift) {
+                totalsRow['Wayne Night']        += shiftHours
+              } else {
+                totalsRow['Night']              += shiftHours
+              }
           }
 
+        } else if (shift.publicHoliday && shift.wayneShift) {
+          totalsRow['Wayne Public Holiday']     += shiftHours
+
         } else {
-          totalsRow['Night'] += (Number(((shift.finish - shift.start) * milliToHours).toFixed(2)))
+          totalsRow['Public Holiday']           += shiftHours
         }
+
       })
-      totalsRows.push(totalsRow)
+      console.log(totalsRow)
+      payRateCategoriesTotalsRows.push(totalsRow)
+    })
+
+    const finalTotalsRows = payRateCategoriesTotalsRows.map((row) => {
+      for (let cat in row) {
+        if (row[cat])
+        console.log(row[cat])
+      }
     })
 
     this.setState({
-      totalsRows: totalsRows,
+      finalTotalsRows: finalTotalsRows,
     })
 
   }
@@ -91,6 +122,11 @@ class Summary extends Component {
 
   render() {
     const { staffNames, setIndividual } = this.props
+
+    if (!(this.state.finalTotalsRows)) return ''
+
+
+    // console.log(this.state.fullTotalsRows)
 
     return (
       <div>
@@ -104,13 +140,16 @@ class Summary extends Component {
           })
 */}
         </div>
-{/*
+
         <div>
-          totalsRows.map((row) => {
-            <TotalsRow />
-          })
+          {
+            this.state.finalTotalsRows.map((row) => {
+            return (
+              <TotalsRow row={row} />
+            )
+            })
+          }
         </div>
-*/}
 
       </div>
     )

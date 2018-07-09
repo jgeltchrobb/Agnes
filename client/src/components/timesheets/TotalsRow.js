@@ -7,23 +7,20 @@ class TotalsRow extends Component {
 
   }
 
-  /*componentDidMount = () => {
-
-
-   this.setState({
-     totalsRow:  totalsRow
-   })
-
- }*/
-
-
   render() {
+    const { row } = this.props
+
+    console.log(row)
+
+    const allCategories = [
+      'Ordinary', 'Sat', 'Sun', 'Night', 'Public Holiday',
+      'Wayne Ordinary', 'Wayne Sat', 'Wayne Sun', 'Wayne Night', 'Wayne Public Holiday',
+      'Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus'
+    ]
 
     return (
       <div>
-
-
-
+        
       </div>
     )
   }

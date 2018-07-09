@@ -1,7 +1,9 @@
-var a = {counter: null}
 
-a.counter += Number(1)
-a.counter += Number(2)
-a.counter += Number(2)
+const row = {staffID: 1, Ordinary: 37.75, Sat: 8, Sun: 8, Night: null}
 
-console.log(a)
+// console.log(
+
+  for (let key in row) {
+    console.log(key)
+  }
+// )

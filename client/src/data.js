@@ -10,6 +10,8 @@ const week = {
         {
           date: new Date("July 2 2018"),
           shiftCategory: "floor",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 2 2018 8:00"),
             actual: new Date("July 2 2018 9:00"),
@@ -24,6 +26,8 @@ const week = {
         {
           date: new Date("July 3 2018"),
           shiftCategory: "room",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 3 2018 8:00"),
             actual: new Date("July 3 2018 7:00"),
@@ -38,6 +42,8 @@ const week = {
         {
           date: new Date("July 4 2018"),
           shiftCategory: "Kitchen",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 4 2018 8:00"),
             actual: new Date("July 4 2018 8:00"),
@@ -52,6 +58,8 @@ const week = {
         {
           date: new Date("July 5 2018"),
           shiftCategory: "floor",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 5 2018 8:00"),
             actual: new Date("July 5 2018 8:00"),
@@ -66,6 +74,8 @@ const week = {
         {
           date: new Date("July 6 2018"),
           shiftCategory: "room",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 6 2018 8:00"),
             actual: new Date("July 6 2018 8:00"),
@@ -80,6 +90,8 @@ const week = {
         {
           date: new Date("July 7 2018"),
           shiftCategory: "Kitchen",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 7 2018 8:00"),
             actual: new Date("July 7 2018 8:00"),
@@ -94,6 +106,8 @@ const week = {
         {
           date: new Date("July 8 2018"),
           shiftCategory: "floor",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 8 2018 8:00"),
             actual: new Date("July 8 2018 8:00"),
@@ -115,6 +129,8 @@ const week = {
         {
           date: new Date("July 2 2018"),
           shiftCategory: "room",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 2 2018 8:00"),
             actual: new Date("July 2 2018 9:00"),
@@ -129,6 +145,8 @@ const week = {
         {
           date: new Date("July 3 2018"),
           shiftCategory: "kitchen",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 3 2018 8:00"),
             actual: new Date("July 3 2018 7:00"),
@@ -143,6 +161,8 @@ const week = {
         {
           date: new Date("July 4 2018"),
           shiftCategory: "floor",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 4 2018 8:00"),
             actual: new Date("July 4 2018 8:00"),
@@ -157,6 +177,8 @@ const week = {
         {
           date: new Date("July 5 2018"),
           shiftCategory: "room",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 5 2018 8:00"),
             actual: new Date("July 5 2018 8:00"),
@@ -171,6 +193,8 @@ const week = {
         {
           date: new Date("July 6 2018"),
           shiftCategory: "kitchen",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 6 2018 8:00"),
             actual: new Date("July 6 2018 8:00"),
@@ -185,6 +209,8 @@ const week = {
         {
           date: new Date("July 7 2018"),
           shiftCategory: "floor",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 7 2018 8:00"),
             actual: new Date("July 7 2018 8:00"),
@@ -199,6 +225,8 @@ const week = {
         {
           date: new Date("July 8 2018"),
           shiftCategory: "room",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 8 2018 8:00"),
             actual: new Date("July 8 2018 8:00"),
@@ -219,6 +247,8 @@ const week = {
         {
           date: new Date("July 2 2018"),
           shiftCategory: "kitchen",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 2 2018 8:00"),
             actual: new Date("July 2 2018 9:00"),
@@ -233,6 +263,8 @@ const week = {
         {
           date: new Date("July 3 2018"),
           shiftCategory: "floor",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 3 2018 8:00"),
             actual: new Date("July 3 2018 7:00"),
@@ -247,6 +279,8 @@ const week = {
         {
           date: new Date("July 4 2018"),
           shiftCategory: "room",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 4 2018 8:00"),
             actual: new Date("July 4 2018 8:00"),
@@ -261,6 +295,8 @@ const week = {
         {
           date: new Date("July 5 2018"),
           shiftCategory: "kitchen",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 5 2018 8:00"),
             actual: new Date("July 5 2018 8:00"),
@@ -275,6 +311,8 @@ const week = {
         {
           date: new Date("July 6 2018"),
           shiftCategory: "floor",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 6 2018 8:00"),
             actual: new Date("July 6 2018 8:00"),
@@ -289,6 +327,8 @@ const week = {
         {
           date: new Date("July 7 2018"),
           shiftCategory: "room",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 7 2018 8:00"),
             actual: new Date("July 7 2018 8:00"),
@@ -303,6 +343,8 @@ const week = {
         {
           date: new Date("July 8 2018"),
           shiftCategory: "kitchen",
+          publicHoliday: false,
+          wayneShift: false,
           start: {
             rostered: new Date("July 8 2018 8:00"),
             actual: new Date("July 8 2018 8:00"),
