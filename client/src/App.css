@@ -1,0 +1,12 @@
+.staffrow {
+  display: flex;
+  width: 100vw;
+}
+
+.cell {
+  display: flex;
+  border: 1px solid black;
+  min-width: 6rem;
+  text-align: center;
+  flex-direction: column
+}

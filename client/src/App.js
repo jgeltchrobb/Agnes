@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import Rosters from './components/rosters/Rosters'
 import Timesheets from './components/timesheets/Timesheets'
 import Header from './components/header/Header'
+import Staff from './components/staff/Staff'
 import week from './data'
+import './App.css';
 
 
 
@@ -59,6 +61,10 @@ class App extends Component {
             </div>
 
             <div>
+              <Link to="/staff">Staff</Link>
+            </div>
+
+            <div>
               Logout
             </div>
 
@@ -78,6 +84,8 @@ class App extends Component {
             <Route path='/timesheets' render={(routerprops) => (
               <Timesheets week={week} /> )}
             />
+
+            <Route path='/staff' component={Staff} />
 
           </div>
         </Router>

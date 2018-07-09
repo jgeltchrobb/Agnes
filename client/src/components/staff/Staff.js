@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import StaffRow from './StaffRow'
 
 class Staff extends Component {
   constructor(props) {
@@ -8,11 +9,12 @@ class Staff extends Component {
     }
   }
 
+
+  // Map out each staff member
+
   render() {
     return (
-      <div>
-
-      </div>
+      <StaffRow />
     )
   }
 }
