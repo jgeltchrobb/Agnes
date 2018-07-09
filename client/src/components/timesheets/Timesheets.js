@@ -78,7 +78,7 @@ class Timesheets extends Component {
     const timesheetData = []
 
 
-    await week.staff.map((staffMember) => {
+    week.staff.map((staffMember) => {
       // When have user model will loop through it and
       // if (staffID === staffMember.staffID) then push to staffNames
       // {staffID: 'name'}
@@ -121,6 +121,7 @@ class Timesheets extends Component {
       staffNames:     staffNames,
       timesheetData:  timesheetData
     })
+    console.log(this.state)
 
   }
 
@@ -139,7 +140,7 @@ class Timesheets extends Component {
         <div>
 
           <div>
-            <div>  {/* Space to the left of catagory headings and above names*/}</div>
+            <div>{/* Space to the left of catagory headings and above names*/}</div>
             <div>  Ord Hrs           </div>
             <div>  Sat Hrs           </div>
             <div>  Annual Leave      </div>
