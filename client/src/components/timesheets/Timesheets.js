@@ -9,9 +9,6 @@ class Timesheets extends Component {
     // individual: staffID
     this.state = {
       individual: '',
-      timesheetData: [],
-      staffNames: []
-
 
     }
   }
@@ -61,7 +58,7 @@ class Timesheets extends Component {
   }
 
   finishTime = (rFinish, aFinish) => {
-    // If no clock time then what is it?
+    // If no clock time then return rostered
     if (aFinish) {
       if (aFinish >= rFinish) {
         return rFinish
@@ -72,11 +69,10 @@ class Timesheets extends Component {
     } else return rFinish
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     const { week } = this.props
     const staffNames = []
     const timesheetData = []
-
 
     week.staff.map((staffMember) => {
       // When have user model will loop through it and
@@ -117,7 +113,7 @@ class Timesheets extends Component {
       )
     })
 
-    await this.setState({
+    this.setState({
       staffNames:     staffNames,
       timesheetData:  timesheetData
     })
@@ -136,6 +132,7 @@ class Timesheets extends Component {
   render() {
 
     if ( !this.state.individual ) {
+      if (!(this.state.staffNames && this.state.timesheetData)) return ''
       return (
         <div>
 

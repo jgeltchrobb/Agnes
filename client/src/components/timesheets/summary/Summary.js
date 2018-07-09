@@ -11,7 +11,7 @@ class Summary extends Component {
   componentDidMount = () => {
     const { staffNames, timesheetData } = this.props
 
-    console.log(this.props)
+    console.log(staffNames)
 
   // Flags:
   // - if they clock in late OR don't clock in
