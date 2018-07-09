@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ColumnHeading from './sideBarHeading'
+import SideBarHeading from './SideBarHeading'
 import DateBar from './DateBar'
 import Nav from './Nav'
 
@@ -16,7 +16,7 @@ class Header extends Component {
       <div>
 
         <div>
-          <sideBarHeading sideBarHeading={sideBarHeading}/>
+          <SideBarHeading sideBarHeading={sideBarHeading}/>
         </div>
 
         <div>

@@ -9,10 +9,12 @@ class DateBar extends Component {
   render() {
     const { weekDate } = this.props
 
+    const barDate = `${weekDate.getDate()} / ${weekDate.getMonth()} / ${weekDate.getFullYear()}`
+
     return (
       <div>
 
-        {weekDate}
+        <p>{barDate}</p>
 
       </div>
     )

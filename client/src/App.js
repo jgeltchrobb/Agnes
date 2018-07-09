@@ -42,6 +42,7 @@ class App extends Component {
   }
 
   render() {
+    // const { week } = from database
 
     return (
       <div>

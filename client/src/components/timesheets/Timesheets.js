@@ -12,17 +12,91 @@ class Timesheets extends Component {
 
     }
   }
+  //
+  // componentWillMount = () => {
+  //
+  //   function roundUp (time) {
+  //     var mins = time.getMinutes()
+  //
+  //     if (mins < 15) {
+  //       mins = 15
+  //     } else if (15 < mins && mins < 30) {
+  //       mins = 30
+  //     } else if (30 < mins && mins < 45) {
+  //       mins = 45
+  //     } else if (45 < mins && mins < 61) {
+  //       mins = 60
+  //     }
+  //     time.setMinutes(mins)
+  //     return time
+  //   }
+  //
+  //   function roundDown (time) {
+  //     var mins = time.getMinutes()
+  //
+  //     if (mins > 45) {
+  //       mins = 45
+  //     } else if (45 > mins && mins > 30) {
+  //       mins = 30
+  //     } else if (30 > mins && mins > 15) {
+  //       mins = 15
+  //     } else if (15 > mins) {
+  //       mins = 0
+  //     }
+  //     time.setMinutes(mins)
+  //     return time
+  //   }
+  //
+  //   function startTime (rStart, aStart) {
+  //     // If no clock time then return rostered
+  //     if (aStart) {
+  //       if (aStart <= rStart) {
+  //         return rStart
+  //       } else {
+  //         // Do post request to create flag!
+  //         return roundUp(aStart)
+  //       }
+  //     } else return rStart
+  //   }
+  //
+  //
+  //   function finishTime (rFinish, aFinish) {
+  //     // If no clock time then what is it?
+  //     if (aFinish) {
+  //         if (aFinish >= rFinish) {
+  //           return rFinish
+  //         } else {
+  //           // Do post request to create flag!
+  //           return roundDown(aFinish)
+  //         }
+  //       } else return rFinish
+  //   }
+  // }
+
+  roundUp = (time) => {
+    var mins = time.getMinutes()
+
+    if (mins < 15) {
+      mins = 15
+    } else if (15 < mins && mins < 30) {
+      mins = 30
+    } else if (30 < mins && mins < 45) {
+      mins = 45
+    } else if (45 < mins && mins < 61) {
+      mins = 60
+    }
+    time.setMinutes(mins)
+    return time
+  }
 
   startTime = (rStart, aStart) => {
-    // If no clock time then what is it?
+    // If no clock time then return rostered
     if (aStart) {
       if (aStart <= rStart) {
         return rStart
       } else {
         // Do post request to create flag!
-        // return actual (rounded UP to next 15 min interval)
-        // for now just return actual
-        return aStart
+        return this.roundUp(aStart)
       }
     } else return rStart
   }
@@ -30,26 +104,38 @@ class Timesheets extends Component {
   finishTime = (rFinish, aFinish) => {
     // If no clock time then what is it?
     if (aFinish) {
-        if (aFinish >= rFinish) {
-          return rFinish
-        } else {
-          // Do post request to create flag!
-          // return actual (rounded DOWN to next 15 min interval)
-          // for now just return actual
-          return aFinish
-        }
-      } else return rFinish
+      if (aFinish >= rFinish) {
+        return rFinish
+      } else {
+        // Do post request to create flag!
+        return this.roundDown(aFinish)
+      }
+    } else return rFinish
   }
 
+  roundDown = (time) => {
+    var mins = time.getMinutes()
+
+    if (mins > 45) {
+      mins = 45
+    } else if (45 > mins && mins > 30) {
+      mins = 30
+    } else if (30 > mins && mins > 15) {
+      mins = 15
+    } else if (15 > mins) {
+      mins = 0
+    }
+    time.setMinutes(mins)
+    return time
+  }
+
+
   componentDidMount = () => {
+    const { week } = this.props
     const staffNames = []
     const timesheetData = []
-    // [ { staffID:'', shifts:[ { date:'', startRostered:'', startActual:'', start:''
-    //                                   , finishRostered:'', finishActual:'', finish:''
-    // }]}]
 
-
-    this.props.week.staff.map((staffMember) => {
+    week.staff.map((staffMember) => {
       // When have user model will loop through it and
       // if (staffID === staffMember.staffID) then push to staffNames
       // {staffID: 'name'}
@@ -61,10 +147,10 @@ class Timesheets extends Component {
       // object
       const staffMemberShifts = []
       staffMember.shifts.map((shift) => {
-        const rStart = shift.start.rostered
-        const aStart = shift.start.actual
-        const rFinish = shift.finish.rostered
-        const aFinish = shift.finish.actual
+        var rStart = shift.start.rostered
+        var aStart = shift.start.actual
+        var rFinish = shift.finish.rostered
+        var aFinish = shift.finish.actual
         staffMemberShifts.push(
           {
             date:           shift.date,
@@ -74,11 +160,12 @@ class Timesheets extends Component {
             start:          this.startTime(rStart, aStart),
             finishRostered:  rFinish,
             finishActual:    aFinish,
-            finish:         this.finishTime(rFinish, aFinish),
+            finish:         this.finishTime(rFinish, aFinish)
           }
         )
       })
-      // Push each timesheetData object to the timesheetData Array
+      // Push each staffMemeberShifts Array of objects:
+      // { staffID:'', staffMemberShifts (array) } to the timesheetData Array
       timesheetData.push(
         {
           staffID:  staffMember.staffID,
@@ -93,6 +180,15 @@ class Timesheets extends Component {
     })
   }
 
+  // this.setMainDataState(staffNames, timesheetData)
+  // setMainDataState = (staffNames, timesheetData) => {
+  //
+  //   this.setState({
+  //     staffNames:     staffNames,
+  //     timesheetData:  timesheetData
+  //   })
+  // }
+
   setIndividual = (staffID) => {
     this.setState({ individual: staffID })
   }
@@ -102,7 +198,6 @@ class Timesheets extends Component {
   }
 
   render() {
-    const { week } = this.props
 
     if ( !this.state.individual ) {
       return (
