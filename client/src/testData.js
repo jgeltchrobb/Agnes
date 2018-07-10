@@ -2,23 +2,27 @@
 // hence the console.log() at the bottom.
 
 const week = {
-  // It's just an object holding the date and all the staff objects for the week
   date: new Date("July 2 2018"),
-  '1': [ {
+  staff:
+  [
+    {
+      staffID: 1, shifts:
+      [
+        {
           date: new Date("July 2 2018"),
           shiftCategory: "floor",
           publicHoliday: false,
           wayneShift: false,
-          start:  {
-                    rostered: new Date("July 2 2018 8:00"),
-                    actual: new Date("July 2 2018 9:00"),
-                    flag: false
-                  },
+          start: {
+            rostered: new Date("July 2 2018 8:00"),
+            actual: new Date("July 2 2018 9:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 2 2018 16:00"),
-                    actual: new Date("July 2 2018 15:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 2 2018 16:00"),
+            actual: new Date("July 2 2018 15:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 3 2018"),
@@ -26,15 +30,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 3 2018 8:00"),
-                    actual: new Date("July 3 2018 7:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 3 2018 8:00"),
+            actual: new Date("July 3 2018 7:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 3 2018 16:00"),
-                    actual: new Date("July 3 2018 17:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 3 2018 16:00"),
+            actual: new Date("July 3 2018 17:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 4 2018"),
@@ -42,15 +46,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 4 2018 8:00"),
-                    actual: new Date("July 4 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 4 2018 8:00"),
+            actual: new Date("July 4 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 4 2018 16:00"),
-                    actual: new Date("July 4 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 4 2018 16:00"),
+            actual: new Date("July 4 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 5 2018"),
@@ -58,15 +62,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 5 2018 8:00"),
-                    actual: new Date("July 5 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 5 2018 8:00"),
+            actual: new Date("July 5 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 5 2018 16:00"),
-                    actual: new Date("July 5 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 5 2018 16:00"),
+            actual: new Date("July 5 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 6 2018"),
@@ -74,15 +78,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 6 2018 8:00"),
-                    actual: new Date("July 6 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 6 2018 8:00"),
+            actual: new Date("July 6 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 6 2018 16:00"),
-                    actual: new Date("July 6 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 6 2018 16:00"),
+            actual: new Date("July 6 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 7 2018"),
@@ -90,15 +94,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 7 2018 8:00"),
-                    actual: new Date("July 7 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 7 2018 8:00"),
+            actual: new Date("July 7 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 7 2018 16:00"),
-                    actual: new Date("July 7 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 7 2018 16:00"),
+            actual: new Date("July 7 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 8 2018"),
@@ -106,34 +110,38 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 8 2018 8:00"),
-                    actual: new Date("July 8 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 8 2018 8:00"),
+            actual: new Date("July 8 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 8 2018 16:00"),
-                    actual: new Date("July 8 2018 16:00"),
-                    flag: false
-                  }
-        },
-      ], // end of staff member
+            rostered: new Date("July 8 2018 16:00"),
+            actual: new Date("July 8 2018 16:00"),
+            flag: false
+          }
+        }, // end of saterday
+      ] // end of shifts
 
+    }, //end of staff member
 
-   '2': [ {
+    {
+      staffID: 2, shifts:
+      [
+        {
           date: new Date("July 2 2018"),
           shiftCategory: "room",
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 2 2018 7:00"),
-                    actual: new Date("July 2 2018 9:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 2 2018 8:00"),
+            actual: new Date("July 2 2018 9:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 2 2018 16:00"),
-                    actual: new Date("July 2 2018 15:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 2 2018 16:00"),
+            actual: new Date("July 2 2018 15:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 3 2018"),
@@ -141,15 +149,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 3 2018 8:00"),
-                    actual: new Date("July 3 2018 7:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 3 2018 8:00"),
+            actual: new Date("July 3 2018 7:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 3 2018 16:00"),
-                    actual: new Date("July 3 2018 17:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 3 2018 16:00"),
+            actual: new Date("July 3 2018 17:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 4 2018"),
@@ -157,15 +165,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 4 2018 8:00"),
-                    actual: new Date("July 4 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 4 2018 8:00"),
+            actual: new Date("July 4 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 4 2018 16:00"),
-                    actual: new Date("July 4 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 4 2018 16:00"),
+            actual: new Date("July 4 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 5 2018"),
@@ -173,15 +181,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 5 2018 8:00"),
-                    actual: new Date("July 5 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 5 2018 8:00"),
+            actual: new Date("July 5 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 5 2018 16:00"),
-                    actual: new Date("July 5 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 5 2018 16:00"),
+            actual: new Date("July 5 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 6 2018"),
@@ -189,15 +197,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 6 2018 8:00"),
-                    actual: new Date("July 6 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 6 2018 8:00"),
+            actual: new Date("July 6 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 6 2018 16:00"),
-                    actual: new Date("July 6 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 6 2018 16:00"),
+            actual: new Date("July 6 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 7 2018"),
@@ -205,15 +213,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 7 2018 8:00"),
-                    actual: new Date("July 7 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 7 2018 8:00"),
+            actual: new Date("July 7 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 7 2018 16:00"),
-                    actual: new Date("July 7 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 7 2018 16:00"),
+            actual: new Date("July 7 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 8 2018"),
@@ -221,34 +229,37 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 8 2018 8:00"),
-                    actual: new Date("July 8 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 8 2018 8:00"),
+            actual: new Date("July 8 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 8 2018 16:00"),
-                    actual: new Date("July 8 2018 16:00"),
-                    flag: false
-                  }
-        },
-      ], // end of staff member
+            rostered: new Date("July 8 2018 16:00"),
+            actual: new Date("July 8 2018 16:00"),
+            flag: false
+          }
+        }, // end of saterday
+      ] // end of shifts
+    }, // end of staff member
 
-
-  '3': [ {
+    {
+      staffID: 3, shifts:
+      [
+        {
           date: new Date("July 2 2018"),
           shiftCategory: "kitchen",
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 2 2018 8:00"),
-                    actual: new Date("July 2 2018 9:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 2 2018 8:00"),
+            actual: new Date("July 2 2018 9:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 2 2018 16:00"),
-                    actual: new Date("July 2 2018 17:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 2 2018 16:00"),
+            actual: new Date("July 2 2018 17:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 3 2018"),
@@ -256,15 +267,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 3 2018 8:00"),
-                    actual: new Date("July 3 2018 7:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 3 2018 8:00"),
+            actual: new Date("July 3 2018 7:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 3 2018 16:00"),
-                    actual: new Date("July 3 2018 17:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 3 2018 16:00"),
+            actual: new Date("July 3 2018 17:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 4 2018"),
@@ -272,15 +283,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 4 2018 8:00"),
-                    actual: new Date("July 4 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 4 2018 8:00"),
+            actual: new Date("July 4 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 4 2018 17:00"),
-                    actual: new Date("July 4 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 4 2018 17:00"),
+            actual: new Date("July 4 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 5 2018"),
@@ -288,15 +299,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 5 2018 8:00"),
-                    actual: new Date("July 5 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 5 2018 8:00"),
+            actual: new Date("July 5 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 5 2018 16:00"),
-                    actual: new Date("July 5 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 5 2018 16:00"),
+            actual: new Date("July 5 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 6 2018"),
@@ -304,15 +315,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 6 2018 8:00"),
-                    actual: new Date("July 6 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 6 2018 8:00"),
+            actual: new Date("July 6 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 6 2018 16:00"),
-                    actual: new Date("July 6 2018 16:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 6 2018 16:00"),
+            actual: new Date("July 6 2018 16:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 7 2018"),
@@ -320,15 +331,15 @@ const week = {
           publicHoliday: false,
           wayneShift: false,
           start: {
-                    rostered: new Date("July 7 2018 8:00"),
-                    actual: new Date("July 7 2018 8:00"),
-                    flag: false
-                  },
+            rostered: new Date("July 7 2018 8:00"),
+            actual: new Date("July 7 2018 8:00"),
+            flag: false
+          },
           finish: {
-                    rostered: new Date("July 7 2018 18:00"),
-                    actual: new Date("July 7 2018 19:00"),
-                    flag: false
-                  }
+            rostered: new Date("July 7 2018 18:00"),
+            actual: new Date("July 7 2018 19:00"),
+            flag: false
+          }
         },
         {
           date: new Date("July 8 2018"),
@@ -344,22 +355,27 @@ const week = {
             rostered: new Date("July 8 2018 16:00"),
             actual: new Date("July 8 2018 16:00"),
             flag: false
-                  }
-        },
-      ], // end of staff member
+          }
+        }, // end of saterday
+      ] // end of shifts
+    }, // end of staff member
+
+  ]
 }
 
 roundUp = (time) => {
   var mins = time.getMinutes()
 
-  if (mins < 15) {
-    mins = 15
-  } else if (15 < mins && mins < 30) {
-    mins = 30
-  } else if (30 < mins && mins < 45) {
-    mins = 45
-  } else if (45 < mins && mins < 61) {
+  if (mins > 45) {
     mins = 60
+  } else if (45 >= mins && mins > 30) {
+    mins = 45
+  } else if (30 >= mins && mins > 15) {
+    mins = 30
+  } else if (15 >= mins && mins > 0) {
+    mins = 15
+  } else {
+    min = 0
   }
   time.setMinutes(mins)
   return time
@@ -368,11 +384,11 @@ roundUp = (time) => {
 roundDown = (time) => {
   var mins = time.getMinutes()
 
-  if (mins > 45) {
+  if (mins >= 45) {
     mins = 45
-  } else if (45 > mins && mins > 30) {
+  } else if (45 > mins && mins >= 30) {
     mins = 30
-  } else if (30 > mins && mins > 15) {
+  } else if (30 > mins && mins >= 15) {
     mins = 15
   } else if (15 > mins) {
     mins = 0
@@ -381,32 +397,57 @@ roundDown = (time) => {
   return time
 }
 
-startTime = (rStart, aStart) => {
-  // If no clock time then return rostered
-  if (aStart) {
-    if (aStart <= rStart) {
-      return rStart
+timesheetEntry = (startOrFinish, rostered, actual) => {
+  if (actual) {
+
+    if (actual <= rostered) {
+      if (startOrFinish === 'start') {
+        return rostered
+      }
+      if (startOrFinish === 'finish') {
+        return roundDown(actual)
+      }
     } else {
-      // Do post request to create flag!
-      return roundUp(aStart)
+
+      if (startOrFinish === 'start') {
+        return roundUp(actual)
+      }
+      if (startOrFinish === 'finish') {
+        return rostered
+      }
     }
-  } else return rStart
+    // If no clock time then return rostered
+  } else return rostered
 }
 
-finishTime = (rFinish, aFinish) => {
-  // If no clock time then return rostered
-  if (aFinish) {
-    if (aFinish >= rFinish) {
-      return rFinish
-    } else {
-      // Do post request to create flag!
-      return roundDown(aFinish)
-    }
-  } else return rFinish
-}
+// Posting to the data:
+ // start.timesheet, finish.timesheet, flags > true as required
 
-const staffNames = []
-const timesheetData = []
+week.staff.map((staffMember) => {
+  staffMember.shifts.map((shift) => {
+    shift.start.timesheet ? return : (
+      const start = timesheetEntry('start', shift.start.rostered, shift.start.actual)
+      // if (start   shift.start.rostered) {
+      // Post to db: shift.start.flag = true
+    // }
+    console.log(shift.date.getDate(), start)
+      // Post to db: start.timesheet = start
+    // )
+    // shift.finish.timesheet ? return : (
+      const finish = timesheetEntry('finish', shift.finish.rostered, shift.finish.actual)
+      // if (finish < shift.finish.rostered) {
+        // Post to db: shift.start.flag = true
+      // }
+    // Post to db: finish.timesheet = finsih
+    // )
+  })
+})
+
+// So every time someone clocks we should post to the db and then do an api call
+// to update state? and then again after the above posts?
+
+// const staffNames = []
+// const timesheetData = []
 
 // week.staff.map((staffMember) => {
 //   // When have user model will loop through it and
@@ -446,11 +487,3 @@ const timesheetData = []
 //     }
 //   )
 // })
-
-
-
-console.log(week['2'].map((s) => {
-  return s.start.rostered
-})
-
-)
