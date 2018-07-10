@@ -1,53 +1,53 @@
 const express = require('express');
-const Roster = require('../models/roster')
+const Week = require('../models/week')
 const router = express.Router();
 
-// Get all rosters
+// Get all Weeks
 router.get('/', async (req, res) => {
   try {
-    let roster = await Roster.find()
-    res.send(roster)
+    let week = await Week.find()
+    res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 })
 
-// Get roster by ID
+// Get Week by ID
 router.get('/:id', async (req, res) => {
   try {
-    let roster = await Roster.find({_id: req.params.id})
-    res.send(roster)
+    let week = await Week.find({_id: req.params.id})
+    res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 })
 
-// Create new roster
+// Create new Week
 router.post('/', async (req, res) => {
   console.log(req.body)
   try {
-    let roster = await Roster.create(req.body)
-    res.send(roster)
+    let week = await Week.create(req.body)
+    res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 })
 
-// Update roster details
-router.put('/rosters/:id', async (req, res) => {
+// Update Week details
+router.put('/weeks/:id', async (req, res) => {
   try {
-    let roster = await Roster.update({_id: req.params.id}, req.body)
-    res.send(roster)
+    let week = await Week.update({_id: req.params.id}, req.body)
+    res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 })
 
-// Delete roster
-router.delete('/rosters/:id', async (req, res) => {
+// Delete Week
+router.delete('/weeks/:id', async (req, res) => {
   try {
-    let roster = await Roster.findOneAndRemove({_id: req.params.id})
-    res.send(roster)
+    let week = await Week.findOneAndRemove({_id: req.params.id})
+    res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

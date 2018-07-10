@@ -1,12 +1,26 @@
 .staffrow {
-  display: flex;
-  width: 100vw;
+  display: flex; 
+  background-color: red;
 }
 
 .cell {
   display: flex;
+  flex-direction: column;
   border: 1px solid black;
-  min-width: 6rem;
+  width: 6rem;
+  height: 6rem;
   text-align: center;
-  flex-direction: column
+}
+
+.staff-container {
+  display: flex;
+  border: 1px solid green;
+}
+
+.sidebar-section {
+  display: flex;
+}
+
+.cat-cell {
+  background-color: blue;
 }
