@@ -12,11 +12,11 @@ app.use(bodyParser.json())
 // Routes
 // app.use('/', timesheetRoutes, rosterRoutes, userRoutes)
 app.use('/timesheets', require('./routes/timesheets'))
-app.use('/rosters', require('./routes/rosters'))
+app.use('/rosters', require('./routes/weeks'))
 app.use('/users', require('./routes/users'))
 
 // Mongoose
-mongoose.connect('mongodb://localhost/prac_react_db', (err) => {
+mongoose.connect('mongodb://localhost/agnes', (err) => {
   if (err) {
     console.log('Error connecting to database', err);
   } else {

@@ -1,19 +1,49 @@
 import React from 'react'
-// import Link from 'react-router-dom'
-import Cell from './Cell'
+import CatCell from './cells/CatCell'
+import RostCell from './cells/RostCell';
 
-const SubCategory = (props) => {
-  let categories = []
-  for (const key of Object.keys(props)) {
-    categories.push(props[key])
+class SubCategory extends React.Component {
+  constructor(props) {
+    console.log(props, 'propsoprops')
+    super(props)
+    this.state = {
+      categories: [],
+      data: props,
+    }
   }
-  return (
-    categories.map((category) => {
+
+  componentDidMount = () => {
+    let categories = []
+    for (const key of Object.keys(this.state.data.categories)) {
+      categories.push(this.state.data.categories[key])
+    }
+    this.setState({categories})
+  }
+
+  render() {
+    if (this.props.revealed === this.state.data.staff) {
       return (
-        <Cell {...category} />
+        this.state.categories.map((category) => {
+          return (
+            <div>
+              <CatCell handleClick={this.toggleHandler} {...category} />
+              <RostCell {...category} />
+            </div>  
+          )
+        })
       )
-    })
-  )
+    } else {
+      return (
+        this.state.categories.map((category) => {
+          return (
+            <div className="cat-cell" >
+              <CatCell onClick={this.toggleHandler} {...category} />
+            </div>  
+          )
+        })
+      )
+    }
+  }  
 }
 export default SubCategory
 
