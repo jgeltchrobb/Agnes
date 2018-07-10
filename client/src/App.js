@@ -39,8 +39,22 @@ class App extends Component {
         week3: response.data[2],
 
       })
-      // console.log(this.state)
+    })
 
+    axios.get(server + '/payRateCategories').then(response => {
+      console.log(response.data)
+
+      this.setState({
+        payRateCategories: response.data,
+      })
+    })
+
+    axios.get(server + '/entitlements').then(response => {
+      console.log(response.data)
+
+      this.setState({
+        entitlements: response.data,
+      })
     })
   }
 

@@ -422,7 +422,6 @@ timesheetEntry = (startOrFinish, rostered, actual) => {
 
 // Posting to the data:
  // start.timesheet, finish.timesheet, flags > true as required
-
 week.staff.map((staffMember) => {
   staffMember.shifts.map((shift) => {
     shift.start.timesheet ? return : (
