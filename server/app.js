@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
+
 
 const port = 4000
 
@@ -9,10 +11,15 @@ const app = express()
 // Middleware
 app.use(bodyParser.json())
 
+app.use('/', cors())
+
 // Routes
 // app.use('/', timesheetRoutes, rosterRoutes, userRoutes)
 app.use('/rosters', require('./routes/weeks'))
 app.use('/users', require('./routes/users'))
+app.use('/payRateCategories', require('./routes/payRateCategories'))
+app.use('/entitlements', require('./routes/entitlements'))
+
 
 // Mongoose
 mongoose.connect('mongodb://localhost/agnes', (err) => {

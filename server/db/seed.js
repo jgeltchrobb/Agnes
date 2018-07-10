@@ -132,9 +132,9 @@ const seedData = async () => {
               }
             }, // end of saterday
           ] // end of shifts
-  
+
         }, //end of staff member
-  
+
         {
           staffID: 2, shifts:
           [
@@ -252,7 +252,7 @@ const seedData = async () => {
             }, // end of saterday
           ] // end of shifts
         }, // end of staff member
-  
+
         {
           staffID: 3, shifts:
           [
@@ -370,10 +370,10 @@ const seedData = async () => {
             }, // end of saterday
           ] // end of shifts
         }, // end of staff member
-  
+
       ]
     })
-  
+
   await Week.create({
     date: new Date("July 9 2018"),
     staff:
@@ -398,9 +398,9 @@ const seedData = async () => {
             }
           }, // end of saterday
         ] // end of shifts
-  
+
       }, //end of staff member
-  
+
       {
         staffID: 2, shifts:
         [
@@ -422,7 +422,7 @@ const seedData = async () => {
           }, // end of saterday
         ] // end of shifts
       }, // end of staff member
-  
+
       {
         staffID: 3, shifts:
         [
@@ -444,10 +444,10 @@ const seedData = async () => {
           }, // end of saterday
         ] // end of shifts
       }, // end of staff member
-  
+
     ]
   })
-  
+
   await Week.create({
     date: new Date("July 16 2018"),
     staff:
@@ -472,9 +472,9 @@ const seedData = async () => {
             }
           }, // end of saterday
         ] // end of shifts
-  
+
       }, //end of staff member
-  
+
       {
         staffID: 2, shifts:
         [
@@ -496,7 +496,7 @@ const seedData = async () => {
           }, // end of saterday
         ] // end of shifts
       }, // end of staff member
-  
+
       {
         staffID: 3, shifts:
         [
@@ -518,32 +518,47 @@ const seedData = async () => {
           }, // end of saterday
         ] // end of shifts
       }, // end of staff member
-  
+
     ]
   })
-  
+
   await User.create({
     staffID: 1,
     email: 'test@test.com',
     role: 'staff',
     PIN: 1234
   })
-  
+
   await User.create({
     staffID: 2,
     email: 'test@test.com',
     role: 'staff',
     PIN: 1234
   })
-  
+
   await User.create({
     staffID: 3,
     email: 'test@test.com',
     role: 'staff',
     PIN: 1234
   })
-  
+
+  await PayRateCategories.create({
+    payRateCategories:
+    [
+      'Ordinary','Sat', 'Sun', 'Night', 'Public Holiday', 'Wayne Ordinary',
+      'Wayne Sat', 'Wayne Sun', 'Wayne Night', 'Wayne Public Holiday'
+    ]
+  })
+
+  await Entitlements.create({
+    entitlements:
+    [
+      'Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus'
+    ]
+  })
+
   await mongoose.connection.close()
 }
-  
+
 seedData()
