@@ -11,7 +11,6 @@ app.use(bodyParser.json())
 
 // Routes
 // app.use('/', timesheetRoutes, rosterRoutes, userRoutes)
-app.use('/timesheets', require('./routes/timesheets'))
 app.use('/rosters', require('./routes/weeks'))
 app.use('/users', require('./routes/users'))
 
