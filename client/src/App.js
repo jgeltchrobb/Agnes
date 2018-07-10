@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import LogInPage from './components/login/LogInPage'
+import OfficePin from './components/officepin/OfficePin'
+import Clock from './components/loggedin/Clock'
 import Rosters from './components/rosters/Rosters'
 import Timesheets from './components/timesheets/Timesheets'
 import Header from './components/header/Header'
@@ -86,6 +89,12 @@ class App extends Component {
             />
 
             <Route path='/staff' component={Staff} />
+
+            <Route path='/clock' component={Clock} />
+
+            <Route path='/login' component={LogInPage} />
+
+            <Route path='/pin' component={OfficePin} />
 
           </div>
         </Router>
