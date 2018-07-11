@@ -546,6 +546,7 @@ const seedData = async () => {
   })
 
   await PayRateCategories.create({
+    
                           ['Ordinary']:               0,
                           ['Sat']:                    0,
                           ['Sun']:                    0,
@@ -556,6 +557,7 @@ const seedData = async () => {
                           ['Wayne Sun']:              0,
                           ['Wayne Night']:            0,
                           ['Wayne Public Holiday']:   0
+    
   })
 
   await Entitlements.create({
