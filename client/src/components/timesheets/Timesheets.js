@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import Header from '../header/Header'
 import DisplayCategory from './DisplayCategory'
-import Summary from './summary/Summary'
+import TotalsRow from './TotalsRow'
+// import Summary from './summary/Summary'
 import Individual from './individual/Individual'
+import Name from './Name'
+
 
 class Timesheets extends Component {
   constructor(props) {
@@ -98,7 +102,6 @@ class Timesheets extends Component {
 
     const entitlements = ['Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus']
 
-    var payRateCategoriesTotalsRows = []
 
     var DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
@@ -109,9 +112,10 @@ class Timesheets extends Component {
      // - if they clock in late or note at all
      // - if don't clock in before end of shift (shift.finish.rostered) then set
      //    shift.start.timesheet to 1 min before rostered  finish time
+    const totalsRows = []
     this.props.week.staff.map((staffMember) => {
-      // const totalsRow = Object.assign({}, payRateCategories)
       const totalsRow = {}
+      totalsRow.staffID = staffMember.staffID
       staffMember.shifts.map((shift) => {
         const rStart = new Date(shift.start.rostered)
         const aStart = new Date(shift.start.actual)
@@ -184,7 +188,7 @@ class Timesheets extends Component {
           if (cat === category) { payRateCategoriesObj[category] += 1}
         }
       }
-      payRateCategoriesTotalsRows.push(totalsRow)
+      totalsRows.push(totalsRow)
     })
 
   // If count is zero then there is no need to displayu that catergory so delete it
@@ -199,7 +203,7 @@ class Timesheets extends Component {
     const displayCategories = [...payRateCategoriesColumnHeadings, ...this.props.entitlements]
 
     this.setState({
-      payRateCategoriesTotalsRows:  payRateCategoriesTotalsRows,
+      totalsRows:  totalsRows,
       displayCategories:  displayCategories
     })
 
@@ -215,30 +219,60 @@ class Timesheets extends Component {
   }
 
   render() {
-    if (!(this.state.displayCategories)) return ''
 
-    if ( !this.state.individual ) {
+    const { week, users, nextWeek, previousWeek, sideBarHeading } = this.props
+
+     if (!this.state.displayCategories && !this.state.totalsRows) return ''
+
+     if ( !this.state.individual ) {
       return (
         <div>
 
           <div>
+            <Header weekDate={week.date}
+                    nextWeek={nextWeek}
+                    previousWeek={previousWeek}
+                    sideBarHeading={sideBarHeading}
 
+            />
+          </div>
+
+          <div>
+          {
+            this.state.displayCategories.map((displayCategory) => {
+              return (
+                <DisplayCategory columnHeading={displayCategory} />
+              )
+            })
+          }
+          </div>
+
+          <div  className='names-constainer'>
             {
-              this.state.displayCategories.map((displayCategory) => {
+              this.state.totalsRows.map((row) => {
                 return (
-                  <DisplayCategory columnHeading={displayCategory} />
+                  <Name staffID={row.staffID}
+                        users={users}
+                        setIndividual={this.setIndividual}
+                  />
+                )
+
+              })
+            }
+          </div>
+
+          <div>
+            {
+              this.state.totalsRows.map((row) => {
+                return (
+
+                  <TotalsRow  row={row}
+                              setIndividual={this.setIndividual}
+
+                  />
                 )
               })
             }
-
-          </div>
-
-
-          <div>
-            <Summary   week={this.week}
-                      setIndividual={this.setIndividual}
-
-            />
           </div>
 
         </div>
@@ -249,21 +283,14 @@ class Timesheets extends Component {
         <div>
 
           <div>
-            <div>  {/* Space left of catagory headings and above names*/}</div>
-            <div>  Ord Hrs           </div>
-            <div>  Sat Hrs           </div>
-            <div>  Annual Leave      </div>
-            <div>  Sick Leave        </div>
-            <div>  Public Hols       </div>
-            <div>  L/S Leave         </div>
-            <div>  Wayne Weekly      </div>
-            <div>  Wayne Sat         </div>
-            <div>  Wayne Sun         </div>
-            <div>  Wayne Public Hols </div>
-            <div>  Sleep Over        </div>
-            <div>  Total             </div>
+            {
+              this.state.displayCategories.map((displayCategory) => {
+                return (
+                  <DisplayCategory columnHeading={displayCategory} />
+                )
+              })
+            }
           </div>
-
 
           <div>
             <Individual week={this.week}

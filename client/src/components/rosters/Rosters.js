@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Header from '../header/Header'
 import Roster from './Roster'
 import Flags from './Flags'
 
@@ -12,20 +13,29 @@ class Rosters extends Component {
   }
 
   render() {
-    const { staff } = this.props
+    const { week, nextWeek, previousWeek, sideBarHeading } = this.props
+
     return (
       <div>
 
         <div>
+          <Header weekDate={week.date}
+                  nextWeek={nextWeek}
+                  previousWeek={previousWeek}
+                  sideBarHeading={sideBarHeading}
+          />
+        </div>
 
-          <Roster staff={staff} />
+        <div>
+
+          <Roster staff={week.staff} />
 
         </div>
 
 
         <div>
 
-          <Flags staff={staff} />
+          <Flags staff={week.staff} />
 
         </div>
 

@@ -4,10 +4,26 @@ class Name extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      name: ''
+    }
+
+  }
+
+  componentDidMount = () => {
+
+    var name = ''
+    this.props.users.map((user) => {
+      if (user.staffID.toString() === this.props.staffID) {
+        name = user.email
+      }
+    })
+    this.setState({
+      name: name
+    })
   }
 
   render() {
-    const { staffID } = this.props
 
     return (
       <div>
@@ -21,7 +37,8 @@ class Name extends Component {
         } */}
 
         {/* Need to query the user model for name */}
-        { staffID }
+
+        {this.state.name}
 
       </div>
 
