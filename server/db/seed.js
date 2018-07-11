@@ -1,6 +1,8 @@
 const Week = require('../models/week')
 const User = require('../models/user')
 const mongoose = require('mongoose')
+const PayRateCategories = require('../models/PayCategories')
+const Entitlements = require('../models/Entitlements')
 
 mongoose.connect('mongodb://localhost/agnes', (err) => {
   if (err) {
