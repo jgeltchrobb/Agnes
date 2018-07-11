@@ -59,7 +59,7 @@ class App extends Component {
     })
 
     axios.get(server + '/entitlements').then(response => {
-      console.log(response.data)
+      console.log(response.data, 'ENT')
 
       this.setState({
         entitlements: response.data,

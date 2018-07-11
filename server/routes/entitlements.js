@@ -5,7 +5,7 @@ const router = express.Router()
 // Get all entitlements
 router.get('/', async (req, res) => {
   try {
-    let entitlements = await Entitlements.find()
+    let entitlements = await Entitlements.findOne()
     res.send(entitlements)
   } catch (error) {
     res.status(500).json({ error: error.message })

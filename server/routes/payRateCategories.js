@@ -5,7 +5,7 @@ const router = express.Router()
 // Get all payRateCategories
 router.get('/', async (req, res) => {
   try {
-    let payRateCategories = await PayRateCategories.find()
+    let payRateCategories = await PayRateCategories.findOne()
     res.send(payRateCategories)
   } catch (error) {
     res.status(500).json({ error: error.message })
