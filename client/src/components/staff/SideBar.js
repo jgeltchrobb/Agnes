@@ -5,8 +5,21 @@ class SideBar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      totals: []
     }
+  }
+
+  componentWillMount() {
+    let categories = this.props.categories
+    console.log(this.props)
+    let total = []
+    for (let key in categories) {
+      console.log(key)
+      if (categories.hasOwnProperty(key)) {
+          total.push(categories[key])
+      }
+    }
+    console.log(total)
   }
 
   render() {

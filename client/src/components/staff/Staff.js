@@ -8,7 +8,7 @@ class Staff extends Component {
   constructor() {
     super()
     this.state = {
-      revealed: ''
+      revealed: '',
     }
   }
 
@@ -21,8 +21,30 @@ class Staff extends Component {
       })
     }
   }
+
+  // componentWillMount() {
+  //   // let standardTotals = [...this.state.standardTotals]
+  //   let standardTotals = []
+  //   for (let staff of staffData) {
+  //     // totals.push({name: staff.staff, categories: staff.categories})
+  //     for (let key in staff.categories) {
+  //       if (staff.categories.hasOwnProperty(key)) {
+  //         standardTotals.push({name: staff.staff, standard: staff.categories[key].standard})
+  //           console.log(staff.categories[key].standard)
+  //         // standardTotals.push(staff.categories[key])
+  //       }
+  //     }
+  //   }
+  //   let finalTotals = []
+  //   for (let standard of standardTotals) {
+  //     if 
+  //   }
+  //   // this.setState({totals})
+  //   console.log(standardTotals, 'standardTotals')
+  // }
   
   render() {
+    console.log(this.state.totals)
     return (
       <div className="staff-container" >
         <SideBar staffData={staffData} handleClick={this.clickHandler} revealed={this.state.revealed} />

@@ -26,25 +26,25 @@ class SubCategory extends React.Component {
   }
 
   render() {
-      return (
-        this.state.categories.map((category) => {
-          if (this.props.revealed == this.state.data.staff) {
-            return (
-              <div className="cat-cell" >
-                <CatCell {...category} />
-                <RostCell {...category} />
-              </div>  
-            )
-          } else {
-            return (
-              <div>
-                <CatCell {...category} />
-              </div>
-            )
-          }
-        })
-      )
-    }
-  }  
+    return (
+      this.state.categories.map((category) => {
+        if (this.props.revealed == this.state.data.staff) {
+          return (
+            <div className="cat-cell" >
+              <CatCell {...category} />
+              <RostCell {...category} />
+            </div>  
+          )
+        } else {
+          return (
+            <div>
+              <CatCell {...category} />
+            </div>
+          )
+        }
+      })
+    )
+  }
+}  
 export default SubCategory
 
