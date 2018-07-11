@@ -546,7 +546,7 @@ const seedData = async () => {
   })
 
   await PayRateCategories.create({
-    
+    payRateCategories: {
                           ['Ordinary']:               0,
                           ['Sat']:                    0,
                           ['Sun']:                    0,
@@ -557,7 +557,7 @@ const seedData = async () => {
                           ['Wayne Sun']:              0,
                           ['Wayne Night']:            0,
                           ['Wayne Public Holiday']:   0
-    
+                        }
   })
 
   await Entitlements.create({
@@ -567,9 +567,7 @@ const seedData = async () => {
     ]
   })
 
-  await mongoose.connection.close(() => {
-    console.log('Disconnected from database!')
-  })
+  await mongoose.connection.close()
 }
 
 seedData()
