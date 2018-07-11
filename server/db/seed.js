@@ -1,7 +1,7 @@
 const Week = require('../models/week')
 const User = require('../models/user')
 const mongoose = require('mongoose')
-const PayRateCategories = require('../models/PayCategories')
+const PayRateCategories = require('../models/PayRateCategories')
 const Entitlements = require('../models/Entitlements')
 
 mongoose.connect('mongodb://localhost/agnes', (err) => {
@@ -546,11 +546,16 @@ const seedData = async () => {
   })
 
   await PayRateCategories.create({
-    payRateCategories:
-    [
-      'Ordinary','Sat', 'Sun', 'Night', 'Public Holiday', 'Wayne Ordinary',
-      'Wayne Sat', 'Wayne Sun', 'Wayne Night', 'Wayne Public Holiday'
-    ]
+                          ['Ordinary']:               0,
+                          ['Sat']:                    0,
+                          ['Sun']:                    0,
+                          ['Night']:                  0,
+                          ['Public Holiday']:         0,
+                          ['Wayne Ordinary']:         0,
+                          ['Wayne Sat']:              0,
+                          ['Wayne Sun']:              0,
+                          ['Wayne Night']:            0,
+                          ['Wayne Public Holiday']:   0
   })
 
   await Entitlements.create({
