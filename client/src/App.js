@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
+import axios from 'axios'
 import LogInPage from './components/login/LogInPage'
 import OfficePin from './components/officepin/OfficePin'
 import Clock from './components/loggedin/Clock'
@@ -7,7 +8,7 @@ import Rosters from './components/rosters/Rosters'
 import Timesheets from './components/timesheets/Timesheets'
 import Header from './components/header/Header'
 import Staff from './components/staff/Staff'
-import week from './data'
+// import week from './data'
 import './App.css';
 
 
@@ -18,8 +19,36 @@ class App extends Component {
 
     this.state = {
       sideBarHeading: 'flags',
+      users: '',
+      week1: '',
+      week2: '',
+      week3: '',
+
     }
 
+  }
+
+  componentDidMount() {
+    const server = 'http://localhost:4000'
+
+    // Request all weeks
+    axios.get(server + '/rosters').then(response => {
+
+      this.setState({
+        week1: response.data[0],
+        week2: response.data[1],
+        week3: response.data[2],
+
+      })
+    })
+
+    axios.get(server + '/users').then(response => {
+      
+      this.setState({
+        users: response.data,
+
+      })
+    })
 
   }
 
@@ -47,7 +76,9 @@ class App extends Component {
   }
 
   render() {
-    // const { week } = from database
+    if (!(this.state.week1)) return ''
+
+    var week = this.state.week1
 
     return (
       <div>

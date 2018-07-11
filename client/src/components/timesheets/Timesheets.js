@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DisplayCategory from './DisplayCategory'
 import Summary from './summary/Summary'
 import Individual from './individual/Individual'
 
@@ -6,7 +7,6 @@ class Timesheets extends Component {
   constructor(props) {
     super(props)
 
-    // individual: staffID
     this.state = {
       individual: '',
 
@@ -16,14 +16,16 @@ class Timesheets extends Component {
   roundUp = (time) => {
     var mins = time.getMinutes()
 
-    if (mins < 15) {
-      mins = 15
-    } else if (15 < mins && mins < 30) {
-      mins = 30
-    } else if (30 < mins && mins < 45) {
-      mins = 45
-    } else if (45 < mins && mins < 61) {
+    if (mins > 45) {
       mins = 60
+    } else if (45 >= mins && mins > 30) {
+      mins = 45
+    } else if (30 >= mins && mins > 15) {
+      mins = 30
+    } else if (15 >= mins && mins > 0) {
+      mins = 15
+    } else {
+      mins = 0
     }
     time.setMinutes(mins)
     return time
@@ -32,11 +34,11 @@ class Timesheets extends Component {
   roundDown = (time) => {
     var mins = time.getMinutes()
 
-    if (mins > 45) {
+    if (mins >= 45) {
       mins = 45
-    } else if (45 > mins && mins > 30) {
+    } else if (45 > mins && mins >= 30) {
       mins = 30
-    } else if (30 > mins && mins > 15) {
+    } else if (30 > mins && mins >= 15) {
       mins = 15
     } else if (15 > mins) {
       mins = 0
@@ -45,81 +47,155 @@ class Timesheets extends Component {
     return time
   }
 
-  startTime = (rStart, aStart) => {
-    // If no clock time then return rostered
-    if (aStart) {
-      if (aStart <= rStart) {
-        return rStart
-      } else {
-        // Do post request to create flag!
-        return this.roundUp(aStart)
-      }
-    } else return rStart
-  }
+  timesheetEntry = (startOrFinish, rostered, actual) => {
+    if (actual) {
 
-  finishTime = (rFinish, aFinish) => {
-    // If no clock time then return rostered
-    if (aFinish) {
-      if (aFinish >= rFinish) {
-        return rFinish
+      if (actual <= rostered) {
+        if (startOrFinish === 'start') {
+          return rostered
+        }
+        if (startOrFinish === 'finish') {
+          return this.roundDown(actual)
+        }
       } else {
-        // Do post request to create flag!
-        return this.roundDown(aFinish)
+
+        if (startOrFinish === 'start') {
+          return this.roundUp(actual)
+        }
+        if (startOrFinish === 'finish') {
+          return rostered
+        }
       }
-    } else return rFinish
+      // If no clock time then return rostered
+    } else return rostered
   }
 
   componentDidMount = () => {
+
+    const payRateCategories = {
+                                ['Ordinary']:               0,
+                                ['Sat']:                    0,
+                                ['Sun']:                    0,
+                                ['Night']:                  0,
+                                ['Public Holiday']:         0,
+                                ['Wayne Ordinary']:         0,
+                                ['Wayne Sat']:              0,
+                                ['Wayne Sun']:              0,
+                                ['Wayne Night']:            0,
+                                ['Wayne Public Holiday']:   0
+                              }
+
+    const displayCategories = Object.assign({}, payRateCategories)
+
+    const entitlements = ['Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus']
+
     const { week } = this.props
-    const staffNames = []
-    const timesheetData = []
 
+    var payRateCategoriesTotalsRows = []
+
+    var DayShiftDefinitionClockinBeforeHours = 20
+    const milliToHours = 0.00000027777777777778
+
+    // Posting to the data:
+     // start.timesheet, finish.timesheet, flags set to true as required
+     // Flags:
+     // - if they clock in late or note at all
+     // - if don't clock in before end of shift (shift.finish.rostered) then set
+     //    shift.start.timesheet to 1 min before rostered  finish time
     week.staff.map((staffMember) => {
-      // When have user model will loop through it and
-      // if (staffID === staffMember.staffID) then push to staffNames
-      // {staffID: 'name'}
-      // for now just push the staffID:
-      staffNames.push(staffMember.staffID)
-      // then at the bottom we also add the staffID to the timesheetData object
-
-      // Here we create the shift array that will be added to the timesheetData
-      // object
-      const staffMemberShifts = []
+      // const totalsRow = Object.assign({}, payRateCategories)
+      const totalsRow = {}
       staffMember.shifts.map((shift) => {
-        var rStart = shift.start.rostered
-        var aStart = shift.start.actual
-        var rFinish = shift.finish.rostered
-        var aFinish = shift.finish.actual
-        staffMemberShifts.push(
-          {
-            date:           shift.date,
-            category:       shift.shiftCategory,
-            startRostered:  rStart,
-            startActual:    aStart,
-            start:          this.startTime(rStart, aStart),
-            finishRostered:  rFinish,
-            finishActual:    aFinish,
-            finish:         this.finishTime(rFinish, aFinish)
-          }
-        )
-      })
-      // Push each staffMemeberShifts Array of objects:
-      // { staffID:'', staffMemberShifts (array) } to the timesheetData Array
-      timesheetData.push(
-        {
-          staffID:  staffMember.staffID,
-          shifts:   staffMemberShifts
+        const rStart = new Date(shift.start.rostered)
+        const aStart = new Date(shift.start.actual)
+        var start = ''
+        const rFinish = new Date(shift.finish.rostered)
+        const aFinish = new Date(shift.finish.actual)
+        var finish = ''
+        if (!shift.start.timesheet) {
+          var start = this.timesheetEntry('start', rStart, aStart)
+          // do below except don't post, rather update state and then update db from state behind the scenes
+          // if (start > shift.start.rostered) {
+          //   setState: shift.start.flag = true
+          // }
+          // setState: start.timesheet = start
         }
-      )
+
+        if (!shift.finish.timesheet) {
+          var finish = this.timesheetEntry('finish', rFinish, aFinish)
+          // do below except don't post, rather update state and then update db from state behind the scenes
+          // if (start > shift.finish.rostered) {
+          //   setState: shift.finish.flag = true
+          // }
+          // setState: finish.timesheet = finish
+        }
+
+        const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
+
+        if (!shift.publicHoliday) {
+
+          if (start.getHours() < DayShiftDefinitionClockinBeforeHours) {
+
+            if (start.getDay() === 6) {
+              if (shift.wayneShift) {
+                totalsRow['Wayne Sat'] ? totalsRow['Wayne Sat'] += shiftHours : totalsRow['Wayne Sat'] = shiftHours
+              } else {
+                totalsRow['Sat'] ? totalsRow['Sat'] += shiftHours : totalsRow['Sat'] = shiftHours
+              }
+            } else if (start.getDay() === 0) {
+                if (shift.wayneShift) {
+                  totalsRow['Wayne Sun'] ? totalsRow['Wayne Sun'] += shiftHours : totalsRow['Wayne Sun'] = shiftHours
+                } else {
+                  totalsRow['Sun'] ? totalsRow['Sun'] += shiftHours : totalsRow['Sun'] = shiftHours
+                }
+            } else {
+                if (shift.wayneShift) {
+                  totalsRow['Wayne Ordinary'] ? totalsRow['Wayne Ordinary'] += shiftHours : totalsRow['Wayne Ordinary'] = shiftHours
+                } else {
+                  totalsRow['Ordinary'] ? totalsRow['Ordinary'] += shiftHours : totalsRow['Ordinary'] = shiftHours
+                }
+            }
+
+          } else {
+              if (shift.wayneShift) {
+                totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours
+              } else {
+                totalsRow['Night'] ? totalsRow['Night'] += shiftHours : totalsRow['Night'] = shiftHours
+              }
+          }
+        } else if (shift.publicHoliday && shift.wayneShift) {
+          totalsRow['Wayne Public Holiday'] ? totalsRow['Wayne Public Holiday'] += shiftHours : totalsRow['Wayne Public Holiday'] = shiftHours
+
+        } else {
+          totalsRow['Public Holiday'] ? totalsRow['Public Holiday'] += shiftHours : totalsRow['Public Holiday'] = shiftHours
+        }
+      })
+
+  // Count times the payRateCategories apear in the totalsRows
+      for (let category in displayCategories) {
+        for (let cat in totalsRow) {
+          if (cat === category) { displayCategories[category] += 1}
+        }
+      }
+      payRateCategoriesTotalsRows.push(totalsRow)
     })
+
+  // If count is zero then there is no need to displayu that catergory so delete it
+    for (let category in displayCategories) {
+      if (displayCategories[category] === 0) {
+
+        delete displayCategories[category]
+      }
+    }
+
 
     this.setState({
-      staffNames:     staffNames,
-      timesheetData:  timesheetData
+      payRateCategoriesTotalsRows:  payRateCategoriesTotalsRows,
+      displayCategories:  displayCategories
     })
-    console.log(this.state)
 
   }
+
 
   setIndividual = (staffID) => {
     this.setState({ individual: staffID })
@@ -130,33 +206,46 @@ class Timesheets extends Component {
   }
 
   render() {
+    if (!(this.state.displayCategories)) return ''
+
+    const { week } = this.props
+
+    // Object.keys(displayCategories)
+
+    // console.log(this.state.displayCategories)
+
+    const columnHeadings = Object.keys(this.state.displayCategories)
+    // for ()
+    // console.log(columnHeadings)
+    //
+    // columnHeadings.map((colHead) => {
+    //
+    //     console.log(colHead)
+    //
+    // })
+
 
     if ( !this.state.individual ) {
-      if (!(this.state.staffNames && this.state.timesheetData)) return ''
       return (
         <div>
 
           <div>
-            <div>{/* Space to the left of catagory headings and above names*/}</div>
-            <div>  Ord Hrs           </div>
-            <div>  Sat Hrs           </div>
-            <div>  Annual Leave      </div>
-            <div>  Sick Leave        </div>
-            <div>  Public Hols       </div>
-            <div>  L/S Leave         </div>
-            <div>  Wayne Weekly      </div>
-            <div>  Wayne Sat         </div>
-            <div>  Wayne Sun         </div>
-            <div>  Wayne Public Hols </div>
-            <div>  Sleep Over        </div>
-            <div>  Total             </div>
+
+            {
+              columnHeadings.map((colHead) => {
+                return (
+                  <DisplayCategory columnHeading={colHead} />
+                )
+              })
+            }
+
           </div>
 
 
           <div>
-            <Summary  staffNames={this.state.staffNames}
-                      timesheetData={this.state.timesheetData}
+            <Summary   week={week}
                       setIndividual={this.setIndividual}
+
             />
           </div>
 
@@ -185,8 +274,7 @@ class Timesheets extends Component {
 
 
           <div>
-            <Individual staffNames={this.state.staffNames}
-                        timesheetData={this.state.timesheetData}
+            <Individual week={week}
                         individual={this.state.individual}
                         setIndividual={this.setIndividual}
                         removeIndividual={this.removeIndividual}

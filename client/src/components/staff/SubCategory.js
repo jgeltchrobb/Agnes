@@ -4,46 +4,47 @@ import RostCell from './cells/RostCell';
 
 class SubCategory extends React.Component {
   constructor(props) {
-    console.log(props, 'propsoprops')
     super(props)
     this.state = {
       categories: [],
       data: props,
+      revealed: this.props.revealed
     }
   }
 
-  componentDidMount = () => {
-    let categories = []
-    for (const key of Object.keys(this.state.data.categories)) {
-      categories.push(this.state.data.categories[key])
+  componentWillMount = () => {
+    let categories = this.props.categories
+    let cat = []
+    for (let key in categories) {
+      if (categories.hasOwnProperty(key)) {
+          cat.push(categories[key])
+      }
     }
-    this.setState({categories})
+    this.setState({
+      categories: cat
+    })
   }
 
   render() {
-    if (this.props.revealed === this.state.data.staff) {
       return (
         this.state.categories.map((category) => {
-          return (
-            <div>
-              <CatCell handleClick={this.toggleHandler} {...category} />
-              <RostCell {...category} />
-            </div>  
-          )
-        })
-      )
-    } else {
-      return (
-        this.state.categories.map((category) => {
-          return (
-            <div className="cat-cell" >
-              <CatCell onClick={this.toggleHandler} {...category} />
-            </div>  
-          )
+          if (this.props.revealed == this.state.data.staff) {
+            return (
+              <div className="cat-cell" >
+                <CatCell {...category} />
+                <RostCell {...category} />
+              </div>  
+            )
+          } else {
+            return (
+              <div>
+                <CatCell {...category} />
+              </div>
+            )
+          }
         })
       )
     }
   }  
-}
 export default SubCategory
 

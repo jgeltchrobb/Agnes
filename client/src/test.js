@@ -1,7 +1,4 @@
-var a = {counter: null}
 
-a.counter += Number(1)
-a.counter += Number(2)
-a.counter += Number(2)
+t = {}
 
-console.log(a)
+console.log(t['Wayne Sat'])
