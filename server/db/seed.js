@@ -515,7 +515,7 @@ const seedData = async () => {
               timesheet: '',
               flag: false
             }
-          }, // end of saterday
+          }, // end of saturday
         ] // end of shifts
       }, // end of staff member
   
