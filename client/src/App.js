@@ -19,6 +19,7 @@ class App extends Component {
 
     this.state = {
       sideBarHeading: 'flags',
+      users: '',
       week1: '',
       week2: '',
       week3: '',
@@ -41,21 +42,14 @@ class App extends Component {
       })
     })
 
-    axios.get(server + '/payRateCategories').then(response => {
-      console.log(response.data)
-
+    axios.get(server + '/users').then(response => {
+      
       this.setState({
-        payRateCategories: response.data,
+        users: response.data,
+
       })
     })
 
-    axios.get(server + '/entitlements').then(response => {
-      console.log(response.data)
-
-      this.setState({
-        entitlements: response.data,
-      })
-    })
   }
 
   selectRosters = () => {
