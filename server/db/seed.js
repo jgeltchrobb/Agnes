@@ -560,7 +560,9 @@ const seedData = async () => {
     ]
   })
 
-  await mongoose.connection.close()
+  await mongoose.connection.close(() => {
+    console.log('Disconnected from database!')
+  })
 }
 
 seedData()
