@@ -9,11 +9,12 @@ class DisplayCategory extends Component {
   }
 
   render() {
+    const { columnHeading } = this.props
 
     return (
       <div>
 
-        1
+        { columnHeading }
 
       </div>
     )

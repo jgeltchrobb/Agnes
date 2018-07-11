@@ -9,18 +9,6 @@ class Timesheets extends Component {
 
     this.state = {
       individual: '',
-      payRateCategories: [
-                            {'Ordinary':               0},
-                            {'Sat':                    0},
-                            {'Sun':                    0},
-                            {'Night':                  0},
-                            {'Public Holiday':         0},
-                            {'Wayne Ordinary':         0},
-                            {'Wayne Sat':              0},
-                            {'Wayne Sun':              0},
-                            {'Wayne Night':            0},
-                            {'Wayne Public Holiday':   0}
-                          ]
 
     }
   }
@@ -84,13 +72,20 @@ class Timesheets extends Component {
 
   componentDidMount = () => {
 
-    const displayCategories = this.state.payRateCategories
+    const payRateCategories = {
+                                ['Ordinary']:               0,
+                                ['Sat']:                    0,
+                                ['Sun']:                    0,
+                                ['Night']:                  0,
+                                ['Public Holiday']:         0,
+                                ['Wayne Ordinary']:         0,
+                                ['Wayne Sat']:              0,
+                                ['Wayne Sun']:              0,
+                                ['Wayne Night']:            0,
+                                ['Wayne Public Holiday']:   0
+                              }
 
-    // const displayCategories = Object.assign({}, payRateCategories)
-    // const displayCategories = payRateCategories.slice()
-
-
-    console.log(displayCategories)
+    const displayCategories = Object.assign({}, payRateCategories)
 
     const entitlements = ['Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus']
 
@@ -175,23 +170,24 @@ class Timesheets extends Component {
           totalsRow['Public Holiday'] ? totalsRow['Public Holiday'] += shiftHours : totalsRow['Public Holiday'] = shiftHours
         }
       })
-      // displayCategories.map((catagory) => {
-      //   console.log(catagory)
-      // })
-      displayCategories.map((category) => {
+
+  // Count times the payRateCategories apear in the totalsRows
+      for (let category in displayCategories) {
         for (let cat in totalsRow) {
-        //   cat === category ? category += 1 :
-        // }
-        console.log(category)
-      })
-      // for (let category in displayCategories) {
-      //   for (let cat in totalsRow) {
-      //     cat === category ? displayCategories[category] += 1 :
-      //   }
-      // }
-      // console.log(displayCategories)
+          if (cat === category) { displayCategories[category] += 1}
+        }
+      }
       payRateCategoriesTotalsRows.push(totalsRow)
     })
+
+  // If count is zero then there is no need to displayu that catergory so delete it
+    for (let category in displayCategories) {
+      if (displayCategories[category] === 0) {
+
+        delete displayCategories[category]
+      }
+    }
+
 
     this.setState({
       payRateCategoriesTotalsRows:  payRateCategoriesTotalsRows,
@@ -212,23 +208,37 @@ class Timesheets extends Component {
   render() {
     if (!(this.state.displayCategories)) return ''
 
-    // const displayCats = this.state.displayCategories.slice()
-    // console.log(displayCats)
-    // .filter((key) => {
-    //   console.log(key)
-    // })
     const { week } = this.props
+
+    // Object.keys(displayCategories)
+
+    // console.log(this.state.displayCategories)
+
+    const columnHeadings = Object.keys(this.state.displayCategories)
+    // for ()
+    // console.log(columnHeadings)
+    //
+    // columnHeadings.map((colHead) => {
+    //
+    //     console.log(colHead)
+    //
+    // })
+
 
     if ( !this.state.individual ) {
       return (
         <div>
 
           <div>
+
             {
-
-
-                  {/*  <DisplayCategory /> */}
+              columnHeadings.map((colHead) => {
+                return (
+                  <DisplayCategory columnHeading={colHead} />
+                )
+              })
             }
+
           </div>
 
 
