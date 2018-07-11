@@ -1,4 +1,5 @@
 import React from 'react'
+import RosterTotalCell from './cells/RosterTotalCell';
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class SideBar extends React.Component {
       <div className="sidebar" >
         {this.props.staffData.map((staff) => {
           if (this.props.revealed === staff.staff) {
+            console.log(staff, 'asstaff')
             return (
               <div className="sidebar-section" >
                 <div className="name-plates" >
@@ -27,7 +29,7 @@ class SideBar extends React.Component {
                     {staff.total}
                   </div>
                   <div className="cell" >
-                    <h4>Rtotal</h4>
+                    <RosterTotalCell rostered={staff.rosteredTotal} />
                   </div>
                 </div>
               </div>

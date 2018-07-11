@@ -26,7 +26,9 @@ class Staff extends Component {
     return (
       <div className="staff-container" >
         <SideBar staffData={staffData} handleClick={this.clickHandler} revealed={this.state.revealed} />
-        <StaffRow staffData={staffData} revealed={this.state.revealed} />
+        <div className="staff-row-container" >
+          <StaffRow staffData={staffData} revealed={this.state.revealed} />
+        </div>
       </div>
     )
   }
