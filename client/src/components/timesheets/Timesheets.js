@@ -7,6 +7,11 @@ class Timesheets extends Component {
   constructor(props) {
     super(props)
 
+    // this.week               = this.props
+    // this.users              = this.props
+    // this.payRateCategories  = this.props
+    // this.entitlements       = this.props
+
     this.state = {
       individual: '',
 
@@ -72,24 +77,26 @@ class Timesheets extends Component {
 
   componentDidMount = () => {
 
-    const payRateCategories = {
-                                ['Ordinary']:               0,
-                                ['Sat']:                    0,
-                                ['Sun']:                    0,
-                                ['Night']:                  0,
-                                ['Public Holiday']:         0,
-                                ['Wayne Ordinary']:         0,
-                                ['Wayne Sat']:              0,
-                                ['Wayne Sun']:              0,
-                                ['Wayne Night']:            0,
-                                ['Wayne Public Holiday']:   0
-                              }
 
-    const displayCategories = Object.assign({}, payRateCategories)
+    const payRateCategoriesObj = {}
+
+    this.props.payRateCategories.map((cat) => {
+      payRateCategoriesObj[cat] = 0
+    })
+    // const payRateCategories1 = {
+    //                             ['Ordinary']:               0,
+    //                             ['Sat']:                    0,
+    //                             ['Sun']:                    0,
+    //                             ['Night']:                  0,
+    //                             ['Public Holiday']:         0,
+    //                             ['Wayne Ordinary']:         0,
+    //                             ['Wayne Sat']:              0,
+    //                             ['Wayne Sun']:              0,
+    //                             ['Wayne Night']:            0,
+    //                             ['Wayne Public Holiday']:   0
+    //                           }
 
     const entitlements = ['Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus']
-
-    const { week } = this.props
 
     var payRateCategoriesTotalsRows = []
 
@@ -102,7 +109,7 @@ class Timesheets extends Component {
      // - if they clock in late or note at all
      // - if don't clock in before end of shift (shift.finish.rostered) then set
      //    shift.start.timesheet to 1 min before rostered  finish time
-    week.staff.map((staffMember) => {
+    this.props.week.staff.map((staffMember) => {
       // const totalsRow = Object.assign({}, payRateCategories)
       const totalsRow = {}
       staffMember.shifts.map((shift) => {
@@ -172,22 +179,24 @@ class Timesheets extends Component {
       })
 
   // Count times the payRateCategories apear in the totalsRows
-      for (let category in displayCategories) {
+      for (let category in payRateCategoriesObj) {
         for (let cat in totalsRow) {
-          if (cat === category) { displayCategories[category] += 1}
+          if (cat === category) { payRateCategoriesObj[category] += 1}
         }
       }
       payRateCategoriesTotalsRows.push(totalsRow)
     })
 
   // If count is zero then there is no need to displayu that catergory so delete it
-    for (let category in displayCategories) {
-      if (displayCategories[category] === 0) {
+    for (let category in payRateCategoriesObj) {
+      if (payRateCategoriesObj[category] === 0) {
 
-        delete displayCategories[category]
+        delete payRateCategoriesObj[category]
       }
     }
+    const payRateCategoriesColumnHeadings = Object.keys(payRateCategoriesObj)
 
+    const displayCategories = [...payRateCategoriesColumnHeadings, ...this.props.entitlements]
 
     this.setState({
       payRateCategoriesTotalsRows:  payRateCategoriesTotalsRows,
@@ -208,23 +217,6 @@ class Timesheets extends Component {
   render() {
     if (!(this.state.displayCategories)) return ''
 
-    const { week } = this.props
-
-    // Object.keys(displayCategories)
-
-    // console.log(this.state.displayCategories)
-
-    const columnHeadings = Object.keys(this.state.displayCategories)
-    // for ()
-    // console.log(columnHeadings)
-    //
-    // columnHeadings.map((colHead) => {
-    //
-    //     console.log(colHead)
-    //
-    // })
-
-
     if ( !this.state.individual ) {
       return (
         <div>
@@ -232,9 +224,9 @@ class Timesheets extends Component {
           <div>
 
             {
-              columnHeadings.map((colHead) => {
+              this.state.displayCategories.map((displayCategory) => {
                 return (
-                  <DisplayCategory columnHeading={colHead} />
+                  <DisplayCategory columnHeading={displayCategory} />
                 )
               })
             }
@@ -243,7 +235,7 @@ class Timesheets extends Component {
 
 
           <div>
-            <Summary   week={week}
+            <Summary   week={this.week}
                       setIndividual={this.setIndividual}
 
             />
@@ -274,7 +266,7 @@ class Timesheets extends Component {
 
 
           <div>
-            <Individual week={week}
+            <Individual week={this.week}
                         individual={this.state.individual}
                         setIndividual={this.setIndividual}
                         removeIndividual={this.removeIndividual}

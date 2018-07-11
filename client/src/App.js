@@ -51,18 +51,16 @@ class App extends Component {
     })
 
     axios.get(server + '/payRateCategories').then(response => {
-      console.log(response.data)
 
       this.setState({
-        payRateCategories: response.data,
+        payRateCategories: response.data[0].payRateCategories,
       })
     })
 
     axios.get(server + '/entitlements').then(response => {
-      console.log(response.data)
 
       this.setState({
-        entitlements: response.data,
+        entitlements: response.data[0].entitlements,
       })
     })
 
@@ -92,7 +90,7 @@ class App extends Component {
   }
 
   render() {
-    if (!(this.state.week1)) return ''
+    if (!(this.state.week1 && this.state.users && this.state.payRateCategories && this.state.entitlements)) return ''
 
     var week = this.state.week1
 
@@ -132,7 +130,12 @@ class App extends Component {
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets week={week} /> )}
+              <Timesheets week={week}
+                          users={this.state.users}
+                          payRateCategories={this.state.payRateCategories}
+                          entitlements={this.state.entitlements}
+
+              /> )}
             />
 
             <Route path='/staff' component={Staff} />
