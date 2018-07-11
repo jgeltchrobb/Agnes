@@ -26,8 +26,8 @@ class ShiftRow extends Component {
                 <Shift
                   catagory={shift.shiftCategory}
                   staffID={staffID}
-                  start={shift.start.rostered}
-                  finish={shift.finish.rostered}
+                  start={new Date(shift.start.rostered)}
+                  finish={new Date(shift.finish.rostered)}
                 />
               )
             })

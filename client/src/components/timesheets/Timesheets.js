@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DisplayCategory from './DisplayCategory'
 import Summary from './summary/Summary'
 import Individual from './individual/Individual'
 
@@ -24,7 +25,7 @@ class Timesheets extends Component {
     } else if (15 >= mins && mins > 0) {
       mins = 15
     } else {
-      min = 0
+      mins = 0
     }
     time.setMinutes(mins)
     return time
@@ -54,12 +55,12 @@ class Timesheets extends Component {
           return rostered
         }
         if (startOrFinish === 'finish') {
-          return roundDown(actual)
+          return this.roundDown(actual)
         }
       } else {
 
         if (startOrFinish === 'start') {
-          return roundUp(actual)
+          return this.roundUp(actual)
         }
         if (startOrFinish === 'finish') {
           return rostered
@@ -71,12 +72,26 @@ class Timesheets extends Component {
 
   componentDidMount = () => {
 
-    const payRateCategories = ['Ordinary', 'Sat', 'Sun', 'Night', 'Public Holiday', 'Wayne Ordinary', 'Wayne Sat', 'Wayne Sun', 'Wayne Night', 'Wayne Public Holiday']
+    const payRateCategories = {
+                                ['Ordinary']:               0,
+                                ['Sat']:                    0,
+                                ['Sun']:                    0,
+                                ['Night']:                  0,
+                                ['Public Holiday']:         0,
+                                ['Wayne Ordinary']:         0,
+                                ['Wayne Sat']:              0,
+                                ['Wayne Sun']:              0,
+                                ['Wayne Night']:            0,
+                                ['Wayne Public Holiday']:   0
+                              }
+
+    const displayCategories = Object.assign({}, payRateCategories)
+
     const entitlements = ['Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus']
 
     const { week } = this.props
 
-    const payRateCategoriesTotalsRows = []
+    var payRateCategoriesTotalsRows = []
 
     var DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
@@ -88,82 +103,97 @@ class Timesheets extends Component {
      // - if don't clock in before end of shift (shift.finish.rostered) then set
      //    shift.start.timesheet to 1 min before rostered  finish time
     week.staff.map((staffMember) => {
+      // const totalsRow = Object.assign({}, payRateCategories)
+      const totalsRow = {}
       staffMember.shifts.map((shift) => {
+        const rStart = new Date(shift.start.rostered)
+        const aStart = new Date(shift.start.actual)
+        var start = ''
+        const rFinish = new Date(shift.finish.rostered)
+        const aFinish = new Date(shift.finish.actual)
+        var finish = ''
         if (!shift.start.timesheet) {
-          const start = timesheetEntry('start', shift.start.rostered, shift.start.actual)
+          var start = this.timesheetEntry('start', rStart, aStart)
           // do below except don't post, rather update state and then update db from state behind the scenes
-          if (start > shift.start.rostered) {
-            setState: shift.start.flag = true
-          }
-          setState: start.timesheet = start
+          // if (start > shift.start.rostered) {
+          //   setState: shift.start.flag = true
+          // }
+          // setState: start.timesheet = start
         }
 
         if (!shift.finish.timesheet) {
-          const finish = timesheetEntry('finish', shift.finish.rostered, shift.finish.actual)
+          var finish = this.timesheetEntry('finish', rFinish, aFinish)
           // do below except don't post, rather update state and then update db from state behind the scenes
-          // if (finish < shift.finish.rostered) {
-            // Post to db: shift.start.flag = true
+          // if (start > shift.finish.rostered) {
+          //   setState: shift.finish.flag = true
           // }
-        // Post to db: finish.timesheet = finsih
+          // setState: finish.timesheet = finish
         }
 
-        const shiftHours = (Number(((shift.finish.timesheet - shift.start.timesheet) * milliToHours).toFixed(2)))
-
-        const totalsRow = {}
+        const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
 
         if (!shift.publicHoliday) {
 
-          if (shift.start.timesheet.getHours() < DayShiftDefinitionClockinBeforeHours) {
+          if (start.getHours() < DayShiftDefinitionClockinBeforeHours) {
 
-            if (shift.start.timesheet.getDay() === 6) {
+            if (start.getDay() === 6) {
               if (shift.wayneShift) {
-                totalsRow['Wayne Sat']          += shiftHours
+                totalsRow['Wayne Sat'] ? totalsRow['Wayne Sat'] += shiftHours : totalsRow['Wayne Sat'] = shiftHours
               } else {
-                totalsRow['Sat']                += shiftHours
+                totalsRow['Sat'] ? totalsRow['Sat'] += shiftHours : totalsRow['Sat'] = shiftHours
               }
-            } else if (shift.start.getDay() === 0) {
+            } else if (start.getDay() === 0) {
                 if (shift.wayneShift) {
-                  totalsRow['Wayne Sun']        += shiftHours
+                  totalsRow['Wayne Sun'] ? totalsRow['Wayne Sun'] += shiftHours : totalsRow['Wayne Sun'] = shiftHours
                 } else {
-                  totalsRow['Sun']              += shiftHours
+                  totalsRow['Sun'] ? totalsRow['Sun'] += shiftHours : totalsRow['Sun'] = shiftHours
                 }
             } else {
                 if (shift.wayneShift) {
-                  totalsRow['Wayne Ordinary']   += shiftHours
+                  totalsRow['Wayne Ordinary'] ? totalsRow['Wayne Ordinary'] += shiftHours : totalsRow['Wayne Ordinary'] = shiftHours
                 } else {
-                  totalsRow['Ordinary']         += shiftHours
+                  totalsRow['Ordinary'] ? totalsRow['Ordinary'] += shiftHours : totalsRow['Ordinary'] = shiftHours
                 }
             }
 
           } else {
               if (shift.wayneShift) {
-                totalsRow['Wayne Night']        += shiftHours
+                totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours
               } else {
-                totalsRow['Night']              += shiftHours
+                totalsRow['Night'] ? totalsRow['Night'] += shiftHours : totalsRow['Night'] = shiftHours
               }
           }
-
         } else if (shift.publicHoliday && shift.wayneShift) {
-          totalsRow['Wayne Public Holiday']     += shiftHours
+          totalsRow['Wayne Public Holiday'] ? totalsRow['Wayne Public Holiday'] += shiftHours : totalsRow['Wayne Public Holiday'] = shiftHours
 
         } else {
-          totalsRow['Public Holiday']           += shiftHours
+          totalsRow['Public Holiday'] ? totalsRow['Public Holiday'] += shiftHours : totalsRow['Public Holiday'] = shiftHours
         }
-
       })
+
+  // Count times the payRateCategories apear in the totalsRows
+      for (let category in displayCategories) {
+        for (let cat in totalsRow) {
+          if (cat === category) { displayCategories[category] += 1}
+        }
+      }
       payRateCategoriesTotalsRows.push(totalsRow)
     })
 
-    const finalTotalsRows = payRateCategoriesTotalsRows.map((row) => {
-      // for (let cat in row) {
-      //   if (row[cat])
-      //   console.log(row[cat])
-      // }
-    })
+  // If count is zero then there is no need to displayu that catergory so delete it
+    for (let category in displayCategories) {
+      if (displayCategories[category] === 0) {
+
+        delete displayCategories[category]
+      }
+    }
+
 
     this.setState({
-      finalTotalsRows: finalTotalsRows,
+      payRateCategoriesTotalsRows:  payRateCategoriesTotalsRows,
+      displayCategories:  displayCategories
     })
+
   }
 
 
@@ -176,26 +206,39 @@ class Timesheets extends Component {
   }
 
   render() {
+    if (!(this.state.displayCategories)) return ''
+
     const { week } = this.props
+
+    // Object.keys(displayCategories)
+
+    // console.log(this.state.displayCategories)
+
+    const columnHeadings = Object.keys(this.state.displayCategories)
+    // for ()
+    // console.log(columnHeadings)
+    //
+    // columnHeadings.map((colHead) => {
+    //
+    //     console.log(colHead)
+    //
+    // })
+
 
     if ( !this.state.individual ) {
       return (
         <div>
 
           <div>
-            <div>{/* Space to the left of catagory headings and above names*/}</div>
-            <div>  Ord Hrs           </div>
-            <div>  Sat Hrs           </div>
-            <div>  Annual Leave      </div>
-            <div>  Sick Leave        </div>
-            <div>  Public Hols       </div>
-            <div>  L/S Leave         </div>
-            <div>  Wayne Weekly      </div>
-            <div>  Wayne Sat         </div>
-            <div>  Wayne Sun         </div>
-            <div>  Wayne Public Hols </div>
-            <div>  Sleep Over        </div>
-            <div>  Total             </div>
+
+            {
+              columnHeadings.map((colHead) => {
+                return (
+                  <DisplayCategory columnHeading={colHead} />
+                )
+              })
+            }
+
           </div>
 
 
