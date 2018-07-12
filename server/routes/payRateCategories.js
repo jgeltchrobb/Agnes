@@ -6,6 +6,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   try {
     let payRateCategories = await PayRateCategories.findOne()
+    console.log(payRateCategories)
     res.send(payRateCategories)
   } catch (error) {
     res.status(500).json({ error: error.message })
