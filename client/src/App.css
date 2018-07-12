@@ -30,3 +30,35 @@
 .cat-cell {
   background-color: blue;
 }
+
+div.navbar {
+  height: auto;
+  background-color: black;
+  color: white;
+  margin: 2em 0;
+  display: flex;
+}
+
+div.navbar > a {
+  text-decoration: none;
+  border-right: 1px solid white;
+  padding: 1em;
+}
+
+div.navbar > a:first-child {
+  border-right: 1px solid white;
+}
+
+div.navbar > a:last-child {
+  margin-left: auto;
+  border-left: 1px solid white;
+}
+
+div.navbar > a:visited {
+  color: inherit;
+}
+
+div.navbar > a:hover {
+  background-color: #c2c0bf;
+  color: black;
+}

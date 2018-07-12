@@ -100,16 +100,11 @@ class App extends Component {
         <Router>
           <div>
 
-            <div>
+            <div className="navbar">
               <Link to="/rosters" onClick={this.selectRosters}>Rosters</Link>
-            </div>
-
-            <div>
               <Link to="/timesheets" onClick={this.selectTimesheets}>Timesheets</Link>
-            </div>
-
-            <div>
               <Link to="/staff">Staff</Link>
+              <Link to="/">Logout</Link>
             </div>
 
 
@@ -143,7 +138,6 @@ class App extends Component {
             <Route path='/pin' component={OfficePin} />
 
 
-            <div>Logout</div>
 
           </div>
         </Router>
