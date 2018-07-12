@@ -12,32 +12,38 @@ class TotalsRow extends Component {
     }
   }
 
-  componentDidMount = () => {
-    // this.setTotalsArray()
+  setTotalsArray = () => {
     const { row, columnHeadings } = this.props
 
     const totalsArray = []
     columnHeadings.map((cat) => {
+      let pushed = 'no'
       for (let key in row) {
         if (key === cat) {
+          pushed = 'yes'
           totalsArray.push(row[key])
         }
       }
+      if (pushed === 'no') { totalsArray.push('empty') }
     })
     this.setState({
       totalsArray: totalsArray
     })
   }
 
-  setTotalsArray = () => {
+  componentDidMount = () => {
+    const { row, setIndividual } = this.props
+    this.setTotalsArray()
+  }
 
+  componentDidUpdate = (prevProps) => {
+    if (!this.props === prevProps) {
+      this.setTotalsArray()
+    }
   }
 
   render() {
-
     const { row, setIndividual } = this.props
-
-    // this.setTotalsArray()
 
     return (
       <div  onClick={() => setIndividual(row.staffID)}>
