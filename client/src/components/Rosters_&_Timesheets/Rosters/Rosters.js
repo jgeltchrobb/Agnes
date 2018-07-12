@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../header/Header'
+import Header from '../HeaderBar/Header'
 import Roster from './Roster'
 import Flags from './Flags'
 

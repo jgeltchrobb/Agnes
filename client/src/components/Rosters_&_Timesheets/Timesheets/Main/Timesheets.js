@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import Header from '../header/Header'
-import DisplayCategory from './DisplayCategory'
-import TotalsRow from './TotalsRow'
-// import Summary from './summary/Summary'
-import Individual from './individual/Individual'
-import Name from './Name'
-
+import Header from '../../HeaderBar/Header'
+import DisplayCategory from '../Common/DisplayCategory'
+import TotalsRow from '../Common/TotalsRow'
+import Summary from '../Summary/Summary'
+import Individual from '../Individual/Individual'
 
 class Timesheets extends Component {
   constructor(props) {
@@ -87,6 +85,8 @@ class Timesheets extends Component {
     this.props.payRateCategories.map((cat) => {
       payRateCategoriesObj[cat] = 0
     })
+
+
     // const payRateCategories1 = {
     //                             ['Ordinary']:               0,
     //                             ['Sat']:                    0,
@@ -114,8 +114,16 @@ class Timesheets extends Component {
      //    shift.start.timesheet to 1 min before rostered  finish time
     const totalsRows = []
     this.props.week.staff.map((staffMember) => {
+
       const totalsRow = {}
+      this.props.payRateCategories.map((cat) => {
+        totalsRow[cat] = 0
+      })
+      this.props.entitlements.map((cat) => {
+        totalsRow[cat] = 0
+      })
       totalsRow.staffID = staffMember.staffID
+
       staffMember.shifts.map((shift) => {
         const rStart = new Date(shift.start.rostered)
         const aStart = new Date(shift.start.actual)
@@ -149,36 +157,36 @@ class Timesheets extends Component {
 
             if (start.getDay() === 6) {
               if (shift.wayneShift) {
-                totalsRow['Wayne Sat'] ? totalsRow['Wayne Sat'] += shiftHours : totalsRow['Wayne Sat'] = shiftHours
+                totalsRow['Wayne Sat'] += shiftHours
               } else {
-                totalsRow['Sat'] ? totalsRow['Sat'] += shiftHours : totalsRow['Sat'] = shiftHours
+                totalsRow['Sat'] += shiftHours
               }
             } else if (start.getDay() === 0) {
                 if (shift.wayneShift) {
-                  totalsRow['Wayne Sun'] ? totalsRow['Wayne Sun'] += shiftHours : totalsRow['Wayne Sun'] = shiftHours
+                  totalsRow['Wayne Sun'] += shiftHours
                 } else {
-                  totalsRow['Sun'] ? totalsRow['Sun'] += shiftHours : totalsRow['Sun'] = shiftHours
+                  totalsRow['Sun'] += shiftHours
                 }
             } else {
                 if (shift.wayneShift) {
-                  totalsRow['Wayne Ordinary'] ? totalsRow['Wayne Ordinary'] += shiftHours : totalsRow['Wayne Ordinary'] = shiftHours
+                  totalsRow['Wayne Ordinary'] += shiftHours
                 } else {
-                  totalsRow['Ordinary'] ? totalsRow['Ordinary'] += shiftHours : totalsRow['Ordinary'] = shiftHours
+                  totalsRow['Ordinary'] += shiftHours
                 }
             }
 
           } else {
               if (shift.wayneShift) {
-                totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours
+                totalsRow['Wayne Night'] += shiftHours
               } else {
-                totalsRow['Night'] ? totalsRow['Night'] += shiftHours : totalsRow['Night'] = shiftHours
+                totalsRow['Night'] += shiftHours
               }
           }
         } else if (shift.publicHoliday && shift.wayneShift) {
-          totalsRow['Wayne Public Holiday'] ? totalsRow['Wayne Public Holiday'] += shiftHours : totalsRow['Wayne Public Holiday'] = shiftHours
+          totalsRow['Wayne Public Holiday'] += shiftHours
 
         } else {
-          totalsRow['Public Holiday'] ? totalsRow['Public Holiday'] += shiftHours : totalsRow['Public Holiday'] = shiftHours
+          totalsRow['Public Holiday'] += shiftHours
         }
       })
 
@@ -219,25 +227,21 @@ class Timesheets extends Component {
   }
 
   render() {
-
+    if (!this.state.displayCategories && !this.state.totalsRows) return ''
     const { week, users, nextWeek, previousWeek, sideBarHeading } = this.props
 
-     if (!this.state.displayCategories && !this.state.totalsRows) return ''
+    return (
+      <div>
 
-     if ( !this.state.individual ) {
-      return (
         <div>
+          <Header weekDate={week.date}
+                  nextWeek={nextWeek}
+                  previousWeek={previousWeek}
+                  sideBarHeading={sideBarHeading}
+          />
+        </div>
 
-          <div>
-            <Header weekDate={week.date}
-                    nextWeek={nextWeek}
-                    previousWeek={previousWeek}
-                    sideBarHeading={sideBarHeading}
-
-            />
-          </div>
-
-          <div>
+        <div>
           {
             this.state.displayCategories.map((displayCategory) => {
               return (
@@ -245,64 +249,34 @@ class Timesheets extends Component {
               )
             })
           }
-          </div>
+        </div>
 
-          <div  className='names-constainer'>
-            {
-              this.state.totalsRows.map((row) => {
-                return (
-                  <Name staffID={row.staffID}
+        { !this.state.individual ? (
+            <div>
+              <Summary  totalsRows={this.state.totalsRows}
                         users={users}
+                        displayCategories={this.state.displayCategories}
+                        entitlements={this.props.entitlements}
                         setIndividual={this.setIndividual}
-                  />
-                )
-
-              })
-            }
-          </div>
-
-          <div>
-            {
-              this.state.totalsRows.map((row) => {
-                return (
-
-                  <TotalsRow  row={row}
-                              setIndividual={this.setIndividual}
-
-                  />
-                )
-              })
-            }
-          </div>
-
-        </div>
-      )
-
-    } else {
-      return (
-        <div>
-
-          <div>
-            {
-              this.state.displayCategories.map((displayCategory) => {
-                return (
-                  <DisplayCategory columnHeading={displayCategory} />
-                )
-              })
-            }
-          </div>
-
-          <div>
-            <Individual week={this.week}
-                        individual={this.state.individual}
-                        setIndividual={this.setIndividual}
-                        removeIndividual={this.removeIndividual}
-            />
-          </div>
-
-        </div>
-      )
-    }
+              />
+            </div>
+          )
+          :
+          (
+              <div>
+                <Individual individual={this.state.individual}
+                            totalsRows={this.state.totalsRows}
+                            users={users}
+                            displayCategories={this.state.displayCategories}
+                            entitlements={this.props.entitlements}
+                            setIndividual={this.setIndividual}
+                            removeIndividual={this.removeIndividual}
+                />
+            </div>
+          )
+        }
+      </div>
+    )
 
   }
 
