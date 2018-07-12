@@ -26,7 +26,7 @@ class Clock extends Component {
         <button onClick={this.clockingOn}>Clock on</button>
         { this.state.clockedOn ? <p>You clocked on at: { this.state.clockedOn } </p> : '' }
         <br />
-        
+
         <button onClick={this.clockingOff}>Clock off</button>
         { this.state.clockedOff ? <p>You clocked off at: { this.state.clockedOff } </p> : '' }
       </div>
