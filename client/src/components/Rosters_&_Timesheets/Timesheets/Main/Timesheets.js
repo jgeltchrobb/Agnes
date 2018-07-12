@@ -157,7 +157,6 @@ class Timesheets extends Component {
                   totalsRow['Ordinary'] ? totalsRow['Ordinary'] += shiftHours : totalsRow['Ordinary'] = shiftHours
                 }
             }
-
           } else {
               if (shift.wayneShift) {
                 totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours

@@ -13,34 +13,31 @@ class TotalsRow extends Component {
   }
 
   componentDidMount = () => {
-    this.setTotalsArray()
-  }
-
-  setTotalsArray = () => {
-
+    // this.setTotalsArray()
     const { row, columnHeadings } = this.props
 
     const totalsArray = []
     columnHeadings.map((cat) => {
-      if {
-        for (let key in row) {
-          if (key === cat) {
-            totalsArray.push(row[key])
-          }
+      for (let key in row) {
+        if (key === cat) {
+          totalsArray.push(row[key])
         }
-      } else { totalsArray.push(row[key]) }
-
+      }
     })
     this.setState({
       totalsArray: totalsArray
     })
   }
 
+  setTotalsArray = () => {
+
+  }
+
   render() {
 
     const { row, setIndividual } = this.props
 
-    this.setTotalsArray()
+    // this.setTotalsArray()
 
     return (
       <div  onClick={() => setIndividual(row.staffID)}>
