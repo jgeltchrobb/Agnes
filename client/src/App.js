@@ -50,18 +50,17 @@ class App extends Component {
       })
     })
 
-    // axios.get(server + '/payRateCategories').then(response => {
-    //   console.log(response.data)
-    //   this.setState({
-    //     payRateCategories: response.data[0].payRateCategories,
-    //   })
-    // })
+    axios.get(server + '/payRateCategories').then(response => {
+      this.setState({
+        payRateCategories: response.data.payRateCategories,
+      })
+    })
 
-    // axios.get(server + '/entitlements').then(response => {
-    //   this.setState({
-    //     entitlements: response.data[0].entitlements,
-    //   })
-    // })
+    axios.get(server + '/entitlements').then(response => {
+      this.setState({
+        entitlements: response.data.entitlements,
+      })
+    })
 
   }
 
@@ -89,8 +88,8 @@ class App extends Component {
   }
 
   render() {
-    if (!(this.state.week1 && this.state.users 
-      // && this.state.payRateCategories && this.state.entitlements
+    if (!(this.state.week1 && this.state.users
+      && this.state.payRateCategories && this.state.entitlements
     )) return ''
 
     var week = this.state.week1

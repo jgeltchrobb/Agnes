@@ -19,22 +19,6 @@ class Timesheets extends Component {
     }
   }
 
-  setTotalsRowsToDisplay = () => {
-    const displayTotalsRows = []
-    this.state.totalsRows.map((row) => {
-      if (!this.state.individual) {
-        displayTotalsRows.push(row)
-      } else {
-        if (row.staffID === this.state.individual) {
-          displayTotalsRows.push(row)
-        }
-      }
-    })
-    this.setState({
-      displayTotalsRows: displayTotalsRows,
-    })
-  }
-
   roundUp = (time) => {
     var mins = time.getMinutes()
 
@@ -99,7 +83,25 @@ class Timesheets extends Component {
     return unique_array
   }
 
-  componentDidMount = () => {
+  setTotalsRowsToDisplay = () => {
+    console.log(this.state.totalsRows)
+    const displayTotalsRows = []
+    this.state.totalsRows.map((row) => {
+      if (!this.state.individual) {
+        displayTotalsRows.push(row)
+      } else {
+        if (row.staffID === this.state.individual) {
+          displayTotalsRows.push(row)
+        }
+      }
+    })
+    console.log(displayTotalsRows)
+    this.setState({
+      displayTotalsRows: displayTotalsRows,
+    })
+  }
+
+  componentDidMount = async () => {
 
     var DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
@@ -183,10 +185,11 @@ class Timesheets extends Component {
     // // Remove duplicates from columnHeadings array and merge with entitlements array to form final column heads array
     columnHeadings = [...this.removeDuplicates(columnHeadings), ...this.props.entitlements]
 
-    this.setState({
+    await this.setState({
       totalsRows:  totalsRows,
       columnHeadings: columnHeadings
     })
+    this.setTotalsRowsToDisplay()
   }
 
   setIndividual = (staffID) => {
