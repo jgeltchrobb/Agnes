@@ -5,26 +5,30 @@ class SideBar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      staffData: []
+      staffData: [],
+      staffRoster: []
     }
   }
+
+
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.staffData !== prevProps.staffData) {
       this.setState({staffData: this.props.staffData})
-            
+    }
+    if (this.state.staffRoster !== prevProps.staffRoster) {
+      this.setState({staffRoster: this.props.staffRoster})
     }
   }
-  
-  componentWillMount() {
-    this.props.fetchStandard()
-  }
 
-  componentWillReceiveProps({staffData}) {
-    this.setState({staffData})
+  
+  componentWillReceiveProps({staffData, staffRoster}) {
+    this.setState({staffData, staffRoster})
+    // this.calcRosters()
   }
 
   render() {
+    console.log(this.state.staffRoster, 'roster')
     return (
       <div className="sidebar" >
         {this.state.staffData.map((staff) => {

@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+const api = 'http://localhost:4000'
+
 class CatCell extends React.Component {
   constructor(props) {
     super(props)
@@ -31,7 +33,7 @@ class CatCell extends React.Component {
   
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.data.hoursWorked !== this.state.data.hoursWorked) {
-      axios.put(`http://localhost:4000/standardHours/${this.props.standardID}`, this.state.data).then((response) => {
+      axios.put(api + `/standardHours/${this.props.standardID}`, this.state.data).then((response) => {
         console.log(response)
       })
     }
