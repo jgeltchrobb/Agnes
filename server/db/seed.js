@@ -561,7 +561,100 @@ const seedData = async () => {
     ]
   })
 
-  await StandardHours.create({})
+  await StandardHours.create({
+    staffID: '1',
+    name: 'Greg',
+    totalHours: '',
+    categories: [
+      {
+        category: 'Ordinary',
+        hoursWorked: 5
+      },
+      {
+        category: 'Saturday',
+        hoursWorked: 3
+      },
+      {
+        category: 'Sunday',
+        hoursWorked: 66
+      },
+      {
+        category: 'Night',
+        hoursWorked: 0
+      },
+      {
+        category: 'Public Holiday',
+        hoursWorked: 1
+      },
+      {
+        category: 'Wayne Ordinary',
+        hoursWorked: 1
+      },
+      {
+        category: 'Wayne Saturday',
+        hoursWorked: 4
+      },
+      {
+        category: 'Wayne Sunday',
+        hoursWorked: 22
+      },
+      {
+        category: 'Wayne Night',
+        hoursWorked: 11
+      },
+      {
+        category: 'Wayne Public Holiday',
+        hoursWorked: 0
+      }
+    ]
+  })
+  await StandardHours.create({
+    staffID: '2',
+    name: 'Jack',
+    totalHours: '',
+    categories: [
+      {
+        category: 'Ordinary',
+        hoursWorked: 53
+      },
+      {
+        category: 'Saturday',
+        hoursWorked: 32
+      },
+      {
+        category: 'Sunday',
+        hoursWorked: 66
+      },
+      {
+        category: 'Night',
+        hoursWorked: 0
+      },
+      {
+        category: 'Public Holiday',
+        hoursWorked: 0
+      },
+      {
+        category: 'Wayne Ordinary',
+        hoursWorked: 1
+      },
+      {
+        category: 'Wayne Saturday',
+        hoursWorked: 4
+      },
+      {
+        category: 'Wayne Sunday',
+        hoursWorked: 2
+      },
+      {
+        category: 'Wayne Night',
+        hoursWorked: 1
+      },
+      {
+        category: 'Wayne Public Holiday',
+        hoursWorked: 1
+      }
+    ]
+  })
 
   await mongoose.connection.close(() => {
     console.log('Disconnected from database!')
