@@ -10,17 +10,14 @@ class TotalsRow extends Component {
   render() {
     const { row } = this.props
 
-    console.log(row)
-
-    const allCategories = [
-      'Ordinary', 'Sat', 'Sun', 'Night', 'Public Holiday',
-      'Wayne Ordinary', 'Wayne Sat', 'Wayne Sun', 'Wayne Night', 'Wayne Public Holiday',
-      'Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus'
-    ]
+    const array = []
+    for (let cat in row) {
+      array.push(`${cat}: ${row[cat]}, `)
+    }
 
     return (
       <div>
-        
+        {array}
       </div>
     )
   }

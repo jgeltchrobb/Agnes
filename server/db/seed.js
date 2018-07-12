@@ -547,17 +547,11 @@ const seedData = async () => {
   })
 
   await PayRateCategories.create({
-    Ordinary:               0,
-    Sat:                    0,
-    Sun:                    0,
-    Night:                  0,
-    PublicHoliday:         0,
-    WayneOrdinary:         0,
-    WayneSat:              0,
-    WayneSun:              0,
-    WayneNight:            0,
-    WaynePublicHoliday:   0
-    
+    payRateCategories:
+    [
+      'Ordinary','Sat', 'Sun', 'Night', 'Public Holiday', 'Wayne Ordinary',
+      'Wayne Sat', 'Wayne Sun', 'Wayne Night', 'Wayne Public Holiday'
+    ]
   })
 
   await Entitlements.create({

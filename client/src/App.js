@@ -6,7 +6,7 @@ import OfficePin from './components/officepin/OfficePin'
 import Clock from './components/loggedin/Clock'
 import Rosters from './components/rosters/Rosters'
 import Timesheets from './components/timesheets/Timesheets'
-import Header from './components/header/Header'
+// import Header from './components/header/Header'
 import Staff from './components/staff/Staff'
 // import week from './data'
 import './App.css';
@@ -52,13 +52,13 @@ class App extends Component {
 
     axios.get(server + '/payRateCategories').then(response => {
       this.setState({
-        payRateCategories: response.data,
+        payRateCategories: response.data[0].payRateCategories,
       })
     })
 
     axios.get(server + '/entitlements').then(response => {
       this.setState({
-        entitlements: response.data,
+        entitlements: response.data[0].entitlements,
       })
     })
 
@@ -88,7 +88,7 @@ class App extends Component {
   }
 
   render() {
-    if (!(this.state.week1)) return ''
+    if (!(this.state.week1 && this.state.users && this.state.payRateCategories && this.state.entitlements)) return ''
 
     var week = this.state.week1
 
@@ -110,25 +110,26 @@ class App extends Component {
               <Link to="/staff">Staff</Link>
             </div>
 
-            <div>
-              Logout
-            </div>
 
-            <div>
-              <Header
-              weekDate={week.date}
-              nextWeek={this.nextWeek}
-              previousWeek={this.previousWeek}
-              sideBarHeading={this.state.sideBarHeading}
-              />
-            </div>
+
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters staff={week.staff} /> )}
+              <Rosters  week={week}
+                        nextWeek={this.nextWeek}
+                        previousWeek={this.previousWeek}
+                        sideBarHeading={this.state.sideBarHeading} /> )}
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets week={week} /> )}
+              <Timesheets week={week}
+                          users={this.state.users}
+                          payRateCategories={this.state.payRateCategories}
+                          entitlements={this.state.entitlements}
+                          nextWeek={this.nextWeek}
+                          previousWeek={this.previousWeek}
+                          sideBarHeading={this.state.sideBarHeading}
+
+              /> )}
             />
 
             <Route path='/staff' component={Staff} />
@@ -138,6 +139,9 @@ class App extends Component {
             <Route path='/login' component={LogInPage} />
 
             <Route path='/pin' component={OfficePin} />
+
+
+            <div>Logout</div>
 
           </div>
         </Router>

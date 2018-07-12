@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Name from '../Name'
 import TotalsRow from '../TotalsRow'
 
 class Summary extends Component {
@@ -11,7 +10,7 @@ class Summary extends Component {
 
   }
 
-  
+
 
   componentDidMount = () => {
 
