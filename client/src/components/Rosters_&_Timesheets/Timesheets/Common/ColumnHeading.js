@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 
-class DisplayCategory extends Component {
+class columnHeading extends Component {
   constructor(props) {
     super(props)
 
@@ -21,4 +21,4 @@ class DisplayCategory extends Component {
   }
 }
 
-export default DisplayCategory
+export default columnHeading

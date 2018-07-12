@@ -6,24 +6,41 @@ class TotalsRow extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      totalsArray: [],
+
+    }
+  }
+
+  componentDidMount = () => {
+    this.setTotalsArray()
+  }
+
+  setTotalsArray = () => {
+
+    const { row, columnHeadings } = this.props
+
+    const totalsArray = []
+    columnHeadings.map((cat) => {
+      if {
+        for (let key in row) {
+          if (key === cat) {
+            totalsArray.push(row[key])
+          }
+        }
+      } else { totalsArray.push(row[key]) }
+
+    })
+    this.setState({
+      totalsArray: totalsArray
+    })
   }
 
   render() {
-    const { row, displayCategories, entitlements, setIndividual } = this.props
 
-    const totalsArray = []
-    displayCategories.map((cat) => {
+    const { row, setIndividual } = this.props
 
-      for (let key in row) {
-        // look for the key that matches the catergory
-        if (key === cat) {
-          // if the row has a value for that catergory then push value,
-          // otherwise push an empty string
-          row[key] === 0 ? totalsArray.push('') : totalsArray.push(row[key])
-        }
-        // if no key matches then do nothing
-      }
-    })
+    this.setTotalsArray()
 
     return (
       <div  onClick={() => setIndividual(row.staffID)}>
@@ -32,7 +49,7 @@ class TotalsRow extends Component {
           // staff staffMember or row, but with totals / empty strings.
           // Then we can loop through that array in the render method and either render
           // the total (if value) or an empty div (if '')
-          totalsArray.map((total) => {
+          this.state.totalsArray.map((total) => {
             if (total) {
               return (
                 <Total total={total} />
