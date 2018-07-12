@@ -24,9 +24,10 @@ class Name extends Component {
   }
 
   render() {
+    const { users, staffID, setIndividual } = this.props
 
     return (
-      <div>
+      <div onClick={() => setIndividual(staffID)}>
         {/* {
           if (individual) {
           if (individual == staffID) {
