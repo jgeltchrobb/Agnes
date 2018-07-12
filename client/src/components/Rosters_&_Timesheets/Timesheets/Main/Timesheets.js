@@ -84,7 +84,6 @@ class Timesheets extends Component {
   }
 
   setTotalsRowsToDisplay = () => {
-    console.log(this.state.totalsRows)
     const displayTotalsRows = []
     this.state.totalsRows.map((row) => {
       if (!this.state.individual) {
@@ -95,7 +94,6 @@ class Timesheets extends Component {
         }
       }
     })
-    console.log(displayTotalsRows)
     this.setState({
       displayTotalsRows: displayTotalsRows,
     })

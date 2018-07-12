@@ -385,7 +385,7 @@ const seedData = async () => {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("July 15 2018"),
             shiftCategory: "floor",
             start: {
               rostered: new Date("July 15 2018 8:00"),
@@ -400,7 +400,7 @@ const seedData = async () => {
               flag: false
             }
           }, // end of saterday
-        ] // end of shifts
+        ], // end of shifts
 
       }, //end of staff member
 
@@ -423,7 +423,7 @@ const seedData = async () => {
               flag: false
             }
           }, // end of saterday
-        ] // end of shifts
+        ], // end of shifts
       }, // end of staff member
 
       {
@@ -445,7 +445,7 @@ const seedData = async () => {
               flag: false
             }
           }, // end of saterday
-        ] // end of shifts
+        ], // end of shifts
       }, // end of staff member
 
     ]
@@ -474,7 +474,7 @@ const seedData = async () => {
               flag: false
             }
           }, // end of saterday
-        ] // end of shifts
+        ], // end of shifts
 
       }, //end of staff member
 
@@ -497,7 +497,7 @@ const seedData = async () => {
               flag: false
             }
           }, // end of saterday
-        ] // end of shifts
+        ], // end of shifts
       }, // end of staff member
 
       {
@@ -519,7 +519,7 @@ const seedData = async () => {
               flag: false
             }
           }, // end of saturday
-        ] // end of shifts
+        ], // end of shifts
       }, // end of staff member
 
     ]

@@ -1,7 +1,6 @@
 
-const row1 = {staffID: 1, 'ord': 8, 'sat': 6, 'sun': 4}
+const m = new Date("July 2 2018")
 
-Object.keys(row1) => {
+const x = new Date(m.setDate(m.getDate() + 1))
 
-  console.log(key)
-})
+console.log(x.getDate())

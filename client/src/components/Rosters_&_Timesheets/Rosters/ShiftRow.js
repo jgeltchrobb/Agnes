@@ -7,6 +7,55 @@ class ShiftRow extends Component {
 
   }
 
+  componentDidMount = () => {
+    // pull this out into a function and call it in cDM AND cDU
+    // then it will run and make a new shiftsArray from scratch with any roster inputs or other props or state updates
+    const { staffID, shifts } = this.props.staffMember
+    const weekDate = new Date(this.props.weekDate)
+
+    const shiftsArray = []
+    shifts.map((shift) => {
+      // check foir shift with week start date: do.. then with week start date + 1: do.. etc
+
+        console.log( weekDate.setDate((weekDate.getDate() + 0)) == shift.date )
+        console.log( weekDate.setDate((weekDate.getDate() + 0)) )
+        console.log( shift.date )
+
+
+
+
+      if (new Date(weekDate.setDate((weekDate.getDate() + 0))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
+
+      if (new Date(weekDate.setDate((weekDate.getDate() + 1))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
+
+      if (new Date(weekDate.setDate((weekDate.getDate() + 2))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
+
+      if (new Date(weekDate.setDate((weekDate.getDate() + 3))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
+
+      if (new Date(weekDate.setDate((weekDate.getDate() + 4))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
+
+      if (new Date(weekDate.setDate((weekDate.getDate() + 5))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
+
+      if (new Date(weekDate.setDate((weekDate.getDate() + 6))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
+
+
+      // let shiftObj = {staffID: staffID}
+      // if (shift )
+      // shiftObj.date = new Date(shift.date)
+      // shiftObj.start = new Date(shift.start.rostered)
+      // shiftObj.finish = new Date(shift.finish.rostered)
+      // shiftsArray.push(shiftObj)
+    })
+    console.log(shiftsArray)
+  }
+
   render() {
     const { staffID, shifts } = this.props.staffMember
 
