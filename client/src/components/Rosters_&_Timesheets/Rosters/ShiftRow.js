@@ -17,32 +17,30 @@ class ShiftRow extends Component {
     shifts.map((shift) => {
       // check foir shift with week start date: do.. then with week start date + 1: do.. etc
 
-        console.log( weekDate.setDate((weekDate.getDate() + 0)) == shift.date )
-        console.log( weekDate.setDate((weekDate.getDate() + 0)) )
-        console.log( shift.date )
+        console.log( shift.start.rostered )
 
 
 
 
-      if (new Date(weekDate.setDate((weekDate.getDate() + 0))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      if (new Date(weekDate.setDate((weekDate.getDate() + 0))) === shift.date) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
       else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
 
-      if (new Date(weekDate.setDate((weekDate.getDate() + 1))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      if (new Date(weekDate.setDate((weekDate.getDate() + 1))) === shift.date) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
       else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
 
-      if (new Date(weekDate.setDate((weekDate.getDate() + 2))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      if (new Date(weekDate.setDate((weekDate.getDate() + 2))) === shift.date) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
       else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
 
-      if (new Date(weekDate.setDate((weekDate.getDate() + 3))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      if (new Date(weekDate.setDate((weekDate.getDate() + 3))) === shift.date) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
       else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
 
-      if (new Date(weekDate.setDate((weekDate.getDate() + 4))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      if (new Date(weekDate.setDate((weekDate.getDate() + 4))) === shift.date) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
       else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
 
-      if (new Date(weekDate.setDate((weekDate.getDate() + 5))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      if (new Date(weekDate.setDate((weekDate.getDate() + 5))) === shift.date) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
       else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
 
-      if (new Date(weekDate.setDate((weekDate.getDate() + 6))) === new Date(shift.date)) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
+      if (new Date(weekDate.setDate((weekDate.getDate() + 6))) === shift.date) { shiftsArray.push({staffID: staffID, date: new Date(shift.date), start: new Date(shift.start.rostered), finish: new Date(shift.start.rostered)})}
       else { shiftsArray.push({staffID: staffID, date: '', start: '', finish: ''}) }
 
 

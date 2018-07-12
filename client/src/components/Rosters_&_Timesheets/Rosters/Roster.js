@@ -14,8 +14,6 @@ class Roster extends Component {
 
   render() {
     const { staff, weekDate } = this.props
-    console.log(typeof(new Date(weekDate)))
-    console.log(typeof(new Date))
 
     return (
       <div>
