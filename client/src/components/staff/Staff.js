@@ -12,6 +12,7 @@ class Staff extends Component {
     this.state = {
       revealed: '',
       staffData: [],
+      staffRoster: []
     }
   }
 
@@ -35,13 +36,38 @@ class Staff extends Component {
       this.setState({staffData: result.data})
     })
   }
+
+  fetchRosters = () => {
+    axios.get(api + '/rosters').then((response) => {
+      for (let obj of response.data) {
+        if (obj.date === '2018-07-01T14:00:00.000Z') {
+          return obj
+        }
+      }
+    }).then((obj) => {
+      this.setState({staffRoster: obj})
+    }).then(() => {
+      this.calcRosters()
+    })
+  }
+
+  calcRosters = () => {
+    // {staffID: , }
+    for (let staff of this.state.staffRoster.staff) {
+      console.log(staff)
+      for (let shift of staff.shifts) {
+        console.log(shift.start.rostered, 'aaa')
+        console.log(shift.finish.rostered - shift.start.rostered)
+      }
+    }
+  }
   
   passTotal = (total) => {
     let name = ''
     let currentTotal = ''
     let plus = ''
-    let staffData = [...this.state.staffData]
     let diff = ''
+    let staffData = [...this.state.staffData]
     if (total.orgHours < total.hours) {
       plus = true
       diff = total.hours - total.orgHours
@@ -74,12 +100,14 @@ class Staff extends Component {
 
   componentDidMount() {
     this.fetchStandard()
+    this.fetchRosters()
   }
   
   render() {
+    console.log(this.state.staffRoster, 'rosters')
     return (
       <div className="staff-container" >
-        <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} />
+        <SideBar staffRoster={this.state.staffRoster} staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} />
         <div className="staff-row-container" >
           <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} />
         </div>
