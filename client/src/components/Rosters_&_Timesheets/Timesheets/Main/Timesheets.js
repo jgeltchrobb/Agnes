@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../../HeaderBar/Header'
 import DisplayCategory from '../Common/DisplayCategory'
+import Name from '../Common/Name'
 import TotalsRow from '../Common/TotalsRow'
 import Summary from '../Summary/Summary'
 import Individual from '../Individual/Individual'
@@ -196,7 +197,17 @@ class Timesheets extends Component {
           if (cat === category) { payRateCategoriesObj[category] += 1}
         }
       }
-      totalsRows.push(totalsRow)
+
+      console.log(this.state.individual)
+      console.log(totalsRow.staffID)
+      if (this.state.individual) {
+        if (this.state.individual === totalsRow.staffID) {
+
+          totalsRows.push(totalsRow)
+        }
+      } else {
+        totalsRows.push(totalsRow)
+      }
     })
 
   // If count is zero then there is no need to displayu that catergory so delete it
@@ -251,18 +262,36 @@ class Timesheets extends Component {
           }
         </div>
 
-        { !this.state.individual ? (
-            <div>
-              <Summary  totalsRows={this.state.totalsRows}
-                        users={users}
-                        displayCategories={this.state.displayCategories}
-                        entitlements={this.props.entitlements}
-                        setIndividual={this.setIndividual}
-              />
-            </div>
-          )
-          :
-          (
+        <div className='names-constainer'>
+          {
+            this.state.totalsRows.map((row) => {
+            return (
+              <Name staffID={row.staffID}
+                    users={users}
+                    setIndividual={this.setIndividual}
+                />
+              )
+            })
+          }
+        </div>
+
+        <div>
+          {
+            this.state.totalsRows.map((row) => {
+              return (
+                <TotalsRow  row={row}
+                            displayCategories={this.state.displayCategories}
+                            entitlements={this.state.entitlements}
+                            setIndividual={this.setIndividual}
+                />
+              )
+            })
+          }
+        </div>
+
+  {/*      {
+          if (this.state.individual) {
+            return (
               <div>
                 <Individual individual={this.state.individual}
                             totalsRows={this.state.totalsRows}
@@ -272,12 +301,18 @@ class Timesheets extends Component {
                             setIndividual={this.setIndividual}
                             removeIndividual={this.removeIndividual}
                 />
-            </div>
-          )
+              </div>
+            )
+          }
         }
+      //
+        // {if (this.state.individual)
+        // return (
+        //   <p>sefasrf</p>
+        // )}
+        */}
       </div>
     )
-
   }
 
 }
