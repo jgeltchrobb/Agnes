@@ -19,34 +19,7 @@ class Summary extends Component {
     return (
       <div>
 
-        <div className='names-constainer'>
-
-          {
-            totalsRows.map((row) => {
-            return (
-              <Name staffID={row.staffID}
-                    users={users}
-                    setIndividual={this.setIndividual}
-                />
-              )
-            })
-          }
-        </div>
-
-        <div>
-          {
-            totalsRows.map((row) => {
-              return (
-                <TotalsRow  row={row}
-                            displayCategories={displayCategories}
-                            entitlements={entitlements}
-                            setIndividual={setIndividual}
-                />
-              )
-            })
-          }
-        </div>
-
+        
       </div>
     )
   }
