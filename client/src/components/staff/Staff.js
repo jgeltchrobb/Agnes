@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import StaffRow from './StaffRow'
-import staffData from './staffDataTest'
 import SideBar from './SideBar'
+import axios from 'axios'
+
+const api = 'http://localhost:4000'
 
 
 class Staff extends Component {
@@ -9,6 +11,7 @@ class Staff extends Component {
     super()
     this.state = {
       revealed: '',
+      staffData: [],
     }
   }
 
@@ -22,34 +25,63 @@ class Staff extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   // let standardTotals = [...this.state.standardTotals]
-  //   let standardTotals = []
-  //   for (let staff of staffData) {
-  //     // totals.push({name: staff.staff, categories: staff.categories})
-  //     for (let key in staff.categories) {
-  //       if (staff.categories.hasOwnProperty(key)) {
-  //         standardTotals.push({name: staff.staff, standard: staff.categories[key].standard})
-  //           console.log(staff.categories[key].standard)
-  //         // standardTotals.push(staff.categories[key])
-  //       }
-  //     }
-  //   }
-  //   let finalTotals = []
-  //   for (let standard of standardTotals) {
-  //     if 
-  //   }
-  //   // this.setState({totals})
-  //   console.log(standardTotals, 'standardTotals')
-  // }
+  fetchStandard = () => {
+    axios.get(api + '/standardHours').then((response) => {
+      for (let staff of response.data) {
+        staff.totalHours = parseInt(localStorage.getItem(`${staff.name}`))
+      }
+      return response
+    }).then((result) => {
+      this.setState({staffData: result.data})
+    })
+  }
+  
+  passTotal = (total) => {
+    let name = ''
+    let currentTotal = ''
+    let plus = ''
+    let staffData = [...this.state.staffData]
+    let diff = ''
+    if (total.orgHours < total.hours) {
+      plus = true
+      diff = total.hours - total.orgHours
+    } else if (total.orgHours > total.hours) {
+      plus = false
+      diff = total.hours - total.orgHours
+    } else {
+      plus = null
+      diff = total.orgHours
+    }
+    for (let obj of staffData) {
+      if (obj._id === total.standardID) {
+        name = obj.name
+        currentTotal = parseInt(localStorage.getItem(`${name}`))
+        for (let cat of obj.categories) {
+          if (cat._id === total.id) {
+            cat.hoursWorked = total.hours
+            if (plus) {
+              currentTotal = currentTotal + diff
+            } else if (plus === false) {
+              currentTotal = currentTotal + diff
+            }
+          }
+        }
+      }
+    }
+    localStorage.setItem(`${name}`, currentTotal)
+    this.setState({staffData})
+  }
+
+  componentDidMount() {
+    this.fetchStandard()
+  }
   
   render() {
-    console.log(this.state.totals)
     return (
       <div className="staff-container" >
-        <SideBar staffData={staffData} handleClick={this.clickHandler} revealed={this.state.revealed} />
+        <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} />
         <div className="staff-row-container" >
-          <StaffRow staffData={staffData} revealed={this.state.revealed} />
+          <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} />
         </div>
       </div>
     )

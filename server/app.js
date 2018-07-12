@@ -18,6 +18,7 @@ app.use('/rosters', require('./routes/weeks'))
 app.use('/users', require('./routes/users'))
 app.use('/payRateCategories', require('./routes/payRateCategories'))
 app.use('/entitlements', require('./routes/entitlements'))
+app.use('/standardHours', require('./routes/standardHours'))
 
 
 // Mongoose

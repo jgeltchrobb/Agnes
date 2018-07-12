@@ -6,39 +6,36 @@ class SubCategory extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      categories: [],
+      totalHours: [],
       data: props,
       revealed: this.props.revealed
     }
   }
 
+
   componentWillMount = () => {
-    let categories = this.props.categories
-    let cat = []
-    for (let key in categories) {
-      if (categories.hasOwnProperty(key)) {
-          cat.push(categories[key])
-      }
+    let totalHours = 0
+    for (let obj of this.props.categories) {
+      totalHours += obj.hoursWorked
     }
-    this.setState({
-      categories: cat
-    })
+    localStorage.setItem(`${this.props.name}`, totalHours)
+    this.setState({totalHours})
   }
 
   render() {
     return (
-      this.state.categories.map((category) => {
-        if (this.props.revealed == this.state.data.staff) {
+      this.props.categories.map((category) => {
+        if (this.props.revealed == this.props.name) {
           return (
             <div className="cat-cell" >
-              <CatCell {...category} />
+              <CatCell {...category} standardID={this.props._id} passTotal={this.props.passTotal} />
               <RostCell {...category} />
             </div>  
           )
         } else {
           return (
             <div>
-              <CatCell {...category} />
+              <CatCell {...category} standardID={this.props._id} passTotal={this.props.passTotal} />
             </div>
           )
         }

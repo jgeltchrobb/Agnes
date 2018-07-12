@@ -3,6 +3,7 @@ const User = require('../models/user')
 const mongoose = require('mongoose')
 const PayRateCategories = require('../models/payRateCategories')
 const Entitlements = require('../models/entitlements')
+const StandardHours = require('../models/standardHours')
 
 mongoose.connect('mongodb://localhost/agnes', (err) => {
   if (err) {
@@ -565,6 +566,8 @@ const seedData = async () => {
       'Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus'
     ]
   })
+
+  await StandardHours.create({})
 
   await mongoose.connection.close(() => {
     console.log('Disconnected from database!')

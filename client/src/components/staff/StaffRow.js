@@ -4,16 +4,14 @@ import SubCategory from './SubCategory'
 class StaffRow extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      data: props,
-    }
+    this.state = {}
   }
-  
+
   render() {
-    return this.state.data.staffData.map((staff) => {
+    return this.props.staffData.map((staff) => {
       return (
         <div className="staffrow" >
-          <SubCategory {...staff} revealed={this.props.revealed} handleClick={this.toggleHandler} />
+          <SubCategory {...staff} revealed={this.props.revealed} handleClick={this.toggleHandler} passTotal={this.props.passTotal}/>
         </div>
       )
     })
