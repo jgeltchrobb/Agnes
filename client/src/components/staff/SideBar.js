@@ -6,29 +6,34 @@ class SideBar extends React.Component {
     super(props)
     this.state = {
       staffData: [],
-      staffRoster: []
+      rosteredTotal: ''
     }
   }
 
-
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.staffData !== prevProps.staffData) {
-      this.setState({staffData: this.props.staffData})
-    }
-    if (this.state.staffRoster !== prevProps.staffRoster) {
-      this.setState({staffRoster: this.props.staffRoster})
-    }
+  componentWillReceiveProps({staffData}) {
+    this.setState({staffData})
   }
-
   
-  componentWillReceiveProps({staffData, staffRoster}) {
-    this.setState({staffData, staffRoster})
-    // this.calcRosters()
+  componentDidUpdate = () => {
+    this.calcRosterTotal()
+
+  }
+
+  calcRosterTotal = () => {
+    let rosteredTotal = 0
+    for (let obj of this.props.staffData) {
+      for (let key of Object.keys(obj)) {
+        if (key === 'rostered') {
+          for (let i of Object.keys(obj.rostered)) {
+            rosteredTotal += obj.rostered[i]
+          }
+        }
+      }
+      obj.rosteredTotal = rosteredTotal
+    }
   }
 
   render() {
-    console.log(this.state.staffRoster, 'roster')
     return (
       <div className="sidebar" >
         {this.state.staffData.map((staff) => {
@@ -47,8 +52,7 @@ class SideBar extends React.Component {
                     {localStorage.getItem(`${staff.name}`)}
                   </div>
                   <div className="cell" >
-                    <RosterTotalCell />
-                    {/*rostered={staff.rosteredTotal}*/} 
+                    <RosterTotalCell rostered={staff.rosteredTotal} />
                   </div>
                 </div>
               </div>

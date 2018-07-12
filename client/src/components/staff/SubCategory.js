@@ -1,6 +1,6 @@
 import React from 'react'
 import CatCell from './cells/CatCell'
-import RostCell from './cells/RostCell';
+import RostCells from './cells/RostCells';
 
 class SubCategory extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class SubCategory extends React.Component {
           return (
             <div className="cat-cell" >
               <CatCell {...category} standardID={this.props._id} passTotal={this.props.passTotal} />
-              <RostCell {...category} />
+              <RostCells {...this.props.rostered} {...category} />
             </div>  
           )
         } else {
