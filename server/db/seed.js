@@ -469,6 +469,7 @@ const seedData = async () => {
 
   await User.create({
     staffID: 1,
+    name: 'Pubert Gesepi',
     email: 'test@test.com',
     role: 'staff',
     PIN: 1234
@@ -476,6 +477,7 @@ const seedData = async () => {
 
   await User.create({
     staffID: 2,
+    name: 'Shaun Lamb',
     email: 'test@test.com',
     role: 'staff',
     PIN: 1234
@@ -483,6 +485,7 @@ const seedData = async () => {
 
   await User.create({
     staffID: 3,
+    name: 'Justin Case',
     email: 'test@test.com',
     role: 'staff',
     PIN: 1234
