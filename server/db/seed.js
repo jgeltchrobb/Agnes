@@ -16,120 +16,120 @@ mongoose.connect('mongodb://localhost/agnes', (err) => {
 const seedData = async () => {
 
   await Week.create({
-      date: new Date("July 2 2018"),
+      date: new Date("July 2 2018").getTime(),
       staff:
       [
         {
           staffID: 1, shifts:
           [
             {
-              date: new Date("July 2 2018"),
+              date: new Date("July 2 2018").getTime(),
               shiftCategory: "floor",
               start: {
-                rostered: new Date("July 2 2018 8:00"),
-                actual: new Date("July 2 2018 9:00"),
+                rostered: new Date("July 2 2018 8:00").getTime(),
+                actual: new Date("July 2 2018 9:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 2 2018 16:00"),
-                actual: new Date("July 2 2018 15:00"),
+                rostered: new Date("July 2 2018 16:00").getTime(),
+                actual: new Date("July 2 2018 15:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 3 2018").getTime(),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 3 2018 8:00"),
-                actual: new Date("July 3 2018 7:00"),
+                rostered: new Date("July 3 2018 8:00").getTime(),
+                actual: new Date("July 3 2018 7:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 3 2018 16:00"),
-                actual: new Date("July 3 2018 17:00"),
+                rostered: new Date("July 3 2018 16:00").getTime(),
+                actual: new Date("July 3 2018 17:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 4 2018"),
+              date: new Date("July 4 2018").getTime(),
               shiftCategory: "Kitchen",
               start: {
-                rostered: new Date("July 4 2018 8:00"),
-                actual: new Date("July 4 2018 8:00"),
+                rostered: new Date("July 4 2018 8:00").getTime(),
+                actual: new Date("July 4 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 4 2018 16:00"),
-                actual: new Date("July 4 2018 16:00"),
+                rostered: new Date("July 4 2018 16:00").getTime(),
+                actual: new Date("July 4 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 5 2018"),
+              date: new Date("July 5 2018").getTime(),
               shiftCategory: "floor",
               start: {
-                rostered: new Date("July 5 2018 8:00"),
-                actual: new Date("July 5 2018 8:00"),
+                rostered: new Date("July 5 2018 8:00").getTime(),
+                actual: new Date("July 5 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 5 2018 16:00"),
-                actual: new Date("July 5 2018 16:00"),
+                rostered: new Date("July 5 2018 16:00").getTime(),
+                actual: new Date("July 5 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 6 2018"),
+              date: new Date("July 6 2018").getTime(),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 6 2018 8:00"),
-                actual: new Date("July 6 2018 8:00"),
+                rostered: new Date("July 6 2018 8:00").getTime(),
+                actual: new Date("July 6 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 6 2018 16:00"),
-                actual: new Date("July 6 2018 16:00"),
+                rostered: new Date("July 6 2018 16:00").getTime(),
+                actual: new Date("July 6 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 7 2018"),
+              date: new Date("July 7 2018").getTime(),
               shiftCategory: "Kitchen",
               start: {
-                rostered: new Date("July 7 2018 8:00"),
-                actual: new Date("July 7 2018 8:00"),
+                rostered: new Date("July 7 2018 8:00").getTime(),
+                actual: new Date("July 7 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 7 2018 16:00"),
-                actual: new Date("July 7 2018 16:00"),
+                rostered: new Date("July 7 2018 16:00").getTime(),
+                actual: new Date("July 7 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 8 2018"),
+              date: new Date("July 8 2018").getTime(),
               shiftCategory: "floor",
               start: {
-                rostered: new Date("July 8 2018 8:00"),
-                actual: new Date("July 8 2018 8:00"),
+                rostered: new Date("July 8 2018 8:00").getTime(),
+                actual: new Date("July 8 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 8 2018 16:00"),
-                actual: new Date("July 8 2018 16:00"),
+                rostered: new Date("July 8 2018 16:00").getTime(),
+                actual: new Date("July 8 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
@@ -142,113 +142,113 @@ const seedData = async () => {
           staffID: 2, shifts:
           [
             {
-              date: new Date("July 2 2018"),
+              date: new Date("July 2 2018").getTime(),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 2 2018 8:00"),
-                actual: new Date("July 2 2018 9:00"),
+                rostered: new Date("July 2 2018 8:00").getTime(),
+                actual: new Date("July 2 2018 9:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 2 2018 16:00"),
-                actual: new Date("July 2 2018 15:00"),
+                rostered: new Date("July 2 2018 16:00").getTime(),
+                actual: new Date("July 2 2018 15:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 3 2018").getTime(),
               shiftCategory: "kitchen",
               start: {
-                rostered: new Date("July 3 2018 8:00"),
-                actual: new Date("July 3 2018 7:00"),
+                rostered: new Date("July 3 2018 8:00").getTime(),
+                actual: new Date("July 3 2018 7:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 3 2018 16:00"),
-                actual: new Date("July 3 2018 17:00"),
+                rostered: new Date("July 3 2018 16:00").getTime(),
+                actual: new Date("July 3 2018 17:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 4 2018"),
+              date: new Date("July 4 2018").getTime(),
               shiftCategory: "floor",
               start: {
-                rostered: new Date("July 4 2018 8:00"),
-                actual: new Date("July 4 2018 8:00"),
+                rostered: new Date("July 4 2018 8:00").getTime(),
+                actual: new Date("July 4 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 4 2018 16:00"),
-                actual: new Date("July 4 2018 16:00"),
+                rostered: new Date("July 4 2018 16:00").getTime(),
+                actual: new Date("July 4 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 5 2018"),
+              date: new Date("July 5 2018").getTime(),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 5 2018 8:00"),
+                rostered: new Date("July 5 2018 8:00").getTime(),
                 actual: new Date("July 5 2018 8:00"),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 5 2018 16:00"),
-                actual: new Date("July 5 2018 16:00"),
+                rostered: new Date("July 5 2018 16:00").getTime(),
+                actual: new Date("July 5 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 6 2018"),
+              date: new Date("July 6 2018").getTime(),
               shiftCategory: "kitchen",
               start: {
-                rostered: new Date("July 6 2018 8:00"),
-                actual: new Date("July 6 2018 8:00"),
+                rostered: new Date("July 6 2018 8:00").getTime(),
+                actual: new Date("July 6 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 6 2018 16:00"),
-                actual: new Date("July 6 2018 16:00"),
+                rostered: new Date("July 6 2018 16:00").getTime(),
+                actual: new Date("July 6 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 7 2018"),
+              date: new Date("July 7 2018").getTime(),
               shiftCategory: "floor",
               start: {
-                rostered: new Date("July 7 2018 8:00"),
-                actual: new Date("July 7 2018 8:00"),
+                rostered: new Date("July 7 2018 8:00").getTime(),
+                actual: new Date("July 7 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 7 2018 16:00"),
-                actual: new Date("July 7 2018 16:00"),
+                rostered: new Date("July 7 2018 16:00").getTime(),
+                actual: new Date("July 7 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 8 2018"),
+              date: new Date("July 8 2018").getTime(),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 8 2018 8:00"),
-                actual: new Date("July 8 2018 8:00"),
+                rostered: new Date("July 8 2018 8:00").getTime(),
+                actual: new Date("July 8 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 8 2018 16:00"),
-                actual: new Date("July 8 2018 16:00"),
+                rostered: new Date("July 8 2018 16:00").getTime(),
+                actual: new Date("July 8 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
@@ -260,113 +260,113 @@ const seedData = async () => {
           staffID: 3, shifts:
           [
             {
-              date: new Date("July 2 2018"),
+              date: new Date("July 2 2018").getTime(),
               shiftCategory: "kitchen",
               start: {
-                rostered: new Date("July 2 2018 8:00"),
-                actual: new Date("July 2 2018 9:00"),
+                rostered: new Date("July 2 2018 8:00").getTime(),
+                actual: new Date("July 2 2018 9:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 2 2018 16:00"),
-                actual: new Date("July 2 2018 17:00"),
+                rostered: new Date("July 2 2018 16:00").getTime(),
+                actual: new Date("July 2 2018 17:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 3 2018").getTime(),
               shiftCategory: "floor",
               start: {
-                rostered: new Date("July 3 2018 8:00"),
-                actual: new Date("July 3 2018 7:00"),
+                rostered: new Date("July 3 2018 8:00").getTime(),
+                actual: new Date("July 3 2018 7:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 3 2018 16:00"),
-                actual: new Date("July 3 2018 17:00"),
+                rostered: new Date("July 3 2018 16:00").getTime(),
+                actual: new Date("July 3 2018 17:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 4 2018"),
+              date: new Date("July 4 2018").getTime(),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 4 2018 8:00"),
-                actual: new Date("July 4 2018 8:00"),
+                rostered: new Date("July 4 2018 8:00").getTime(),
+                actual: new Date("July 4 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 4 2018 17:00"),
-                actual: new Date("July 4 2018 16:00"),
+                rostered: new Date("July 4 2018 17:00").getTime(),
+                actual: new Date("July 4 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 5 2018"),
+              date: new Date("July 5 2018").getTime(),
               shiftCategory: "kitchen",
               start: {
-                rostered: new Date("July 5 2018 8:00"),
-                actual: new Date("July 5 2018 8:00"),
+                rostered: new Date("July 5 2018 8:00").getTime(),
+                actual: new Date("July 5 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 5 2018 16:00"),
-                actual: new Date("July 5 2018 16:00"),
+                rostered: new Date("July 5 2018 16:00").getTime(),
+                actual: new Date("July 5 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 6 2018"),
+              date: new Date("July 6 2018").getTime(),
               shiftCategory: "floor",
               start: {
-                rostered: new Date("July 6 2018 8:00"),
-                actual: new Date("July 6 2018 8:00"),
+                rostered: new Date("July 6 2018 8:00").getTime(),
+                actual: new Date("July 6 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 6 2018 16:00"),
-                actual: new Date("July 6 2018 16:00"),
+                rostered: new Date("July 6 2018 16:00").getTime(),
+                actual: new Date("July 6 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 7 2018"),
+              date: new Date("July 7 2018").getTime(),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 7 2018 8:00"),
-                actual: new Date("July 7 2018 8:00"),
+                rostered: new Date("July 7 2018 8:00").getTime(),
+                actual: new Date("July 7 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 7 2018 18:00"),
-                actual: new Date("July 7 2018 19:00"),
+                rostered: new Date("July 7 2018 18:00").getTime(),
+                actual: new Date("July 7 2018 19:00").getTime(),
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 8 2018"),
+              date: new Date("July 8 2018").getTime(),
               shiftCategory: "kitchen",
               start: {
-                rostered: new Date("July 8 2018 8:00"),
-                actual: new Date("July 8 2018 8:00"),
+                rostered: new Date("July 8 2018 8:00").getTime(),
+                actual: new Date("July 8 2018 8:00").getTime(),
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 8 2018 16:00"),
-                actual: new Date("July 8 2018 16:00"),
+                rostered: new Date("July 8 2018 16:00").getTime(),
+                actual: new Date("July 8 2018 16:00").getTime(),
                 timesheet: '',
                 flag: false
               }
@@ -378,29 +378,29 @@ const seedData = async () => {
     })
 
   await Week.create({
-    date: new Date("July 9 2018"),
+    date: new Date("July 9 2018").getTime(),
     staff:
     [
       {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("July 15 2018").getTime(),
             shiftCategory: "floor",
-            start: {
-              rostered: new Date("July 15 2018 8:00"),
-              actual: new Date("July 15 2018 8:00"),
-              timesheet: '',
-              flag: false
-            },
+            start:  {
+                        rostered: new Date("July 15 2018 8:00").getTime(),
+                        actual: new Date("July 15 2018 8:00").getTime(),
+                        timesheet: '',
+                        flag: false
+                    },
             finish: {
-              rostered: new Date("July 15 2018 16:00"),
-              actual: new Date("July 15 2018 16:00"),
-              timesheet: '',
-              flag: false
-            }
-          }, // end of saterday
-        ] // end of shifts
+                        rostered: new Date("July 15 2018 16:00").getTime(),
+                        actual: new Date("July 15 2018 16:00").getTime(),
+                        timesheet: '',
+                        flag: false
+                    }
+          },
+        ], // end of shifts
 
       }, //end of staff member
 
@@ -408,120 +408,62 @@ const seedData = async () => {
         staffID: 2, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("July 9 2018").getTime(),
             shiftCategory: "room",
-            start: {
-              rostered: new Date("July 9 2018 8:00"),
-              actual: new Date("July 9 2018 9:00"),
-              timesheet: '',
-              flag: false
-            },
+            start:  {
+                      rostered: new Date("July 9 2018 8:00").getTime(),
+                      actual: new Date("July 9 2018 9:00").getTime(),
+                      timesheet: '',
+                      flag: false
+                    },
             finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
+              rostered: new Date("July 9 2018 16:00").getTime(),
+              actual: new Date("July 9 2018 15:00").getTime(),
               timesheet: '',
               flag: false
-            }
-          }, // end of saterday
-        ] // end of shifts
+                    }
+          },
+        ], // end of shifts
       }, // end of staff member
 
       {
         staffID: 3, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("July 10 2018").getTime(),
             shiftCategory: "floor",
-            start: {
-              rostered: new Date("July 10 2018 8:00"),
-              actual: new Date("July 10 2018 7:00"),
-              timesheet: '',
-              flag: false
-            },
+            start:  {
+                      rostered: new Date("July 10 2018 8:00").getTime(),
+                      actual: new Date("July 10 2018 7:00").getTime(),
+                      timesheet: '',
+                      flag: false
+                    },
             finish: {
-              rostered: new Date("July 10 2018 16:00"),
-              actual: new Date("July 10 2018 17:00"),
-              timesheet: '',
-              flag: false
-            }
-          }, // end of saterday
-        ] // end of shifts
+                      rostered: new Date("July 10 2018 16:00").getTime(),
+                      actual: new Date("July 10 2018 17:00").getTime(),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
       }, // end of staff member
 
     ]
   })
 
   await Week.create({
-    date: new Date("July 16 2018"),
+    date: new Date("July 16 2018").getTime(),
     staff:
     [
       {
-        staffID: 1, shifts:
-        [
-          {
-            date: new Date("July 16 2018"),
-            shiftCategory: "floor",
-            start: {
-              rostered: new Date("July 16 2018 8:00"),
-              actual: new Date("July 16 2018 9:00"),
-              timesheet: '',
-              flag: false
-            },
-            finish: {
-              rostered: new Date("July 16 2018 16:00"),
-              actual: new Date("July 16 2018 15:00"),
-              timesheet: '',
-              flag: false
-            }
-          }, // end of saterday
-        ] // end of shifts
-
-      }, //end of staff member
-
+        staffID: 1, shifts: [ ],
+      },
       {
-        staffID: 2, shifts:
-        [
-          {
-            date: new Date("July 4 2018"),
-            shiftCategory: "floor",
-            start: {
-              rostered: new Date("July 11 2018 8:00"),
-              actual: new Date("July 11 2018 8:00"),
-              timesheet: '',
-              flag: false
-            },
-            finish: {
-              rostered: new Date("July 11 2018 16:00"),
-              actual: new Date("July 11 2018 16:00"),
-              timesheet: '',
-              flag: false
-            }
-          }, // end of saterday
-        ] // end of shifts
-      }, // end of staff member
-
+        staffID: 2, shifts: [ ],
+      },
       {
-        staffID: 3, shifts:
-        [
-          {
-            date: new Date("July 12 2018"),
-            shiftCategory: "kitchen",
-            start: {
-              rostered: new Date("July 12 2018 8:00"),
-              actual: new Date("July 12 2018 8:00"),
-              timesheet: '',
-              flag: false
-            },
-            finish: {
-              rostered: new Date("July 12 2018 16:00"),
-              actual: new Date("July 12 2018 16:00"),
-              timesheet: '',
-              flag: false
-            }
-          }, // end of saturday
-        ] // end of shifts
-      }, // end of staff member
-
+        staffID: 3, shifts: [ ],
+      },
     ]
   })
 

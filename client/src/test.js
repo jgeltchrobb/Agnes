@@ -1,7 +1,15 @@
 
-const row1 = {staffID: 1, 'ord': 8, 'sat': 6, 'sun': 4}
+let x = new Date("July 15 2018")
 
-Object.keys(row1) => {
 
-  console.log(key)
-})
+// let y = x
+
+let y = new Date(x)
+//Object.assign({x})
+
+
+y.setDate(y.getDate() + 1)
+//
+let w = x.getDate()
+
+console.log(w)

@@ -8,20 +8,44 @@ class Roster extends Component {
 
   }
 
+  componentDidMount = () => {
+
+  }
+
   render() {
-    const { staff } = this.props
+    const { weekDate, staff } = this.props
+
+    // console.log(new Date(weekDate))
+
 
     return (
       <div>
-        {/* Add column headings here: M,T,W,TH,F,S,S */}
-          {
-            staff.map((staffMember) => {
-              return (
-                <ShiftRow staffMember={staffMember} />
-              )
-            })
-          }
+
+        <div>
+          <div>M</div>
+          <div>T</div>
+          <div>W</div>
+          <div>T</div>
+          <div>F</div>
+          <div>S</div>
+          <div>S</div>
+        </div>
+
+        <div>
+          {/* Add column headings here: M,T,W,TH,F,S,S */}
+            {
+              staff.map((staffMember) => {
+                return (
+                  <ShiftRow staffMember={staffMember}
+                            weekDate={weekDate}
+                  />
+                )
+              })
+            }
+        </div>
+
       </div>
+
     )
   }
 }
