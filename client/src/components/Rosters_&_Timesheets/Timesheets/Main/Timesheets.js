@@ -119,13 +119,13 @@ class Timesheets extends Component {
         const aFinish = new Date(shift.finish.actual)
         var finish = ''
         // set timnesheet start value. If not in data then calculate it
-        shift.start.timesheet ? start = shift.start.timesheet : start = this.timesheetEntry('start', rStart, aStart)
+        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart)
         // if not in data need to async post to db without updating App state or this will rerender and don't need because we now have the info required to go forward from here
         // will have to decide how often App does a api request to update data
         // also need to post flags, which are uncovered in the timesheetEntry method
         // Same goes for finish time
         // set timnesheet finsih value. If not in data then calculate it
-        shift.finish.timesheet ? finish = shift.finish.timesheet : finish = this.timesheetEntry('finish', rFinish, aFinish)
+        shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish)
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
         // determine the shift's payRateCategory and add it to totalsRow with the shiftHours as the value
@@ -196,6 +196,11 @@ class Timesheets extends Component {
 
   render() {
     const { week, users, nextWeek, previousWeek, sideBarHeading } = this.props
+    // if (!(this.state.totalsRows && this.state.columnHeadings
+    //   && this.state.setTotalsRowsToDisplay && this.state.individual
+    // )) return ''
+
+    // console.log(this.state.totalsRows, this.state.columnHeadings, this.state.setTotalsRowsToDisplay, this.state.individual)
 
     if (!this.state.individual) {
 
