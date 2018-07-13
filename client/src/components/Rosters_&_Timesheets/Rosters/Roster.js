@@ -13,7 +13,7 @@ class Roster extends Component {
   }
 
   render() {
-    const { weekDate, staff } = this.props
+    const { users, weekDate, staff } = this.props
 
     // console.log(new Date(weekDate))
 
@@ -38,6 +38,7 @@ class Roster extends Component {
                 return (
                   <ShiftRow staffMember={staffMember}
                             weekDate={weekDate}
+                            users={users}
                   />
                 )
               })

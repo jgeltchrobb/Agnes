@@ -15,7 +15,7 @@ class Name extends Component {
     var name = ''
     this.props.users.map((user) => {
       if (user.staffID.toString() === this.props.staffID) {
-        name = user.email
+        name = user.name
       }
     })
     this.setState({

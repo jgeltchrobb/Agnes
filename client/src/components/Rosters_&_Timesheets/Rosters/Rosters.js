@@ -13,7 +13,7 @@ class Rosters extends Component {
   }
 
   render() {
-    const { week, nextWeek, previousWeek, sideBarHeading } = this.props
+    const { week, users, nextWeek, previousWeek, sideBarHeading } = this.props
 
     return (
       <div>
@@ -28,7 +28,8 @@ class Rosters extends Component {
 
         <div>
 
-          <Roster staff={week.staff}
+          <Roster users={users}
+                  staff={week.staff}
                   weekDate={week.date}
           />
 
