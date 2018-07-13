@@ -7,19 +7,19 @@ const Week = new Schema({
     staffID: String,
     paid: {type: Boolean, default: false},
     shifts: [{
-      date: String,
+      date: Date,
       shiftCategory: String,
       publicHoliday: {type: Boolean, default: false},
       wayneShift: {type: Boolean, default: false},
       start: {
-        rostered: String,
-        actual: String,
+        rostered: Date,
+        actual: Date,
         timesheet: Date,
         flag: {type: Boolean, default: false}
       },
       finish: {
-        rostered: Number,
-        actual: Number,
+        rostered: Date,
+        actual: Date,
         timesheet: Date,
         flag: {type: Boolean, default: false}
       }
@@ -28,4 +28,3 @@ const Week = new Schema({
 })
 
 module.exports = mongoose.model('Week', Week);
-

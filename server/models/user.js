@@ -8,6 +8,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new Schema({
   staffID: Number,
+  name: String,
   email: String,
   role: String,
   PIN: Number,
