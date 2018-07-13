@@ -33,7 +33,7 @@ class Shift extends Component {
 
 
   render() {
-    const { weekDate, staffID, date, shiftCategory, start, finish } = this.props
+    const { weekDate, staffID, name, date, shiftCategory, start, finish } = this.props
 
     return (
 

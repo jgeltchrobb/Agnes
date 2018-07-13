@@ -43,10 +43,8 @@ class App extends Component {
     })
 
     axios.get(server + '/users').then(response => {
-
       this.setState({
         users: response.data,
-
       })
     })
 
@@ -92,7 +90,7 @@ class App extends Component {
       && this.state.payRateCategories && this.state.entitlements
     )) return ''
 
-    var week = this.state.week1
+    var week = this.state.week2
 
     return (
       <div>
@@ -112,6 +110,7 @@ class App extends Component {
 
             <Route path='/rosters' render={(routerprops) => (
               <Rosters  week={week}
+                        users={this.state.users}
                         nextWeek={this.nextWeek}
                         previousWeek={this.previousWeek}
                         sideBarHeading={this.state.sideBarHeading} /> )}
