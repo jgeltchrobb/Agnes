@@ -13,7 +13,10 @@ class Roster extends Component {
   }
 
   render() {
-    const { staff, weekDate } = this.props
+    const { weekDate, staff } = this.props
+
+    // console.log(new Date(weekDate))
+
 
     return (
       <div>

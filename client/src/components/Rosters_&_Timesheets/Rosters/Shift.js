@@ -6,30 +6,40 @@ class Shift extends Component {
 
   }
 
+  componentDidMount() {
+    // set state with object with date:, staffID:, shiftCategory:, start:, and finish:
+
+  }
+
   formatTime = (time) => {
 
-    let hr = time.getHours()
-      if (hr < 10) {
-       hr = ('0' + hr)
-      }
+    if (time) {
 
-    let min = time.getMinutes()
-      if (min < 10) {
-       min = ('0' + min)
-      }
+      let hr = new Date(time).getHours()
+        if (hr < 10) {
+          hr = ('0' + hr)
+        }
+      let min = new Date(time).getMinutes()
+        if (min < 10) {
+          min = ('0' + min)
+        }
 
-    return `${hr} : ${min}`
+      return ( `${hr} : ${min}` )
+
+    } else { return '' }
+
+
   }
 
 
   render() {
-    const { catagory, staffID, start, finish } = this.props
+    const { weekDate, staffID, date, shiftCategory, start, finish } = this.props
 
     return (
 
       <div>
 
-        <div>{catagory}</div>
+        <div>{shiftCategory}</div>
         <div>{this.formatTime(start)}</div>
         <div>{this.formatTime(finish)}</div>
 

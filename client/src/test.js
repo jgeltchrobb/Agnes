@@ -1,6 +1,15 @@
 
-const m = new Date("July 2 2018")
+let x = new Date("July 15 2018")
 
-const x = new Date(m.setDate(m.getDate() + 1))
 
-console.log(x.getDate())
+// let y = x
+
+let y = new Date(x)
+//Object.assign({x})
+
+
+y.setDate(y.getDate() + 1)
+//
+let w = x.getDate()
+
+console.log(w)

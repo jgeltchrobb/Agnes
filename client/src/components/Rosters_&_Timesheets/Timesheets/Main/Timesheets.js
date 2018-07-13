@@ -7,16 +7,11 @@ import Summary from '../Summary/Summary'
 import Individual from '../Individual/Individual'
 
 class Timesheets extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      individual: '',
-      columnHeadings: [],
-      totalsRows: [],
-      displayTotalsRows: [],
-
-    }
+  state = {
+    individual: '',
+    columnHeadings: [],
+    totalsRows: [],
+    displayTotalsRows: [],
   }
 
   roundUp = (time) => {
@@ -200,7 +195,6 @@ class Timesheets extends Component {
 
 
   render() {
-    if (!this.state.columnHeadings && !this.state.totalsRows) return ''
     const { week, users, nextWeek, previousWeek, sideBarHeading } = this.props
 
     if (!this.state.individual) {
