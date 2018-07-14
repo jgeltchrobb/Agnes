@@ -16,7 +16,6 @@ class SideBar extends React.Component {
   
   componentDidUpdate = () => {
     this.calcRosterTotal()
-
   }
 
   calcRosterTotal = () => {
@@ -34,6 +33,7 @@ class SideBar extends React.Component {
   }
 
   render() {
+    console.log(this.props.staffData, 'YOYOOYOYAAA')
     return (
       <div className="sidebar" >
         {this.state.staffData.map((staff) => {
