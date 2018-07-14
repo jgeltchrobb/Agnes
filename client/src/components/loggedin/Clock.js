@@ -4,7 +4,7 @@ import Header from './Header'
 class Clock extends Component {
   state = {
     clockedOn: null,
-    clockedOff: null
+    clockedOff: null,
   }
 
   constructor(props) {

@@ -5,14 +5,13 @@ import axios from 'axios'
 
 const api = 'http://localhost:4000'
 
-
 class Staff extends Component {
   constructor() {
     super()
     this.state = {
       revealed: '',
       staffData: [],
-      staffRoster: [],
+      staffRosters: []
     }
   }
 
@@ -34,6 +33,8 @@ class Staff extends Component {
       return response
     }).then((result) => {
       this.setState({staffData: result.data})
+    }).then(() => {
+      this.fetchRosters()
     })
   }
 
@@ -45,18 +46,21 @@ class Staff extends Component {
         }
       }
     }).then((obj) => {
-      this.setState({staffRoster: obj})
-    }).then(() => {
-      this.calcRosters()
+      return this.calcRosters(obj)
+    }).then((staffData) => {
+      console.log(staffData)
+      this.setState({staffData})
     })
   }
 
-  calcRosters = () => {
-    let staffRoster = []
-    let totalsRow = {}
+  calcRosters = (roster) => {
+    let staffData = [...this.state.staffData]
+    console.log(staffData)
+    let totals = []
     const DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
-    for (let staff of this.state.staffRoster.staff) {
+    for (let staff of roster.staff) {
+      let totalsRow = {}
       for (let shift of staff.shifts) {
         let finish = new Date(shift.finish.rostered)
         let start = new Date(shift.start.rostered)
@@ -67,44 +71,79 @@ class Staff extends Component {
 
             if (start.getDay() === 6) {
               if (shift.wayneShift) {
-                totalsRow['Wayne Sat'] ? totalsRow['Wayne Sat'] += shiftHours : totalsRow['Wayne Sat'] = shiftHours
+                totalsRow['WayneSat'] ? totalsRow['WayneSat'] += shiftHours : totalsRow['WayneSat'] = shiftHours
               } else {
                 totalsRow['Sat'] ? totalsRow['Sat'] += shiftHours : totalsRow['Sat'] = shiftHours
               }
             } else if (start.getDay() === 0) {
                 if (shift.wayneShift) {
-                  totalsRow['Wayne Sun'] ? totalsRow['Wayne Sun'] += shiftHours : totalsRow['Wayne Sun'] = shiftHours
+                  totalsRow['WayneSun'] ? totalsRow['WayneSun'] += shiftHours : totalsRow['WayneSun'] = shiftHours
                 } else {
                   totalsRow['Sun'] ? totalsRow['Sun'] += shiftHours : totalsRow['Sun'] = shiftHours
                 }
             } else {
                 if (shift.wayneShift) {
-                  totalsRow['Wayne Ordinary'] ? totalsRow['Wayne Ordinary'] += shiftHours : totalsRow['Wayne Ordinary'] = shiftHours
+                  totalsRow['WayneOrdinary'] ? totalsRow['WayneOrdinary'] += shiftHours : totalsRow['WayneOrdinary'] = shiftHours
                 } else {
                   totalsRow['Ordinary'] ? totalsRow['Ordinary'] += shiftHours : totalsRow['Ordinary'] = shiftHours
                 }
             }
           } else {
               if (shift.wayneShift) {
-                totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours
+                totalsRow['WayneNight'] ? totalsRow['WayneNight'] += shiftHours : totalsRow['WayneNight'] = shiftHours
               } else {
                 totalsRow['Night'] ? totalsRow['Night'] += shiftHours : totalsRow['Night'] = shiftHours
               }
           }
         } else if (shift.publicHoliday && shift.wayneShift) {
-          totalsRow['Wayne Public Holiday'] ? totalsRow['Wayne Public Holiday'] += shiftHours : totalsRow['Wayne Public Holiday'] = shiftHours
+          totalsRow['WaynePublicHoliday'] ? totalsRow['WaynePublicHoliday'] += shiftHours : totalsRow['WaynePublicHoliday'] = shiftHours
 
         } else {
-          totalsRow['Public Holiday'] ? totalsRow['Public Holiday'] += shiftHours : totalsRow['Public Holiday'] = shiftHours
+          totalsRow['PublicHoliday'] ? totalsRow['PublicHoliday'] += shiftHours : totalsRow['PublicHoliday'] = shiftHours
         }
       }
-      for (let obj of this.state.staffData) {
-        if (obj.staffID === staff.staffID) {
-          staffRoster.push({...obj, rostered: {...totalsRow}, staffID: staff.staffID})
-        }
-      }
+      totals.push({...totalsRow, staffID: staff.staffID})
     }
-    this.setState({staffData: staffRoster})
+    for (let staff of staffData) {
+      let rostTotal = 0
+      for (let obj of totals) {
+        if (obj.staffID === staff.staffID) {
+          for (let key of Object.keys(obj)) {
+            if (key !== 'staffID') {
+              rostTotal += obj[key]
+            }
+          }
+        }
+      }
+      staff.rosteredTotal = rostTotal
+    }
+    console.log(staffData)
+    return staffData
+  }
+
+  categoryChecker = (key) => {
+    switch (key) {
+      case 'Ordinary':
+        return 'Ordinary'
+      case 'Sunday':
+        return 'Sun'
+      case 'Saturday':
+        return 'Sat'
+      case 'Night':
+        return 'Night'
+      case 'Public Holiday':
+        return 'PublicHoliday'
+      case 'Wayne Ordinary':
+        return 'WayneOrdinary'
+      case 'Wayne Saturday':
+        return 'WayneSat'
+      case 'Wayne Sunday':
+        return 'WayneSun'
+      case 'Wayne Night':
+        return 'WayneNight'
+      case 'Wayne Public Holiday':
+        return 'WaynePublicHoliday'
+    }
   }
   
   passTotal = (total) => {
@@ -143,13 +182,14 @@ class Staff extends Component {
     this.setState({staffData})
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.fetchStandard()
-    this.fetchRosters()
   }
   
   render() {
-    console.log(this.state.staffData, 'rosters')
+    console.log(this.state.staffData, 'SATTAFAFAT')
+    console.log(this.state.staffRosters, 'RRRRRRRRRr')
+
     return (
       <div className="staff-container" >
         <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} />
