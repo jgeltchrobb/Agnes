@@ -7,11 +7,12 @@ class Value extends Component {
   }
 
   render() {
+    const { value } = this.props
 
     return (
       <div className='value-constainer'>
 
-        value
+        {value.toString()}
 
       </div>
     )
