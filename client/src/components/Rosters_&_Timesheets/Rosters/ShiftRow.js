@@ -20,9 +20,6 @@ class ShiftRow extends Component {
     const weekDate = new Date(this.props.weekDate)
     const shiftsArray = []
 
-    // await this.setName()
-    // console.log(this.state.Name)
-
     for (let day = 0; day < 7; day++) {
       let pushed = 'no'
       let date = new Date(weekDate)
@@ -56,30 +53,7 @@ class ShiftRow extends Component {
       shiftsArray: shiftsArray,
       name: name,
     })
-    // console.log(shiftsArray)
   }
-
-  componentWillUnmount() {
-  }
-
-  // shouldComponentUpdate(nextProps) {
-  //
-  //   if (nextProps.weekDate === this.props.weekDate) return false
-  //   return true
-  // }
-
-  // setWeekDates = () => {
-  //   const { weekDate } = this.props
-  //   const weekDates = []
-  //   for (let add = 0; add < 7; add++) {
-  //     let day = new Date(weekDate)
-  //     day.setDate(day.getDate() + add)
-  //     weekDates.push(day)
-  //   }
-  //   this.setState({
-  //     weekDates: weekDates
-  //   })
-  // }
 
 
   render() {
