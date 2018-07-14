@@ -10,30 +10,35 @@ class SideBar extends React.Component {
     }
   }
 
-  componentWillReceiveProps({staffData}) {
-    this.setState({staffData})
-  }
-  
-  componentDidUpdate = () => {
-    this.calcRosterTotal()
-  }
+  componentDidUpdate(prevProps) {
+    if(prevProps.staffData !== this.props.staffData) {
+      this.calcRosterTotal(this.props.staffData)
 
-  calcRosterTotal = () => {
-    let rosteredTotal = 0
-    for (let obj of this.props.staffData) {
-      for (let key of Object.keys(obj)) {
-        if (key === 'rostered') {
-          for (let i of Object.keys(obj.rostered)) {
-            rosteredTotal += obj.rostered[i]
-          }
-        }
-      }
-      obj.rosteredTotal = rosteredTotal
+      // this.props.myProp has a different value
+      // we can perform any operations that would 
+      // need the new value and/or cause side-effects 
+      // like AJAX calls with the new value - this.props.myProp
     }
   }
 
+  calcRosterTotal = (staffData) => {
+    for (let staff of staffData) {
+      let rostTotal = 0
+      for (let obj of this.props.totals) {
+        if (obj.staffID === staff.staffID) {
+          for (let key of Object.keys(obj)) {
+            if (key !== 'staffID') {
+              rostTotal += obj[key]
+            }
+          }
+        }
+      }
+      staff.rosteredTotal = rostTotal
+    }
+    this.setState({staffData})
+  }
+
   render() {
-    console.log(this.props.staffData, 'YOYOOYOYAAA')
     return (
       <div className="sidebar" >
         {this.state.staffData.map((staff) => {
