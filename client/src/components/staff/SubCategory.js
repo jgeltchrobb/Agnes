@@ -11,22 +11,16 @@ class SubCategory extends React.Component {
       revealed: this.props.revealed,
       categories: []
     }
-    console.log(props)
   }
 
   componentDidUpdate(prevProps) {
     if(prevProps.totals !== this.props.totals) {
       let categories = [...this.props.categories]
-      console.log(categories)
-      console.log(this.props.totals)
       for (let obj of categories) {
         for (let total of this.props.totals) {
           if (total.staffID === this.props.staffID) {
             for (let key of Object.keys(total)) {
-              console.log(obj.category)
-              console.log(key)
-              if (obj.category === key) {
-                console.log('QQQQQQQQQQq')
+              if (obj.category === this.categoryChecker(key)) {
                 obj.rostered = total[key]
                 break
               } else {
@@ -36,8 +30,6 @@ class SubCategory extends React.Component {
           }
         }  
       }
-      console.log(categories)
-      // console.log(totals)
       this.setState({categories: categories, totals: this.props.totals})
     }
   }
