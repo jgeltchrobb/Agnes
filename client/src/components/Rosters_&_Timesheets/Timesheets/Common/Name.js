@@ -36,17 +36,7 @@ class Name extends Component {
 
     return (
       <div onClick={() => this.summaryOrIndividual(staffID)}>
-        {/* {
-          if (individual) {
-          if (individual == staffID) {
-          trigger callback to put this name at the start of the array
-        } else {
-        change className to grey out
-        }
-        } */}
-
-        {/* Need to query the user model for name */}
-
+        
         {this.state.name}
 
       </div>
