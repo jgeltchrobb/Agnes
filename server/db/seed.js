@@ -28,13 +28,13 @@ const seedData = async () => {
               start: {
                 rostered: new Date("July 2 2018 8:00"),
                 actual: new Date("July 2 2018 9:00"),
-                timesheet: '',
+                timesheet: new Date("July 2 2018 9:00"),
                 flag: false
               },
               finish: {
                 rostered: new Date("July 2 2018 16:00"),
                 actual: new Date("July 2 2018 15:00"),
-                timesheet: '',
+                timesheet: new Date("July 2 2018 15:00"),
                 flag: false
               }
             },
@@ -44,13 +44,13 @@ const seedData = async () => {
               start: {
                 rostered: new Date("July 3 2018 8:00"),
                 actual: new Date("July 3 2018 7:00"),
-                timesheet: '',
+                timesheet: new Date("July 3 2018 8:00"),
                 flag: false
               },
               finish: {
                 rostered: new Date("July 3 2018 16:00"),
                 actual: new Date("July 3 2018 17:00"),
-                timesheet: '',
+                timesheet: new Date("July 3 2018 16:00"),
                 flag: false
               }
             },
@@ -60,13 +60,13 @@ const seedData = async () => {
               start: {
                 rostered: new Date("July 4 2018 8:00"),
                 actual: new Date("July 4 2018 8:00"),
-                timesheet: '',
+                timesheet: new Date("July 4 2018 8:00"),
                 flag: false
               },
               finish: {
                 rostered: new Date("July 4 2018 16:00"),
                 actual: new Date("July 4 2018 16:00"),
-                timesheet: '',
+                timesheet: new Date("July 4 2018 16:00"),
                 flag: false
               }
             },
@@ -76,13 +76,13 @@ const seedData = async () => {
               start: {
                 rostered: new Date("July 5 2018 8:00"),
                 actual: new Date("July 5 2018 8:00"),
-                timesheet: '',
+                timesheet: new Date("July 5 2018 8:00"),
                 flag: false
               },
               finish: {
                 rostered: new Date("July 5 2018 16:00"),
                 actual: new Date("July 5 2018 16:00"),
-                timesheet: '',
+                timesheet: new Date("July 5 2018 16:00"),
                 flag: false
               }
             },
@@ -390,13 +390,13 @@ const seedData = async () => {
             start:  {
                         rostered: new Date("July 15 2018 8:00"),
                         actual: new Date("July 15 2018 8:00"),
-                        timesheet: '',
+                        timesheet: new Date("July 15 2018 8:00"),
                         flag: false
                     },
             finish: {
                         rostered: new Date("July 15 2018 16:00"),
                         actual: new Date("July 15 2018 16:00"),
-                        timesheet: '',
+                        timesheet: new Date("July 15 2018 16:00"),
                         flag: false
                     }
           },

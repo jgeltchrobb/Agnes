@@ -86,11 +86,9 @@ class App extends Component {
   }
 
   render() {
-    if (!(this.state.week1 && this.state.users
-      && this.state.payRateCategories && this.state.entitlements
-    )) return ''
+    if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
-    var week = this.state.week2
+    var week = this.state.week1
 
     return (
       <div>
@@ -118,8 +116,7 @@ class App extends Component {
 
             <Route path='/timesheets' render={(routerprops) => (
               <Timesheets week={week}
-                          WeekPrevious={this.state.week2}
-                          WeekBeforePrevWeek={this.state.week1}
+                          prevWeek={this.state.week1}
                           users={this.state.users}
                           payRateCategories={this.state.payRateCategories}
                           entitlements={this.state.entitlements}
