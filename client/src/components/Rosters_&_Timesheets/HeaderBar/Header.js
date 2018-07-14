@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SideBarHeading from './SideBarHeading'
 import DateBar from './DateBar'
 import Nav from './Nav'
+import '../../../stylesheets/Header.css'
 
 class Header extends Component {
   constructor(props) {
@@ -13,14 +14,13 @@ class Header extends Component {
     const { weekDate, nextWeek, previousWeek, sideBarHeading } = this.props
 
     return (
-      <div>
+      <div className="header">
 
-        <div>
+        <div className="header-sidebar">
           <SideBarHeading sideBarHeading={sideBarHeading}/>
         </div>
 
-        <div>
-
+        <div className="header-mainbar">
           <div>
             <Nav previousWeek={previousWeek} />
           </div>
@@ -32,7 +32,6 @@ class Header extends Component {
           <div>
             <Nav nextWeek={nextWeek} />
           </div>
-
         </div>
 
       </div>

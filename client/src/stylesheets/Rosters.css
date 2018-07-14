@@ -1,0 +1,17 @@
+div.rosters-container {
+  border: 1px solid black;
+}
+
+div.rosters-main {
+  display: flex;
+}
+
+div.rosters-flags {
+  width: 10%;
+  border-right: 1px solid black;
+}
+
+div.rosters-date {
+  width: 90%;
+  padding: 0 2em;
+}
