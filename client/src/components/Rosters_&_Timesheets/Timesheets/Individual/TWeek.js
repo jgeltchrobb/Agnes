@@ -47,7 +47,7 @@ class TWeek extends Component {
     week.staff.map((staffMember) => {
       if (staffMember.staffID === individual) {
         for (let day = 0; day < 7; day++) {
-          let pushed = 'no'
+        let pushed = 'no'
           staffMember.shifts.map((shift) => {
             if ( (weekDate.getDate() + day) === new Date(shift.date).getDate() ) {
               shift.start.timesheet ? starts.push(new Date(shift.start.timesheet)) : starts.push('')
