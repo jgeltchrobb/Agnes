@@ -1,0 +1,14 @@
+div.shift-row {
+  margin: 2em 0;
+  display: flex;
+}
+
+div.shift-row > h3 {
+  width: 15%;
+}
+
+div.shifts {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ShiftRow from './ShiftRow'
+import '../../../stylesheets/Roster.css'
 
 
 class Roster extends Component {
@@ -19,16 +20,19 @@ class Roster extends Component {
 
 
     return (
-      <div>
+      <div className="rosters-cells">
 
-        <div>
-          <div>M</div>
-          <div>T</div>
-          <div>W</div>
-          <div>T</div>
-          <div>F</div>
-          <div>S</div>
-          <div>S</div>
+        <div className="days-header">
+          <div className="days-empty-column"></div>
+          <div className="days-column">
+            <div>M</div>
+            <div>T</div>
+            <div>W</div>
+            <div>T</div>
+            <div>F</div>
+            <div>S</div>
+            <div>S</div>
+          </div>
         </div>
 
         <div>

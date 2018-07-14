@@ -1,0 +1,21 @@
+div.rosters-cells {
+  border: 1px solid black;
+  padding: 2em;
+}
+
+div.days-header {
+  display: flex;
+}
+
+div.days-empty-column {
+  width: 15%;
+}
+
+div.days-column {
+  width: 85%;
+  display: flex;
+}
+
+div.days-column > div {
+  /* flex-grow: 1; */
+}
