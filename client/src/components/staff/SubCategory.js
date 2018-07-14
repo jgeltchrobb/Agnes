@@ -8,10 +8,39 @@ class SubCategory extends React.Component {
     this.state = {
       totalHours: [],
       data: props,
-      revealed: this.props.revealed
+      revealed: this.props.revealed,
+      categories: []
     }
+    console.log(props)
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.totals !== this.props.totals) {
+      let categories = [...this.props.categories]
+      console.log(categories)
+      console.log(this.props.totals)
+      for (let obj of categories) {
+        for (let total of this.props.totals) {
+          if (total.staffID === this.props.staffID) {
+            for (let key of Object.keys(total)) {
+              console.log(obj.category)
+              console.log(key)
+              if (obj.category === key) {
+                console.log('QQQQQQQQQQq')
+                obj.rostered = total[key]
+                break
+              } else {
+                obj.rostered = 0
+              }
+            }
+          }
+        }  
+      }
+      console.log(categories)
+      // console.log(totals)
+      this.setState({categories: categories, totals: this.props.totals})
+    }
+  }
 
   componentWillMount = () => {
     let totalHours = 0
@@ -22,6 +51,33 @@ class SubCategory extends React.Component {
     this.setState({totalHours})
   }
 
+  categoryChecker = (key) => {
+    switch (key) {
+      case 'Ordinary':
+        return 'Ordinary'
+      case 'Saturday':
+        return 'Sat'
+      case 'Sunday':
+        return 'Sun'
+      case 'Night':
+        return 'Night'
+      case 'Public Holiday':
+        return 'PublicHoliday'
+      case 'Wayne Ordinary':
+        return 'WayneOrdinary'
+      case 'Wayne Saturday':
+        return 'WayneSat'
+      case 'Wayne Sunday':
+        return 'WayneSun'
+      case 'Wayne Night':
+        return 'WayneNight'
+      case 'Wayne Public Holiday':
+        return 'WaynePublicHoliday'
+      default:
+        return key
+    }
+  }
+
   render() {
     return (
       this.props.categories.map((category) => {
@@ -29,7 +85,7 @@ class SubCategory extends React.Component {
           return (
             <div className="cat-cell" >
               <CatCell {...category} standardID={this.props._id} passTotal={this.props.passTotal} />
-              <RostCells {...this.props.rostered} {...category} />
+              <RostCells {...category} />
             </div>  
           )
         } else {
@@ -37,7 +93,7 @@ class SubCategory extends React.Component {
             <div>
               <CatCell {...category} standardID={this.props._id} passTotal={this.props.passTotal} />
             </div>
-          )
+          ) 
         }
       })
     )

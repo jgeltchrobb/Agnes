@@ -507,7 +507,7 @@ const seedData = async () => {
   })
 
   await StandardHours.create({
-    staffID: '1',
+    staffID: '2',
     name: 'Greg',
     totalHours: '',
     categories: [
@@ -516,11 +516,11 @@ const seedData = async () => {
         hoursWorked: 5
       },
       {
-        category: 'Saturday',
+        category: 'Sat',
         hoursWorked: 3
       },
       {
-        category: 'Sunday',
+        category: 'Sun',
         hoursWorked: 66
       },
       {
@@ -554,7 +554,7 @@ const seedData = async () => {
     ]
   })
   await StandardHours.create({
-    staffID: '2',
+    staffID: '3',
     name: 'Jack',
     totalHours: '',
     categories: [
@@ -563,11 +563,11 @@ const seedData = async () => {
         hoursWorked: 53
       },
       {
-        category: 'Saturday',
+        category: 'Sat',
         hoursWorked: 32
       },
       {
-        category: 'Sunday',
+        category: 'Sun',
         hoursWorked: 66
       },
       {

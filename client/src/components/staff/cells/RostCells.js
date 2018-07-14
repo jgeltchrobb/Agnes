@@ -1,11 +1,16 @@
 import React from 'react'
 
-const RostCells = (props) => {
-  return (
-    <div className="cell" >
-      <h4>{props.rostered}</h4>
+class RostCells extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <div className="cell" >
+      <h4>{this.props.rostered}</h4>
     </div>
-  )
+    )
+  }
 }
 
 export default RostCells
