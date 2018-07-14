@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Name from '../Common/Name'
-import TotalsRow from '../Common/TotalsRow'
+import TWeek from './TWeek'
 
 class Individual extends Component {
   constructor(props) {
@@ -13,13 +12,38 @@ class Individual extends Component {
     {/* Take name/id array and sort clicked name to front */}
   }
 
+  formatDate = (date) => {
+    var dateObj = new Date(date)
+    return (
+      `${dateObj.getDate()}/${dateObj.getMonth()}/${dateObj.getYear()}`
+    )
+
+  }
+
   render() {
-    const { displayTotalsRows, setIndividual, removeIndividual } = this.props
+    const { WeekPrevious, WeekBeforePrevWeek, individualTotalsRow, setIndividual, removeIndividual } = this.props
 
     return (
-      <div>
+      <div className='timesheet-card-container'>
 
-        Here we put the individual timesheet info for two week
+        <div className='week-date'>
+          {this.formatDate(WeekPrevious.date)}
+        </div>
+
+        <div className='dayNames-container'>
+          <div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
+        </div>
+
+        // WEEK COMPONENT - Previous Week
+        <TWeek week={WeekPrevious}/>
+
+        <div className='week-date'>
+          {this.formatDate(WeekBeforePrevWeek.date)}
+        </div>
+
+        // WEEK COMPONENT - Previous Week
+        <TWeek week={WeekBeforePrevWeek}/>
+
       </div>
     )
   }

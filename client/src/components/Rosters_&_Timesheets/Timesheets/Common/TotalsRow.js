@@ -37,7 +37,7 @@ class TotalsRow extends Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (!this.props === prevProps) {
+    if (this.props.row !== prevProps.row) {
       this.setTotalsArray()
     }
   }
