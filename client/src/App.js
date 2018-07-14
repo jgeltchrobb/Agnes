@@ -8,6 +8,7 @@ import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
 import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 // import Header from './components/header/Header'
 import Staff from './components/staff/Staff'
+import StaffHeader from './components/staff/Header'
 // import week from './data'
 import './App.css';
 
@@ -23,6 +24,7 @@ class App extends Component {
       week1: '',
       week2: '',
       week3: '',
+      staffData: []
 
     }
 
@@ -127,7 +129,16 @@ class App extends Component {
               /> )}
             />
 
-            <Route path='/staff' component={Staff} />
+            <Route path='/staff' render={(routerProps) => {
+              return (
+                <div>
+                  <div className="staff-header">
+                    <StaffHeader payRates={this.state.payRateCategories} />
+                  </div>
+                  <Staff />
+                </div>
+              )
+            }} />
 
             <Route path='/clock' component={Clock} />
 

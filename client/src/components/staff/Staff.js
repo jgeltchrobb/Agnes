@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import StaffRow from './StaffRow'
 import SideBar from './SideBar'
+import Header from './Header'
 import axios from 'axios'
 
 const api = 'http://localhost:4000'
@@ -98,12 +99,9 @@ class Staff extends Component {
           totalsRow['PublicHoliday'] ? totalsRow['PublicHoliday'] += shiftHours : totalsRow['PublicHoliday'] = shiftHours
         }
       }
-      console.log(totalsRow, 'THLHLKLKL')
       totals.push({...totalsRow, staffID: staff.staffID})
     }
-    console.log(totals)
     this.setState({staffData: staffData, totals: totals})
-    console.log(staffData)
   }
 
   categoryChecker = (key) => {
@@ -168,7 +166,7 @@ class Staff extends Component {
   }
   
   render() {
-    console.log(this.state.totals, 'HHHHHHHHHHHHHHHHHHHHHHHHHHHHLLLLLLLLL')
+    console.log(this.state.staffData, 'ASJKDAKLDJAKSDJAKLSDJ')
     return (
       <div className="staff-container" >
         <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
@@ -179,5 +177,6 @@ class Staff extends Component {
     )
   }
 }
+{/* <Header {...this.state.staffData} /> */}
 
 export default Staff
