@@ -5,7 +5,8 @@ class Name extends Component {
     super(props)
 
     this.state = {
-      name: ''
+      name: '',
+      clicked: false,
     }
 
   }
@@ -24,11 +25,17 @@ class Name extends Component {
     // if (this.props.individual) { add a className to the div and make it a darker grey}
   }
 
+  summaryOrIndividual = (staffID) => {
+    const { setIndividual, removeIndividual } = this.props
+    this.state.clicked ? removeIndividual() : setIndividual(staffID)
+    this.setState({ clicked: !this.state.clicked })
+  }
+
   render() {
-    const { users, staffID, setIndividual } = this.props
+    const { users, staffID } = this.props
 
     return (
-      <div onClick={() => setIndividual(staffID)}>
+      <div onClick={() => this.summaryOrIndividual(staffID)}>
         {/* {
           if (individual) {
           if (individual == staffID) {

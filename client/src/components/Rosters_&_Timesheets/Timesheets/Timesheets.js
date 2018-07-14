@@ -245,7 +245,8 @@ class Timesheets extends Component {
                 <Name staffID={row.staffID}
                       users={users}
                       setIndividual={this.setIndividual}
-                  />
+                      removeIndividual={this.removeIndividual}
+                />
                 )
               })
             }
@@ -297,7 +298,8 @@ class Timesheets extends Component {
                       users={users}
                       individual={this.state.individual}
                       setIndividual={this.setIndividual}
-                  />
+                      removeIndividual={this.removeIndividual}
+                />
                 )
               })
             }
