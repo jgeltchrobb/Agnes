@@ -5,7 +5,7 @@ import LogInPage from './components/login/LogInPage'
 import OfficePin from './components/officepin/OfficePin'
 import Clock from './components/loggedin/Clock'
 import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
-import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Main/Timesheets'
+import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 // import Header from './components/header/Header'
 import Staff from './components/staff/Staff'
 // import week from './data'
@@ -118,6 +118,8 @@ class App extends Component {
 
             <Route path='/timesheets' render={(routerprops) => (
               <Timesheets week={week}
+                          WeekPrevious={this.state.week2}
+                          WeekBeforePrevWeek={this.state.week1}
                           users={this.state.users}
                           payRateCategories={this.state.payRateCategories}
                           entitlements={this.state.entitlements}

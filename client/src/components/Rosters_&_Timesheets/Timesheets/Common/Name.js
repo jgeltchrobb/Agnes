@@ -21,6 +21,7 @@ class Name extends Component {
     this.setState({
       name: name
     })
+    // if (this.props.individual) { add a className to the div and make it a darker grey}
   }
 
   render() {

@@ -1,15 +1,9 @@
 
-let x = new Date("July 15 2018")
+let arr = ['1', '2', '3']
+let id = '2'
 
+arr.splice(arr.indexOf('2'), 1)
 
-// let y = x
+arr.unshift(id)
 
-let y = new Date(x)
-//Object.assign({x})
-
-
-y.setDate(y.getDate() + 1)
-//
-let w = x.getDate()
-
-console.log(w)
+console.log(arr)

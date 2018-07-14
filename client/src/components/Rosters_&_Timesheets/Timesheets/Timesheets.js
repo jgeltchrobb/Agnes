@@ -1,104 +1,36 @@
 import React, { Component } from 'react'
-import Header from '../../HeaderBar/Header'
-import ColumnHeading from '../Common/ColumnHeading'
-import Name from '../Common/Name'
-import TotalsRow from '../Common/TotalsRow'
-import Summary from '../Summary/Summary'
-import Individual from '../Individual/Individual'
+import Header from '../HeaderBar/Header'
+import ColumnHeading from './Common/ColumnHeading'
+import Name from './Common/Name'
+import TotalsRow from './Common/TotalsRow'
+import Summary from './Summary/Summary'
+import Individual from './Individual/Individual'
 
 class Timesheets extends Component {
   state = {
-    individual: '',
     columnHeadings: [],
     totalsRows: [],
-    displayTotalsRows: [],
+    staffIdArray: '',
+    individual: '',
+    individualTotalsRow: [],
   }
 
-  roundUp = (time) => {
-    var mins = time.getMinutes()
+  componentDidMount = () => {
+    // console.log('cDM running...')
+    this.setTotalsRowsAndColumnHeadings()
 
-    if (mins > 45) {
-      mins = 60
-    } else if (45 >= mins && mins > 30) {
-      mins = 45
-    } else if (30 >= mins && mins > 15) {
-      mins = 30
-    } else if (15 >= mins && mins > 0) {
-      mins = 15
-    } else {
-      mins = 0
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    // console.log('cDU running...')
+    if (this.props.week ==! prevProps.week) {
+      this.setTotalsRowsAndColumnHeadings()
+      // console.log('cDU setTotalsRowsAndColumnHeadings...')
+
     }
-    time.setMinutes(mins)
-    return time
   }
 
-  roundDown = (time) => {
-    var mins = time.getMinutes()
-
-    if (mins >= 45) {
-      mins = 45
-    } else if (45 > mins && mins >= 30) {
-      mins = 30
-    } else if (30 > mins && mins >= 15) {
-      mins = 15
-    } else if (15 > mins) {
-      mins = 0
-    }
-    time.setMinutes(mins)
-    return time
-  }
-
-  timesheetEntry = (startOrFinish, rostered, actual) => {
-    if (actual) {
-
-      if (actual <= rostered) {
-        if (startOrFinish === 'start') {
-          return rostered
-        }
-        if (startOrFinish === 'finish') {
-          return this.roundDown(actual)
-          // and post flag!!!
-        }
-      } else {
-
-        if (startOrFinish === 'start') {
-          return this.roundUp(actual)
-          // and post flag!!!
-        }
-        if (startOrFinish === 'finish') {
-          return rostered
-        }
-      }
-      // If no clock time then return rostered
-    } else return rostered
-  }
-
-  removeDuplicates = (arr) => {
-    let unique_array = Array.from(new Set(arr))
-    return unique_array
-  }
-
-  setTotalsRowsToDisplay = () => {
-    const displayTotalsRows = []
-    this.state.totalsRows.map((row) => {
-      if (!this.state.individual) {
-        displayTotalsRows.push(row)
-      } else {
-        if (row.staffID === this.state.individual) {
-          displayTotalsRows.push(row)
-        }
-      }
-    })
-    this.setState({
-      displayTotalsRows: displayTotalsRows,
-    })
-  }
-
-  componentDidMount = async () => {
-
-    var DayShiftDefinitionClockinBeforeHours = 20
-    const milliToHours = 0.00000027777777777778
-
+  setTotalsRowsAndColumnHeadings = async () => {
     // Posting to the data:
      // start.timesheet, finish.timesheet, flags set to true as required
      // Flags:
@@ -108,7 +40,14 @@ class Timesheets extends Component {
 
     var columnHeadings = []
     const totalsRows = []
+    const staffIdArray = []
+
+    var DayShiftDefinitionClockinBeforeHours = 20
+    const milliToHours = 0.00000027777777777778
+
     this.props.week.staff.map((staffMember) => {
+
+      staffIdArray.push(staffMember.staffID)
 
       const totalsRow = {}
       staffMember.shifts.map((shift) => {
@@ -179,14 +118,88 @@ class Timesheets extends Component {
     columnHeadings = [...this.removeDuplicates(columnHeadings), ...this.props.entitlements]
 
     await this.setState({
+      columnHeadings: columnHeadings,
       totalsRows:  totalsRows,
-      columnHeadings: columnHeadings
+      staffIdArray: staffIdArray,
     })
-    this.setTotalsRowsToDisplay()
+  }
+
+  roundUp = (time) => {
+    var mins = time.getMinutes()
+
+    if (mins > 45) {
+      mins = 60
+    } else if (45 >= mins && mins > 30) {
+      mins = 45
+    } else if (30 >= mins && mins > 15) {
+      mins = 30
+    } else if (15 >= mins && mins > 0) {
+      mins = 15
+    } else {
+      mins = 0
+    }
+    time.setMinutes(mins)
+    return time
+  }
+
+  roundDown = (time) => {
+    var mins = time.getMinutes()
+
+    if (mins >= 45) {
+      mins = 45
+    } else if (45 > mins && mins >= 30) {
+      mins = 30
+    } else if (30 > mins && mins >= 15) {
+      mins = 15
+    } else if (15 > mins) {
+      mins = 0
+    }
+    time.setMinutes(mins)
+    return time
+  }
+
+  timesheetEntry = (startOrFinish, rostered, actual) => {
+    if (actual) {
+
+      if (actual <= rostered) {
+        if (startOrFinish === 'start') {
+          return rostered
+        }
+        if (startOrFinish === 'finish') {
+          return this.roundDown(actual)
+          // and post flag!!!
+        }
+      } else {
+
+        if (startOrFinish === 'start') {
+          return this.roundUp(actual)
+          // and post flag!!!
+        }
+        if (startOrFinish === 'finish') {
+          return rostered
+        }
+      }
+      // If no clock time then return rostered
+    } else return rostered
+  }
+
+  removeDuplicates = (arr) => {
+    let unique_array = Array.from(new Set(arr))
+    return unique_array
   }
 
   setIndividual = (staffID) => {
     this.setState({ individual: staffID })
+    this.state.totalsRows.map((row) => {
+      if (row.staffID === staffID) {
+        this.setState({ individualTotalsRow: row, })
+      }
+    })
+    // If we decide to change the order of the names...
+          // let newArray = this.state.staffIdArray
+          // newArray.splice(newArray.indexOf(staffID), 1)
+          // newArray.unshift(staffID)
+          // this.setState({ staffIdArray: newArray })
   }
 
   removeIndividual = () => {
@@ -195,12 +208,10 @@ class Timesheets extends Component {
 
 
   render() {
-    const { week, users, nextWeek, previousWeek, sideBarHeading } = this.props
+    const { week, WeekPrevious, WeekBeforePrevWeek, users, nextWeek, previousWeek, sideBarHeading } = this.props
     // if (!(this.state.totalsRows && this.state.columnHeadings
     //   && this.state.setTotalsRowsToDisplay && this.state.individual
     // )) return ''
-
-    // console.log(this.state.totalsRows, this.state.columnHeadings, this.state.setTotalsRowsToDisplay, this.state.individual)
 
     if (!this.state.individual) {
 
@@ -240,7 +251,7 @@ class Timesheets extends Component {
 
           <div>
             {
-              this.state.displayTotalsRows.map((row) => {
+              this.state.totalsRows.map((row) => {
                 return (
                   <TotalsRow  row={row}
                               columnHeadings={this.state.columnHeadings}
@@ -254,10 +265,11 @@ class Timesheets extends Component {
         </div>
       )
     } else {
+      if (!this.state.individualTotalsRow) { return '' }
       return (
         <div>
 
-          <div>
+          <div className='headerBar'>
             <Header weekDate={week.date}
                     nextWeek={nextWeek}
                     previousWeek={previousWeek}
@@ -277,10 +289,11 @@ class Timesheets extends Component {
 
           <div className='names-constainer'>
             {
-              this.state.totalsRows.map((row) => {
+              this.state.staffIdArray.map((id) => {
               return (
-                <Name staffID={row.staffID}
+                <Name staffID={id}
                       users={users}
+                      individual={this.state.individual}
                       setIndividual={this.setIndividual}
                   />
                 )
@@ -288,21 +301,17 @@ class Timesheets extends Component {
             }
           </div>
 
-          <div>
-            {
-              this.state.displayTotalsRows.map((row) => {
-                return (
-                  <TotalsRow  row={row}
+          <div className='totalsRow'>
+                  <TotalsRow  row={this.state.individualTotalsRow}
                               columnHeadings={this.state.columnHeadings}
                               setIndividual={this.setIndividual}
                   />
-                )
-              })
-            }
           </div>
 
           <div>
-            <Individual displayTotalsRows={this.state.displayTotalsRows}
+            <Individual WeekPrevious={WeekPrevious}
+                        WeekBeforePrevWeek={WeekBeforePrevWeek}
+                        individualTotalsRow={this.state.individualTotalsRow}
                         setIndividual={this.setIndividual}
                         removeIndividual={this.removeIndividual}
             />
