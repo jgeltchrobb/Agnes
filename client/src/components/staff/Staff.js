@@ -17,7 +17,6 @@ class Staff extends Component {
       totals: ''
     }
     this.fetchStandard()
-    console.log(this.props, 'RAYRATES')
   }
 
   clickHandler = (event) => {
@@ -168,8 +167,6 @@ class Staff extends Component {
   }
 
   render() {
-    console.log(this.props, 'RAYRATES')
-    console.log(this.state.staffData, 'ASJKDAKLDJAKSDJAKLSDJ')
     return (
         <div className="staff-container" >
           <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
@@ -183,6 +180,5 @@ class Staff extends Component {
     )
   }
 }
-{/* <Header {...this.state.staffData} /> */}
 
 export default Staff

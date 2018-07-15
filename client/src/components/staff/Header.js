@@ -8,11 +8,9 @@ class Header extends React.Component {
       data: [],
       rates: []
     }
-    console.log(props.payRates)
   }
 
   componentDidMount = () => {
-    console.log(this.props.payRates)
     let rates = [...this.props.payRates]
     this.setState({rates})
   }

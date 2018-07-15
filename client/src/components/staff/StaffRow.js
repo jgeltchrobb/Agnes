@@ -1,6 +1,5 @@
 import React from 'react'
 import SubCategory from './SubCategory'
-import HeaderCell from './cells/HeaderCell'
 class StaffRow extends React.Component {
   constructor(props) {
     super(props)
