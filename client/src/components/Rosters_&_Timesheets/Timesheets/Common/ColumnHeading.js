@@ -13,9 +13,7 @@ class columnHeading extends Component {
 
     return (
       <div>
-
-        { columnHeading }
-
+        <p>{ columnHeading }</p>
       </div>
     )
   }

@@ -1,3 +1,65 @@
 div.timesheets-container {
   border: 1px solid black;
+  border-bottom: none;
+}
+
+div.timesheets > .header > .header-mainbar {
+  padding: 0;
+}
+
+div.timesheets > .header > .header-mainbar > div:first-child {
+  padding-left: 1em;
+}
+
+div.timesheets > .header > .header-mainbar > div:last-child {
+  padding-right: 1em;
+}
+
+div.column-headings-container {
+  height: 50px;
+  border-bottom: 1px solid black;
+  display: flex;
+}
+
+div.column-headings-container > div.empty-column {
+  width: 10%;
+  border-right: 1px solid black;
+}
+
+div.column-headings-container > div.headings-column {
+  width: 90%;
+  display: flex;
+  align-items: center;
+}
+
+div.column-headings-container > div.headings-column > div {
+  width: 14.28%;
+  text-align: center;
+  border-right: 1px solid black;
+}
+
+div.column-headings-container > div.headings-column > div:last-child {
+  border: none;
+}
+
+div.main-timesheet-container {
+  display: flex;
+}
+
+div.main-timesheet-container > div.names-container {
+  width: 10%;
+  border-right: 1px solid black;
+}
+
+div.main-timesheet-container > div.names-container > div {
+  padding: 1em;
+  border-bottom: 1px solid black;
+}
+
+div.main-timesheet-container > div.timesheet-container {
+  width: 90%;
+}
+
+div.main-timesheet-container > div.individual-view-container {
+  width: 90%;
 }

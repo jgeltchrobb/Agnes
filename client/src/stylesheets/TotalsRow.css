@@ -1,0 +1,16 @@
+div.individual-timesheet {
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: flex;
+}
+
+div.individual-timesheet > div {
+  width: 14.28%;
+  text-align: center;
+  border-right: 1px solid black;
+  padding: 1em;
+}
+
+div.individual-timesheet > div:last-child {
+  border: none;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Total from './Total'
+import '../../../../stylesheets/TotalsRow.css'
 
 
 class TotalsRow extends Component {
@@ -46,7 +47,7 @@ class TotalsRow extends Component {
     const { row, setIndividual } = this.props
 
     return (
-      <div  onClick={() => setIndividual(row.staffID)}>
+      <div onClick={() => setIndividual(row.staffID)} className="individual-timesheet">
         {
           // totalsArray is essentially a copy of display catergories for each
           // staff staffMember or row, but with totals / empty strings.
