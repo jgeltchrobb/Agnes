@@ -34,6 +34,7 @@
   overflow: auto 
 }
 
+/* this needs to be fixed for horizontal only */
 .sidebar {
   position: sticky;
   /* position: fixed; */
