@@ -17,6 +17,7 @@ class Staff extends Component {
       totals: ''
     }
     this.fetchStandard()
+    console.log(this.props, 'RAYRATES')
   }
 
   clickHandler = (event) => {
@@ -130,6 +131,7 @@ class Staff extends Component {
   }
   
   passTotal = (total) => {
+    console.log(total, 'ASJDAKSDJK')
     let name = ''
     let currentTotal = ''
     let plus = ''
@@ -148,7 +150,7 @@ class Staff extends Component {
     for (let obj of staffData) {
       if (obj._id === total.standardID) {
         name = obj.name
-        currentTotal = parseInt(localStorage.getItem(`${name}`))
+        currentTotal = parseFloat(localStorage.getItem(`${name}`))
         for (let cat of obj.categories) {
           if (cat._id === total.id) {
             cat.hoursWorked = total.hours
@@ -164,16 +166,20 @@ class Staff extends Component {
     localStorage.setItem(`${name}`, currentTotal)
     this.setState({staffData})
   }
-  
+
   render() {
+    console.log(this.props, 'RAYRATES')
     console.log(this.state.staffData, 'ASJKDAKLDJAKSDJAKLSDJ')
     return (
-      <div className="staff-container" >
-        <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
-        <div className="staff-row-container" >
-          <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} rosteredTotals={this.state.totals} />
+        <div className="staff-container" >
+          <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
+          <div className="scroll-container" onScroll={this.handleScroll}>
+            <div className="staff-header">
+              <Header payRates={this.props.payRates} />
+            </div>
+            <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} rosteredTotals={this.state.totals} />
+          </div>
         </div>
-      </div>
     )
   }
 }
