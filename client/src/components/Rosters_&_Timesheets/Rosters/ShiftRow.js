@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Shift from './Shift'
+import '../../../stylesheets/ShiftRow.css'
 
 class ShiftRow extends Component {
   state = {
@@ -70,13 +71,13 @@ class ShiftRow extends Component {
     if (!this.state.shiftsArray && !this.state.staffName) { return '' }
 
     return (
-      <div>
+      <div className="shift-row">
+      
+        <div className="shifts">
 
-        <h3>
-          {this.state.staffName}
-        </h3>
-
-        <div>
+          <div>
+            <h3>{this.state.staffName}</h3>
+          </div>
           {
             this.state.shiftsArray.map((shift) => {
               return (

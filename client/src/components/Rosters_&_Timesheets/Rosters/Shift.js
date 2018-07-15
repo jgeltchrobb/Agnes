@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../../../stylesheets/Shift.css'
 
 class Shift extends Component {
   state = {
@@ -103,9 +104,13 @@ class Shift extends Component {
       } else {
         return (
           <div onClick={() => this.editShift()}>
-            <div>{this.state.shiftCategory}</div>
-            <div>{this.formatTime(this.state.start)}</div>
-            <div>{this.formatTime(this.state.finish)}</div>
+            <div className="shift-time">
+              <div>{this.formatTime(start)}</div>
+              <div>{this.formatTime(finish)}</div>
+            </div>
+            <div className="shift-category">
+              <p>{shiftCategory.toUpperCase()}</p>
+            </div>
           </div>
         )
       }
