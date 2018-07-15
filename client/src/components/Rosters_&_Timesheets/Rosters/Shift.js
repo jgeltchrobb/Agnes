@@ -1,20 +1,44 @@
 import React, { Component } from 'react'
 
 class Shift extends Component {
-  constructor(props) {
-    super(props)
-
+  state = {
+    date: '',
+    staffID: '',
+    shiftCategory: '',
+    start: '',
+    finish: '',
+    editing: false,
   }
 
-  componentDidMount() {
-    // set state with object with date:, staffID:, shiftCategory:, start:, and finish:
 
+  componentDidMount = () => {
+    const { date, staffID, shiftCategory, start, finish } = this.props
+    this.setShiftState(date, staffID, shiftCategory, start, finish)
   }
+
+  setShiftState = (date, staffID, shiftCategory, start, finish) => {
+    this.setState({
+      date: date,
+      staffID: staffID,
+      shiftCategory: shiftCategory,
+      start: start,
+      finish: finish,
+      editing: false,
+    })
+  }
+
+  // setStaffName = (staffID, users) => {
+  //   var staffName = ''
+  //   this.props.users.map((user) => {
+  //     if (user.staffID.toString() === staffID) {
+  //       staffName = user.staffName
+  //     }
+  //   })
+  //   this.setState({ staffName: staffName})
+  // }
 
   formatTime = (time) => {
-
     if (time) {
-
       let hr = new Date(time).getHours()
         if (hr < 10) {
           hr = ('0' + hr)
@@ -23,29 +47,69 @@ class Shift extends Component {
         if (min < 10) {
           min = ('0' + min)
         }
-
       return ( `${hr} : ${min}` )
-
     } else { return '' }
-
-
   }
 
 
+  handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('submitted')
+    this.editShift()
+  }
+
+  updateShiftCategory = (e) => {
+    this.setState({shiftCategory: e.target.value})
+  }
+  updateStart = (e) => {
+    this.setState({start: e.target.value})
+  }
+  updateFinish = (e) => {
+    this.setState({finish: e.target.value})
+  }
+
+  editShift = () => {
+
+    this.setState({ editing: !this.state.editing })
+
+  }
+
   render() {
-    const { weekDate, staffID, name, date, shiftCategory, start, finish } = this.props
+    const { date, staffID, shiftCategory, start, finish } = this.props
 
-    return (
+    console.log(this.state.editing)
 
-      <div>
+      if (this.state.editing) {
+        return (
+          <form onSubmit={this.handleSubmit}>
 
-        <div>{shiftCategory}</div>
-        <div>{this.formatTime(start)}</div>
-        <div>{this.formatTime(finish)}</div>
+            <input  placeholder='Shift Category'
+                    value={this.state.shiftCategory}
+                    onChange={this.updateShiftCategory}
+            />
+            <input  placeholder='start'
+                    value={this.state.start}
+                    onChange={this.updateStart}
+            />
+            <input  placeholder='finish'
+                    value={this.state.finish}
+                    onChange={this.updateFinish}
+            />
+            <input type="submit" value="Submit" />
 
+          </form>
 
-      </div>
-    )
+        )
+      } else {
+        return (
+          <div onClick={() => this.editShift()}>
+            <div>{this.state.shiftCategory}</div>
+            <div>{this.formatTime(this.state.start)}</div>
+            <div>{this.formatTime(this.state.finish)}</div>
+          </div>
+        )
+      }
+
   }
 }
 

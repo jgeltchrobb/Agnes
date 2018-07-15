@@ -5,23 +5,25 @@ class Name extends Component {
     super(props)
 
     this.state = {
-      name: '',
+      staffName: '',
       clicked: false,
     }
 
   }
 
   componentDidMount = () => {
+    const { staffID, users } = this.props
+    this.setNameState(staffID, users)
+  }
 
-    var name = ''
-    this.props.users.map((user) => {
-      if (user.staffID.toString() === this.props.staffID) {
-        name = user.name
+  setNameState = (staffID, users) => {
+    var staffName = ''
+    users.map((user) => {
+      if (user.staffID.toString() === staffID) {
+        staffName = user.name
       }
     })
-    this.setState({
-      name: name
-    })
+    this.setState({ staffName: staffName })
     // if (this.props.individual) { add a className to the div and make it a darker grey}
   }
 
@@ -32,12 +34,12 @@ class Name extends Component {
   }
 
   render() {
-    const { users, staffID } = this.props
+    const { staffID } = this.props
 
     return (
       <div onClick={() => this.summaryOrIndividual(staffID)}>
-        
-        {this.state.name}
+
+        {this.state.staffName}
 
       </div>
 

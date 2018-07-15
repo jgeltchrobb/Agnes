@@ -32,7 +32,6 @@ class Roster extends Component {
         </div>
 
         <div>
-          {/* Add column headings here: M,T,W,TH,F,S,S */}
             {
               staff.map((staffMember) => {
                 return (
