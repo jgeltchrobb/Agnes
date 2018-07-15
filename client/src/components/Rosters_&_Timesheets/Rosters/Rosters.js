@@ -24,7 +24,6 @@ class Rosters extends Component {
                   sideBarHeading={sideBarHeading}
           />
         </div>
-
         <div className="rosters-main">
           <div className="rosters-flags">
             <Flags staff={week.staff} />
