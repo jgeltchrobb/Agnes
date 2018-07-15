@@ -68,11 +68,12 @@ class ShiftRow extends Component {
     return (
       <div className="shift-row">
 
-        <h3>
-          {this.state.name}
-        </h3>
 
         <div className="shifts">
+          
+          <div>
+            <h3>{this.state.name}</h3>
+          </div>
           {
             this.state.shiftsArray.map((shift) => {
               return (

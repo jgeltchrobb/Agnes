@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../../../stylesheets/Shift.css'
 
 class Shift extends Component {
   constructor(props) {
@@ -36,14 +37,14 @@ class Shift extends Component {
     const { weekDate, staffID, name, date, shiftCategory, start, finish } = this.props
 
     return (
-
       <div>
-
-        <div>{shiftCategory}</div>
-        <div>{this.formatTime(start)}</div>
-        <div>{this.formatTime(finish)}</div>
-
-
+        <div className="shift-time">
+          <div>{this.formatTime(start)}</div>
+          <div>{this.formatTime(finish)}</div>
+        </div>
+        <div className="shift-category">
+          <p>{shiftCategory.toUpperCase()}</p>
+        </div>
       </div>
     )
   }

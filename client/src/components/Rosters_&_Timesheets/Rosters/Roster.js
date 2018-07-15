@@ -23,8 +23,8 @@ class Roster extends Component {
       <div className="rosters-cells">
 
         <div className="days-header">
-          <div className="days-empty-column"></div>
           <div className="days-column">
+            <div></div>
             <div>M</div>
             <div>T</div>
             <div>W</div>
@@ -35,7 +35,7 @@ class Roster extends Component {
           </div>
         </div>
 
-        <div>
+        <div className="shifts-main">
           {/* Add column headings here: M,T,W,TH,F,S,S */}
             {
               staff.map((staffMember) => {

@@ -1,14 +1,27 @@
 div.shift-row {
-  margin: 2em 0;
+  /* padding: 2em 0; */
   display: flex;
-}
-
-div.shift-row > h3 {
-  width: 15%;
 }
 
 div.shifts {
-  width: 85%;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+}
+
+div.shifts > div {
+  width: 12%;
+  border-top: 0.5px solid grey;
+  border-right: 0.5px solid grey;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.shifts > div:first-child {
+  width: 16%;
+  border-top: none;
+  display: block;
+}
+
+div.shifts > div:first-child > h3 {
+  padding-left: 1em;
 }

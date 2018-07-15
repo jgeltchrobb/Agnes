@@ -1,21 +1,31 @@
 div.rosters-cells {
   border: 1px solid black;
-  padding: 2em;
+  padding: 2em 1em;
 }
 
 div.days-header {
   display: flex;
 }
 
-div.days-empty-column {
-  width: 15%;
-}
-
 div.days-column {
-  width: 85%;
+  width: 100%;
+  margin-bottom: 1em;
   display: flex;
 }
 
 div.days-column > div {
-  /* flex-grow: 1; */
+  width: 12%;
+  text-align: center;
+}
+
+div.days-column > div:first-child {
+  width: 16%;
+}
+
+div.shifts-main > div.shift-row:last-child > div.shifts > div {
+  border-bottom: 0.5px solid grey;
+}
+
+div.shifts-main > div.shift-row:last-child > div.shifts > div:first-child {
+  border-bottom: none;
 }
