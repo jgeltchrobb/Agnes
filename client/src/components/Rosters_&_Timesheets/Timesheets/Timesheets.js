@@ -4,6 +4,7 @@ import ColumnHeading from './Common/ColumnHeading'
 import Name from './Common/Name'
 import TotalsRow from './Common/TotalsRow'
 import Individual from './Individual/Individual'
+import  '../../../stylesheets/Timesheets.css'
 
 class Timesheets extends Component {
   state = {
@@ -207,7 +208,7 @@ class Timesheets extends Component {
     if (!this.state.individual) {
 
       return (
-        <div>
+        <div className="timesheets-container">
 
           <div>
             <Header weekDate={week.date}

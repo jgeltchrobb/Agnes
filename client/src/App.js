@@ -10,7 +10,7 @@ import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 import Staff from './components/staff/Staff'
 import StaffHeader from './components/staff/Header'
 // import week from './data'
-import './App.css';
+import './stylesheets/App.css';
 
 
 
@@ -19,7 +19,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      sideBarHeading: 'flags',
+      sideBarHeading: 'FLAGS',
       users: '',
       week1: '',
       week2: '',
@@ -67,7 +67,7 @@ class App extends Component {
 
   selectRosters = () => {
 
-    this.setState({ sideBarHeading: 'flags' })
+    this.setState({ sideBarHeading: 'FLAGS' })
   }
 
   selectTimesheets = () => {
