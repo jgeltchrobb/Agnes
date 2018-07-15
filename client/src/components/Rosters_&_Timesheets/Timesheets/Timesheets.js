@@ -210,7 +210,7 @@ class Timesheets extends Component {
       return (
         <div className="timesheets-container">
 
-          <div>
+          <div className="timesheets">
             <Header weekDate={week.date}
                     nextWeek={nextWeek}
                     previousWeek={previousWeek}
@@ -218,41 +218,45 @@ class Timesheets extends Component {
             />
           </div>
 
-          <div className='columnHeadings-constainer'>
-            {
-              this.state.columnHeadings.map((columnHeading) => {
-                return (
-                  <ColumnHeading columnHeading={columnHeading} />
-                )
-              })
-            }
+          <div className="column-headings-container">
+            <div className="empty-column"></div>
+            <div className="headings-column">
+              {
+                this.state.columnHeadings.map((columnHeading) => {
+                  return (
+                    <ColumnHeading columnHeading={columnHeading} />
+                  )
+                })
+              }
+            </div>
           </div>
 
-          <div className='names-constainer'>
-            {
-              this.state.totalsRows.map((row) => {
-              return (
-                <Name staffID={row.staffID}
-                      users={users}
-                      setIndividual={this.setIndividual}
-                      removeIndividual={this.removeIndividual}
-                />
-                )
-              })
-            }
-          </div>
-
-          <div>
-            {
-              this.state.totalsRows.map((row) => {
+          <div className="main-timesheet-container">
+            <div className='names-container'>
+              {
+                this.state.totalsRows.map((row) => {
                 return (
-                  <TotalsRow  row={row}
-                              columnHeadings={this.state.columnHeadings}
-                              setIndividual={this.setIndividual}
+                  <Name staffID={row.staffID}
+                        users={users}
+                        setIndividual={this.setIndividual}
+                        removeIndividual={this.removeIndividual}
                   />
-                )
-              })
-            }
+                  )
+                })
+              }
+            </div>
+            <div className="timesheet-container">
+              {
+                this.state.totalsRows.map((row) => {
+                  return (
+                    <TotalsRow  row={row}
+                                columnHeadings={this.state.columnHeadings}
+                                setIndividual={this.setIndividual}
+                    />
+                  )
+                })
+              }
+            </div>
           </div>
 
         </div>
@@ -260,9 +264,9 @@ class Timesheets extends Component {
     } else {
       if (!this.state.individualTotalsRow) { return '' }
       return (
-        <div>
+        <div className="timesheets-container">
 
-          <div className='headerBar'>
+          <div className='timesheets'>
             <Header weekDate={week.date}
                     nextWeek={nextWeek}
                     previousWeek={previousWeek}
@@ -270,47 +274,53 @@ class Timesheets extends Component {
             />
           </div>
 
-          <div className='columnHeadings-constainer'>
-            {
-              this.state.columnHeadings.map((columnHeading) => {
+          <div className='column-headings-container'>
+            <div className="empty-column"></div>
+            <div className="headings-column">
+              {
+                this.state.columnHeadings.map((columnHeading) => {
+                  return (
+                    <ColumnHeading columnHeading={columnHeading} />
+                  )
+                })
+              }
+            </div>
+          </div>
+
+          <div className="main-timesheet-container">
+            <div className='names-container'>
+              {
+                this.state.staffIdArray.map((id) => {
                 return (
-                  <ColumnHeading columnHeading={columnHeading} />
-                )
-              })
-            }
-          </div>
-
-          <div className='names-constainer'>
-            {
-              this.state.staffIdArray.map((id) => {
-              return (
-                <Name staffID={id}
-                      users={users}
-                      individual={this.state.individual}
-                      setIndividual={this.setIndividual}
-                      removeIndividual={this.removeIndividual}
-                />
-                )
-              })
-            }
-          </div>
-
-          <div className='totalsRow'>
-                  <TotalsRow  row={this.state.individualTotalsRow}
-                              columnHeadings={this.state.columnHeadings}
-                              setIndividual={this.setIndividual}
-                  />
-          </div>
-
-          <div>
-            <Individual week={week}
-                        prevWeek={prevWeek}
+                  <Name staffID={id}
+                        users={users}
                         individual={this.state.individual}
-                        shiftBreakLength={shiftBreakLength}
-                        individualTotalsRow={this.state.individualTotalsRow}
                         setIndividual={this.setIndividual}
                         removeIndividual={this.removeIndividual}
-            />
+                  />
+                  )
+                })
+              }
+            </div>
+
+            <div className="individual-view-container">
+              <div className='timesheet-container'>
+                      <TotalsRow  row={this.state.individualTotalsRow}
+                                  columnHeadings={this.state.columnHeadings}
+                                  setIndividual={this.setIndividual}
+                      />
+              </div>
+              <div className="individual-container">
+                <Individual week={week}
+                            prevWeek={prevWeek}
+                            individual={this.state.individual}
+                            shiftBreakLength={shiftBreakLength}
+                            individualTotalsRow={this.state.individualTotalsRow}
+                            setIndividual={this.setIndividual}
+                            removeIndividual={this.removeIndividual}
+                />
+              </div>
+            </div>
           </div>
 
         </div>
