@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import StaffRow from './StaffRow'
 import SideBar from './SideBar'
+import Header from './Header'
 import axios from 'axios'
 
 const api = 'http://localhost:4000'
@@ -11,8 +12,11 @@ class Staff extends Component {
     this.state = {
       revealed: '',
       staffData: [],
-      staffRosters: []
+      staffRosters: [],
+      rosteredTotals: [],
+      totals: ''
     }
+    this.fetchStandard()
   }
 
   clickHandler = (event) => {
@@ -32,13 +36,11 @@ class Staff extends Component {
       }
       return response
     }).then((result) => {
-      this.setState({staffData: result.data})
-    }).then(() => {
-      this.fetchRosters()
+      this.fetchRosters(result.data)
     })
   }
 
-  fetchRosters = () => {
+  fetchRosters = (staffData) => {
     axios.get(api + '/rosters').then((response) => {
       for (let obj of response.data) {
         if (obj.date === '2018-07-01T14:00:00.000Z') {
@@ -46,16 +48,11 @@ class Staff extends Component {
         }
       }
     }).then((obj) => {
-      return this.calcRosters(obj)
-    }).then((staffData) => {
-      console.log(staffData)
-      this.setState({staffData})
+      this.calcRosters(obj, staffData)
     })
   }
 
-  calcRosters = (roster) => {
-    let staffData = [...this.state.staffData]
-    console.log(staffData)
+  calcRosters = (roster, staffData) => {
     let totals = []
     const DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
@@ -104,21 +101,7 @@ class Staff extends Component {
       }
       totals.push({...totalsRow, staffID: staff.staffID})
     }
-    for (let staff of staffData) {
-      let rostTotal = 0
-      for (let obj of totals) {
-        if (obj.staffID === staff.staffID) {
-          for (let key of Object.keys(obj)) {
-            if (key !== 'staffID') {
-              rostTotal += obj[key]
-            }
-          }
-        }
-      }
-      staff.rosteredTotal = rostTotal
-    }
-    console.log(staffData)
-    return staffData
+    this.setState({staffData: staffData, totals: totals})
   }
 
   categoryChecker = (key) => {
@@ -181,24 +164,19 @@ class Staff extends Component {
     localStorage.setItem(`${name}`, currentTotal)
     this.setState({staffData})
   }
-
-  componentDidMount() {
-    this.fetchStandard()
-  }
   
   render() {
-    console.log(this.state.staffData, 'SATTAFAFAT')
-    console.log(this.state.staffRosters, 'RRRRRRRRRr')
-
+    console.log(this.state.staffData, 'ASJKDAKLDJAKSDJAKLSDJ')
     return (
       <div className="staff-container" >
-        <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} />
+        <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
         <div className="staff-row-container" >
-          <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} />
+          <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} rosteredTotals={this.state.totals} />
         </div>
       </div>
     )
   }
 }
+{/* <Header {...this.state.staffData} /> */}
 
 export default Staff

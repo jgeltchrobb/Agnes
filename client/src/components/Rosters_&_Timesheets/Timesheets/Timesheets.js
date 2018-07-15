@@ -24,7 +24,7 @@ class Timesheets extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     // console.log('cDU running...')
-    if (this.props.week ==! prevProps.week) {
+    if (this.props.week !== prevProps.week) {
       this.setTotalsRowsAndColumnHeadings()
       // console.log('cDU setTotalsRowsAndColumnHeadings...')
 
@@ -209,10 +209,12 @@ class Timesheets extends Component {
 
 
   render() {
-    const { week, WeekPrevious, WeekBeforePrevWeek, users, nextWeek, previousWeek, sideBarHeading } = this.props
+    const { week, prevWeek, users, nextWeek, previousWeek, sideBarHeading } = this.props
     // if (!(this.state.totalsRows && this.state.columnHeadings
     //   && this.state.setTotalsRowsToDisplay && this.state.individual
     // )) return ''
+
+    const shiftBreakLength = 30
 
     if (!this.state.individual) {
 
@@ -244,7 +246,8 @@ class Timesheets extends Component {
                 <Name staffID={row.staffID}
                       users={users}
                       setIndividual={this.setIndividual}
-                  />
+                      removeIndividual={this.removeIndividual}
+                />
                 )
               })
             }
@@ -296,7 +299,8 @@ class Timesheets extends Component {
                       users={users}
                       individual={this.state.individual}
                       setIndividual={this.setIndividual}
-                  />
+                      removeIndividual={this.removeIndividual}
+                />
                 )
               })
             }
@@ -310,8 +314,10 @@ class Timesheets extends Component {
           </div>
 
           <div>
-            <Individual WeekPrevious={WeekPrevious}
-                        WeekBeforePrevWeek={WeekBeforePrevWeek}
+            <Individual week={week}
+                        prevWeek={prevWeek}
+                        individual={this.state.individual}
+                        shiftBreakLength={shiftBreakLength}
                         individualTotalsRow={this.state.individualTotalsRow}
                         setIndividual={this.setIndividual}
                         removeIndividual={this.removeIndividual}

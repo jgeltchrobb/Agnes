@@ -1,6 +1,10 @@
 .staffrow {
   display: flex;
-  background-color: red;
+  background-color: lightseagreen;
+}
+.staff-header {
+  display: flex;
+  flex-direction: row
 }
 
 .cell {
@@ -10,17 +14,23 @@
   width: 6rem;
   height: 6rem;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#standardInput {
+  max-width: 25%;
+  font-weight: bold;
 }
 
 .staff-container {
   display: flex;
-  border: 3px green solid;
   overflow: auto 
 }
 
 .sidebar {
   position: sticky;
-  background-color: grey
+  background-color: lightgrey
 }
 
 .sidebar-section {
@@ -28,7 +38,7 @@
 }
 
 .cat-cell {
-  background-color: blue;
+  background-color: lightblue;
 }
 
 div.navbar {

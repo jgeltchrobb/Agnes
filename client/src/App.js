@@ -8,6 +8,7 @@ import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
 import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 // import Header from './components/header/Header'
 import Staff from './components/staff/Staff'
+import StaffHeader from './components/staff/Header'
 // import week from './data'
 import './stylesheets/App.css';
 
@@ -23,6 +24,7 @@ class App extends Component {
       week1: '',
       week2: '',
       week3: '',
+      staffData: []
 
     }
 
@@ -86,9 +88,7 @@ class App extends Component {
   }
 
   render() {
-    if (!(this.state.week1 && this.state.users
-      && this.state.payRateCategories && this.state.entitlements
-    )) return ''
+    if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
     var week = this.state.week1
 
@@ -115,8 +115,7 @@ class App extends Component {
 
             <Route path='/timesheets' render={(routerprops) => (
               <Timesheets week={week}
-                          WeekPrevious={this.state.week2}
-                          WeekBeforePrevWeek={this.state.week1}
+                          prevWeek={this.state.week1}
                           users={this.state.users}
                           payRateCategories={this.state.payRateCategories}
                           entitlements={this.state.entitlements}
@@ -127,7 +126,16 @@ class App extends Component {
               /> )}
             />
 
-            <Route path='/staff' component={Staff} />
+            <Route path='/staff' render={(routerProps) => {
+              return (
+                <div>
+                  <div className="staff-header">
+                    <StaffHeader payRates={this.state.payRateCategories} />
+                  </div>
+                  <Staff />
+                </div>
+              )
+            }} />
 
             <Route path='/clock' component={Clock} />
 

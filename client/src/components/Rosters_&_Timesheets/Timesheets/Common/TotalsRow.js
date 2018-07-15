@@ -24,7 +24,7 @@ class TotalsRow extends Component {
           totalsArray.push(row[key])
         }
       }
-      if (pushed === 'no') { totalsArray.push('empty') }
+      if (pushed === 'no') { totalsArray.push('no shift') }
     })
     this.setState({
       totalsArray: totalsArray
