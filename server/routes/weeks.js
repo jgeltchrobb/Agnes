@@ -60,15 +60,13 @@ router.post('/shift/:id', async (req, res) => {
     for (let staff of week.staff) {
       if (staff.staffID === req.params.id) {
         for (let shift of staff.shifts) {
-          if (shift.date === req.body.shift.date) {
-            // Update
+          if (shift.date === req.body.shift.date && shift.start.rostered === req.body.shift.start.rostered) {
             shift = req.body.shift
             week.save()
             found = true
           }
         }
         if (!found) {
-          // Push
           staff.shifts.push(req.body.shift)
           week.save()
         }
