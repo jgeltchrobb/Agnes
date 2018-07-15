@@ -1,0 +1,16 @@
+div.shift-time {
+  width: 100%;
+  padding: 0 0.5em;
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.shift-category {
+  width: 100%;
+  text-align: center;
+}
+
+div.shift-category > p {
+  margin: 0.5em 0;
+}

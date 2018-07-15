@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import StaffRow from './StaffRow'
 import SideBar from './SideBar'
+import Header from './Header'
 import axios from 'axios'
 
 const api = 'http://localhost:4000'
@@ -11,8 +12,12 @@ class Staff extends Component {
     this.state = {
       revealed: '',
       staffData: [],
-      staffRosters: []
+      staffRosters: [],
+      rosteredTotals: [],
+      totals: ''
     }
+    this.fetchStandard()
+    console.log(this.props, 'RAYRATES')
   }
 
   clickHandler = (event) => {
@@ -32,13 +37,11 @@ class Staff extends Component {
       }
       return response
     }).then((result) => {
-      this.setState({staffData: result.data})
-    }).then(() => {
-      this.fetchRosters()
+      this.fetchRosters(result.data)
     })
   }
 
-  fetchRosters = () => {
+  fetchRosters = (staffData) => {
     axios.get(api + '/rosters').then((response) => {
       for (let obj of response.data) {
         if (obj.date === '2018-07-01T14:00:00.000Z') {
@@ -46,16 +49,11 @@ class Staff extends Component {
         }
       }
     }).then((obj) => {
-      return this.calcRosters(obj)
-    }).then((staffData) => {
-      console.log(staffData)
-      this.setState({staffData})
+      this.calcRosters(obj, staffData)
     })
   }
 
-  calcRosters = (roster) => {
-    let staffData = [...this.state.staffData]
-    console.log(staffData)
+  calcRosters = (roster, staffData) => {
     let totals = []
     const DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
@@ -104,21 +102,7 @@ class Staff extends Component {
       }
       totals.push({...totalsRow, staffID: staff.staffID})
     }
-    for (let staff of staffData) {
-      let rostTotal = 0
-      for (let obj of totals) {
-        if (obj.staffID === staff.staffID) {
-          for (let key of Object.keys(obj)) {
-            if (key !== 'staffID') {
-              rostTotal += obj[key]
-            }
-          }
-        }
-      }
-      staff.rosteredTotal = rostTotal
-    }
-    console.log(staffData)
-    return staffData
+    this.setState({staffData: staffData, totals: totals})
   }
 
   categoryChecker = (key) => {
@@ -147,6 +131,7 @@ class Staff extends Component {
   }
   
   passTotal = (total) => {
+    console.log(total, 'ASJDAKSDJK')
     let name = ''
     let currentTotal = ''
     let plus = ''
@@ -165,7 +150,7 @@ class Staff extends Component {
     for (let obj of staffData) {
       if (obj._id === total.standardID) {
         name = obj.name
-        currentTotal = parseInt(localStorage.getItem(`${name}`))
+        currentTotal = parseFloat(localStorage.getItem(`${name}`))
         for (let cat of obj.categories) {
           if (cat._id === total.id) {
             cat.hoursWorked = total.hours
@@ -182,23 +167,22 @@ class Staff extends Component {
     this.setState({staffData})
   }
 
-  componentDidMount() {
-    this.fetchStandard()
-  }
-  
   render() {
-    console.log(this.state.staffData, 'SATTAFAFAT')
-    console.log(this.state.staffRosters, 'RRRRRRRRRr')
-
+    console.log(this.props, 'RAYRATES')
+    console.log(this.state.staffData, 'ASJKDAKLDJAKSDJAKLSDJ')
     return (
-      <div className="staff-container" >
-        <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} />
-        <div className="staff-row-container" >
-          <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} />
+        <div className="staff-container" >
+          <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
+          <div className="scroll-container" onScroll={this.handleScroll}>
+            <div className="staff-header">
+              <Header payRates={this.props.payRates} />
+            </div>
+            <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} rosteredTotals={this.state.totals} />
+          </div>
         </div>
-      </div>
     )
   }
 }
+{/* <Header {...this.state.staffData} /> */}
 
 export default Staff

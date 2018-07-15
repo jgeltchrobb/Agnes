@@ -21,14 +21,25 @@ class CatCell extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault()
-    let value = parseInt(event.target[0].value)
+    let prevVal = this.state.value
     let data = {...this.state.data}
-    this.props.passTotal({id: data._id, standardID: data.standardID, orgHours: data.hoursWorked, hours: value })
-    data.hoursWorked = value
-    this.setState({
-      clicked: !this.state.clicked,
-      data: data
-    })
+    let value = event.target[0].value
+    if (!value.match(/[a-z]/i)) {
+      this.props.passTotal({id: data._id, standardID: data.standardID, orgHours: data.hoursWorked, hours: value })
+      data.hoursWorked = value
+      this.setState({
+        clicked: !this.state.clicked,
+        data: data,
+        value: value
+      })
+    } else {
+      data.hoursWorked = prevVal
+      this.setState({
+        clicked: !this.state.clicked,
+        data: data,
+        value: prevVal
+      })
+    }
   }
   
   componentDidUpdate = (prevProps, prevState) => {
@@ -43,8 +54,8 @@ class CatCell extends React.Component {
     if (this.state.clicked) {
       return (
         <div className="cell" onClick={this.handleClick} >
-          <h4>{this.props.category}</h4>
-          <form onSubmit={this.submitHandler} className="cell" >
+          {/* <h4>{this.props.category}</h4> */}
+          <form onSubmit={this.submitHandler} >
             <input id="standardInput" placeholder={this.props.hoursWorked} autoFocus="autofocus" />
           </form>
         </div>
@@ -52,8 +63,8 @@ class CatCell extends React.Component {
     } else {
       return (
         <div className="cell" onClick={this.handleClick} >
-          <h4>{this.props.category}</h4>
-          {this.state.data.hoursWorked}
+          {/* <h4>{this.props.category}</h4> */}
+          <p id="standardInput" >{this.state.data.hoursWorked}</p>
         </div>
       )
     }  

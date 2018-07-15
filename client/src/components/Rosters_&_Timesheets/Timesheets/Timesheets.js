@@ -3,8 +3,8 @@ import Header from '../HeaderBar/Header'
 import ColumnHeading from './Common/ColumnHeading'
 import Name from './Common/Name'
 import TotalsRow from './Common/TotalsRow'
-import Summary from './Summary/Summary'
 import Individual from './Individual/Individual'
+import  '../../../stylesheets/Timesheets.css'
 
 class Timesheets extends Component {
   state = {
@@ -16,41 +16,34 @@ class Timesheets extends Component {
   }
 
   componentDidMount = () => {
-    // console.log('cDM running...')
     this.setTotalsRowsAndColumnHeadings()
-
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    // console.log('cDU running...')
     if (this.props.week !== prevProps.week) {
       this.setTotalsRowsAndColumnHeadings()
-      // console.log('cDU setTotalsRowsAndColumnHeadings...')
-
     }
   }
 
-  setTotalsRowsAndColumnHeadings = async () => {
+  setTotalsRowsAndColumnHeadings = () => {
     // Posting to the data:
      // start.timesheet, finish.timesheet, flags set to true as required
      // Flags:
      // - if they clock in late or note at all
      // - if don't clock in before end of shift (shift.finish.rostered) then set
      //    shift.start.timesheet to 1 min before rostered  finish time
+     var DayShiftDefinitionClockinBeforeHours = 20
+     const milliToHours = 0.00000027777777777778
 
+    const staffIdArray = []
     var columnHeadings = []
     const totalsRows = []
-    const staffIdArray = []
-
-    var DayShiftDefinitionClockinBeforeHours = 20
-    const milliToHours = 0.00000027777777777778
-
     this.props.week.staff.map((staffMember) => {
 
       staffIdArray.push(staffMember.staffID)
-
       const totalsRow = {}
       staffMember.shifts.map((shift) => {
+
         const rStart = new Date(shift.start.rostered)
         const aStart = new Date(shift.start.actual)
         var start = ''
@@ -117,7 +110,7 @@ class Timesheets extends Component {
     // // Remove duplicates from columnHeadings array and merge with entitlements array to form final column heads array
     columnHeadings = [...this.removeDuplicates(columnHeadings), ...this.props.entitlements]
 
-    await this.setState({
+    this.setState({
       columnHeadings: columnHeadings,
       totalsRows:  totalsRows,
       staffIdArray: staffIdArray,
@@ -209,16 +202,13 @@ class Timesheets extends Component {
 
   render() {
     const { week, prevWeek, users, nextWeek, previousWeek, sideBarHeading } = this.props
-    // if (!(this.state.totalsRows && this.state.columnHeadings
-    //   && this.state.setTotalsRowsToDisplay && this.state.individual
-    // )) return ''
 
     const shiftBreakLength = 30
 
     if (!this.state.individual) {
 
       return (
-        <div>
+        <div className="timesheets-container">
 
           <div>
             <Header weekDate={week.date}

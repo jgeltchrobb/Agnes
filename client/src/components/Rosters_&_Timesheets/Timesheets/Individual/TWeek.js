@@ -9,7 +9,7 @@ class TWeek extends Component {
 
   componentDidMount = () => {
     this.setValuesRows()
-    this.setWeekDatesArray()
+    this.setWeekDatesArray(this.props.week.date)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -18,8 +18,8 @@ class TWeek extends Component {
     }
   }
 
-  setWeekDatesArray = () => {
-    const weekStartDate = new Date(this.props.week.date)
+  setWeekDatesArray = (dateString) => {
+    const weekStartDate = new Date(dateString)
     const weekDates = []
     for (let i=0; i<7; i++) {
       let date = new Date(weekStartDate)
@@ -30,19 +30,12 @@ class TWeek extends Component {
   }
 
   setValuesRows = () => {
-
     const { week, individual, shiftBreakLength } = this.props
-
     const weekDate = new Date(week.date)
-
     const valuesRows = []
-
     const milliToHours = 0.00000027777777777778
-
     const starts = []
     const finishes = []
-
-    console.log(individual)
 
     week.staff.map((staffMember) => {
       if (staffMember.staffID === individual) {
@@ -51,9 +44,7 @@ class TWeek extends Component {
           staffMember.shifts.map((shift) => {
             if ( (weekDate.getDate() + day) === new Date(shift.date).getDate() ) {
               shift.start.timesheet ? starts.push(new Date(shift.start.timesheet)) : starts.push('')
-                // null if no timesheet time in data then creating wrong date
               shift.finish.timesheet ? finishes.push(new Date(shift.finish.timesheet)) : finishes.push('')
-              // null if no timesheet time in data then creating wrong date
               pushed = 'yes'
             }
           })
@@ -64,35 +55,21 @@ class TWeek extends Component {
         }
       }
     })
-
     const breaks = []
     const totals = []
-    // Now populate breaks and totals arrays based on start and finish arrays
+
     for (let i=0; i<7; i++) {
       if (starts[i] && finishes[i]) {
         breaks.push(shiftBreakLength)
         totals.push( (((finishes[i].getTime() - starts[i].getTime()) * milliToHours).toFixed(2)) - breaks[i]/60 )
-        // totals.push()
       } else {
         breaks.push('no break')
         totals.push('no total')
       }
     }
-
-    console.log(starts)
-    console.log(finishes)
-    console.log(breaks)
-    console.log(totals)
-
     valuesRows.push(starts, breaks, finishes, totals)
-    // Array of arrays (to map when rendering ValuesRow):
-    // starts:    [7 start times]
-    // breaks:    [7 break numbers]
-    // finishes:  [7 finish times]
-    // totals:    [7 totals]
-    this.setState({
-      valuesRows: valuesRows
-    })
+
+    this.setState({ valuesRows: valuesRows })
   }
 
 

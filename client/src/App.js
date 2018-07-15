@@ -8,8 +8,9 @@ import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
 import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 // import Header from './components/header/Header'
 import Staff from './components/staff/Staff'
+import StaffHeader from './components/staff/Header'
 // import week from './data'
-import './App.css';
+import './stylesheets/App.css';
 
 
 
@@ -18,11 +19,13 @@ class App extends Component {
     super(props)
 
     this.state = {
-      sideBarHeading: 'flags',
+      sideBarHeading: 'FLAGS',
       users: '',
       week1: '',
       week2: '',
       week3: '',
+      staffData: [],
+      payRateCategories: []
 
     }
 
@@ -64,7 +67,7 @@ class App extends Component {
 
   selectRosters = () => {
 
-    this.setState({ sideBarHeading: 'flags' })
+    this.setState({ sideBarHeading: 'FLAGS' })
   }
 
   selectTimesheets = () => {
@@ -85,10 +88,14 @@ class App extends Component {
     // iterate through state data to set this.state.week
   }
 
+  getStaffDataCallBack = (staffData) => {
+    this.setState({staffData})
+  }
+
   render() {
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
-    var week = this.state.week1
+    var week = this.state.week2
 
     return (
       <div>
@@ -102,9 +109,6 @@ class App extends Component {
               <Link to="/staff">Staff</Link>
               <Link to="/">Logout</Link>
             </div>
-
-
-
 
             <Route path='/rosters' render={(routerprops) => (
               <Rosters  week={week}
@@ -127,7 +131,11 @@ class App extends Component {
               /> )}
             />
 
-            <Route path='/staff' component={Staff} />
+            <Route path='/staff' render={(routerProps) => {
+              return (
+                <Staff payRates={this.state.payRateCategories}/>
+              )
+            }} />
 
             <Route path='/clock' component={Clock} />
 

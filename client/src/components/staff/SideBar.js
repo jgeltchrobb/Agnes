@@ -1,5 +1,6 @@
 import React from 'react'
 import RosterTotalCell from './cells/RosterTotalCell';
+import NameHeaderCell from './cells/NameHeaderCell';
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -10,32 +11,35 @@ class SideBar extends React.Component {
     }
   }
 
-  componentWillReceiveProps({staffData}) {
-    this.setState({staffData})
-  }
-  
-  componentDidUpdate = () => {
-    this.calcRosterTotal()
-  }
-
-  calcRosterTotal = () => {
-    let rosteredTotal = 0
-    for (let obj of this.props.staffData) {
-      for (let key of Object.keys(obj)) {
-        if (key === 'rostered') {
-          for (let i of Object.keys(obj.rostered)) {
-            rosteredTotal += obj.rostered[i]
-          }
-        }
-      }
-      obj.rosteredTotal = rosteredTotal
+  componentDidUpdate(prevProps) {
+    if(prevProps.staffData !== this.props.staffData) {
+      this.calcRosterTotal(this.props.staffData)
     }
   }
 
+  calcRosterTotal = (staffData) => {
+    for (let staff of staffData) {
+      let rostTotal = 0
+      for (let obj of this.props.totals) {
+        if (obj.staffID === staff.staffID) {
+          for (let key of Object.keys(obj)) {
+            if (key !== 'staffID') {
+              rostTotal += obj[key]
+            }
+          }
+        }
+      }
+      staff.rosteredTotal = rostTotal
+    }
+    this.setState({staffData})
+  }
+
   render() {
-    console.log(this.props.staffData, 'YOYOOYOYAAA')
     return (
       <div className="sidebar" >
+        <div classname="sidebar-section">
+          <NameHeaderCell />
+        </div>
         {this.state.staffData.map((staff) => {
           if (this.props.revealed === staff.name) {
             return (
@@ -48,7 +52,7 @@ class SideBar extends React.Component {
                 </div>
                 <div className="roster-plates" >
                   <div className="cell" >
-                    <h4>Total</h4>
+                    {/* <h4>Total</h4> */}
                     {localStorage.getItem(`${staff.name}`)}
                   </div>
                   <div className="cell" >
@@ -62,7 +66,7 @@ class SideBar extends React.Component {
               <div className="sidebar-section" >
                 <div className="cell" name={staff.name} onClick={this.props.handleClick} ><h4>{staff.name}</h4></div>
                 <div className="cell" >
-                  <h4>Total</h4>
+                  {/* <h4>Total</h4> */}
                   {localStorage.getItem(`${staff.name}`)}
                 </div>
               </div>
