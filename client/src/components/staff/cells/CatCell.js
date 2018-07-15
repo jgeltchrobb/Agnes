@@ -44,7 +44,7 @@ class CatCell extends React.Component {
       return (
         <div className="cell" onClick={this.handleClick} >
           {/* <h4>{this.props.category}</h4> */}
-          <form onSubmit={this.submitHandler} className="cell" >
+          <form onSubmit={this.submitHandler} >
             <input id="standardInput" placeholder={this.props.hoursWorked} autoFocus="autofocus" />
           </form>
         </div>
@@ -53,7 +53,7 @@ class CatCell extends React.Component {
       return (
         <div className="cell" onClick={this.handleClick} >
           {/* <h4>{this.props.category}</h4> */}
-          <h1>{this.state.data.hoursWorked}</h1>
+          <p id="standardInput" >{this.state.data.hoursWorked}</p>
         </div>
       )
     }  
