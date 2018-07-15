@@ -7,7 +7,9 @@ class HeaderCell extends React.Component {
   }
   render() {
     return (
-      <h4>{this.props.category}</h4>
+      <div className="cell">
+        <h4>{this.props.category}</h4>
+      </div>
     )
   }
 }

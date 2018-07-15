@@ -24,7 +24,8 @@ class App extends Component {
       week1: '',
       week2: '',
       week3: '',
-      staffData: []
+      staffData: [],
+      payRateCategories: []
 
     }
 
@@ -87,6 +88,10 @@ class App extends Component {
     // iterate through state data to set this.state.week
   }
 
+  getStaffDataCallBack = (staffData) => {
+    this.setState({staffData})
+  }
+
   render() {
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
@@ -131,12 +136,7 @@ class App extends Component {
 
             <Route path='/staff' render={(routerProps) => {
               return (
-                <div>
-                  <div className="staff-header">
-                    <StaffHeader payRates={this.state.payRateCategories} />
-                  </div>
-                  <Staff />
-                </div>
+                <Staff payRates={this.state.payRateCategories}/>
               )
             }} />
 

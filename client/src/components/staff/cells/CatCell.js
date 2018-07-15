@@ -21,14 +21,25 @@ class CatCell extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault()
-    let value = parseInt(event.target[0].value)
+    let prevVal = this.state.value
     let data = {...this.state.data}
-    this.props.passTotal({id: data._id, standardID: data.standardID, orgHours: data.hoursWorked, hours: value })
-    data.hoursWorked = value
-    this.setState({
-      clicked: !this.state.clicked,
-      data: data
-    })
+    let value = event.target[0].value
+    if (!value.match(/[a-z]/i)) {
+      this.props.passTotal({id: data._id, standardID: data.standardID, orgHours: data.hoursWorked, hours: value })
+      data.hoursWorked = value
+      this.setState({
+        clicked: !this.state.clicked,
+        data: data,
+        value: value
+      })
+    } else {
+      data.hoursWorked = prevVal
+      this.setState({
+        clicked: !this.state.clicked,
+        data: data,
+        value: prevVal
+      })
+    }
   }
   
   componentDidUpdate = (prevProps, prevState) => {

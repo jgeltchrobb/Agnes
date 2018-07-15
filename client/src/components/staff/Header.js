@@ -14,8 +14,6 @@ class Header extends React.Component {
   componentDidMount = () => {
     console.log(this.props.payRates)
     let rates = [...this.props.payRates]
-    rates.unshift('Total')
-    rates.unshift('Name')
     this.setState({rates})
   }
 
@@ -24,9 +22,7 @@ class Header extends React.Component {
       return (
         this.state.rates.map((category) => {
           return (
-            <div className="cell">
-              <HeaderCell category={category} />
-            </div>
+            <HeaderCell category={category} />
           )
         })
       )
