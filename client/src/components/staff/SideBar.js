@@ -1,5 +1,6 @@
 import React from 'react'
 import RosterTotalCell from './cells/RosterTotalCell';
+import NameHeaderCell from './cells/NameHeaderCell';
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -13,11 +14,6 @@ class SideBar extends React.Component {
   componentDidUpdate(prevProps) {
     if(prevProps.staffData !== this.props.staffData) {
       this.calcRosterTotal(this.props.staffData)
-
-      // this.props.myProp has a different value
-      // we can perform any operations that would 
-      // need the new value and/or cause side-effects 
-      // like AJAX calls with the new value - this.props.myProp
     }
   }
 
@@ -41,6 +37,9 @@ class SideBar extends React.Component {
   render() {
     return (
       <div className="sidebar" >
+        <div classname="sidebar-section">
+          <NameHeaderCell />
+        </div>
         {this.state.staffData.map((staff) => {
           if (this.props.revealed === staff.name) {
             return (
@@ -53,7 +52,7 @@ class SideBar extends React.Component {
                 </div>
                 <div className="roster-plates" >
                   <div className="cell" >
-                    <h4>Total</h4>
+                    {/* <h4>Total</h4> */}
                     {localStorage.getItem(`${staff.name}`)}
                   </div>
                   <div className="cell" >
@@ -67,7 +66,7 @@ class SideBar extends React.Component {
               <div className="sidebar-section" >
                 <div className="cell" name={staff.name} onClick={this.props.handleClick} ><h4>{staff.name}</h4></div>
                 <div className="cell" >
-                  <h4>Total</h4>
+                  {/* <h4>Total</h4> */}
                   {localStorage.getItem(`${staff.name}`)}
                 </div>
               </div>

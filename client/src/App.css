@@ -1,10 +1,16 @@
+.top-container {
+  /* display: flex; */
+  overflow: auto;
+}
+
 .staffrow {
   display: flex;
   background-color: lightseagreen;
 }
 .staff-header {
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  overflow: auto;
 }
 
 .cell {
@@ -30,7 +36,12 @@
 
 .sidebar {
   position: sticky;
+  /* position: fixed; */
   background-color: lightgrey
+}
+
+.scroll-container {
+  /* margin-left: 12rem; */
 }
 
 .sidebar-section {

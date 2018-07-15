@@ -1,6 +1,7 @@
 import React from 'react'
 import CatCell from './cells/CatCell'
 import RostCells from './cells/RostCells';
+import HeaderCell from './cells/HeaderCell';
 
 class SubCategory extends React.Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class SubCategory extends React.Component {
       this.props.categories.map((category) => {
         if (this.props.revealed == this.props.name) {
           return (
-            <div className="cat-cell" >
+            <div className="row" >
               <CatCell {...category} standardID={this.props._id} passTotal={this.props.passTotal} />
               <RostCells {...category} />
             </div>  
