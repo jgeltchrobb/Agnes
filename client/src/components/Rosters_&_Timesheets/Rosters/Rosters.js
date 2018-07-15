@@ -27,19 +27,14 @@ class Rosters extends Component {
         </div>
 
         <div>
+          <Flags staff={week.staff} />
+        </div>
 
+        <div>
           <Roster users={users}
                   staff={week.staff}
                   weekDate={week.date}
           />
-
-        </div>
-
-
-        <div>
-
-          <Flags staff={week.staff} />
-
         </div>
 
       </div>
