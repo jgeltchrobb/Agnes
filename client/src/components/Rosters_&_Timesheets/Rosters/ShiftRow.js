@@ -62,8 +62,6 @@ class ShiftRow extends Component {
 
     if (!this.state.shiftsArray && !this.state.name) { return '' }
 
-    console.log(this.state.shiftsArray)
-
     return (
       <div>
 
