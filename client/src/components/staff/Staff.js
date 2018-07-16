@@ -42,6 +42,8 @@ class Staff extends Component {
 
   fetchRosters = (staffData) => {
     let date = new Date().toISOString().split('T')[0];
+    console.log(date)
+    console.log(new Date(date))
     axios.get(api + '/rosters' + '/date/' + date).then((response) => {
       return response.data
     }).then((obj) => {
