@@ -10,9 +10,11 @@ class Header extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    let rates = [...this.props.payRates]
-    this.setState({rates})
+  componentDidUpdate = (prevProps) => {
+    if (prevProps !== this.props) {
+      let rates = [...this.props.payRates]
+      this.setState({rates})
+    }
   }
 
   render() {

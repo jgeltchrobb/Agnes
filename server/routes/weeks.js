@@ -1,5 +1,6 @@
 const express = require('express');
 const Week = require('../models/week')
+const User = require('../models/user')
 const router = express.Router();
 
 // Get all Weeks
@@ -22,12 +23,45 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// Create new Week
-router.post('/', async (req, res) => {
-  console.log(req.body)
+router.get('/date/:date', async (req, res) => {
   try {
-    let week = await Week.create(req.body)
+    console.log(req.params.date)
+    let week = await Week.findOne({date: req.params.date})
     res.send(week)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+// Create new Week
+router.post('/new', async (req, res) => {
+  try {
+    let date = new Date().toISOString().split('T')[0]
+    let dateObj = new Date(date)
+    let weekExists = await Week.findOne({date: date})
+    let users = await User.find()
+    let userArr = []
+    for (let user of users) {
+      userArr.push({staffID: user._id, shifts: []})
+    }
+    if (!weekExists) {
+      for (let i = 1; i < 8; i++) {
+        let tempDate = new Date(dateObj.setDate(dateObj.getDate() - 1)).toISOString().split('T')[0]
+        let wk = await Week.findOne({date: tempDate})
+        if (wk) {
+          let createDate = new Date(wk.date)
+          let finalDate = new Date(tempDate.setDate(createDate.getDate() + 7)).toISOString().split('T')[0]
+          let week = await Week.create({date: finalDate, staff: userArr})
+          res.send(week)
+          break
+          }
+        }
+        let week = await Week.create({date: date, staff: userArr})
+        res.send(week)
+      } else {
+        await Week.create({date: new Date('2018-07-8')})
+        res.send(weekExists)
+      }
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

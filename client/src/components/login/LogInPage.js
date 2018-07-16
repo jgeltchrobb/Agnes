@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+
+const api = 'http://localhost:4000'
 
 class LogInPage extends Component {
 
@@ -11,16 +14,18 @@ class LogInPage extends Component {
       password: event.target.password.value,
       check: checkedValue
     }
-    console.log(login)
+    // axios.post(api + '/login', login).then((response) => {
+    //   console.log(response)
+    // })
   }
 
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit} >
-          <label for="email">Email: <input type="email" name="email" /></label><br />
-          <label for="password">Password: <input type="password" name="password" /></label><br />
-          <label for="remember">Remember me:<input id="checkbox" name="remember" type="checkbox" /></label><br />
+          <label>Email: <input type="email" name="email" /></label><br />
+          <label>Password: <input type="password" name="password" /></label><br />
+          <label>Remember me:<input id="checkbox" name="remember" type="checkbox" /></label><br />
           <button type="submit">Login</button>
         </form>
       </div>
