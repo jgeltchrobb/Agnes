@@ -32,6 +32,8 @@ class Rosters extends Component {
             <Roster users={users}
                     staff={week.staff}
                     weekDate={week.date}
+                    weekID={week._id}
+
             />
           </div>
         </div>

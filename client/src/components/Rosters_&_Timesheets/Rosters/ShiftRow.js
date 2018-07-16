@@ -68,11 +68,13 @@ class ShiftRow extends Component {
 
 
   render() {
+
+    const { weekID } = this.props
     if (!this.state.shiftsArray && !this.state.staffName) { return '' }
 
     return (
       <div className="shift-row">
-      
+
         <div className="shifts">
 
           <div>
@@ -86,6 +88,8 @@ class ShiftRow extends Component {
                         shiftCategory={shift.shiftCategory}
                         start={shift.start}
                         finish={shift.finish}
+                        weekID={weekID}
+                        
                 />
               )
             })

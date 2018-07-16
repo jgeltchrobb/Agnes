@@ -54,9 +54,14 @@ router.delete('/:id', async (req, res) => {
 })
 
 router.post('/shift/:id', async (req, res) => {
+  console.log(req.body)
+  console.log('!!!!!!!!!!!')
+  console.log(req.params)
+
+  let week = await Week.findOne({ _id: req.body.weekID })
+  console.log(week, 'week')
   try {
     let found = false
-    let week = await Week.findOne({_id: req.body.weekID})
     for (let staff of week.staff) {
       if (staff.staffID === req.params.id) {
         for (let shift of staff.shifts) {
@@ -74,7 +79,7 @@ router.post('/shift/:id', async (req, res) => {
     }
     res.send(week)
   } catch (error) {
-    res.status(500).json({ error: error.message })    
+    res.status(500).json({ error: error.message })
   }
 })
 
