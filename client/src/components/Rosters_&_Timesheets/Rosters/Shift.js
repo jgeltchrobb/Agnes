@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import '../../../stylesheets/Shift.css'
 
 class Shift extends Component {
@@ -17,6 +18,12 @@ class Shift extends Component {
     this.setShiftState(date, staffID, shiftCategory, start, finish)
   }
 
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   console.log(this.state)
+  //   console.log(prevState)
+  //
+  // }
+
   setShiftState = (date, staffID, shiftCategory, start, finish) => {
     this.setState({
       date: date,
@@ -27,16 +34,6 @@ class Shift extends Component {
       editing: false,
     })
   }
-
-  // setStaffName = (staffID, users) => {
-  //   var staffName = ''
-  //   this.props.users.map((user) => {
-  //     if (user.staffID.toString() === staffID) {
-  //       staffName = user.staffName
-  //     }
-  //   })
-  //   this.setState({ staffName: staffName})
-  // }
 
   formatTime = (time) => {
     if (time) {
@@ -53,36 +50,76 @@ class Shift extends Component {
   }
 
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('submitted')
-    this.editShift()
-  }
 
   updateShiftCategory = (e) => {
-    this.setState({shiftCategory: e.target.value})
+    this.setState({ shiftCategory: e.target.value })
   }
+
   updateStart = (e) => {
-    this.setState({start: e.target.value})
+    this.setState({ start: e.target.value })
+
   }
+
   updateFinish = (e) => {
-    this.setState({finish: e.target.value})
+    this.setState({ finish: e.target.value })
+  }
+
+  addTime = (timeString) => {
+    let hrsMinsStringArray = timeString.split(':')
+    let hrs = Number(hrsMinsStringArray[0])
+    let mins = Number(hrsMinsStringArray[1])
+    var dateCopy = new Date(this.props.date)
+    dateCopy.setHours(hrs)
+    dateCopy.setMinutes(mins)
+    return dateCopy
   }
 
   editShift = () => {
-
     this.setState({ editing: !this.state.editing })
+  }
 
+  handleSubmit = (e) => {
+
+    const server = 'http://localhost:4000'
+
+    e.preventDefault()
+
+    this.setState({ start: this.addTime(this.state.start) })
+    this.setState({ finish: this.addTime(this.state.finish) })
+
+    this.editShift()
+
+
+    let shiftObj = { weekID: this.props.weekID, shift: {
+          date: this.state.date,
+          shiftCategory: this.state.shiftCategory,
+          start: {
+            rostered: this.state.start,
+            actual: '',
+            timesheet: '',
+            flag: false,
+          },
+          finish: {
+            rostered: this.state.finish,
+            actual: '',
+            timesheet: '',
+            flag: false,
+          }
+        }
+      }
+
+    axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {
+      console.log(response)
+    })
   }
 
   render() {
+    // if (typeof(this.state.start) == String) {return ''}
     const { date, staffID, shiftCategory, start, finish } = this.props
-
-    console.log(this.state.editing)
 
       if (this.state.editing) {
         return (
-          <form onSubmit={this.handleSubmit}>
+          <form id='form' onSubmit={this.handleSubmit}>
 
             <input  placeholder='Shift Category'
                     value={this.state.shiftCategory}
@@ -91,12 +128,14 @@ class Shift extends Component {
             <input  placeholder='start'
                     value={this.state.start}
                     onChange={this.updateStart}
+                    type='time'
             />
             <input  placeholder='finish'
                     value={this.state.finish}
                     onChange={this.updateFinish}
+                    type='time'
             />
-            <input type="submit" value="Submit" />
+            <input type="submit" />
 
           </form>
 
@@ -105,11 +144,11 @@ class Shift extends Component {
         return (
           <div onClick={() => this.editShift()}>
             <div className="shift-time">
-              <div>{this.formatTime(start)}</div>
-              <div>{this.formatTime(finish)}</div>
+              <div>{this.formatTime(this.state.start)}</div>
+              <div>{this.formatTime(this.state.finish)}</div>
             </div>
             <div className="shift-category">
-              <p>{shiftCategory.toUpperCase()}</p>
+              <p>{this.state.shiftCategory.toUpperCase()}</p>
             </div>
           </div>
         )
