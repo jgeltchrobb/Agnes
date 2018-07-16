@@ -78,21 +78,20 @@ class Shift extends Component {
     this.setState({ editing: !this.state.editing })
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
 
     const server = 'http://localhost:4000'
 
     e.preventDefault()
 
-    this.setState({ start: this.addTime(this.state.start) })
-    this.setState({ finish: this.addTime(this.state.finish) })
+    await this.setState({ start: this.addTime(this.state.start) })
+    await this.setState({ finish: this.addTime(this.state.finish) })
 
     this.editShift()
 
-
     let shiftObj = { weekID: this.props.weekID, shift: {
           date: this.state.date,
-          shiftCategory: this.state.shiftCategory,
+          shiftCategory: '!!!!!!!!!!!!!!!!!!!!!!!!',
           start: {
             rostered: this.state.start,
             actual: '',
