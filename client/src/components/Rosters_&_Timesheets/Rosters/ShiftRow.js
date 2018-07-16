@@ -89,7 +89,7 @@ class ShiftRow extends Component {
                         start={shift.start}
                         finish={shift.finish}
                         weekID={weekID}
-                        
+
                 />
               )
             })

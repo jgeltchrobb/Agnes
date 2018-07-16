@@ -41,18 +41,18 @@ class Staff extends Component {
   }
 
   fetchRosters = (staffData) => {
-    axios.get(api + '/rosters').then((response) => {
-      for (let obj of response.data) {
-        if (obj.date === '2018-07-01T14:00:00.000Z') {
-          return obj
-        }
-      }
+    let date = new Date().toISOString().split('T')[0];
+    console.log(date)
+    console.log(new Date(date))
+    axios.get(api + '/rosters' + '/date/' + date).then((response) => {
+      return response.data
     }).then((obj) => {
       this.calcRosters(obj, staffData)
     })
   }
 
   calcRosters = (roster, staffData) => {
+    console.log(roster, 'ROSTEr')
     let totals = []
     const DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778

@@ -37,7 +37,7 @@ class SideBar extends React.Component {
   render() {
     return (
       <div className="sidebar" >
-        <div classname="sidebar-section">
+        <div className="sidebar-section">
           <NameHeaderCell />
         </div>
         {this.state.staffData.map((staff) => {

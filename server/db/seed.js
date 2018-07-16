@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost/agnes', (err) => {
 const seedData = async () => {
 
   await Week.create({
-      date: new Date("July 2 2018"),
+      date: '2018-07-16',
       staff:
       [
         {
