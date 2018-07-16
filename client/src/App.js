@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import axios from 'axios'
 import LogInPage from './components/login/LogInPage'
-import OfficePin from './components/officepin/OfficePin'
-import Clock from './components/loggedin/Clock'
+import Clock from './components/clock/Clock'
 import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
 import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 // import Header from './components/header/Header'
@@ -137,11 +136,13 @@ class App extends Component {
               )
             }} />
 
-            <Route path='/clock' component={Clock} />
+            <Route path='/clock' render={(routerProps) => {
+              return (
+                <Clock week={week}/>
+              )
+            }} />
 
             <Route path='/login' component={LogInPage} />
-
-            <Route path='/pin' component={OfficePin} />
 
 
 

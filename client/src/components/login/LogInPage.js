@@ -20,6 +20,7 @@ class LogInPage extends Component {
   }
 
   render() {
+    // Basic login details
     return (
       <div>
         <form onSubmit={this.handleSubmit} >
