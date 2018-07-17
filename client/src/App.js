@@ -93,7 +93,7 @@ class App extends Component {
   render() {
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
-    var week = this.state.week1
+    var week = this.state.week3
 
 
     return (
