@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost/agnes', (err) => {
 const seedData = async () => {
 
   await Week.create({
-      date: '2018-07-16',
+      date: new Date("July 2 2018"),
       staff:
       [
         {
@@ -35,6 +35,22 @@ const seedData = async () => {
                 rostered: new Date("July 2 2018 16:00"),
                 actual: new Date("July 2 2018 15:00"),
                 timesheet: new Date("July 2 2018 15:00"),
+                flag: false
+              }
+            },
+            {
+              date: new Date("July 2 2018"),
+              shiftCategory: "bludge",
+              start: {
+                rostered: new Date("July 2 2018 22:00"),
+                actual: new Date("July 2 2018 21:30"),
+                timesheet: '',
+                flag: false
+              },
+              finish: {
+                rostered: new Date("July 2 2018 06:00"),
+                actual: new Date("July 2 2018 06:10"),
+                timesheet: '',
                 flag: false
               }
             },

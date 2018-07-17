@@ -6,10 +6,8 @@ import OfficePin from './components/officepin/OfficePin'
 import Clock from './components/loggedin/Clock'
 import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
 import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
-// import Header from './components/header/Header'
 import Staff from './components/staff/Staff'
-import StaffHeader from './components/staff/Header'
-// import week from './data'
+// import StaffHeader from './components/staff/Header'
 import './stylesheets/App.css';
 
 
@@ -76,13 +74,13 @@ class App extends Component {
   }
 
 
-  nextWeek = () => {
+  goToNextWeek = () => {
     // updates state to be the next week,
     // retrieving from localstorage OR Just
     // iterate through state data to set this.state.week
   }
 
-  previousWeek = () => {
+  goToPreviousWeek = () => {
     // updates state to be the next week,
     // retrieving from localstorage OR Just
     // iterate through state data to set this.state.week
@@ -97,9 +95,13 @@ class App extends Component {
 
     var week = this.state.week3
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9709c2dee3ad6574480da9b02f4fd564c0ad5bc9
+=======
+
+>>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
 
     return (
       <div>
@@ -117,8 +119,8 @@ class App extends Component {
             <Route path='/rosters' render={(routerprops) => (
               <Rosters  week={week}
                         users={this.state.users}
-                        nextWeek={this.nextWeek}
-                        previousWeek={this.previousWeek}
+                        goToNextWeek={this.goToNextWeek}
+                        goToPreviousWeek={this.goToPreviousWeek}
                         sideBarHeading={this.state.sideBarHeading} /> )}
             />
 
@@ -128,8 +130,8 @@ class App extends Component {
                           users={this.state.users}
                           payRateCategories={this.state.payRateCategories}
                           entitlements={this.state.entitlements}
-                          nextWeek={this.nextWeek}
-                          previousWeek={this.previousWeek}
+                          goToNextWeek={this.goToNextWeek}
+                          goToPreviousWeek={this.goToPreviousWeek}
                           sideBarHeading={this.state.sideBarHeading}
 
               /> )}
