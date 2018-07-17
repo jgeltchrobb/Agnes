@@ -33,7 +33,6 @@ class TotalsRow extends Component {
   }
 
   componentDidMount = () => {
-    const { row, setIndividual } = this.props
     this.setTotalsArray()
   }
 
@@ -53,10 +52,10 @@ class TotalsRow extends Component {
           // staff staffMember or row, but with totals / empty strings.
           // Then we can loop through that array in the render method and either render
           // the total (if value) or an empty div (if '')
-          this.state.totalsArray.map((total) => {
+          this.state.totalsArray.map((total, index) => {
             if (total) {
               return (
-                <Total total={total} />
+                <Total key={index} total={total} />
               )
             } else {
               return (
