@@ -6,6 +6,7 @@ import TotalsRow from './Common/TotalsRow'
 import Individual from './Individual/Individual'
 import  '../../../stylesheets/Timesheets.css'
 
+
 class Timesheets extends Component {
   state = {
     columnHeadings: [],
@@ -38,12 +39,12 @@ class Timesheets extends Component {
     const staffIdArray = []
     var columnHeadings = []
     const totalsRows = []
-    this.props.week.staff.map((staffMember) => {
 
+    this.props.week.staff.map((staffMember) => {
       staffIdArray.push(staffMember.staffID)
       const totalsRow = {}
-      staffMember.shifts.map((shift) => {
 
+      staffMember.shifts.map((shift) => {
         const rStart = new Date(shift.start.rostered)
         const aStart = new Date(shift.start.actual)
         var start = ''
@@ -201,7 +202,7 @@ class Timesheets extends Component {
 
 
   render() {
-    const { week, prevWeek, users, nextWeek, previousWeek, sideBarHeading } = this.props
+    const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
 
     const shiftBreakLength = 30
 
@@ -212,8 +213,8 @@ class Timesheets extends Component {
 
           <div className="timesheets">
             <Header weekDate={week.date}
-                    nextWeek={nextWeek}
-                    previousWeek={previousWeek}
+                    goToNextWeek={goToNextWeek}
+                    goToPreviousWeek={goToPreviousWeek}
                     sideBarHeading={sideBarHeading}
             />
           </div>
@@ -222,9 +223,9 @@ class Timesheets extends Component {
             <div className="empty-column"></div>
             <div className="headings-column">
               {
-                this.state.columnHeadings.map((columnHeading) => {
+                this.state.columnHeadings.map((columnHeading, index) => {
                   return (
-                    <ColumnHeading columnHeading={columnHeading} />
+                    <ColumnHeading key={index} columnHeading={columnHeading} />
                   )
                 })
               }
@@ -236,7 +237,8 @@ class Timesheets extends Component {
               {
                 this.state.totalsRows.map((row) => {
                 return (
-                  <Name staffID={row.staffID}
+                  <Name key={row.staffID}
+                        staffID={row.staffID}
                         users={users}
                         setIndividual={this.setIndividual}
                         removeIndividual={this.removeIndividual}
@@ -249,7 +251,8 @@ class Timesheets extends Component {
               {
                 this.state.totalsRows.map((row) => {
                   return (
-                    <TotalsRow  row={row}
+                    <TotalsRow  key={row.staffID}
+                                row={row}
                                 columnHeadings={this.state.columnHeadings}
                                 setIndividual={this.setIndividual}
                     />
@@ -268,8 +271,8 @@ class Timesheets extends Component {
 
           <div className='timesheets'>
             <Header weekDate={week.date}
-                    nextWeek={nextWeek}
-                    previousWeek={previousWeek}
+                    goToNextWeek={goToNextWeek}
+                    goToPreviousWeek={goToPreviousWeek}
                     sideBarHeading={sideBarHeading}
             />
           </div>
@@ -278,9 +281,9 @@ class Timesheets extends Component {
             <div className="empty-column"></div>
             <div className="headings-column">
               {
-                this.state.columnHeadings.map((columnHeading) => {
+                this.state.columnHeadings.map((columnHeading, index) => {
                   return (
-                    <ColumnHeading columnHeading={columnHeading} />
+                    <ColumnHeading key={index} columnHeading={columnHeading} />
                   )
                 })
               }
@@ -312,7 +315,6 @@ class Timesheets extends Component {
               </div>
               <div className="individual-container">
                 <Individual week={week}
-                            prevWeek={prevWeek}
                             individual={this.state.individual}
                             shiftBreakLength={shiftBreakLength}
                             individualTotalsRow={this.state.individualTotalsRow}

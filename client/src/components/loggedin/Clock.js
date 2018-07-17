@@ -7,10 +7,6 @@ class Clock extends Component {
     clockedOff: null,
   }
 
-  constructor(props) {
-    super(props)
-  }
-
   clockingOn = () => {
     this.setState({ clockedOn: new Date().toLocaleString() })
   }

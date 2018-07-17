@@ -11,7 +11,7 @@ class Header extends Component {
   }
 
   render() {
-    const { weekDate, nextWeek, previousWeek, sideBarHeading } = this.props
+    const { weekDate, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
 
     return (
       <div className="header">
@@ -22,7 +22,7 @@ class Header extends Component {
 
         <div className="header-mainbar">
           <div>
-            <Nav previousWeek={previousWeek} />
+            <Nav goToPreviousWeek={goToPreviousWeek} />
           </div>
 
           <div>
@@ -30,7 +30,7 @@ class Header extends Component {
           </div>
 
           <div>
-            <Nav nextWeek={nextWeek} />
+            <Nav goToNextWeek={goToNextWeek} />
           </div>
         </div>
 

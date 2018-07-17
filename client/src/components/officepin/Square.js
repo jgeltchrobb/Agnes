@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import Board from './Board'
 import Pin from './Pin'
-import data from './data'
+// import data from './data'
 
 
 
 class Square extends Component {
-  constructor(props){
-    super(props)
-  }
+  
   render() {
     return (
       <button className="square" onClick={() =>

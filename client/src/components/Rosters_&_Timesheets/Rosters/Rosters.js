@@ -7,27 +7,27 @@ import '../../../stylesheets/Rosters.css'
 
 
 class Rosters extends Component {
-  constructor(props) {
-    super(props)
-  }
+
 
   render() {
-    const { week, users, nextWeek, previousWeek, sideBarHeading } = this.props
+    const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
 
     return (
       <div className="rosters-container">
 
         <div>
           <Header weekDate={week.date}
-                  nextWeek={nextWeek}
-                  previousWeek={previousWeek}
+                  goToNextWeek={goToNextWeek}
+                  goToPreviousWeek={goToPreviousWeek}
                   sideBarHeading={sideBarHeading}
           />
         </div>
         <div className="rosters-main">
+
           <div className="rosters-flags">
             <Flags staff={week.staff} />
           </div>
+
           <div className="rosters-date">
             <Roster users={users}
                     staff={week.staff}
@@ -36,6 +36,7 @@ class Rosters extends Component {
 
             />
           </div>
+
         </div>
 
       </div>
