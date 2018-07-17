@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import TimePicker from 'rc-time-picker';
 import '../../../stylesheets/Shift.css'
 
 class Shift extends Component {
@@ -118,26 +119,28 @@ class Shift extends Component {
 
       if (this.state.editing) {
         return (
-          <form id='form' onSubmit={this.handleSubmit}>
+          // <form id='form' onSubmit={this.handleSubmit}>
 
-            <input  placeholder='Shift Category'
-                    value={this.state.shiftCategory}
-                    onChange={this.updateShiftCategory}
-            />
-            <input  placeholder='start'
-                    value={this.state.start}
-                    onChange={this.updateStart}
-                    type='time'
-            />
-            <input  placeholder='finish'
-                    value={this.state.finish}
-                    onChange={this.updateFinish}
-                    type='time'
-            />
-            <input type="submit" />
+          //   <input  placeholder='Shift Category'
+          //           value={this.state.shiftCategory}
+          //           onChange={this.updateShiftCategory}
+          //   />
+          //   <input  placeholder='start'
+          //           value={this.state.start}
+          //           onChange={this.updateStart}
+          //           type='time'
+          //   />
+          //   <input  placeholder='finish'
+          //           value={this.state.finish}
+          //           onChange={this.updateFinish}
+          //           type='time'
+          //   />
+          //   <input type="submit" />
 
-          </form>
-
+          // </form>
+          <div className="shift-time">
+            <TimePicker showSecond={false} />
+          </div>
         )
       } else {
         return (
