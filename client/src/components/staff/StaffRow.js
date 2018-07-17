@@ -15,6 +15,8 @@ class StaffRow extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+
     return this.props.staffData.map((staff) => {
       return (
         <div className="staffrow" >

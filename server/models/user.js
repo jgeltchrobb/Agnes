@@ -10,7 +10,7 @@ const User = new Schema({
   staffID: Number,
   name: String,
   email: String,
-  role: String,
+  role: {type: String, default: 'staff'},
   PIN: Number,
 });
 
