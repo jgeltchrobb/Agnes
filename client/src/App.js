@@ -96,7 +96,10 @@ class App extends Component {
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
     var week = this.state.week3
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9709c2dee3ad6574480da9b02f4fd564c0ad5bc9
 
     return (
       <div>

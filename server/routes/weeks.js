@@ -104,6 +104,7 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/shift/:id', async (req, res) => {
   console.log(req.body)
+<<<<<<< HEAD
   console.log('!!!!!!!!!!!')
   console.log(req.params)
 
@@ -116,21 +117,28 @@ router.post('/shift/:id', async (req, res) => {
     let week = await Week.findOne({_id: req.body.weekID})
     console.log(week)
 >>>>>>> 4990eb1779ec41734b070cb3e900cd8a956f38b4
+=======
+  try {
+    let found = false
+    let week = await Week.findOne({_id: req.body.shiftObj.weekID})
+>>>>>>> 9709c2dee3ad6574480da9b02f4fd564c0ad5bc9
     for (let staff of week.staff) {
       if (staff.staffID === req.params.id) {
         for (let shift of staff.shifts) {
-          if (shift.date === req.body.shift.date && shift.start.rostered === req.body.shift.start.rostered) {
-            shift = req.body.shift
+          if (shift.date === req.body.shiftObj.shift.date) {
+            shift = req.body.shiftObj.shift
+            console.log('FOUND')
             week.save()
             found = true
           }
         }
         if (!found) {
-          staff.shifts.push(req.body.shift)
+          staff.shifts.push(req.body.shiftObj.shift)
           week.save()
         }
       }
     }
+    // && shift.start.rostered === req.body.shift.start.rostered
     res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
