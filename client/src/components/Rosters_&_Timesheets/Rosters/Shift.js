@@ -93,41 +93,6 @@ class Shift extends Component {
 
     this.editShift()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-    console.log(this.props.weekID)
-
-    let shiftObj =
-    {
-      weekID: this.props.weekID,
-      shift:
-        {
-=======
-    let shiftObj = { weekID: this.props.weekID, shift: {
->>>>>>> 9709c2dee3ad6574480da9b02f4fd564c0ad5bc9
-          date: this.state.date,
-          shiftCategory: '!!!!!!!!!!!!!!!!!!!!!!!!',
-          start: {
-            rostered: this.state.start,
-            actual: '',
-            timesheet: '',
-            flag: false,
-          },
-          finish: {
-            rostered: this.state.finish,
-            actual: '',
-            timesheet: '',
-            flag: false,
-          }
-        }
-      }
-
-
-=======
-=======
->>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
     let shiftObj =  {
                       weekID: this.props.weekID,
                       shift:  {
