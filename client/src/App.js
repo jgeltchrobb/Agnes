@@ -96,9 +96,13 @@ class App extends Component {
     var week = this.state.week3
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 9709c2dee3ad6574480da9b02f4fd564c0ad5bc9
+=======
+
+>>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
 =======
 
 >>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77

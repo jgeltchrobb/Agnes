@@ -95,6 +95,7 @@ class Shift extends Component {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     console.log(this.props.weekID)
 
@@ -125,6 +126,8 @@ class Shift extends Component {
 
 
 =======
+=======
+>>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
     let shiftObj =  {
                       weekID: this.props.weekID,
                       shift:  {
@@ -174,6 +177,9 @@ class Shift extends Component {
 //           }
 //         }
 //       }
+<<<<<<< HEAD
+>>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
+=======
 >>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
 
     axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {

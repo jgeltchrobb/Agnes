@@ -104,6 +104,7 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/shift/:id', async (req, res) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   console.log(req.body)
 <<<<<<< HEAD
   console.log('!!!!!!!!!!!')
@@ -145,6 +146,8 @@ router.post('/shift/:id', async (req, res) => {
     res.status(500).json({ error: error.message })
   }
 =======
+=======
+>>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
  try {
    let found = false
    let week = await Week.findOne({_id: req.body.shiftObj.weekID})
@@ -168,6 +171,9 @@ router.post('/shift/:id', async (req, res) => {
  } catch (error) {
    res.status(500).json({ error: error.message })
  }
+<<<<<<< HEAD
+>>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
+=======
 >>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
 })
 
