@@ -24,6 +24,7 @@ class CatCell extends React.Component {
     let prevVal = this.state.value
     let data = {...this.state.data}
     let value = event.target[0].value
+    console.log(this.props)
     if (!value.match(/[a-z]/i)) {
       this.props.passTotal({id: data._id, standardID: data.standardID, orgHours: data.hoursWorked, hours: value })
       data.hoursWorked = value
