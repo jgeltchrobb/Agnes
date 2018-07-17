@@ -96,6 +96,8 @@ class App extends Component {
 
     var week = this.state.week1
 
+    let user = this.state.users[3]
+
     return (
       <div>
 
@@ -138,7 +140,7 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock week={week}/>
+                <Clock week={week} user={user}/>
               )
             }} />
 

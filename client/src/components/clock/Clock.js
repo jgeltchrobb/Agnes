@@ -7,19 +7,14 @@ state = {
   staffID: 1
 }
 
-componentDidMount() {
-}
+  componentDidMount() {
 
-// Render determines the type of user which has logged in
+  }
+
   render() {
     return (
       <div>
-        <Pin /> <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <ClockOnOff />
+        <ClockOnOff week={this.props.week} user={this.props.user} />
 
       </div>
     )
