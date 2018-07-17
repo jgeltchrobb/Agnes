@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Day from './Day'
-import '../../../stylesheets/ShiftRow.css'
+import '../../../stylesheets/StaffMember.css'
 
 class StaffMember extends Component {
   state = {
@@ -9,15 +9,15 @@ class StaffMember extends Component {
   }
 
   componentDidMount = () => {
-    const { weekDate, staffMember, users } = this.props
-    this.setStaffName(staffMember.staffID, users)
+    const { weekDate, staffMember, staffID, users } = this.props
+    this.setStaffName(staffID, users)
     this.setdaysArray(weekDate, staffMember)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props !== prevProps) {
-      const { weekDate, staffMember, users } = this.props
-      this.setStaffName(staffMember.staffID, users)
+      const { weekDate, staffMember, staffID, users } = this.props
+      this.setStaffName(staffID, users)
       this.setdaysArray(weekDate, staffMember)
     }
   }
@@ -46,7 +46,6 @@ class StaffMember extends Component {
             if (day && new Date(day.shifts[0].date).getDate() === weekDate.getDate() + i) {
               // if so push the shift to that shifts obj
               day.shifts.push ( {
-                                  staffID: staffMember.staffID,
                                   date: new Date(shift.date),
                                   shiftCategory: shift.shiftCategory,
                                   start: new Date(shift.start.rostered),
@@ -62,7 +61,6 @@ class StaffMember extends Component {
             daysArray.push  ( {
                                 shifts: [
                                           {
-                                            staffID: staffMember.staffID,
                                             date: new Date(shift.date),
                                             shiftCategory: shift.shiftCategory,
                                             start: new Date(shift.start.rostered),
@@ -81,7 +79,6 @@ class StaffMember extends Component {
         daysArray.push( {
                           shifts: [
                                     {
-                                      staffID: staffMember.staffID,
                                       date: new Date(dateCopy.setDate(weekDate.getDate() + i)),
                                       shiftCategory: 'empty',
                                       start: '',
@@ -92,14 +89,14 @@ class StaffMember extends Component {
                       )
       }
     }
-    console.log(daysArray)
+    // console.log(daysArray)
     this.setState({ daysArray: daysArray })
   }
 
 
   render() {
 
-    const { weekID } = this.props
+    const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
 
     return (
@@ -113,9 +110,9 @@ class StaffMember extends Component {
           {
             this.state.daysArray.map((day) => {
               return (
-                <Day  shifts={day.shifts}
-                      staffID={day.shifts[0].staffID}
-                      weekID={weekID}
+                <Day  shifts={ day.shifts }
+                      staffID={ staffID }
+                      weekID={ weekID }
 
                 />
               )

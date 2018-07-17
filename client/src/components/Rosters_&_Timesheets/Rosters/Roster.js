@@ -37,10 +37,11 @@ class Roster extends Component {
             {
               staff.map((staffMember) => {
                 return (
-                  <StaffMember staffMember={staffMember}
-                              weekDate={weekDate}
-                              users={users}
-                              weekID={weekID}
+                  <StaffMember  staffMember={ staffMember }
+                                staffID={ staffMember.staffID }
+                                weekDate={ weekDate }
+                                users={ users }
+                                weekID={ weekID }
                   />
                 )
               })
