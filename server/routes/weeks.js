@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
 //     res.status(500).json({ error: error.message })
 //   }
 // })
-
+//
 // router.get('/previous/:date', async (req, res) => {
 //   try {
 //     let date = new Date(req.params.date)
@@ -63,8 +63,9 @@ router.get('/', async (req, res) => {
 //
 //   }
 // })
-
+//
 // Create new Week
+
 router.post('/new/:weekDate', async (req, res) => {
   try {
     let currentDate = new Date(req.params.weekDate)

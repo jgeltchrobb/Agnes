@@ -38,8 +38,8 @@ class Shift extends Component {
   setShift = (shiftCategory, start, finish) => {
     this.setState ({
       shiftCategory: shiftCategory,
-      start: new Date(start),
-      finish: new Date (finish),
+      start: start,
+      finish: finish,
     })
   }
 
@@ -59,7 +59,6 @@ class Shift extends Component {
 
   updateShiftCategory = (e) => {
     this.setState({ shiftCategory: e.target.value })
-    console.log(this.state.shiftCategory)
 
   }
   updateStart = (e) => {
@@ -114,9 +113,9 @@ class Shift extends Component {
 
                     }
 
-    axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {
-      console.log(response)
-    })
+    // axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {
+    //   console.log(response)
+    // })
   }
 
   addShift = () => {
@@ -125,6 +124,7 @@ class Shift extends Component {
   }
 
   render() {
+
     if (this.state.editing) {
       // if in editing mode we want the form / modle to render
       return (
