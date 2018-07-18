@@ -7,7 +7,6 @@ class Nav extends Component {
   }
 
   render() {
-    console.log(this.props, 'PPPPPPPPPPPPP')
     const { goToNextWeek, goToPreviousWeek, weekDate } = this.props
 
     return (
