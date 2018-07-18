@@ -149,7 +149,7 @@ class Staff extends Component {
         return 'WaynePublicHoliday'
     }
   }
-  
+
   passTotal = (total) => {
     console.log(total, 'ASJDAKSDJK')
     let name = ''
@@ -218,4 +218,3 @@ class Staff extends Component {
 }
 
 export default Staff
-
