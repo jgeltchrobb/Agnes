@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import '../../../stylesheets/Shift.css'
+// import '../../../stylesheets/Shift.css'
 
 class Shift extends Component {
   constructor(props) {
@@ -113,39 +113,6 @@ class Shift extends Component {
                               }
 
                     }
-    // NEED TO PREVENT ROSTER SHIFTS BEING CHANGED AFTER AN CLOCK (ACTUAL) TIME IS SAVED TO THE SHIFT DATA
-    // OR THIS DATA WILL WIPE OVER IT.
-
-//     const server = 'http://localhost:4000'
-
-//     e.preventDefault()
-
-//     await this.setState({ start: this.addTime(this.state.start) })
-//     await this.setState({ finish: this.addTime(this.state.finish) })
-
-//     this.editShift()
-
-//     let shiftObj = { weekID: this.props.weekID, shift: {
-//           date: this.state.date,
-//           shiftCategory: '!!!!!!!!!!!!!!!!!!!!!!!!',
-//           start: {
-//             rostered: this.state.start,
-//             actual: '',
-//             timesheet: '',
-//             flag: false,
-//           },
-//           finish: {
-//             rostered: this.state.finish,
-//             actual: '',
-//             timesheet: '',
-//             flag: false,
-//           }
-//         }
-//       }
-<<<<<<< HEAD
->>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
-=======
->>>>>>> 4570b94c72692320dba893d810e6c02d456bfb77
 
     axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {
       console.log(response)

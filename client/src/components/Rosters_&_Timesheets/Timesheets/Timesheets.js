@@ -202,9 +202,7 @@ class Timesheets extends Component {
 
 
   render() {
-    const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-
-    const shiftBreakLength = 30
+    const { week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
 
     if (!this.state.individual) {
 
@@ -314,12 +312,12 @@ class Timesheets extends Component {
                       />
               </div>
               <div className="individual-container">
-                <Individual week={week}
-                            individual={this.state.individual}
-                            shiftBreakLength={shiftBreakLength}
-                            individualTotalsRow={this.state.individualTotalsRow}
-                            setIndividual={this.setIndividual}
-                            removeIndividual={this.removeIndividual}
+                <Individual week={ week }
+                            prevWeek={ prevWeek }
+                            individual={ this.state.individual }
+                            individualTotalsRow={ this.state.individualTotalsRow }
+                            setIndividual={ this.setIndividual }
+                            removeIndividual={ this.removeIndividual }
                 />
               </div>
             </div>

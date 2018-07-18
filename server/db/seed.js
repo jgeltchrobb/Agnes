@@ -44,13 +44,13 @@ const seedData = async () => {
               start: {
                 rostered: new Date("July 2 2018 22:00"),
                 actual: new Date("July 2 2018 21:30"),
-                timesheet: '',
+                timesheet: new Date("July 2 2018 22:00"),
                 flag: false
               },
               finish: {
-                rostered: new Date("July 2 2018 06:00"),
-                actual: new Date("July 2 2018 06:10"),
-                timesheet: '',
+                rostered: new Date("July 3 2018 06:00"),
+                actual: new Date("July 3 2018 06:10"),
+                timesheet: new Date("July 3 2018 06:00"),
                 flag: false
               }
             },
@@ -67,6 +67,22 @@ const seedData = async () => {
                 rostered: new Date("July 3 2018 16:00"),
                 actual: new Date("July 3 2018 17:00"),
                 timesheet: new Date("July 3 2018 16:00"),
+                flag: false
+              }
+            },
+            {
+              date: new Date("July 3 2018"),
+              shiftCategory: "digging",
+              start: {
+                rostered: new Date("July 3 2018 16:00"),
+                actual: new Date("July 3 2018 16:00"),
+                timesheet: new Date("July 3 2018 16:00"),
+                flag: false
+              },
+              finish: {
+                rostered: new Date("July 3 2018 19:00"),
+                actual: new Date("July 3 2018 19:00"),
+                timesheet: new Date("July 3 2018 19:00"),
                 flag: false
               }
             },
