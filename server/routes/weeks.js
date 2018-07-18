@@ -33,17 +33,32 @@ router.get('/date/:date', async (req, res) => {
   }
 })
 
+router.get('/previous/:date', async (req, res) => {
+  try {
+    let date = new Date(req.params.date)
+    let a = date.setDate(date.getDate() - 7)
+    a = new Date(a)
+    console.log(a.toISOString().split('T')[0])
+    let week = Week.find({date: a.toISOString().split('T')[0]})
+  } catch (error) {
+
+  }
+})
+
 // Create new Week
 router.post('/new', async (req, res) => {
   try {
-    let date = new Date().toISOString().split('T')[0]
-    let dateObj = new Date(date)
-    let weekExists = await Week.findOne({date: date})
+
+    {date: '2018-07-15'}
+    // let date = new Date().toISOString().split('T')[0]
+    // let dateObj = new Date(date)
+    let weekExists = await Week.findOne({date: req.body.date})
     let users = await User.find()
     let userArr = []
     for (let user of users) {
       userArr.push({staffID: user._id, shifts: []})
     }
+
     if (!weekExists) {
       for (let i = 1; i < 8; i++) {
         let tempDate = new Date(dateObj.setDate(dateObj.getDate() - 1)).toISOString().split('T')[0]
@@ -88,28 +103,29 @@ router.delete('/:id', async (req, res) => {
 })
 
 router.post('/shift/:id', async (req, res) => {
-  try {
-    let found = false
-    let week = await Week.findOne({_id: req.body.weekID})
-    for (let staff of week.staff) {
-      if (staff.staffID === req.params.id) {
-        for (let shift of staff.shifts) {
-          if (shift.date === req.body.shift.date && shift.start.rostered === req.body.shift.start.rostered) {
-            shift = req.body.shift
-            week.save()
-            found = true
-          }
-        }
-        if (!found) {
-          staff.shifts.push(req.body.shift)
-          week.save()
-        }
-      }
-    }
-    res.send(week)
-  } catch (error) {
-    res.status(500).json({ error: error.message })    
-  }
+ try {
+   let found = false
+   let week = await Week.findOne({_id: req.body.shiftObj.weekID})
+   for (let staff of week.staff) {
+     if (staff.staffID === req.params.id) {
+       for (let shift of staff.shifts) {
+         if (shift.date === req.body.shiftObj.shift.date) {
+           shift = req.body.shiftObj.shift
+           week.save()
+           found = true
+         }
+       }
+       if (!found) {
+         staff.shifts.push(req.body.shiftObj.shift)
+         week.save()
+       }
+     }
+   }
+   // && shift.start.rostered === req.body.shift.start.rostered
+   res.send(week)
+ } catch (error) {
+   res.status(500).json({ error: error.message })
+ }
 })
 
 module.exports = router

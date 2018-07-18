@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ShiftRow from './ShiftRow'
+import StaffMember from './StaffMember'
 import '../../../stylesheets/Roster.css'
 
 
@@ -14,10 +14,7 @@ class Roster extends Component {
   }
 
   render() {
-    const { users, weekDate, staff } = this.props
-
-    // console.log(new Date(weekDate))
-
+    const { users, weekDate, weekID, staff } = this.props
 
     return (
       <div className="rosters-cells">
@@ -40,9 +37,11 @@ class Roster extends Component {
             {
               staff.map((staffMember) => {
                 return (
-                  <ShiftRow staffMember={staffMember}
-                            weekDate={weekDate}
-                            users={users}
+                  <StaffMember  staffMember={ staffMember }
+                                staffID={ staffMember.staffID }
+                                weekDate={ weekDate }
+                                users={ users }
+                                weekID={ weekID }
                   />
                 )
               })

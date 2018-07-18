@@ -1,8 +1,26 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import StaffRow from './StaffRow'
 import SideBar from './SideBar'
 import Header from './Header'
+import NewUser from './NewUser'
+import NewUserModal from './Modals/NewUserModal'
+import classNames from 'classnames'
+
 import axios from 'axios'
+
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 const api = 'http://localhost:4000'
 
@@ -14,7 +32,9 @@ class Staff extends Component {
       staffData: [],
       staffRosters: [],
       rosteredTotals: [],
-      totals: ''
+      totals: '',
+      modalIsOpen: false,
+      addHours: false
     }
     this.fetchStandard()
   }
@@ -36,21 +56,24 @@ class Staff extends Component {
       }
       return response
     }).then((result) => {
+      console.log(result.data)
       this.fetchRosters(result.data)
     })
   }
 
   fetchRosters = (staffData) => {
-    let date = new Date().toISOString().split('T')[0];
+    // let date = new Date().toISOString().split('T')[0];
+    let date = "2018-07-16T00:00:00Z"
     axios.get(api + '/rosters' + '/date/' + date).then((response) => {
       return response.data
     }).then((obj) => {
       this.calcRosters(obj, staffData)
+    }).catch((error) => {
+      console.log(error)
     })
   }
 
   calcRosters = (roster, staffData) => {
-    console.log(roster, 'ROSTEr')
     let totals = []
     const DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
@@ -164,8 +187,22 @@ class Staff extends Component {
     this.setState({staffData})
   }
 
+  openModal = () => {
+    this.setState({modalIsOpen: true});
+  }
+
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
+  }
+
   render() {
+    console.log(this.state.staffData)
     return (
+      <React.Fragment>
+        <button onClick={this.openModal} >New Staff</button>
+        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal" >
+          <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} />
+        </Modal>
         <div className="staff-container" >
           <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
           <div className="scroll-container" onScroll={this.handleScroll}>
@@ -175,6 +212,7 @@ class Staff extends Component {
             <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} rosteredTotals={this.state.totals} />
           </div>
         </div>
+      </React.Fragment>
     )
   }
 }
