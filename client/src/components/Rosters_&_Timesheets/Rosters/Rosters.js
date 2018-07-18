@@ -11,7 +11,7 @@ class Rosters extends Component {
 
   render() {
     const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-
+    console.log(goToNextWeek, 'ASDSD')
     return (
       <div className="rosters-container">
 

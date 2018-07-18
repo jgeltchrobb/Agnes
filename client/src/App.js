@@ -9,7 +9,7 @@ import Staff from './components/staff/Staff'
 // import StaffHeader from './components/staff/Header'
 import './stylesheets/App.css';
 
-
+const api = 'http://localhost:4000'
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +21,11 @@ class App extends Component {
       week1: '',
       week2: '',
       week3: '',
+      week4: '',
+      week5: '',
+      week6: '',
+      week7: '',
+      currentWEek: '',
       staffData: [],
       payRateCategories: []
 
@@ -33,12 +38,15 @@ class App extends Component {
 
     // Request all weeks
     axios.get(server + '/rosters').then(response => {
-
       this.setState({
-        week1: response.data[0],
-        week2: response.data[1],
-        week3: response.data[2],
-
+        week1: response.data[0][0],
+        week2: response.data[1][0],
+        week3: response.data[2][0],
+        // week4: response.data[3][0],
+        // week5: response.data[4][0],
+        // week6: response.data[5][0],
+        // week7: response.data[6][0],
+        // currentWeek: response.data[0][0]
       })
     })
 
@@ -72,14 +80,48 @@ class App extends Component {
     this.setState({ sideBarHeading: 'staff' })
   }
 
+  dateChecker = (date) => {
+    const { week1, week2, week3, week4, week5, week6, week7 } = this.state
+    switch (date) {
+      case this.state.week1.date:
+        return axios.post(api + '/rosters' + '/new/' + date, {}).then((response) => {
+          this.setState({
+            week1: response.data,
+            week2: week1,
+            week3: week2,
+            week4: week3,
+            week5: week4,
+            week6: week5,
+            week7: week6,
+          })
+          return response
+        })
+      case this.state.week2.date:
+        this.setState({currentWeek: week2})
+      case this.state.week3.date:
+        this.setState({currentWeek: week3})
+      case this.state.week4.date:
+        this.setState({currentWeek: week4})
+      case this.state.week5.date:
+        this.setState({currentWeek: week5})
+      case this.state.week6.date:
+        this.setState({currentWeek: week6})
+      case this.state.week7.date:
+        this.setState({currentWeek: week7})
 
-  goToNextWeek = () => {
-    // updates state to be the next week,
-    // retrieving from localstorage OR Just
-    // iterate through state data to set this.state.week
+    }
   }
 
-  goToPreviousWeek = () => {
+  goToNextWeek = (date) => {
+    // console.log(date)
+    // this.dateChecker(date).then((response) => {
+    //   console.log(response)
+    // })
+  }
+
+  goToPreviousWeek = (date) => {
+    console.log(date)
+    // axios.post(api, date)
     // updates state to be the next week,
     // retrieving from localstorage OR Just
     // iterate through state data to set this.state.week
@@ -92,10 +134,12 @@ class App extends Component {
   render() {
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
-    var week = this.state.week2
+    var week = this.state.week1
 
     let user = this.state.users[3]
 
+    console.log(this.state, 'THIS IS THE STATe')
+    console.log(this.state.currentWeek, 'YO CURRENTWEEK')
     return (
       <div>
 
