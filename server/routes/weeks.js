@@ -3,11 +3,30 @@ const Week = require('../models/week')
 const User = require('../models/user')
 const router = express.Router();
 
+getMonday = (d) => {
+  d = new Date(d);
+  let day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+
 // Get all Weeks
 router.get('/', async (req, res) => {
   try {
-    let week = await Week.find()
-    res.send(week)
+    let weekDates = []
+    let weeks = []
+    let date = getMonday(new Date())
+    for (let i = 0; i < 7; i++) {
+      date = new Date(date.setDate(date.getDate() - 7))
+      weekDates.push(date)
+    }
+    for (let date of weekDates) {
+      date = date.toISOString().split('T')[0]
+      let week = await Week.find({date: date})
+      weeks.push(week)
+    }
+    console.log(weeks, 'WEEEEKS')
+    res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -46,50 +65,35 @@ router.get('/previous/:date', async (req, res) => {
 })
 
 // Create new Week
-router.post('/new', async (req, res) => {
+router.post('/new/:weekDate', async (req, res) => {
   try {
-    let currentDate = new Date('2018-07-19')
-    let date = currentDate.toISOString().split('T')[0]
-    let weekExists = await Week.findOne({date: date})
+    let currentDate = new Date(req.params.weekDate)
+    currentDate = new Date(currentDate.setDate(currentDate.getDate() + 7))
+    let weekExists = await Week.findOne({date: req.params.weekDdate})
     let users = await User.find()
     let userArr = []
     for (let user of users) {
       userArr.push({staffID: user._id, shifts: []})
     }
     if (!weekExists) {
-      let prevFound = false
-      let nextFound = false
+      let found = false
       for (let i = 1; i < 8; i++) {
-        let tempDate = new Date(currentDate.setDate(currentDate.getDate() - 1)).toISOString().split('T')[0]
+        let tempDate = new Date(currentDate.setDate(currentDate.getDate() + 1)).toISOString().split('T')[0]
         let wk = await Week.findOne({date: tempDate})
         if (wk) {
-          prevFound = true
-          let weekDate = new Date(wk.date)
-          let temp = weekDate.setDate(weekDate.getDate() + 7)
-          temp = new Date(temp).toISOString().split('T')[0]
-          let week = await Week.create({date: temp, staff: userArr})
-          res.send(week)
+          found = true
+          console.log(wk, 'wk')
+          res.send(wk)
+          break
         }
       }
-      if (!prevFound) {
-        for (let i = 1; i < 8; i++) {
-          let nextDate = new Date(currentDate.setDate(currentDate.getDate() + 1)).toISOString().split('T')[0]
-          let nextWk = await Week.findOne({date: nextDate})
-          if (nextWk) {
-            nextFound = true
-            let weekDate = new Date(nextWk.date)
-            let temp = weekDate.setDate(weekDate.getDate() + 7)
-            temp = new Date(temp).toISOString().split('T')[0]
-            let week = await Week.create({date: temp, staff: userArr})
-            res.send(week)
-          }
-        }
-      }
-      if (!prevFound && !nextFound) {
-        let week = await Week.create({date: date, staff: userArr})
+      if (!found) {
+        let week = await Week.create({date: currentDate.toISOString().split('T')[0]})
+        console.log(week, 'week')
         res.send(week)
       }
     } else {
+      console.log(weekExists, 'weekExists')
       res.send(weekExists)
     }
   } catch (error) {

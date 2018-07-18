@@ -7,12 +7,17 @@ import '../../../stylesheets/Header.css'
 class Header extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      date: ''
+    }
+  }
 
+  componentDidMount = () => {
+    this.setState({date: this.props.weekDate})
   }
 
   render() {
     const { weekDate, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-
     return (
       <div className="header">
 
@@ -22,7 +27,7 @@ class Header extends Component {
 
         <div className="header-mainbar">
           <div>
-            <Nav goToPreviousWeek={goToPreviousWeek} />
+            <Nav goToPreviousWeek={goToPreviousWeek} weekDate={weekDate} />
           </div>
 
           <div>
@@ -30,7 +35,7 @@ class Header extends Component {
           </div>
 
           <div>
-            <Nav goToNextWeek={goToNextWeek} />
+            <Nav goToNextWeek={goToNextWeek} weekDate={weekDate}/>
           </div>
         </div>
 

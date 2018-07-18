@@ -7,15 +7,12 @@ class DateBar extends Component {
   }
 
   render() {
-    const weekDate = new Date(this.props.weekDate)
-    // console.log(new Date(weekDate))
-
-    const barDate = `${weekDate.getDate()} / ${weekDate.getMonth()} / ${weekDate.getFullYear()}`
+    let weekDate = new Date(this.props.weekDate).toLocaleDateString()
 
     return (
       <div>
 
-        <p>{barDate}</p>
+        <p>{weekDate}</p>
 
       </div>
     )
