@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost/agnes', (err) => {
 const seedData = async () => {
 
   await Week.create({
-      date: new Date("July 2 2018"),
+      date: '2018-07-02',
       staff:
       [
         {
@@ -410,7 +410,7 @@ const seedData = async () => {
     })
 
   await Week.create({
-    date: new Date("July 9 2018"),
+    date: '2018-07-09',
     staff:
     [
       {
@@ -484,7 +484,7 @@ const seedData = async () => {
   })
 
   await Week.create({
-    date: new Date("July 16 2018"),
+    date: '2018-07-16',
     staff:
     [
       {
@@ -499,7 +499,7 @@ const seedData = async () => {
     ]
   })
 
-  await User.create({
+  let user1 = await User.create({
     staffID: 1,
     name: 'Pubert Gesepi',
     email: 'test@test.com',
@@ -507,7 +507,7 @@ const seedData = async () => {
     PIN: 1234
   })
 
-  await User.create({
+  let user2 = await User.create({
     staffID: 2,
     name: 'Shaun Lamb',
     email: 'test@test.com',
@@ -515,7 +515,7 @@ const seedData = async () => {
     PIN: 1234
   })
 
-  await User.create({
+  let user3 = await User.create({
     staffID: 3,
     name: 'Justin Case',
     email: 'test@test.com',
@@ -539,8 +539,8 @@ const seedData = async () => {
   })
 
   await StandardHours.create({
-    staffID: '2',
-    name: 'Greg',
+    staffID: user1._id,
+    name: user1.name,
     totalHours: '',
     categories: [
       {
@@ -586,8 +586,8 @@ const seedData = async () => {
     ]
   })
   await StandardHours.create({
-    staffID: '3',
-    name: 'Jack',
+    staffID: user2._id,    
+    name: user2.name,
     totalHours: '',
     categories: [
       {
@@ -629,6 +629,53 @@ const seedData = async () => {
       {
         category: 'Wayne Public Holiday',
         hoursWorked: 1
+      }
+    ]
+  })
+  await StandardHours.create({
+    staffID: user3._id,
+    name: user3.name,
+    totalHours: '',
+    categories: [
+      {
+        category: 'Ordinary',
+        hoursWorked: 3
+      },
+      {
+        category: 'Sat',
+        hoursWorked: 1
+      },
+      {
+        category: 'Sun',
+        hoursWorked: 4
+      },
+      {
+        category: 'Night',
+        hoursWorked: 0
+      },
+      {
+        category: 'Public Holiday',
+        hoursWorked: 1
+      },
+      {
+        category: 'Wayne Ordinary',
+        hoursWorked: 4
+      },
+      {
+        category: 'Wayne Saturday',
+        hoursWorked: 4
+      },
+      {
+        category: 'Wayne Sunday',
+        hoursWorked: 22
+      },
+      {
+        category: 'Wayne Night',
+        hoursWorked: 11
+      },
+      {
+        category: 'Wayne Public Holiday',
+        hoursWorked: 0
       }
     ]
   })
