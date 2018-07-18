@@ -120,7 +120,6 @@ class App extends Component {
   }
 
   goToPreviousWeek = (date) => {
-    console.log(date)
     // axios.post(api, date)
     // updates state to be the next week,
     // retrieving from localstorage OR Just
@@ -138,8 +137,6 @@ class App extends Component {
 
     let user = this.state.users[3]
 
-    console.log(this.state, 'THIS IS THE STATe')
-    console.log(this.state.currentWeek, 'YO CURRENTWEEK')
     return (
       <div>
 
