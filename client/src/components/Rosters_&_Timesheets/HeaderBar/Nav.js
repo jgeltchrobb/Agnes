@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 class Nav extends Component {
   constructor(props) {
     super(props)
-
   }
 
   render() {
@@ -14,7 +13,7 @@ class Nav extends Component {
         {
           this.props.goToNextWeek ?
             (
-              <button onClick={() => goToNextWeek(weekDate)}>
+              <button onClick={() => goToNextWeek()}>
                 Next
               </button>
             )
@@ -22,7 +21,7 @@ class Nav extends Component {
           :
 
             (
-              <button onClick={() => goToPreviousWeek(weekDate)}>
+              <button onClick={() => goToPreviousWeek()}>
                 Previous
               </button>
             )

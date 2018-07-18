@@ -853,6 +853,80 @@ const seedData = async () => {
     ]
   })
 
+  await Week.create({
+    date: '2018-05-28',
+    staff:
+    [
+      {
+        staffID: 1, shifts:
+        [
+          {
+            date: new Date("July 15 2018"),
+            shiftCategory: "floor",
+            start:  {
+                        rostered: new Date("July 15 2018 8:00"),
+                        actual: new Date("July 15 2018 8:00"),
+                        timesheet: new Date("July 15 2018 8:00"),
+                        flag: false
+                    },
+            finish: {
+                        rostered: new Date("July 15 2018 16:00"),
+                        actual: new Date("July 15 2018 16:00"),
+                        timesheet: new Date("July 15 2018 16:00"),
+                        flag: false
+                    }
+          },
+        ], // end of shifts
+
+      }, //end of staff member
+
+      {
+        staffID: 2, shifts:
+        [
+          {
+            date: new Date("July 9 2018"),
+            shiftCategory: "room",
+            start:  {
+                      rostered: new Date("July 9 2018 8:00"),
+                      actual: new Date("July 9 2018 9:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+              rostered: new Date("July 9 2018 16:00"),
+              actual: new Date("July 9 2018 15:00"),
+              timesheet: '',
+              flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+      {
+        staffID: 3, shifts:
+        [
+          {
+            date: new Date("July 10 2018"),
+            shiftCategory: "floor",
+            start:  {
+                      rostered: new Date("July 10 2018 8:00"),
+                      actual: new Date("July 10 2018 7:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+                      rostered: new Date("July 10 2018 16:00"),
+                      actual: new Date("July 10 2018 17:00"),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+    ]
+  })
+
   let user1 = await User.create({
     staffID: 1,
     name: 'Pubert Gesepi',
