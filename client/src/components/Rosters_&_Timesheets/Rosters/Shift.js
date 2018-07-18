@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import '../../../stylesheets/Shift.css'
+// import '../../../stylesheets/Shift.css'
 
 class Shift extends Component {
   constructor(props) {

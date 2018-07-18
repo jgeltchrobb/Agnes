@@ -48,35 +48,50 @@ router.get('/previous/:date', async (req, res) => {
 // Create new Week
 router.post('/new', async (req, res) => {
   try {
-
-    {date: '2018-07-15'}
-    // let date = new Date().toISOString().split('T')[0]
-    // let dateObj = new Date(date)
-    let weekExists = await Week.findOne({date: req.body.date})
+    let currentDate = new Date('2018-07-19')
+    let date = currentDate.toISOString().split('T')[0]
+    let weekExists = await Week.findOne({date: date})
     let users = await User.find()
     let userArr = []
     for (let user of users) {
       userArr.push({staffID: user._id, shifts: []})
     }
-
     if (!weekExists) {
+      let prevFound = false
+      let nextFound = false
       for (let i = 1; i < 8; i++) {
-        let tempDate = new Date(dateObj.setDate(dateObj.getDate() - 1)).toISOString().split('T')[0]
+        let tempDate = new Date(currentDate.setDate(currentDate.getDate() - 1)).toISOString().split('T')[0]
         let wk = await Week.findOne({date: tempDate})
         if (wk) {
-          let createDate = new Date(wk.date)
-          let finalDate = new Date(tempDate.setDate(createDate.getDate() + 7)).toISOString().split('T')[0]
-          let week = await Week.create({date: finalDate, staff: userArr})
+          prevFound = true
+          let weekDate = new Date(wk.date)
+          let temp = weekDate.setDate(weekDate.getDate() + 7)
+          temp = new Date(temp).toISOString().split('T')[0]
+          let week = await Week.create({date: temp, staff: userArr})
           res.send(week)
-          break
+        }
+      }
+      if (!prevFound) {
+        for (let i = 1; i < 8; i++) {
+          let nextDate = new Date(currentDate.setDate(currentDate.getDate() + 1)).toISOString().split('T')[0]
+          let nextWk = await Week.findOne({date: nextDate})
+          if (nextWk) {
+            nextFound = true
+            let weekDate = new Date(nextWk.date)
+            let temp = weekDate.setDate(weekDate.getDate() + 7)
+            temp = new Date(temp).toISOString().split('T')[0]
+            let week = await Week.create({date: temp, staff: userArr})
+            res.send(week)
           }
         }
+      }
+      if (!prevFound && !nextFound) {
         let week = await Week.create({date: date, staff: userArr})
         res.send(week)
-      } else {
-        await Week.create({date: new Date('2018-07-8')})
-        res.send(weekExists)
       }
+    } else {
+      res.send(weekExists)
+    }
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

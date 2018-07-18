@@ -26,6 +26,7 @@ router.get('/:id', async (req, res) => {
 
 // Create new user
 router.post('/', async (req, res) => {
+  console.log(req, 'REQREQ')
   try {
     let user = await User.create(req.body)
     let standard = await StandardHour.create({staffID: user._id, name: user.name, 
