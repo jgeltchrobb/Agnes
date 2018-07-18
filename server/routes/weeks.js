@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
       let week = await Week.find({date: date})
       weeks.push(week)
     }
-    console.log(weeks, 'WEEEEKS')
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })

@@ -50,6 +50,13 @@ class App extends Component {
       })
     })
 
+    axios.get(server + '/rosters').then(response => {
+      console.log(response.data)
+      // this.setState({
+      //   week12: response.data,
+      // })
+    })
+
     axios.get(server + '/users').then(response => {
       this.setState({
         users: response.data,
@@ -133,7 +140,8 @@ class App extends Component {
   render() {
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
-    var week = this.state.week1
+    var week1 = this.state.week1
+    var week2 = this .state.week12
 
     let user = this.state.users[3]
 
@@ -151,7 +159,7 @@ class App extends Component {
             </div>
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters  week={week}
+              <Rosters  week={week2}
                         users={this.state.users}
                         goToNextWeek={this.goToNextWeek}
                         goToPreviousWeek={this.goToPreviousWeek}
@@ -159,8 +167,8 @@ class App extends Component {
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets week={week}
-                          prevWeek={this.state.week1}
+              <Timesheets week={week2}
+                          prevWeek={week1}
                           users={this.state.users}
                           payRateCategories={this.state.payRateCategories}
                           entitlements={this.state.entitlements}
@@ -179,7 +187,7 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock week={week} user={user}/>
+                <Clock week={week2} user={user}/>
               )
             }} />
 
