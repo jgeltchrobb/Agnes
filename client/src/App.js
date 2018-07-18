@@ -50,11 +50,10 @@ class App extends Component {
       })
     })
 
-    axios.get(server + '/rosters').then(response => {
-      console.log(response.data)
-      // this.setState({
-      //   week12: response.data,
-      // })
+    axios.get(server + '/rosters/all').then(response => {
+      this.setState({
+        week12: response.data[1],
+      })
     })
 
     axios.get(server + '/users').then(response => {
