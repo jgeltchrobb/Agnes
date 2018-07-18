@@ -43,8 +43,6 @@ class ValuesRow extends Component {
 
     const { specificRow, weekDates } = this.state
 
-    console.log(specificRow)
-
     // console.log(heading)
     // console.log(specificRow)
     // console.log(weekDates)

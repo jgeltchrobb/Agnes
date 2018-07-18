@@ -138,8 +138,6 @@ class TWeek extends Component {
     }
     valuesRows1.push(starts1, breaks1, finishes1, totals1)
 
-    console.log(starts3)
-
     if  (starts2.join('')) { valuesRows2.push(starts2, breaks2, finishes2, totals2) }
     if  (starts3.join('')) { valuesRows3.push(starts3, breaks3, finishes3, totals3) }
 
@@ -153,7 +151,8 @@ class TWeek extends Component {
 
   render() {
     const { valuesRows1, valuesRows2, valuesRows3, weekDates } = this.state
-    if (valuesRows1 && !valuesRows2) {
+
+    if (valuesRows2.length === 0) {
       return (
         <div className='week-constainer'>
           <div className='headings-container'>
@@ -178,7 +177,7 @@ class TWeek extends Component {
     }
 
 
-    if (valuesRows2 & !valuesRows3) {
+    if (valuesRows2.length > 0 && valuesRows3.length === 0) {
       return (
         <div className='week-constainer'>
           <div className='headings-container'>
@@ -218,7 +217,7 @@ class TWeek extends Component {
         </div>
       )
     }
-    if (valuesRows3) {
+    if (valuesRows3.length > 0) {
       return (
         <div className='week-constainer'>
           <div className='headings-container'>
