@@ -25,10 +25,10 @@ class App extends Component {
       week5: '',
       week6: '',
       week7: '',
-      currentWEek: '',
+      currentWeek: '',
       staffData: [],
-      payRateCategories: []
-
+      payRateCategories: [],
+      weeks: []
     }
 
   }
@@ -39,14 +39,15 @@ class App extends Component {
     // Request all weeks
     axios.get(server + '/rosters').then(response => {
       this.setState({
-        week1: response.data[0][0],
-        week2: response.data[1][0],
-        week3: response.data[2][0],
-        // week4: response.data[3][0],
-        // week5: response.data[4][0],
-        // week6: response.data[5][0],
-        // week7: response.data[6][0],
-        // currentWeek: response.data[0][0]
+        week1: response.data[0],
+        week2: response.data[1],
+        week3: response.data[2],
+        week4: response.data[3],
+        week5: response.data[4],
+        week6: response.data[5],
+        week7: response.data[6],
+        currentWeek: response.data[0],
+        weeks: response.data
       })
     })
 
@@ -82,9 +83,11 @@ class App extends Component {
 
   dateChecker = (date) => {
     const { week1, week2, week3, week4, week5, week6, week7 } = this.state
+    console.log(date, 'date')
     switch (date) {
       case this.state.week1.date:
         return axios.post(api + '/rosters' + '/new/' + date, {}).then((response) => {
+          console.log(response.data, 'RESPOSNSEDATA')
           this.setState({
             week1: response.data,
             week2: week1,
@@ -113,10 +116,27 @@ class App extends Component {
   }
 
   goToNextWeek = (date) => {
-    // console.log(date)
+    console.log(date)
     // this.dateChecker(date).then((response) => {
     //   console.log(response)
     // })
+
+    if (this.state.currentWeek.date === this.state.weeks[0].date) {
+      // AXIOS REQUEST
+      axios.get(api + '/rosters' + '/new/' + this.state.currentWeek.date).then((response) => {
+        console.log(response, 'RESPONSE')
+      })
+    } else {
+      for (let week of this.state.weeks) {
+        if (this.state.currentWeek.date === week.date) {
+          let index = this.state.weeks.indexOf(week)
+          this.setState({
+            currentWeek: this.state.weeks[index -1]
+          })
+        }
+      }
+    }
+
   }
 
   goToPreviousWeek = (date) => {
@@ -151,7 +171,7 @@ class App extends Component {
             </div>
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters  week={week}
+              <Rosters  currentWeek ={this.state.currentWeek} week={week}
                         users={this.state.users}
                         goToNextWeek={this.goToNextWeek}
                         goToPreviousWeek={this.goToPreviousWeek}
