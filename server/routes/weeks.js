@@ -4,9 +4,10 @@ const User = require('../models/user')
 const router = express.Router();
 
 getMonday = (d) => {
-  d = new Date(d);
   let day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
+  d.setHours(d.getHours() - 4);
   return new Date(d.setDate(diff));
 }
 
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
     let weekDates = []
     let weeks = []
     let date = getMonday(new Date())
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
       if (i === 0) {
         weekDates.push(new Date(date))
       }
@@ -56,49 +57,41 @@ router.get('/', async (req, res) => {
 //   }
 // })
 //
-// router.get('/previous/:date', async (req, res) => {
-//   try {
-//     let date = new Date(req.params.date)
-//     let a = date.setDate(date.getDate() - 7)
-//     a = new Date(a)
-//     console.log(a.toISOString().split('T')[0])
-//     let week = Week.find({date: a.toISOString().split('T')[0]})
-//   } catch (error) {
-//
-//   }
-// })
+router.get('/previous/:date', async (req, res) => {
+  try {
+    let date = new Date(req.params.date)
+    date = new Date(date.setDate(date.getDate() - 7)).toISOString().split('T')[0]
+    let week = await Week.findOne({date: date})
+    console.log(week, 'WEEEK')
+    console.log(!!week)
+    if (week) {
+      console.log(1111)
+      res.send(week)
+    } else {
+      console.log(22222)
+      res.send(false)
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
 //
 // Create new Week
 
-router.get  ('/new/:weekDate', async (req, res) => {
+router.get('/new/:weekDate', async (req, res) => {
   try {
-    let currentDate = new Date(req.params.weekDate)
-    let weekExists = await Week.findOne({date: req.params.weekDdate})
+    let tempDate = new Date(req.params.weekDate)
+    tempDate = new Date(tempDate.setDate(tempDate.getDate() + 7)).toISOString().split('T')[0]
+    let weekExists = await Week.findOne({date: tempDate})
     let users = await User.find()
     let userArr = []
     for (let user of users) {
       userArr.push({staffID: user._id, shifts: []})
     }
     if (!weekExists) {
-      let found = false
-      for (let i = 1; i < 8; i++) {
-        let tempDate = new Date(currentDate.setDate(currentDate.getDate() + 1)).toISOString().split('T')[0]
-        console.log(tempDate, 'tempDate')
-        let wk = await Week.findOne({date: tempDate})
-        if (wk) {
-          found = true
-          console.log(wk, 'wk')
-          res.send(wk)
-          break
-        }
-      }
-      if (!found) {
-        let week = await Week.create({date: newDate.toISOString().split('T')[0]})
-        console.log(week, 'week')
-        res.send(week)
-      }
+      let week = await Week.create({date: tempDate, staff: userArr})
+      res.send(week)
     } else {
-      console.log(weekExists, 'weekExists')
       res.send(weekExists)
     }
   } catch (error) {
