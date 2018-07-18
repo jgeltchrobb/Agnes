@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
 //     res.status(500).json({ error: error.message })
 //   }
 // })
-
+//
 // router.get('/previous/:date', async (req, res) => {
 //   try {
 //     let date = new Date(req.params.date)
@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
 //
 //   }
 // })
-
+//
 // Create new Week
 // router.post('/new', async (req, res) => {
 //   try {
@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
 //     for (let user of users) {
 //       userArr.push({staffID: user._id, shifts: []})
 //     }
-
+//
 //     if (!weekExists) {
 //       for (let i = 1; i < 8; i++) {
 //         let tempDate = new Date(dateObj.setDate(dateObj.getDate() - 1)).toISOString().split('T')[0]
@@ -81,7 +81,7 @@ router.get('/', async (req, res) => {
 //     res.status(500).json({ error: error.message })
 //   }
 // })
-
+//
 // Update Week details
 // // router.put('/:id', async (req, res) => {
 // //   try {

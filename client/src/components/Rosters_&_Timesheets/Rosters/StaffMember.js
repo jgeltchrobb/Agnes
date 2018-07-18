@@ -80,7 +80,7 @@ class StaffMember extends Component {
                           shifts: [
                                     {
                                       date: new Date(dateCopy.setDate(weekDate.getDate() + i)),
-                                      shiftCategory: 'empty',
+                                      shiftCategory: '',
                                       start: '',
                                       finish: '',
                                     },
