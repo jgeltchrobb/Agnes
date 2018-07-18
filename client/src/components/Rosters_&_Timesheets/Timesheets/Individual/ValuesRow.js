@@ -6,18 +6,10 @@ class ValuesRow extends Component {
   state = {
     specificRow: '',
     weekDates: '',
-    // rowHeading: '',
-    // rowData: '',
   }
 
   componentDidMount = () => {
     const { specificRow, weekDates } = this.props
-    // const rowHeading = Object.keys(specificRow)[0]
-    // this.setState({
-    //   rowHeading: rowHeading,
-    //   rowData: specificRow[rowHeading][0],
-    // })
-
     this.setState({
       specificRow: specificRow,
       weekDates: weekDates,
@@ -25,11 +17,6 @@ class ValuesRow extends Component {
   }
   componentDidUpdate = (prevProps, prevState) => {
     const { specificRow, weekDates } = this.props
-    // if (this.state.rowData !== specificRow[Object.keys(prevProps.specificRow)[0]][0]) {
-    //   this.setState({
-    //     rowData: specificRow[Object.keys(specificRow)[0]][0],
-    //   })
-    // }
     if (this.state.specificRow !== prevProps.specificRow || this.state.weekDates !== prevProps.weekDates) {
       this.setState({
         specificRow: specificRow,
@@ -42,11 +29,6 @@ class ValuesRow extends Component {
   render() {
 
     const { specificRow, weekDates } = this.state
-
-    // console.log(heading)
-    // console.log(specificRow)
-    // console.log(weekDates)
-
 
     return (
       <div className='week-constainer'>

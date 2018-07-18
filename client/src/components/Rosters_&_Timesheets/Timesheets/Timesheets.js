@@ -189,11 +189,6 @@ class Timesheets extends Component {
         this.setState({ individualTotalsRow: row, })
       }
     })
-    // If we decide to change the order of the names...
-          // let newArray = this.state.staffIdArray
-          // newArray.splice(newArray.indexOf(staffID), 1)
-          // newArray.unshift(staffID)
-          // this.setState({ staffIdArray: newArray })
   }
 
   removeIndividual = () => {
