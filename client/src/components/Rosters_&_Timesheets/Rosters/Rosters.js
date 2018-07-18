@@ -19,7 +19,8 @@ class Rosters extends Component {
           <Header weekDate={week.date}
                   goToNextWeek={goToNextWeek}
                   goToPreviousWeek={goToPreviousWeek}
-                  sideBarHeading={sideBarHeading}
+                  sideBarHeading={sideBarHeading} 
+                  currentWeek={this.props.currentWeek}
           />
         </div>
         <div className="rosters-main">

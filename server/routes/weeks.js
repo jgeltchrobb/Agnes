@@ -16,16 +16,20 @@ router.get('/', async (req, res) => {
     let weekDates = []
     let weeks = []
     let date = getMonday(new Date())
-    for (let i = 0; i < 7; i++) {
-      date = new Date(date.setDate(date.getDate() - 7))
-      weekDates.push(date)
+    for (let i = 0; i < 8; i++) {
+      if (i === 0) {
+        weekDates.push(new Date(date))
+      }
+      let newDate = new Date(date.setDate(date.getDate() - 7))
+      weekDates.push(newDate)
     }
     for (let date of weekDates) {
       date = date.toISOString().split('T')[0]
-      let week = await Week.find({date: date})
-      weeks.push(week)
+      let week = await Week.findOne({date: date})
+      if (week) {
+        weeks.push(week)
+      }
     }
-    console.log(weeks, 'WEEEEKS')
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -66,10 +70,9 @@ router.get('/', async (req, res) => {
 //
 // Create new Week
 
-router.post('/new/:weekDate', async (req, res) => {
+router.get  ('/new/:weekDate', async (req, res) => {
   try {
     let currentDate = new Date(req.params.weekDate)
-    currentDate = new Date(currentDate.setDate(currentDate.getDate() + 7))
     let weekExists = await Week.findOne({date: req.params.weekDdate})
     let users = await User.find()
     let userArr = []
@@ -80,6 +83,7 @@ router.post('/new/:weekDate', async (req, res) => {
       let found = false
       for (let i = 1; i < 8; i++) {
         let tempDate = new Date(currentDate.setDate(currentDate.getDate() + 1)).toISOString().split('T')[0]
+        console.log(tempDate, 'tempDate')
         let wk = await Week.findOne({date: tempDate})
         if (wk) {
           found = true
@@ -89,7 +93,7 @@ router.post('/new/:weekDate', async (req, res) => {
         }
       }
       if (!found) {
-        let week = await Week.create({date: currentDate.toISOString().split('T')[0]})
+        let week = await Week.create({date: newDate.toISOString().split('T')[0]})
         console.log(week, 'week')
         res.send(week)
       }
