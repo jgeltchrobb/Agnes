@@ -1,21 +1,12 @@
 import React, { Component } from 'react'
 
 class Value extends Component {
-  constructor(props) {
-    super(props)
-
+  state = {
+    date: '',
   }
 
   componentDidMount = () => {
-
-  }
-  componentDidUpdate = (prevProps, prevState) => {
-
-  }
-
-
-  formatData = () => {
-
+    this.setState({ date: this.props.date })
   }
 
   formatTime_DateObjtoDisplayString = (time) => {
