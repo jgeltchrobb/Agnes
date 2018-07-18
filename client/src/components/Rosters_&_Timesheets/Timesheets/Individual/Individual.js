@@ -21,13 +21,13 @@ class Individual extends Component {
   }
 
   render() {
-    const { week, prevWeek, individual, shiftBreakLength, individualTotalsRow, setIndividual, removeIndividual } = this.props
+    const { week, prevWeek, individual, individualTotalsRow, setIndividual, removeIndividual } = this.props
 
     return (
       <div className='timesheet-card-container'>
 
         <div className='week-date'>
-          {this.formatDate(week.date)}
+          { this.formatDate(week.date) }
         </div>
 
         <div className='dayNames-container'>
@@ -37,17 +37,15 @@ class Individual extends Component {
         // WEEK COMPONENT - Current Week
         <TWeek  week={week}
                 individual={individual}
-                shiftBreakLength={shiftBreakLength}
         />
 
         <div className='week-date'>
-          {this.formatDate(prevWeek.date)}
+          { this.formatDate(prevWeek.date) }
         </div>
 
         // WEEK COMPONENT - Previous Week
         <TWeek  week={prevWeek}
                 individual={individual}
-                shiftBreakLength={shiftBreakLength}
         />
 
       </div>
