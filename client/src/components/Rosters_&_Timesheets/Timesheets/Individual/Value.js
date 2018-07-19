@@ -7,12 +7,15 @@ class Value extends Component {
     this.state = {
       weekID: this.props.weekID,
       individual: this.props.individual,
+      date: this.props.date,
+      shift: Number(this.props.shift),
       value: this.props.value,
       editing: false,
     }
   }
 
   componentDidMount = () => {
+
   }
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -30,6 +33,7 @@ class Value extends Component {
     let hrs = Number(hrsMinsStringArray[0])
     let mins = Number(hrsMinsStringArray[1])
     var dateCopy = new Date(this.props.date)
+    // problem here is that
     dateCopy.setHours(hrs)
     dateCopy.setMinutes(mins)
     return dateCopy
@@ -51,7 +55,6 @@ class Value extends Component {
 
   update = (e) => {
     this.setState({ value: e.target.value })
-    console.log(e.target.value)
 
   }
 
@@ -64,11 +67,26 @@ class Value extends Component {
 
     this.setState({ editing: !this.state.editing })
 
-    // let ValueObj =  {
-    //
-    //                 }
+    let valueObj =  {
+                      weekID: this.state.weekID,
+                      staffID: this.state.individual,
+                      date: this.state.date,
+                      shiftNumber: this.state.shift,
+                      value: this.state.value,
+                    }
 
-    // axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {
+  // JORDAN - SEND TO JORDAN:
+    // valueObj = {
+    //   weekID: ,
+    //   staffID: ,
+    //   date: ,
+    //   shiftNumber: (number between 1 and 3),
+    //   value: (date obj with time)
+    // }
+    // posted to /timesheets/start
+    // same for finish time changes posted to /timesheets/finish
+
+    // axios.post(server + /timesheets/start, {valueObj}).then((response) => {
     //   console.log(response)
     // })
   }

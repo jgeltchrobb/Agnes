@@ -11,19 +11,18 @@ class StaffMember extends Component {
   componentDidMount = () => {
     const { weekDate, staffMember, staffID, users } = this.props
     this.setStaffName(staffID, users)
-    this.setdaysArray(weekDate, staffMember)
+    this.setDaysArray(weekDate, staffMember)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props !== prevProps) {
       const { weekDate, staffMember, staffID, users } = this.props
       this.setStaffName(staffID, users)
-      this.setdaysArray(weekDate, staffMember)
+      this.setDaysArray(weekDate, staffMember)
     }
   }
 
   setStaffName = (staffID, users) => {
-    console.log(users, 'USERS')
     users.map((user) => {
       if (user._id.toString() === staffID) {
         this.setState({ staffName: user.name })
@@ -31,7 +30,7 @@ class StaffMember extends Component {
     })
   }
 
-  setdaysArray = (dateString, staffMember) => {
+  setDaysArray = (dateString, staffMember) => {
     const weekDate = new Date(dateString)
     const daysArray = []
     // daysArray has a 'shifts' obj for each day of the week, which allows multiple shifts per day
@@ -107,8 +106,6 @@ class StaffMember extends Component {
   }
 
   render() {
-    console.log(this.state, 'AASASASAS')
-    console.log(this.props)
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
 
