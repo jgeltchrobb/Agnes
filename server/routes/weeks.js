@@ -12,6 +12,17 @@ getMonday = (d) => {
 }
 
 // Get all Weeks
+router.get('/all', async (req, res) => {
+  try {
+    let week = await Week.find()
+    res.send(week)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+
+// Get all Weeks
 router.get('/', async (req, res) => {
   try {
     let weekDates = []

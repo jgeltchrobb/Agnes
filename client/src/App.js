@@ -60,6 +60,12 @@ class App extends Component {
       })
     })
 
+    axios.get(server + '/rosters/all').then(response => {
+      this.setState({
+        week12: response.data[1],
+      })
+    })
+
     axios.get(server + '/users').then(response => {
       this.setState({
         users: response.data,
@@ -195,7 +201,7 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock week={week} user={user}/>
+                <Clock week={week2} user={user}/>
               )
             }} />
 
