@@ -4,9 +4,9 @@ import ValuesRow from './ValuesRow'
 class TWeek extends Component {
   state = {
     weekDates: [],
-    valuesRows1: [],
-    valuesRows2: [],
-    valuesRows3: [],
+    valuesRows1: { shift1: [] },
+    valuesRows2: { shift2: [] },
+    valuesRows3: { shift3: [] },
   }
 
   componentDidMount = () => {
@@ -46,9 +46,9 @@ class TWeek extends Component {
     const { week, individual } = this.props
     const weekDate = new Date(week.date)
     const milliToHours = 0.00000027777777777778
-    const valuesRows1 = []
-    const valuesRows2 = []
-    const valuesRows3 = []
+    const valuesRows1 = { shift1: [] }
+    const valuesRows2 = { shift2: [] }
+    const valuesRows3 = { shift3: [] }
     const starts1   = []
     const starts2   = []
     const starts3   = []
@@ -144,10 +144,10 @@ class TWeek extends Component {
         }
       }
     }
-    valuesRows1.push(starts1, breaks1, finishes1, totals1)
+    valuesRows1.shift1.push(starts1, breaks1, finishes1, totals1)
 
-    if  (starts2.join('')) { valuesRows2.push(starts2, breaks2, finishes2, totals2) }
-    if  (starts3.join('')) { valuesRows3.push(starts3, breaks3, finishes3, totals3) }
+    if  (starts2.join('')) { valuesRows2.shift2.push(starts2, breaks2, finishes2, totals2) }
+    if  (starts3.join('')) { valuesRows3.shift3.push(starts3, breaks3, finishes3, totals3) }
 
     this.setState({
       valuesRows1: valuesRows1,
@@ -162,11 +162,10 @@ class TWeek extends Component {
     const { weekID, individual } = this.props
     const { valuesRows1, valuesRows2, valuesRows3, weekDates } = this.state
 
-    // if (valuesRows1 === []) { return '' }
+    if (valuesRows1.shift1.length === 0) { return '' }
+    console.log('2...', valuesRows1.shift1)
 
-    // console.log('2...', valuesRows1)
-
-    if (valuesRows2.length === 0) {
+    if (valuesRows2.shift2.length === 0) {
       return (
         <div className='week-constainer'>
           <div className='headings-container'>
@@ -176,17 +175,17 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows1[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows1[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows1[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows1[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='start'  specificRow={ valuesRows1.shift1[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='break'  specificRow={ valuesRows1.shift1[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='finish' specificRow={ valuesRows1.shift1[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='total'  specificRow={ valuesRows1.shift1[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
           </div>
         </div>
       )
     }
 
 
-    if (valuesRows2.length > 0 && valuesRows3.length === 0) {
+    if (valuesRows2.shift2.length > 0 && valuesRows3.shift3.length === 0) {
       return (
         <div className='week-constainer'>
           <div className='headings-container'>
@@ -196,10 +195,10 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows1[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows1[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows1[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows1[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='start'  specificRow={ valuesRows1.shift1[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='break'  specificRow={ valuesRows1.shift1[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='finish' specificRow={ valuesRows1.shift1[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='total'  specificRow={ valuesRows1.shift1[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
           </div>
           <div className='headings-container'>
             <div>Start</div>
@@ -208,15 +207,15 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows2[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows2[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows2[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows2[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='start'  specificRow={ valuesRows2.shift2[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='break'  specificRow={ valuesRows2.shift2[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='finish' specificRow={ valuesRows2.shift2[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='total'  specificRow={ valuesRows2.shift2[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
           </div>
         </div>
       )
     }
-    if (valuesRows3.length > 0) {
+    if (valuesRows3.shift3.length > 0) {
       return (
         <div className='week-constainer'>
           <div className='headings-container'>
@@ -226,10 +225,10 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows1[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows1[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows1[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows1[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='start'  specificRow={ valuesRows1.shift1[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='break'  specificRow={ valuesRows1.shift1[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='finish' specificRow={ valuesRows1.shift1[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='total'  specificRow={ valuesRows1.shift1[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
           </div>
           <div className='headings-container'>
             <div>Start</div>
@@ -238,10 +237,10 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows2[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows2[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows2[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows2[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='start'  specificRow={ valuesRows2.shift2[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='break'  specificRow={ valuesRows2.shift2[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='finish' specificRow={ valuesRows2.shift2[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='total'  specificRow={ valuesRows2.shift2[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
           </div>
           <div className='headings-container'>
             <div>Start</div>
@@ -250,10 +249,10 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows3[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows3[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows3[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows3[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='start'  specificRow={ valuesRows3.shift3[0] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='break'  specificRow={ valuesRows3.shift3[1] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='finish' specificRow={ valuesRows3.shift3[2] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='total'  specificRow={ valuesRows3.shift3[3] } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
           </div>
         </div>
       )
