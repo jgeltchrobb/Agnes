@@ -19,7 +19,7 @@ class Name extends Component {
   setNameState = (staffID, users) => {
     var staffName = ''
     users.map((user) => {
-      if (user._id.toString() === staffID) {
+      if (user.staffID.toString() === staffID) {
         staffName = user.name
       }
     })

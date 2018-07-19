@@ -10,7 +10,6 @@ class Rosters extends Component {
 
 
   render() {
-    console.log(this.props, 'UPPEr')
     const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
     return (
       <div className="rosters-container">
