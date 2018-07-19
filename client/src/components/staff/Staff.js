@@ -82,6 +82,7 @@ class Staff extends Component {
     const DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
     for (let staff of roster.staff) {
+      console.log(staff, 'staff')
       let totalsRow = {}
       for (let shift of staff.shifts) {
         let finish = new Date(shift.finish.rostered)
@@ -126,8 +127,6 @@ class Staff extends Component {
       }
       totals.push({...totalsRow, staffID: staff.staffID})
     }
-    console.log(totals)
-    console.log(staffData)
     this.setState({staffData: staffData, totals: totals})
   }
 

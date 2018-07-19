@@ -23,8 +23,9 @@ class StaffMember extends Component {
   }
 
   setStaffName = (staffID, users) => {
+    console.log(users, 'USERS')
     users.map((user) => {
-      if (user.staffID.toString() === staffID) {
+      if (user._id.toString() === staffID) {
         this.setState({ staffName: user.name })
       }
     })
