@@ -3,9 +3,9 @@ import Pin from './keypad/Pin'
 import ClockOnOff from './clockIn/ClockOnOff'
 
 class Clocking extends Component {
-state = {
-  staffID: 1
-}
+  state = {
+    staffID: 1
+  }
 
   componentDidMount() {
 
@@ -15,6 +15,11 @@ state = {
     return (
       <div>
         <ClockOnOff week={this.props.week} user={this.props.user} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <Pin />
 
       </div>
     )
