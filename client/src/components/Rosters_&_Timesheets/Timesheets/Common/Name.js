@@ -19,7 +19,7 @@ class Name extends Component {
   setNameState = (staffID, users) => {
     var staffName = ''
     users.map((user) => {
-      if (user._id.toString() === staffID) {
+      if (user.staffID.toString() === staffID) {
         staffName = user.name
       }
     })
@@ -35,10 +35,6 @@ class Name extends Component {
 
   render() {
     const { staffID } = this.props
-
-    if (!this.state.staffName) {return ''}
-
-    console.log(this.state.staffName)
 
     return (
       <div onClick={() => this.summaryOrIndividual(staffID)}>
