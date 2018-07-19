@@ -149,10 +149,9 @@ class App extends Component {
   render() {
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
-    var week = this.state.currentWeek
-
+    let week = this.state.currentWeek
+    let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
     let user = this.state.users[3]
-    console.log(this.state.currentWeek, 'DIR SURRECNT')
     return (
       <div>
 
@@ -177,7 +176,7 @@ class App extends Component {
             <Route path='/timesheets' render={(routerprops) => (
               <Timesheets currentWeek={this.state.currentWeek} 
                           week={week}
-                          prevWeek={this.state.week1}
+                          prevWeek={prevWeek}
                           users={this.state.users}
                           payRateCategories={this.state.payRateCategories}
                           entitlements={this.state.entitlements}

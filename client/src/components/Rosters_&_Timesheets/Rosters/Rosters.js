@@ -16,7 +16,7 @@ class Rosters extends Component {
       <div className="rosters-container">
 
         <div>
-          <Header weekDate={week.date}
+          <Header weekDate={this.props.currentWeek.date}
                   goToNextWeek={goToNextWeek}
                   goToPreviousWeek={goToPreviousWeek}
                   sideBarHeading={sideBarHeading} 
@@ -26,14 +26,14 @@ class Rosters extends Component {
         <div className="rosters-main">
 
           <div className="rosters-flags">
-            <Flags staff={week.staff} />
+            <Flags staff={this.props.currentWeek.staff} />
           </div>
 
           <div className="rosters-date">
             <Roster users={users}
-                    staff={week.staff}
-                    weekDate={week.date}
-                    weekID={week._id}
+                    staff={this.props.currentWeek.staff}
+                    weekDate={this.props.currentWeek.date}
+                    weekID={this.props.currentWeek._id}
 
             />
           </div>
