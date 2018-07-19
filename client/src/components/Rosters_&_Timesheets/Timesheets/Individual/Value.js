@@ -3,10 +3,26 @@ import React, { Component } from 'react'
 class Value extends Component {
   state = {
     date: '',
+    value: '',
+    editing: false,
   }
 
   componentDidMount = () => {
-    this.setState({ date: this.props.date })
+    const { date, value } = this.props
+    this.setState({
+      date: date,
+      value: value,
+    })
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const { date, value } = this.props
+    if (this.state.value !== prevState.value) {
+      this.setState({
+        date: date,
+        value: value,
+      })
+    }
   }
 
   formatTime_DateObjtoDisplayString = (time) => {
@@ -23,24 +39,66 @@ class Value extends Component {
     } else { return '' }
   }
 
+  update = (e) => {
+    this.setState({ value: e.target.value })
+  }
 
+  post = (e) => {
+
+  }
+
+  toggleEditing = () => {
+    this.setState({ editing: !this.state.editing })
+  }
 
   render() {
-    const { value } = this.props
+    const { value } = this.state
 
     if (typeof(value) === 'object') {
-      return (
-        <div className='value-constainer'>
+      if (!this.state.editing) {
+        return (
+          <div className='value-constainer' onClick={ () => this.toggleEditing() }>
           { this.formatTime_DateObjtoDisplayString(value) }
-        </div>
-      )
+          </div>
+        )
+      } else {
+        return(
+          <div className='value-constainer'>
+            <form onSubmit={ this.post }>
+              <input  placeholder='value'
+                      value={ value }
+                      onChange={ this.update }
+                      type='time'
+              />
+              <input type='Submit' />
+            </form>
+          </div>
+        )
+      }
     } else {
-      return (
-        <div className='value-constainer'>
-          { value }
-        </div>
-      )
+      if (!this.state.editing) {
+        return (
+          <div className='value-constainer' onClick={ () => this.toggleEditing() }>
+            { value }
+          </div>
+        )
+      } else {
+        return(
+          <div className='value-constainer'>
+            <form onSubmit={ this.post }>
+              <input  placeholder='value'
+                      value={ value }
+                      onChange={ this.update }
+                      type='number'
+              />
+              <input type='Submit' />
+            </form>
+          </div>
+        )
+      }
     }
+
+
   }
 }
 
