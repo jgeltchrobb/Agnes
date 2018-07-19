@@ -78,11 +78,11 @@ class Shift extends Component {
     return dateCopy
   }
 
-  editShift = () => {
+  edit = () => {
     this.setState({ editing: !this.state.editing })
   }
 
-  handleSubmit = async (e) => {
+  post = async (e) => {
     e.preventDefault()
 
     const server = 'http://localhost:4000'
@@ -130,7 +130,7 @@ class Shift extends Component {
       return (
         <div>
 
-          <form id='form' onSubmit={ this.handleSubmit }>
+          <form id='form' onSubmit={ this.post }>
 
             <input  placeholder='Shift Category'
                     value={ this.state.shiftCategory }
@@ -156,7 +156,7 @@ class Shift extends Component {
   // if NOT in editing mode we want the shift to render
     } else {
       return (
-        <div onClick={ () => this.editShift() }>
+        <div onClick={ () => this.edit() }>
           <div className="shift-time">
             <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
             <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>

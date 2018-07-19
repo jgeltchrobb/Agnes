@@ -9,7 +9,7 @@ class Individual extends Component {
   }
 
   nameToTop = () => {
-    {/* Take name/id array and sort clicked name to front */}
+    // Take name/id array and sort clicked name to front
   }
 
   formatDate = (date) => {

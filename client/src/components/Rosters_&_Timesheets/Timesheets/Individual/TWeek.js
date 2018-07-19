@@ -11,28 +11,35 @@ class TWeek extends Component {
 
   componentDidMount = () => {
     this.setValuesRows()
-    this.setWeekDatesArray(this.props.week.date)
+    this.setWeekDatesArray()
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.week.date !== prevProps.week.date) {
-      this.setWeekDatesArray(this.props.week.date)
-    }
-    // Rather set state for ind
-    if (this.props.week.date !== prevProps.week.date || this.props.individual !== prevProps.individual) {
+    if (this.props.individual !== prevProps.individual) {
       this.setValuesRows()
     }
+    // if(this.props !== prevProps) {
+    //   this.setWeekDatesArray()
+    //   this.setWeekDatesArray()
+    // }
+
+    // if (this.props.week.date !== prevProps.week.date)
+    //   { this.setWeekDatesArray() }
+    //
+    // if (this.props.week.date !== prevProps.week.date)
+    //     // || this.props.week.moreDetail to ensure new shift data pulls through
+    //   { this.setValuesRows() }
   }
 
-  setWeekDatesArray = (dateString) => {
-    const weekStartDate = new Date(dateString)
+  setWeekDatesArray = () => {
+    const weekDate = new Date(this.props.week.date)
     const weekDates = []
     for (let i=0; i<7; i++) {
-      let date = new Date(weekStartDate)
-      date.setDate(weekStartDate.getDate() + i)
+      let date = new Date(weekDate)
+      date.setDate(weekDate.getDate() + i)
       weekDates.push(date)
     }
-    this.setState({ weekDates: weekDates})
+    this.setState({ weekDates: weekDates })
   }
 
   setValuesRows = () => {
@@ -147,11 +154,16 @@ class TWeek extends Component {
       valuesRows2: valuesRows2,
       valuesRows3: valuesRows3,
     })
+
   }
 
 
   render() {
     const { valuesRows1, valuesRows2, valuesRows3, weekDates } = this.state
+
+    // if (valuesRows1 === []) { return '' }
+
+    // console.log('2...', valuesRows1)
 
     if (valuesRows2.length === 0) {
       return (
@@ -163,15 +175,10 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            {
-              valuesRows1.map((row) => {
-                return (
-                  <ValuesRow  specificRow={ row }
-                              weekDates={ weekDates }
-                  />
-                )
-              })
-            }
+            <ValuesRow lable='start'  specificRow={ valuesRows1[0] } weekDates={ weekDates } />
+            <ValuesRow lable='break'  specificRow={ valuesRows1[1] } weekDates={ weekDates } />
+            <ValuesRow lable='finish' specificRow={ valuesRows1[2] } weekDates={ weekDates } />
+            <ValuesRow lable='total'  specificRow={ valuesRows1[3] } weekDates={ weekDates } />
           </div>
         </div>
       )
@@ -188,32 +195,22 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            {
-              valuesRows1.map((row) => {
-                return (
-                  <ValuesRow  specificRow={ row }
-                              weekDates={ weekDates }
-                  />
-                )
-              })
-            }
+            <ValuesRow lable='start'  specificRow={ valuesRows1[0] } weekDates={ weekDates } />
+            <ValuesRow lable='break'  specificRow={ valuesRows1[1] } weekDates={ weekDates } />
+            <ValuesRow lable='finish' specificRow={ valuesRows1[2] } weekDates={ weekDates } />
+            <ValuesRow lable='total'  specificRow={ valuesRows1[3] } weekDates={ weekDates } />
           </div>
-          <div className='extra-div-required'>
+          <div className='headings-container'>
             <div>Start</div>
             <div>Break</div>
             <div>Finish</div>
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            {
-              valuesRows2.map((row) => {
-                return (
-                  <ValuesRow  specificRow={ row }
-                              weekDates={ weekDates }
-                  />
-                )
-              })
-            }
+            <ValuesRow lable='start'  specificRow={ valuesRows2[0] } weekDates={ weekDates } />
+            <ValuesRow lable='break'  specificRow={ valuesRows2[1] } weekDates={ weekDates } />
+            <ValuesRow lable='finish' specificRow={ valuesRows2[2] } weekDates={ weekDates } />
+            <ValuesRow lable='total'  specificRow={ valuesRows2[3] } weekDates={ weekDates } />
           </div>
         </div>
       )
@@ -228,49 +225,34 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            {
-              valuesRows1.map((row) => {
-                return (
-                  <ValuesRow  specificRow={ row }
-                              weekDates={ weekDates }
-                  />
-                )
-              })
-            }
+            <ValuesRow lable='start'  specificRow={ valuesRows1[0] } weekDates={ weekDates } />
+            <ValuesRow lable='break'  specificRow={ valuesRows1[1] } weekDates={ weekDates } />
+            <ValuesRow lable='finish' specificRow={ valuesRows1[2] } weekDates={ weekDates } />
+            <ValuesRow lable='total'  specificRow={ valuesRows1[3] } weekDates={ weekDates } />
           </div>
-          <div className='extra-div-required'>
+          <div className='headings-container'>
             <div>Start</div>
             <div>Break</div>
             <div>Finish</div>
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            {
-              valuesRows2.map((row) => {
-                return (
-                  <ValuesRow  specificRow={ row }
-                              weekDates={ weekDates }
-                  />
-                )
-              })
-            }
+            <ValuesRow lable='start'  specificRow={ valuesRows2[0] } weekDates={ weekDates } />
+            <ValuesRow lable='break'  specificRow={ valuesRows2[1] } weekDates={ weekDates } />
+            <ValuesRow lable='finish' specificRow={ valuesRows2[2] } weekDates={ weekDates } />
+            <ValuesRow lable='total'  specificRow={ valuesRows2[3] } weekDates={ weekDates } />
           </div>
-          <div className='extra-div-required'>
+          <div className='headings-container'>
             <div>Start</div>
             <div>Break</div>
             <div>Finish</div>
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            {
-              valuesRows3.map((row) => {
-                return (
-                  <ValuesRow  specificRow={ row }
-                              weekDates={ weekDates }
-                  />
-                )
-              })
-            }
+            <ValuesRow lable='start'  specificRow={ valuesRows3[0] } weekDates={ weekDates } />
+            <ValuesRow lable='break'  specificRow={ valuesRows3[1] } weekDates={ weekDates } />
+            <ValuesRow lable='finish' specificRow={ valuesRows3[2] } weekDates={ weekDates } />
+            <ValuesRow lable='total'  specificRow={ valuesRows3[3] } weekDates={ weekDates } />
           </div>
         </div>
       )
