@@ -19,7 +19,7 @@ class Clock extends Component {
 
 // Handles when users click the clock on button
   clockingOn = () => {
-    const staffID = this.props.user.staffID
+    const staffID = this.props.user.name
     this.setState({ user: staffID })
 
     // The rostered and actual clock on time
@@ -46,7 +46,7 @@ class Clock extends Component {
   }
 
   render() {
-    // Buttons change once a user clicks 'Clock on' and is removed once a user clicks 'Clock off'
+    // Buttons change once a user clicks 'Clock on'
     if (this.state.clockedOn === null) {
       return(
         <div>
@@ -54,6 +54,7 @@ class Clock extends Component {
         </div>
       )
     } else if (this.state.clockedOn !== null && this.state.clockedOff === null) {
+      // Display clock on time and clock off button
       return (
         <div>
           <button onClick={this.clockingOff}>Clock off</button>
@@ -61,6 +62,7 @@ class Clock extends Component {
         </div>
       )
     } else {
+      // Removes the button and displays the clock off time above the clock on time.
       return (
         <div>
           <br />

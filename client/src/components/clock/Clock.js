@@ -19,7 +19,7 @@ class Clocking extends Component {
         <br />
         <br />
         <br />
-        <Pin />
+        <Pin week={this.props.week} user={this.props.user} />
 
       </div>
     )

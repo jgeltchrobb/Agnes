@@ -132,7 +132,7 @@ class App extends Component {
             weeks: weeks,
             currentWeek: response.data,
           })
-        } 
+        }
       })
     } else {
       for (let week of this.state.weeks) {
@@ -180,7 +180,7 @@ class App extends Component {
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets currentWeek={this.state.currentWeek} 
+              <Timesheets currentWeek={this.state.currentWeek}
                           week={week}
                           prevWeek={prevWeek}
                           users={this.state.users}

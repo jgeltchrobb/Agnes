@@ -9,7 +9,7 @@ class Pin extends Component {
     return (
       <div className="Pin">
         <div className="Pin-board">
-          <Board />
+          <Board user={this.props.user} />
         </div>
       </div>
     );
