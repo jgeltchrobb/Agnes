@@ -6,8 +6,8 @@ const router = express.Router();
 getMonday = (d) => {
   let day = d.getDay(),
   diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
-  d.setHours(d.getHours() - 4);
+  // d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
+  // d.setHours(d.getHours() - 4);
   return new Date(d.setDate(diff));
 }
 
@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
   try {
     let weekDates = []
     let weeks = []
-    let date = getMonday(new Date())
+    let d = new Date()
+    let date = getMonday(d)
     for (let i = 0; i < 7; i++) {
       if (i === 0) {
         weekDates.push(new Date(date))
@@ -36,28 +37,27 @@ router.get('/', async (req, res) => {
       weekDates.push(newDate)
     }
     for (let date of weekDates) {
-      date = date.toISOString().split('T')[0]
+      date = new Date(date.setHours(date.getHours() + 10)).toISOString().split('T')[0]
       let week = await Week.findOne({date: date})
       if (week) {
         weeks.push(week)
       }
     }
+    console.log(weeks, 'weeks')
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 })
 
-// Get Week by ID
-// router.get('/:id', async (req, res) => {
-//   try {
-//     let week = await Week.find({_id: req.params.id})
-//     res.send(week)
-//   } catch (error) {
-//     res.status(500).json({ error: error.message })
-//   }
-// })
-//
+router.get('/:id', async (req, res) => {
+  try {
+    let week = Week.findOne({_id: req.params.id})
+    res.send(week)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
 
 router.get('/date/:date', async (req, res) => {
   try {
@@ -111,78 +111,30 @@ router.get('/new/:weekDate', async (req, res) => {
   }
 })
 
-// Update Week details
-// // router.put('/:id', async (req, res) => {
-// //   try {
-// //     let week = await Week.update({_id: req.params.id}, req.body)
-// //     res.send(week)
-// //   } catch (error) {
-// //     res.status(500).json({ error: error.message })
-// //   }
-// // })
-// //
-// // // Delete Week
-// // router.delete('/:id', async (req, res) => {
-// //   try {
-// //     let week = await Week.findOneAndRemove({_id: req.params.id})
-// //     res.send(week)
-// //   } catch (error) {
-// //     res.status(500).json({ error: error.message })
-// //   }
-// // })
-//
-// router.post('/shift/:id', async (req, res) => {
-//   let week = await Week.findOne({ _id: req.body.weekID })
-//   try {
-//     let found = false
-//     let week = await Week.findOne({_id: req.body.weekID})
-//   try {
-//     let found = false
-//     let week = await Week.findOne({_id: req.body.shiftObj.weekID})
-//     for (let staff of week.staff) {
-//       if (staff.staffID === req.params.id) {
-//         for (let shift of staff.shifts) {
-//           if (shift.date === req.body.shiftObj.shift.date) {
-//             shift = req.body.shiftObj.shift
-//             console.log('FOUND')
-//             week.save()
-//             found = true
-//           }
-//         }
-//         if (!found) {
-//           staff.shifts.push(req.body.shiftObj.shift)
-//           week.save()
-//         }
-//       }
-//     }
-//     // && shift.start.rostered === req.body.shift.start.rostered
-//     res.send(week)
-//   } catch (error) {
-//     res.status(500).json({ error: error.message })
-//   }
-//  try {
-//    let found = false
-//    let week = await Week.findOne({_id: req.body.shiftObj.weekID})
-//    for (let staff of week.staff) {
-//      if (staff.staffID === req.params.id) {
-//        for (let shift of staff.shifts) {
-//          if (shift.date === req.body.shiftObj.shift.date) {
-//            shift = req.body.shiftObj.shift
-//            week.save()
-//            found = true
-//          }
-//        }
-//        if (!found) {
-//          staff.shifts.push(req.body.shiftObj.shift)
-//          week.save()
-//        }
-//      }
-//    }
-//    // && shift.start.rostered === req.body.shift.start.rostered
-//    res.send(week)
-//  } catch (error) {
-//    res.status(500).json({ error: error.message })
-//  }
-// })
+router.post('/shift/:id', async (req, res) => {
+  try {
+    let found = false
+    let week = await Week.findOne({_id: req.body.shiftObj.weekID})
+    for (let staff of week.staff) {
+      if (staff.staffID === req.params.id) {
+        // for (let shift of staff.shifts) {
+        //   if (new Date(shift.date).toISOString().split('T')[0] === new Date(req.body.shiftObj.shift.date).toISOString().split('T')[0]) {
+        //     shift = req.body.shiftObj.shift
+        //     // WHY ISNT THIS REPLACING?
+        //     week.save()
+        //     found = true
+        //   }
+        // }
+        // if (!found) {
+          staff.shifts.push(req.body.shiftObj.shift)
+          week.save()
+        // }
+      }
+    }
+    res.send(week)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
 
 module.exports = router

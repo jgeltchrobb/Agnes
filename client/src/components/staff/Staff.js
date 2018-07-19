@@ -201,10 +201,11 @@ class Staff extends Component {
 
   render() {
     console.log(this.state)
+    console.log(new Date().getHours(), 'ABCDEFGHIJ')
     return (
       <React.Fragment>
         <button onClick={this.openModal} >New Staff</button>
-        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal" >
+        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Add Staff Modal" >
           <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} />
         </Modal>
         <div className="staff-container" >
