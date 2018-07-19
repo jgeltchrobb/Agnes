@@ -13,7 +13,7 @@ class Header extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({date: this.props.weekDate})
+    this.setState({date: this.props.currentWeek.date})
   }
 
   render() {
@@ -27,7 +27,7 @@ class Header extends Component {
 
         <div className="header-mainbar">
           <div>
-            <Nav goToPreviousWeek={goToPreviousWeek} weekDate={weekDate} />
+            <Nav goToPreviousWeek={goToPreviousWeek} weekDate={this.state.date} />
           </div>
 
           <div>

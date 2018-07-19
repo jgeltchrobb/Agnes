@@ -16,6 +16,154 @@ mongoose.connect('mongodb://localhost/agnes', (err) => {
 const seedData = async () => {
 
   await Week.create({
+    date: '2018-07-16',
+    staff:
+    [
+      {
+        staffID: 1, shifts:
+        [
+          {
+            date: new Date("July 15 2018"),
+            shiftCategory: "floor",
+            start:  {
+                        rostered: new Date("July 15 2018 8:00"),
+                        actual: new Date("July 15 2018 8:00"),
+                        timesheet: new Date("July 15 2018 8:00"),
+                        flag: false
+                    },
+            finish: {
+                        rostered: new Date("July 15 2018 16:00"),
+                        actual: new Date("July 15 2018 16:00"),
+                        timesheet: new Date("July 15 2018 16:00"),
+                        flag: false
+                    }
+          },
+        ], // end of shifts
+
+      }, //end of staff member
+
+      {
+        staffID: 2, shifts:
+        [
+          {
+            date: new Date("July 9 2018"),
+            shiftCategory: "room",
+            start:  {
+                      rostered: new Date("July 9 2018 8:00"),
+                      actual: new Date("July 9 2018 9:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+              rostered: new Date("July 9 2018 16:00"),
+              actual: new Date("July 9 2018 15:00"),
+              timesheet: '',
+              flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+      {
+        staffID: 3, shifts:
+        [
+          {
+            date: new Date("July 10 2018"),
+            shiftCategory: "floor",
+            start:  {
+                      rostered: new Date("July 10 2018 8:00"),
+                      actual: new Date("July 10 2018 7:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+                      rostered: new Date("July 10 2018 16:00"),
+                      actual: new Date("July 10 2018 17:00"),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+    ]
+  })
+
+  await Week.create({
+    date: '2018-07-09',
+    staff:
+    [
+      {
+        staffID: 1, shifts:
+        [
+          {
+            date: new Date("July 15 2018"),
+            shiftCategory: "floor",
+            start:  {
+                        rostered: new Date("July 15 2018 8:00"),
+                        actual: new Date("July 15 2018 8:00"),
+                        timesheet: new Date("July 15 2018 8:00"),
+                        flag: false
+                    },
+            finish: {
+                        rostered: new Date("July 15 2018 16:00"),
+                        actual: new Date("July 15 2018 16:00"),
+                        timesheet: new Date("July 15 2018 16:00"),
+                        flag: false
+                    }
+          },
+        ], // end of shifts
+
+      }, //end of staff member
+
+      {
+        staffID: 2, shifts:
+        [
+          {
+            date: new Date("July 9 2018"),
+            shiftCategory: "room",
+            start:  {
+                      rostered: new Date("July 9 2018 8:00"),
+                      actual: new Date("July 9 2018 9:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+              rostered: new Date("July 9 2018 16:00"),
+              actual: new Date("July 9 2018 15:00"),
+              timesheet: '',
+              flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+      {
+        staffID: 3, shifts:
+        [
+          {
+            date: new Date("July 10 2018"),
+            shiftCategory: "floor",
+            start:  {
+                      rostered: new Date("July 10 2018 8:00"),
+                      actual: new Date("July 10 2018 7:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+                      rostered: new Date("July 10 2018 16:00"),
+                      actual: new Date("July 10 2018 17:00"),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+    ]
+  })
+
+  await Week.create({
       date: '2018-07-02',
       staff:
       [
@@ -410,7 +558,7 @@ const seedData = async () => {
     })
 
   await Week.create({
-    date: '2018-07-09',
+    date: '2018-06-25',
     staff:
     [
       {
@@ -484,18 +632,298 @@ const seedData = async () => {
   })
 
   await Week.create({
-    date: '2018-07-16',
+    date: '2018-06-18',
     staff:
     [
       {
-        staffID: 1, shifts: [ ],
-      },
+        staffID: 1, shifts:
+        [
+          {
+            date: new Date("July 15 2018"),
+            shiftCategory: "floor",
+            start:  {
+                        rostered: new Date("July 15 2018 8:00"),
+                        actual: new Date("July 15 2018 8:00"),
+                        timesheet: new Date("July 15 2018 8:00"),
+                        flag: false
+                    },
+            finish: {
+                        rostered: new Date("July 15 2018 16:00"),
+                        actual: new Date("July 15 2018 16:00"),
+                        timesheet: new Date("July 15 2018 16:00"),
+                        flag: false
+                    }
+          },
+        ], // end of shifts
+
+      }, //end of staff member
+
       {
-        staffID: 2, shifts: [ ],
-      },
+        staffID: 2, shifts:
+        [
+          {
+            date: new Date("July 9 2018"),
+            shiftCategory: "room",
+            start:  {
+                      rostered: new Date("July 9 2018 8:00"),
+                      actual: new Date("July 9 2018 9:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+              rostered: new Date("July 9 2018 16:00"),
+              actual: new Date("July 9 2018 15:00"),
+              timesheet: '',
+              flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
       {
-        staffID: 3, shifts: [ ],
-      },
+        staffID: 3, shifts:
+        [
+          {
+            date: new Date("July 10 2018"),
+            shiftCategory: "floor",
+            start:  {
+                      rostered: new Date("July 10 2018 8:00"),
+                      actual: new Date("July 10 2018 7:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+                      rostered: new Date("July 10 2018 16:00"),
+                      actual: new Date("July 10 2018 17:00"),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+    ]
+  })
+
+  await Week.create({
+    date: '2018-06-11',
+    staff:
+    [
+      {
+        staffID: 1, shifts:
+        [
+          {
+            date: new Date("July 15 2018"),
+            shiftCategory: "floor",
+            start:  {
+                        rostered: new Date("July 15 2018 8:00"),
+                        actual: new Date("July 15 2018 8:00"),
+                        timesheet: new Date("July 15 2018 8:00"),
+                        flag: false
+                    },
+            finish: {
+                        rostered: new Date("July 15 2018 16:00"),
+                        actual: new Date("July 15 2018 16:00"),
+                        timesheet: new Date("July 15 2018 16:00"),
+                        flag: false
+                    }
+          },
+        ], // end of shifts
+
+      }, //end of staff member
+
+      {
+        staffID: 2, shifts:
+        [
+          {
+            date: new Date("July 9 2018"),
+            shiftCategory: "room",
+            start:  {
+                      rostered: new Date("July 9 2018 8:00"),
+                      actual: new Date("July 9 2018 9:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+              rostered: new Date("July 9 2018 16:00"),
+              actual: new Date("July 9 2018 15:00"),
+              timesheet: '',
+              flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+      {
+        staffID: 3, shifts:
+        [
+          {
+            date: new Date("July 10 2018"),
+            shiftCategory: "floor",
+            start:  {
+                      rostered: new Date("July 10 2018 8:00"),
+                      actual: new Date("July 10 2018 7:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+                      rostered: new Date("July 10 2018 16:00"),
+                      actual: new Date("July 10 2018 17:00"),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+    ]
+  })
+
+  await Week.create({
+    date: '2018-06-04',
+    staff:
+    [
+      {
+        staffID: 1, shifts:
+        [
+          {
+            date: new Date("July 15 2018"),
+            shiftCategory: "floor",
+            start:  {
+                        rostered: new Date("July 15 2018 8:00"),
+                        actual: new Date("July 15 2018 8:00"),
+                        timesheet: new Date("July 15 2018 8:00"),
+                        flag: false
+                    },
+            finish: {
+                        rostered: new Date("July 15 2018 16:00"),
+                        actual: new Date("July 15 2018 16:00"),
+                        timesheet: new Date("July 15 2018 16:00"),
+                        flag: false
+                    }
+          },
+        ], // end of shifts
+
+      }, //end of staff member
+
+      {
+        staffID: 2, shifts:
+        [
+          {
+            date: new Date("July 9 2018"),
+            shiftCategory: "room",
+            start:  {
+                      rostered: new Date("July 9 2018 8:00"),
+                      actual: new Date("July 9 2018 9:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+              rostered: new Date("July 9 2018 16:00"),
+              actual: new Date("July 9 2018 15:00"),
+              timesheet: '',
+              flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+      {
+        staffID: 3, shifts:
+        [
+          {
+            date: new Date("July 10 2018"),
+            shiftCategory: "floor",
+            start:  {
+                      rostered: new Date("July 10 2018 8:00"),
+                      actual: new Date("July 10 2018 7:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+                      rostered: new Date("July 10 2018 16:00"),
+                      actual: new Date("July 10 2018 17:00"),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+    ]
+  })
+
+  await Week.create({
+    date: '2018-05-28',
+    staff:
+    [
+      {
+        staffID: 1, shifts:
+        [
+          {
+            date: new Date("July 15 2018"),
+            shiftCategory: "floor",
+            start:  {
+                        rostered: new Date("July 15 2018 8:00"),
+                        actual: new Date("July 15 2018 8:00"),
+                        timesheet: new Date("July 15 2018 8:00"),
+                        flag: false
+                    },
+            finish: {
+                        rostered: new Date("July 15 2018 16:00"),
+                        actual: new Date("July 15 2018 16:00"),
+                        timesheet: new Date("July 15 2018 16:00"),
+                        flag: false
+                    }
+          },
+        ], // end of shifts
+
+      }, //end of staff member
+
+      {
+        staffID: 2, shifts:
+        [
+          {
+            date: new Date("July 9 2018"),
+            shiftCategory: "room",
+            start:  {
+                      rostered: new Date("July 9 2018 8:00"),
+                      actual: new Date("July 9 2018 9:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+              rostered: new Date("July 9 2018 16:00"),
+              actual: new Date("July 9 2018 15:00"),
+              timesheet: '',
+              flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
+      {
+        staffID: 3, shifts:
+        [
+          {
+            date: new Date("July 10 2018"),
+            shiftCategory: "floor",
+            start:  {
+                      rostered: new Date("July 10 2018 8:00"),
+                      actual: new Date("July 10 2018 7:00"),
+                      timesheet: '',
+                      flag: false
+                    },
+            finish: {
+                      rostered: new Date("July 10 2018 16:00"),
+                      actual: new Date("July 10 2018 17:00"),
+                      timesheet: '',
+                      flag: false
+                    }
+          },
+        ], // end of shifts
+      }, // end of staff member
+
     ]
   })
 

@@ -205,7 +205,8 @@ class Timesheets extends Component {
         <div className="timesheets-container">
 
           <div className="timesheets">
-            <Header weekDate={week.date}
+            <Header currentWeek={this.props.currentWeek}
+                    weekDate={week.date}
                     goToNextWeek={goToNextWeek}
                     goToPreviousWeek={goToPreviousWeek}
                     sideBarHeading={sideBarHeading}
