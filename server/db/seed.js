@@ -15,12 +15,33 @@ mongoose.connect('mongodb://localhost/agnes', (err) => {
 
 const seedData = async () => {
 
+  let user1 = await User.create({
+    name: 'Pubert Gesepi',
+    email: 'test@test.com',
+    role: 'staff',
+    PIN: 1234
+  })
+
+  let user2 = await User.create({
+    name: 'Shaun Lamb',
+    email: 'test@test.com',
+    role: 'staff',
+    PIN: 1234
+  })
+
+  let user3 = await User.create({
+    name: 'Justin Case',
+    email: 'test@test.com',
+    role: 'staff',
+    PIN: 1234
+  })
+
   await Week.create({
     date: '2018-07-16',
     staff:
     [
       {
-        staffID: 1, shifts:
+        staffID: user1._id, shifts:
         [
           {
             date: new Date("July 16 2018"),
@@ -43,7 +64,7 @@ const seedData = async () => {
       }, //end of staff member
 
       {
-        staffID: 2, shifts:
+        staffID: user2._id, shifts:
         [
           {
             date: new Date("July 17 2018"),
@@ -65,7 +86,7 @@ const seedData = async () => {
       }, // end of staff member
 
       {
-        staffID: 3, shifts:
+        staffID: user3._id, shifts:
         [
           {
             date: new Date("July 18 2018"),
@@ -94,7 +115,7 @@ const seedData = async () => {
     staff:
     [
       {
-        staffID: 1, shifts:
+        staffID: user1._id, shifts:
         [
           {
             date: new Date("July 15 2018"),
@@ -117,7 +138,7 @@ const seedData = async () => {
       }, //end of staff member
 
       {
-        staffID: 2, shifts:
+        staffID: user2._id, shifts:
         [
           {
             date: new Date("July 9 2018"),
@@ -139,7 +160,7 @@ const seedData = async () => {
       }, // end of staff member
 
       {
-        staffID: 3, shifts:
+        staffID: user3._id, shifts:
         [
           {
             date: new Date("July 10 2018"),
@@ -168,7 +189,7 @@ const seedData = async () => {
       staff:
       [
         {
-          staffID: 1, shifts:
+          staffID: user1._id, shifts:
           [
             {
               date: new Date("July 2 2018"),
@@ -319,7 +340,7 @@ const seedData = async () => {
         }, //end of staff member
 
         {
-          staffID: 2, shifts:
+          staffID: user2._id, shifts:
           [
             {
               date: new Date("July 2 2018"),
@@ -437,7 +458,7 @@ const seedData = async () => {
         }, // end of staff member
 
         {
-          staffID: 3, shifts:
+          staffID: user3._id, shifts:
           [
             {
               date: new Date("July 2 2018"),
@@ -562,7 +583,7 @@ const seedData = async () => {
     staff:
     [
       {
-        staffID: 1, shifts:
+        staffID: user1._id, shifts:
         [
           {
             date: new Date("June 25 2018"),
@@ -585,7 +606,7 @@ const seedData = async () => {
       }, //end of staff member
 
       {
-        staffID: 2, shifts:
+        staffID: user2._id, shifts:
         [
           {
             date: new Date("June 26 2018"),
@@ -607,7 +628,7 @@ const seedData = async () => {
       }, // end of staff member
 
       {
-        staffID: 3, shifts:
+        staffID: user3._id, shifts:
         [
           {
             date: new Date("June 27 2018"),
@@ -636,7 +657,7 @@ const seedData = async () => {
     staff:
     [
       {
-        staffID: 1, shifts:
+        staffID: user1._id, shifts:
         [
           {
             date: new Date("June 22 2018"),
@@ -659,7 +680,7 @@ const seedData = async () => {
       }, //end of staff member
 
       {
-        staffID: 2, shifts:
+        staffID: user2._id, shifts:
         [
           {
             date: new Date("June 23 2018"),
@@ -681,7 +702,7 @@ const seedData = async () => {
       }, // end of staff member
 
       {
-        staffID: 3, shifts:
+        staffID: user3._id, shifts:
         [
           {
             date: new Date("June 24 2018"),
@@ -710,7 +731,7 @@ const seedData = async () => {
     staff:
     [
       {
-        staffID: 1, shifts:
+        staffID: user1._id, shifts:
         [
           {
             date: new Date("June 14 2018"),
@@ -733,7 +754,7 @@ const seedData = async () => {
       }, //end of staff member
 
       {
-        staffID: 2, shifts:
+        staffID: user2._id, shifts:
         [
           {
             date: new Date("June 15 2018"),
@@ -755,7 +776,7 @@ const seedData = async () => {
       }, // end of staff member
 
       {
-        staffID: 3, shifts:
+        staffID: user3._id, shifts:
         [
           {
             date: new Date("June 16 2018"),
@@ -784,7 +805,7 @@ const seedData = async () => {
     staff:
     [
       {
-        staffID: 1, shifts:
+        staffID: user1._id, shifts:
         [
           {
             date: new Date("June 5 2018"),
@@ -807,7 +828,7 @@ const seedData = async () => {
       }, //end of staff member
 
       {
-        staffID: 2, shifts:
+        staffID: user2._id, shifts:
         [
           {
             date: new Date("June 6 2018"),
@@ -829,7 +850,7 @@ const seedData = async () => {
       }, // end of staff member
 
       {
-        staffID: 3, shifts:
+        staffID: user3._id, shifts:
         [
           {
             date: new Date("June 7 2018"),
@@ -858,7 +879,7 @@ const seedData = async () => {
     staff:
     [
       {
-        staffID: 1, shifts:
+        staffID: user1._id, shifts:
         [
           {
             date: new Date("May 29 2018"),
@@ -881,7 +902,7 @@ const seedData = async () => {
       }, //end of staff member
 
       {
-        staffID: 2, shifts:
+        staffID: user2._id, shifts:
         [
           {
             date: new Date("May 30 2018"),
@@ -903,7 +924,7 @@ const seedData = async () => {
       }, // end of staff member
 
       {
-        staffID: 3, shifts:
+        staffID: user3._id, shifts:
         [
           {
             date: new Date("May 31 2018"),
@@ -925,30 +946,6 @@ const seedData = async () => {
       }, // end of staff member
 
     ]
-  })
-
-  let user1 = await User.create({
-    staffID: 1,
-    name: 'Pubert Gesepi',
-    email: 'test@test.com',
-    role: 'staff',
-    PIN: 1234
-  })
-
-  let user2 = await User.create({
-    staffID: 2,
-    name: 'Shaun Lamb',
-    email: 'test@test.com',
-    role: 'staff',
-    PIN: 1234
-  })
-
-  let user3 = await User.create({
-    staffID: 3,
-    name: 'Justin Case',
-    email: 'test@test.com',
-    role: 'staff',
-    PIN: 1234
   })
 
   await PayRateCategories.create({

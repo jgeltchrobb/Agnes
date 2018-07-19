@@ -180,7 +180,7 @@ class App extends Component {
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets currentWeek={this.state.currentWeek }
+              <Timesheets currentWeek={ this.state.currentWeek }
                           week={ week }
                           prevWeek={ prevWeek }
                           users={ this.state.users }
@@ -189,7 +189,6 @@ class App extends Component {
                           goToNextWeek={ this.goToNextWeek }
                           goToPreviousWeek={ this.goToPreviousWeek }
                           sideBarHeading={ this.state.sideBarHeading }
-
               /> )}
             />
 

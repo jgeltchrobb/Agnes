@@ -59,16 +59,17 @@ router.get('/', async (req, res) => {
 //   }
 // })
 //
-// router.get('/date/:date', async (req, res) => {
-//   try {
-//     console.log(req.params.date)
-//     let week = await Week.findOne({date: req.params.date})
-//     res.send(week)
-//   } catch (error) {
-//     res.status(500).json({ error: error.message })
-//   }
-// })
-//
+
+router.get('/date/:date', async (req, res) => {
+  try {
+    let date = getMonday(new Date(req.params.date))
+    let week = await Week.findOne({date: req.params.date})
+    res.send(week)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
 router.get('/previous/:date', async (req, res) => {
   try {
     let date = new Date(req.params.date)
