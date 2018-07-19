@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Header from '../HeaderBar/Header'
 import ColumnHeading from './Common/ColumnHeading'
 import Name from './Common/Name'
@@ -51,12 +52,13 @@ class Timesheets extends Component {
         const rFinish = new Date(shift.finish.rostered)
         const aFinish = new Date(shift.finish.actual)
         var finish = ''
-        // set timnesheet start value. If not in data then calculate it
+        // set timnesheet start value. If not in db then calculate it
         shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart)
-        // if not in data need to async post to db without updating App state or this will rerender and don't need because we now have the info required to go forward from here
+        // if not in db need to post start.timesheet to db without updating App state or this will rerender and don't need because we now have the info required to go forward from here
         // will have to decide how often App does a api request to update data
         // also need to post flags, which are uncovered in the timesheetEntry method
         // Same goes for finish time
+
         // set timnesheet finsih value. If not in data then calculate it
         shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish)
         // shift hours are just finish - start times converted to a number of hours with two decimal places
@@ -107,6 +109,7 @@ class Timesheets extends Component {
       totalsRow.staffID = staffMember.staffID
       // push totalsRow object to totalsRows array
       totalsRows.push(totalsRow)
+      console.log(totalsRow)
     })
     // // Remove duplicates from columnHeadings array and merge with entitlements array to form final column heads array
     columnHeadings = [...this.removeDuplicates(columnHeadings), ...this.props.entitlements]
@@ -175,6 +178,22 @@ class Timesheets extends Component {
       }
       // If no clock time then return rostered
     } else return rostered
+  }
+
+  post = (startFinish, value) => {
+    const server = 'http://localhost:4000'
+
+    let valueObj =  {
+                      weekID: this.state.weekID,
+                      staffID: this.state.individual,
+                      date: this.state.date,
+                      shiftNumber: this.state.shift,
+                      value: this.state.value,
+                    }
+
+    axios.post(server + '/timesheets/start', {valueObj}).then((response) => {
+      console.log(response)
+    })
   }
 
   removeDuplicates = (arr) => {
