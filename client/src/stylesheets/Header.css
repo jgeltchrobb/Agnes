@@ -1,11 +1,11 @@
 div.header {
-  border-bottom: 1px solid black;
+  height: 20%;
   display: flex;
 }
 
 div.header-sidebar {
   width: 10%;
-  border-right: 1px solid black;
+  border-right: 3px groove #dfe0d8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@ div.header-sidebar {
 
 div.header-mainbar {
   width: 90%;
-  padding: 0 1em;
+  padding: 0 5em;
   display: flex;
   justify-content: space-between;
   align-items: center;

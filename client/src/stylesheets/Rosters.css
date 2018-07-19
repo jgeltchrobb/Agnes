@@ -1,5 +1,6 @@
 div.rosters-container {
-  border: 1px solid black;
+  height: 100vh;
+  margin: 2em;
 }
 
 div.rosters-main {
@@ -8,7 +9,7 @@ div.rosters-main {
 
 div.rosters-flags {
   width: 10%;
-  border-right: 1px solid black;
+  border-right: 3px groove #dfe0d8;
 }
 
 div.rosters-date {

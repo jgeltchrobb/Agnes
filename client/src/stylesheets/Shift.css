@@ -1,0 +1,7 @@
+div.shift-block {
+  width: 100%;
+}
+
+div.shift-middle > p {
+  margin: 0;
+}

@@ -9,7 +9,7 @@ class Flags extends Component {
   render() {
     return (
       <div>
-        Placeholder for flags
+
       </div>
     )
   }
