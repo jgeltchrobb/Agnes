@@ -5,16 +5,6 @@ import Nav from './Nav'
 import '../../../stylesheets/Header.css'
 
 class Header extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      date: ''
-    }
-  }
-
-  componentDidMount = () => {
-    this.setState({date: this.props.currentWeek.date})
-  }
 
   render() {
     const { weekDate, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
@@ -22,12 +12,12 @@ class Header extends Component {
       <div className="header">
 
         <div className="header-sidebar">
-          <SideBarHeading sideBarHeading={sideBarHeading}/>
+          <SideBarHeading sideBarHeading={ sideBarHeading }/>
         </div>
 
         <div className="header-mainbar">
           <div>
-            <Nav goToPreviousWeek={goToPreviousWeek} weekDate={this.state.date} />
+            <Nav goToPreviousWeek={ goToPreviousWeek } weekDate={ weekDate } />
           </div>
 
           <div>

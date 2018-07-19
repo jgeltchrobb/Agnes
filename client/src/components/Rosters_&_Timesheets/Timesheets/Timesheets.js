@@ -205,11 +205,10 @@ class Timesheets extends Component {
         <div className="timesheets-container">
 
           <div className="timesheets">
-            <Header currentWeek={this.props.currentWeek}
-                    weekDate={week.date}
-                    goToNextWeek={goToNextWeek}
-                    goToPreviousWeek={goToPreviousWeek}
-                    sideBarHeading={sideBarHeading}
+            <Header weekDate={ week.date }
+                    goToNextWeek={ goToNextWeek }
+                    goToPreviousWeek={ goToPreviousWeek }
+                    sideBarHeading={ sideBarHeading }
             />
           </div>
 
@@ -219,7 +218,7 @@ class Timesheets extends Component {
               {
                 this.state.columnHeadings.map((columnHeading, index) => {
                   return (
-                    <ColumnHeading key={index} columnHeading={columnHeading} />
+                    <ColumnHeading key={ index } columnHeading={ columnHeading } />
                   )
                 })
               }
@@ -231,11 +230,11 @@ class Timesheets extends Component {
               {
                 this.state.totalsRows.map((row) => {
                 return (
-                  <Name key={row.staffID}
-                        staffID={row.staffID}
-                        users={users}
-                        setIndividual={this.setIndividual}
-                        removeIndividual={this.removeIndividual}
+                  <Name key={ row.staffID }
+                        staffID={ row.staffID }
+                        users={ users }
+                        setIndividual={ this.setIndividual }
+                        removeIndividual={ this.removeIndividual }
                   />
                   )
                 })
@@ -245,10 +244,10 @@ class Timesheets extends Component {
               {
                 this.state.totalsRows.map((row) => {
                   return (
-                    <TotalsRow  key={row.staffID}
-                                row={row}
-                                columnHeadings={this.state.columnHeadings}
-                                setIndividual={this.setIndividual}
+                    <TotalsRow  key={ row.staffID }
+                                row={ row }
+                                columnHeadings={ this.state.columnHeadings }
+                                setIndividual={ this.setIndividual }
                     />
                   )
                 })
@@ -264,10 +263,10 @@ class Timesheets extends Component {
         <div className="timesheets-container">
 
           <div className='timesheets'>
-            <Header weekDate={week.date}
-                    goToNextWeek={goToNextWeek}
-                    goToPreviousWeek={goToPreviousWeek}
-                    sideBarHeading={sideBarHeading}
+            <Header weekDate={ week.date }
+                    goToNextWeek={ goToNextWeek }
+                    goToPreviousWeek={ goToPreviousWeek }
+                    sideBarHeading={ sideBarHeading }
             />
           </div>
 
@@ -277,7 +276,7 @@ class Timesheets extends Component {
               {
                 this.state.columnHeadings.map((columnHeading, index) => {
                   return (
-                    <ColumnHeading key={index} columnHeading={columnHeading} />
+                    <ColumnHeading key={ index } columnHeading={ columnHeading } />
                   )
                 })
               }
@@ -289,11 +288,11 @@ class Timesheets extends Component {
               {
                 this.state.staffIdArray.map((id) => {
                 return (
-                  <Name staffID={id}
-                        users={users}
-                        individual={this.state.individual}
-                        setIndividual={this.setIndividual}
-                        removeIndividual={this.removeIndividual}
+                  <Name staffID={ id }
+                        users={ users }
+                        individual={ this.state.individual }
+                        setIndividual={ this.setIndividual }
+                        removeIndividual={ this.removeIndividual }
                   />
                   )
                 })
@@ -302,9 +301,9 @@ class Timesheets extends Component {
 
             <div className="individual-view-container">
               <div className='timesheet-container'>
-                      <TotalsRow  row={this.state.individualTotalsRow}
-                                  columnHeadings={this.state.columnHeadings}
-                                  setIndividual={this.setIndividual}
+                      <TotalsRow  row={ this.state.individualTotalsRow }
+                                  columnHeadings={ this.state.columnHeadings }
+                                  setIndividual={ this.setIndividual }
                       />
               </div>
               <div className="individual-container">

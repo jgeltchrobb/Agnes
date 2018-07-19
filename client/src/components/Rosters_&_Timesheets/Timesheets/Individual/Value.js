@@ -5,7 +5,9 @@ class Value extends Component {
     super(props)
 
     this.state = {
-      value: '',
+      weekID: this.props.weekID,
+      individual: this.props.individual,
+      value: this.props.value,
       editing: false,
     }
   }
@@ -49,6 +51,8 @@ class Value extends Component {
 
   update = (e) => {
     this.setState({ value: e.target.value })
+    console.log(e.target.value)
+
   }
 
   postStartTime = async (e) => {
@@ -94,11 +98,12 @@ class Value extends Component {
   render() {
     const { lable, date, value } = this.props
 
+
     if (lable === 'start') {
       if (!this.state.editing) {
         return (
           <div className='value-constainer' onClick={ () => this.edit() }>
-          { this.formatTime_DateObjtoDisplayString(value) }
+          { this.formatTime_DateObjtoDisplayString(this.state.value) }
           </div>
         )
       } else {
@@ -106,7 +111,7 @@ class Value extends Component {
           <div className='value-constainer'>
             <form onSubmit={ this.postStartTime }>
               <input  placeholder='value'
-                      value={ value }
+                      value={ this.state.value }
                       onChange={ this.update }
                       type='time'
               />
@@ -120,7 +125,7 @@ class Value extends Component {
       if (!this.state.editing) {
         return (
           <div className='value-constainer' onClick={ () => this.edit() }>
-            { this.formatTime_DateObjtoDisplayString(value) }
+            { this.formatTime_DateObjtoDisplayString(this.state.value) }
           </div>
         )
       } else {
@@ -128,7 +133,7 @@ class Value extends Component {
           <div className='value-constainer'>
             <form onSubmit={ this.postFinishTime }>
               <input  placeholder='value'
-                      value={ value }
+                      value={ this.state.value }
                       onChange={ this.update }
                       type='time'
               />
@@ -137,6 +142,12 @@ class Value extends Component {
           </div>
         )
       }
+    } else {
+      return (
+        <div className='value-constainer'>
+          { value }
+        </div>
+      )
     }
 
   }

@@ -35,8 +35,9 @@ class Individual extends Component {
         </div>
 
         // WEEK COMPONENT - Current Week
-        <TWeek  week={week}
-                individual={individual}
+        <TWeek  week={ week }
+                weekID={ week._id }
+                individual={ individual }
         />
 
         <div className='week-date'>
@@ -44,8 +45,9 @@ class Individual extends Component {
         </div>
 
         // WEEK COMPONENT - Previous Week
-        <TWeek  week={prevWeek}
-                individual={individual}
+        <TWeek  week={ prevWeek }
+                weekID={ prevWeek._id }
+                individual={ individual }
         />
 
       </div>

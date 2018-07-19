@@ -165,30 +165,30 @@ class App extends Component {
           <div>
 
             <div className="navbar">
-              <Link to="/rosters" onClick={this.selectRosters}>Rosters</Link>
-              <Link to="/timesheets" onClick={this.selectTimesheets}>Timesheets</Link>
+              <Link to="/rosters" onClick={ this.selectRosters }>Rosters</Link>
+              <Link to="/timesheets" onClick={ this.selectTimesheets }>Timesheets</Link>
               <Link to="/staff">Staff</Link>
               <Link to="/">Logout</Link>
             </div>
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters  currentWeek={this.state.currentWeek} week={week}
-                        users={this.state.users}
-                        goToNextWeek={this.goToNextWeek}
-                        goToPreviousWeek={this.goToPreviousWeek}
-                        sideBarHeading={this.state.sideBarHeading} /> )}
+              <Rosters  week={ week }
+                        users={ this.state.users }
+                        goToNextWeek={ this.goToNextWeek }
+                        goToPreviousWeek={ this.goToPreviousWeek }
+                        sideBarHeading={ this.state.sideBarHeading } /> )}
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets currentWeek={this.state.currentWeek}
-                          week={week}
-                          prevWeek={prevWeek}
-                          users={this.state.users}
-                          payRateCategories={this.state.payRateCategories}
-                          entitlements={this.state.entitlements}
-                          goToNextWeek={this.goToNextWeek}
-                          goToPreviousWeek={this.goToPreviousWeek}
-                          sideBarHeading={this.state.sideBarHeading}
+              <Timesheets currentWeek={this.state.currentWeek }
+                          week={ week }
+                          prevWeek={ prevWeek }
+                          users={ this.state.users }
+                          payRateCategories={ this.state.payRateCategories }
+                          entitlements={ this.state.entitlements }
+                          goToNextWeek={ this.goToNextWeek }
+                          goToPreviousWeek={ this.goToPreviousWeek }
+                          sideBarHeading={ this.state.sideBarHeading }
 
               /> )}
             />
