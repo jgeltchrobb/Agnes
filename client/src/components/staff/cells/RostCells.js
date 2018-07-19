@@ -5,6 +5,7 @@ class RostCells extends React.Component {
     super(props)
   }
   render() {
+    console.log(this.props, 'PPPPPPPPPP')
     return (
       <div className="cell" >
       <h4>{this.props.rostered}</h4>

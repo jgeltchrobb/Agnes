@@ -36,6 +36,9 @@ class Staff extends Component {
       modalIsOpen: false,
       addHours: false
     }
+  }
+  
+  componentDidMount = () => {
     this.fetchStandard()
   }
 
@@ -56,17 +59,18 @@ class Staff extends Component {
       }
       return response
     }).then((result) => {
-      console.log(result.data)
+      console.log(result)
       this.fetchRosters(result.data)
     })
   }
 
   fetchRosters = (staffData) => {
     // let date = new Date().toISOString().split('T')[0];
-    let date = "2018-07-16T00:00:00Z"
+    let date = "2018-07-09"
     axios.get(api + '/rosters' + '/date/' + date).then((response) => {
       return response.data
     }).then((obj) => {
+      console.log(obj)
       this.calcRosters(obj, staffData)
     }).catch((error) => {
       console.log(error)
@@ -122,6 +126,8 @@ class Staff extends Component {
       }
       totals.push({...totalsRow, staffID: staff.staffID})
     }
+    console.log(totals)
+    console.log(staffData)
     this.setState({staffData: staffData, totals: totals})
   }
 
@@ -151,7 +157,6 @@ class Staff extends Component {
   }
 
   passTotal = (total) => {
-    console.log(total, 'ASJDAKSDJK')
     let name = ''
     let currentTotal = ''
     let plus = ''
@@ -196,7 +201,7 @@ class Staff extends Component {
   }
 
   render() {
-    console.log(this.state.staffData)
+    console.log(this.state)
     return (
       <React.Fragment>
         <button onClick={this.openModal} >New Staff</button>
