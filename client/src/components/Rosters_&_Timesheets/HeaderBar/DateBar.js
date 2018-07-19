@@ -9,7 +9,6 @@ class DateBar extends Component {
   }
 
   render() {
-    console.log(this.props.weekDate, 'WEEKUS')
     let weekDate = new Date(this.props.weekDate).toLocaleDateString()
 
     return (

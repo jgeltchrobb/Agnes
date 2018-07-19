@@ -23,18 +23,18 @@ const seedData = async () => {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 15 2018"),
+            date: new Date("July 16 2018"),
             shiftCategory: "floor",
             start:  {
-                        rostered: new Date("July 15 2018 8:00"),
-                        actual: new Date("July 15 2018 8:00"),
-                        timesheet: new Date("July 15 2018 8:00"),
+                        rostered: new Date("July 16 2018 8:00"),
+                        actual: new Date("July 16 2018 8:00"),
+                        timesheet: new Date("July 16 2018 8:00"),
                         flag: false
                     },
             finish: {
-                        rostered: new Date("July 15 2018 16:00"),
-                        actual: new Date("July 15 2018 16:00"),
-                        timesheet: new Date("July 15 2018 16:00"),
+                        rostered: new Date("July 16 2018 16:00"),
+                        actual: new Date("July 16 2018 16:00"),
+                        timesheet: new Date("July 16 2018 16:00"),
                         flag: false
                     }
           },
@@ -46,17 +46,17 @@ const seedData = async () => {
         staffID: 2, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("July 17 2018"),
             shiftCategory: "room",
             start:  {
-                      rostered: new Date("July 9 2018 8:00"),
-                      actual: new Date("July 9 2018 9:00"),
+                      rostered: new Date("July 17 2018 8:00"),
+                      actual: new Date("July 17 2018 9:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
+              rostered: new Date("July 17 2018 16:00"),
+              actual: new Date("July 17 2018 15:00"),
               timesheet: '',
               flag: false
                     }
@@ -68,17 +68,17 @@ const seedData = async () => {
         staffID: 3, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("July 18 2018"),
             shiftCategory: "floor",
             start:  {
-                      rostered: new Date("July 10 2018 8:00"),
-                      actual: new Date("July 10 2018 7:00"),
+                      rostered: new Date("July 18 2018 8:00"),
+                      actual: new Date("July 18 2018 7:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-                      rostered: new Date("July 10 2018 16:00"),
-                      actual: new Date("July 10 2018 17:00"),
+                      rostered: new Date("July 18 2018 16:00"),
+                      actual: new Date("July 18 2018 17:00"),
                       timesheet: '',
                       flag: false
                     }
@@ -565,18 +565,18 @@ const seedData = async () => {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 15 2018"),
+            date: new Date("June 25 2018"),
             shiftCategory: "floor",
             start:  {
-                        rostered: new Date("July 15 2018 8:00"),
-                        actual: new Date("July 15 2018 8:00"),
-                        timesheet: new Date("July 15 2018 8:00"),
+                        rostered: new Date("June 25 2018 8:00"),
+                        actual: new Date("June 25 2018 8:00"),
+                        timesheet: new Date("June 25 2018 8:00"),
                         flag: false
                     },
             finish: {
-                        rostered: new Date("July 15 2018 16:00"),
-                        actual: new Date("July 15 2018 16:00"),
-                        timesheet: new Date("July 15 2018 16:00"),
+                        rostered: new Date("June 25 2018 16:00"),
+                        actual: new Date("June 25 2018 16:00"),
+                        timesheet: new Date("June 25 2018 16:00"),
                         flag: false
                     }
           },
@@ -588,17 +588,17 @@ const seedData = async () => {
         staffID: 2, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("June 26 2018"),
             shiftCategory: "room",
             start:  {
-                      rostered: new Date("July 9 2018 8:00"),
-                      actual: new Date("July 9 2018 9:00"),
+                      rostered: new Date("June 26 2018 8:00"),
+                      actual: new Date("June 26 2018 9:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
+              rostered: new Date("June 26 2018 16:00"),
+              actual: new Date("June 26 2018 15:00"),
               timesheet: '',
               flag: false
                     }
@@ -610,17 +610,17 @@ const seedData = async () => {
         staffID: 3, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("June 27 2018"),
             shiftCategory: "floor",
             start:  {
-                      rostered: new Date("July 10 2018 8:00"),
-                      actual: new Date("July 10 2018 7:00"),
+                      rostered: new Date("June 27 2018 8:00"),
+                      actual: new Date("June 27 2018 7:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-                      rostered: new Date("July 10 2018 16:00"),
-                      actual: new Date("July 10 2018 17:00"),
+                      rostered: new Date("June 27 2018 16:00"),
+                      actual: new Date("June 27 2018 17:00"),
                       timesheet: '',
                       flag: false
                     }
@@ -639,18 +639,18 @@ const seedData = async () => {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 15 2018"),
+            date: new Date("June 22 2018"),
             shiftCategory: "floor",
             start:  {
-                        rostered: new Date("July 15 2018 8:00"),
-                        actual: new Date("July 15 2018 8:00"),
-                        timesheet: new Date("July 15 2018 8:00"),
+                        rostered: new Date("June 22 2018 8:00"),
+                        actual: new Date("June 22 2018 8:00"),
+                        timesheet: new Date("June 22 2018 8:00"),
                         flag: false
                     },
             finish: {
-                        rostered: new Date("July 15 2018 16:00"),
-                        actual: new Date("July 15 2018 16:00"),
-                        timesheet: new Date("July 15 2018 16:00"),
+                        rostered: new Date("June 22 2018 16:00"),
+                        actual: new Date("June 22 2018 16:00"),
+                        timesheet: new Date("June 22 2018 16:00"),
                         flag: false
                     }
           },
@@ -662,17 +662,17 @@ const seedData = async () => {
         staffID: 2, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("June 23 2018"),
             shiftCategory: "room",
             start:  {
-                      rostered: new Date("July 9 2018 8:00"),
-                      actual: new Date("July 9 2018 9:00"),
+                      rostered: new Date("June 23 2018 8:00"),
+                      actual: new Date("June 23 2018 9:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
+              rostered: new Date("June 23 2018 16:00"),
+              actual: new Date("June 23 2018 15:00"),
               timesheet: '',
               flag: false
                     }
@@ -684,17 +684,17 @@ const seedData = async () => {
         staffID: 3, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("June 24 2018"),
             shiftCategory: "floor",
             start:  {
-                      rostered: new Date("July 10 2018 8:00"),
-                      actual: new Date("July 10 2018 7:00"),
+                      rostered: new Date("June 24 2018 8:00"),
+                      actual: new Date("June 24 2018 7:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-                      rostered: new Date("July 10 2018 16:00"),
-                      actual: new Date("July 10 2018 17:00"),
+                      rostered: new Date("June 24 2018 16:00"),
+                      actual: new Date("June 24 2018 17:00"),
                       timesheet: '',
                       flag: false
                     }
@@ -713,18 +713,18 @@ const seedData = async () => {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 15 2018"),
+            date: new Date("June 14 2018"),
             shiftCategory: "floor",
             start:  {
-                        rostered: new Date("July 15 2018 8:00"),
-                        actual: new Date("July 15 2018 8:00"),
-                        timesheet: new Date("July 15 2018 8:00"),
+                        rostered: new Date("June 14 2018 8:00"),
+                        actual: new Date("June 14 2018 8:00"),
+                        timesheet: new Date("June 14 2018 8:00"),
                         flag: false
                     },
             finish: {
-                        rostered: new Date("July 15 2018 16:00"),
-                        actual: new Date("July 15 2018 16:00"),
-                        timesheet: new Date("July 15 2018 16:00"),
+                        rostered: new Date("June 14 2018 16:00"),
+                        actual: new Date("June 14 2018 16:00"),
+                        timesheet: new Date("June 14 2018 16:00"),
                         flag: false
                     }
           },
@@ -736,17 +736,17 @@ const seedData = async () => {
         staffID: 2, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("June 15 2018"),
             shiftCategory: "room",
             start:  {
-                      rostered: new Date("July 9 2018 8:00"),
-                      actual: new Date("July 9 2018 9:00"),
+                      rostered: new Date("June 15 2018 8:00"),
+                      actual: new Date("June 15 2018 9:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
+              rostered: new Date("June 15 2018 16:00"),
+              actual: new Date("June 15 2018 15:00"),
               timesheet: '',
               flag: false
                     }
@@ -758,17 +758,17 @@ const seedData = async () => {
         staffID: 3, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("June 16 2018"),
             shiftCategory: "floor",
             start:  {
-                      rostered: new Date("July 10 2018 8:00"),
-                      actual: new Date("July 10 2018 7:00"),
+                      rostered: new Date("June 16 2018 8:00"),
+                      actual: new Date("June 16 2018 7:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-                      rostered: new Date("July 10 2018 16:00"),
-                      actual: new Date("July 10 2018 17:00"),
+                      rostered: new Date("June 16 2018 16:00"),
+                      actual: new Date("June 16 2018 17:00"),
                       timesheet: '',
                       flag: false
                     }
@@ -787,18 +787,18 @@ const seedData = async () => {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 15 2018"),
+            date: new Date("June 5 2018"),
             shiftCategory: "floor",
             start:  {
-                        rostered: new Date("July 15 2018 8:00"),
-                        actual: new Date("July 15 2018 8:00"),
-                        timesheet: new Date("July 15 2018 8:00"),
+                        rostered: new Date("June 5 2018 8:00"),
+                        actual: new Date("June 5 2018 8:00"),
+                        timesheet: new Date("June 5 2018 8:00"),
                         flag: false
                     },
             finish: {
-                        rostered: new Date("July 15 2018 16:00"),
-                        actual: new Date("July 15 2018 16:00"),
-                        timesheet: new Date("July 15 2018 16:00"),
+                        rostered: new Date("June 5 2018 16:00"),
+                        actual: new Date("June 5 2018 16:00"),
+                        timesheet: new Date("June 5 2018 16:00"),
                         flag: false
                     }
           },
@@ -810,17 +810,17 @@ const seedData = async () => {
         staffID: 2, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("June 6 2018"),
             shiftCategory: "room",
             start:  {
-                      rostered: new Date("July 9 2018 8:00"),
-                      actual: new Date("July 9 2018 9:00"),
+                      rostered: new Date("June 6 2018 8:00"),
+                      actual: new Date("June 6 2018 9:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
+              rostered: new Date("June 6 2018 16:00"),
+              actual: new Date("June 6 2018 15:00"),
               timesheet: '',
               flag: false
                     }
@@ -832,17 +832,17 @@ const seedData = async () => {
         staffID: 3, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("June 7 2018"),
             shiftCategory: "floor",
             start:  {
-                      rostered: new Date("July 10 2018 8:00"),
-                      actual: new Date("July 10 2018 7:00"),
+                      rostered: new Date("June 7 2018 8:00"),
+                      actual: new Date("June 7 2018 7:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-                      rostered: new Date("July 10 2018 16:00"),
-                      actual: new Date("July 10 2018 17:00"),
+                      rostered: new Date("June 7 2018 16:00"),
+                      actual: new Date("June 7 2018 17:00"),
                       timesheet: '',
                       flag: false
                     }
@@ -861,18 +861,18 @@ const seedData = async () => {
         staffID: 1, shifts:
         [
           {
-            date: new Date("July 15 2018"),
+            date: new Date("May 29 2018"),
             shiftCategory: "floor",
             start:  {
-                        rostered: new Date("July 15 2018 8:00"),
-                        actual: new Date("July 15 2018 8:00"),
-                        timesheet: new Date("July 15 2018 8:00"),
+                        rostered: new Date("May 29 2018 8:00"),
+                        actual: new Date("May 29 2018 8:00"),
+                        timesheet: new Date("May 29 2018 8:00"),
                         flag: false
                     },
             finish: {
-                        rostered: new Date("July 15 2018 16:00"),
-                        actual: new Date("July 15 2018 16:00"),
-                        timesheet: new Date("July 15 2018 16:00"),
+                        rostered: new Date("May 29 2018 16:00"),
+                        actual: new Date("May 29 2018 16:00"),
+                        timesheet: new Date("May 29 2018 16:00"),
                         flag: false
                     }
           },
@@ -884,17 +884,17 @@ const seedData = async () => {
         staffID: 2, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("May 30 2018"),
             shiftCategory: "room",
             start:  {
-                      rostered: new Date("July 9 2018 8:00"),
-                      actual: new Date("July 9 2018 9:00"),
+                      rostered: new Date("May 30 2018 8:00"),
+                      actual: new Date("May 30 2018 9:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
+              rostered: new Date("May 30 2018 16:00"),
+              actual: new Date("May 30 2018 15:00"),
               timesheet: '',
               flag: false
                     }
@@ -906,17 +906,17 @@ const seedData = async () => {
         staffID: 3, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("May 31 2018"),
             shiftCategory: "floor",
             start:  {
-                      rostered: new Date("July 10 2018 8:00"),
-                      actual: new Date("July 10 2018 7:00"),
+                      rostered: new Date("May 31 2018 8:00"),
+                      actual: new Date("May 31 2018 7:00"),
                       timesheet: '',
                       flag: false
                     },
             finish: {
-                      rostered: new Date("July 10 2018 16:00"),
-                      actual: new Date("July 10 2018 17:00"),
+                      rostered: new Date("May 31 2018 16:00"),
+                      actual: new Date("May 31 2018 17:00"),
                       timesheet: '',
                       flag: false
                     }
@@ -1014,7 +1014,7 @@ const seedData = async () => {
     ]
   })
   await StandardHours.create({
-    staffID: user2._id,    
+    staffID: user2._id,
     name: user2.name,
     totalHours: '',
     categories: [

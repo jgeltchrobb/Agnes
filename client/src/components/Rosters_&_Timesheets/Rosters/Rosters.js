@@ -11,7 +11,6 @@ class Rosters extends Component {
 
   render() {
     const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-    console.log(goToNextWeek, 'ASDSD')
     return (
       <div className="rosters-container">
 
@@ -19,7 +18,7 @@ class Rosters extends Component {
           <Header weekDate={this.props.currentWeek.date}
                   goToNextWeek={goToNextWeek}
                   goToPreviousWeek={goToPreviousWeek}
-                  sideBarHeading={sideBarHeading} 
+                  sideBarHeading={sideBarHeading}
                   currentWeek={this.props.currentWeek}
           />
         </div>
