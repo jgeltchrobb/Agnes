@@ -22,13 +22,13 @@ class Roster extends Component {
         <div className="days-header">
           <div className="days-column">
             <div></div>
-            <div>M</div>
-            <div>T</div>
-            <div>W</div>
-            <div>T</div>
-            <div>F</div>
-            <div>S</div>
-            <div>S</div>
+            <div>MON</div>
+            <div>TUES</div>
+            <div>WED</div>
+            <div>THURS</div>
+            <div>FRI</div>
+            <div>SAT</div>
+            <div>SUN</div>
           </div>
         </div>
 

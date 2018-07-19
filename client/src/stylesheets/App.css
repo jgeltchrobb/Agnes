@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
 
 .staffrow {
   display: flex;
@@ -27,7 +38,7 @@
 
 .staff-container {
   display: flex;
-  overflow: auto 
+  overflow: auto
 }
 
 /* this needs to be fixed for horizontal only */
@@ -53,7 +64,6 @@ div.navbar {
   height: auto;
   background-color: black;
   color: white;
-  margin: 2em 0;
   display: flex;
 }
 

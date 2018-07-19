@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../../../stylesheets/Nav.css'
 
 class Nav extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Nav extends Component {
         {
           this.props.goToNextWeek ?
             (
-              <button onClick={() => goToNextWeek()}>
+              <button className="nav-button" onClick={() => goToNextWeek()}>
                 Next
               </button>
             )
@@ -21,7 +22,7 @@ class Nav extends Component {
           :
 
             (
-              <button onClick={() => goToPreviousWeek()}>
+              <button className="nav-button" onClick={() => goToPreviousWeek()}>
                 Previous
               </button>
             )

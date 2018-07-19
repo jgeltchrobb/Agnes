@@ -3,6 +3,7 @@ import axios from 'axios'
 // import '../../../stylesheets/Shift.css'
 import Modal from 'react-modal'
 import ShiftModal from './ShiftModal'
+import '../../../stylesheets/Shift.css'
 
 
 const customStyles = {
@@ -127,7 +128,7 @@ class Shift extends Component {
         finish: this.formatTime_UserInputToDateObj(finish, 'finish'),
         shiftCategory: shiftCategory
       }
-      
+
       this.props.addShift(shift)
       // await this.setState({
       // })
@@ -177,7 +178,7 @@ class Shift extends Component {
       // if in editing mode we want the form / modle to render
       return (
         <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Shift Modal" >
-          <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.handleSubmit} />  
+          <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.handleSubmit} />
 
         </Modal>
       )
@@ -185,9 +186,10 @@ class Shift extends Component {
   // if NOT in editing mode we want the shift to render
     } else {
       return (
-        <div onClick={ () => this.edit() }>
+        <div className="shift-block" onClick={ () => this.edit() }>
           <div className="shift-time">
             <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
+            <div className="shift-middle"><p>-</p></div>
             <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
           </div>
           <div className="shift-category">
