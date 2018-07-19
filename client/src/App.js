@@ -201,7 +201,7 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock week={week2} user={user}/>
+                <Clock week={week} user={user}/>
               )
             }} />
 
