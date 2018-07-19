@@ -18,6 +18,7 @@ class TWeek extends Component {
     if (this.props.week.date !== prevProps.week.date) {
       this.setWeekDatesArray(this.props.week.date)
     }
+    // Rather set state for ind
     if (this.props.week.date !== prevProps.week.date || this.props.individual !== prevProps.individual) {
       this.setValuesRows()
     }
