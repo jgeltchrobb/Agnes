@@ -42,6 +42,7 @@ class Roster extends Component {
                                 weekDate={ weekDate }
                                 users={ users }
                                 weekID={ weekID }
+                                fetchData={this.props.fetchData}
                   />
                 )
               })

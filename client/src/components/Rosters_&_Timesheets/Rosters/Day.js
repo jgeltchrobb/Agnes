@@ -26,6 +26,8 @@ class Day extends Component {
             shiftCategory={ shift.shiftCategory }
             start={ shift.start }
             finish={ shift.finish }
+            fetchData={this.props.fetchData}
+            addShift={this.props.addShift}
             />
           )
         })

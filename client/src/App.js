@@ -34,6 +34,14 @@ class App extends Component {
 
   }
 
+  fetchShiftData = () => {
+    axios.get(api + 'rosters/' + this.state.currentWeek._id).then((response) => {
+      this.setState({
+        currentWeek: response.data
+      })
+    })
+  }
+
   componentDidMount() {
     const server = 'http://localhost:4000'
 
@@ -153,6 +161,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state, 'STATE')
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
     let week = this.state.currentWeek
@@ -172,11 +181,13 @@ class App extends Component {
             </div>
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters  week={ week }
-                        users={ this.state.users }
-                        goToNextWeek={ this.goToNextWeek }
-                        goToPreviousWeek={ this.goToPreviousWeek }
-                        sideBarHeading={ this.state.sideBarHeading } /> )}
+              <Rosters  currentWeek={this.state.currentWeek} week={week}
+                        users={this.state.users}
+                        goToNextWeek={this.goToNextWeek}
+                        goToPreviousWeek={this.goToPreviousWeek}
+                        sideBarHeading={this.state.sideBarHeading} 
+                        fetchData={this.fetchShiftData}
+                        /> )}
             />
 
             <Route path='/timesheets' render={(routerprops) => (

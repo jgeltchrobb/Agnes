@@ -1,6 +1,20 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 // import '../../../stylesheets/Shift.css'
+import Modal from 'react-modal'
+import ShiftModal from './ShiftModal'
+
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 class Shift extends Component {
   constructor(props) {
@@ -13,10 +27,11 @@ class Shift extends Component {
       start: '',
       finish: '',
       editing: false,
+      modalIsOpen: false,
+      validationError: false,
     }
 
   }
-
 
   componentDidMount = () => {
     const { weekID, staffID, date, shiftCategory, start, finish } = this.props
@@ -68,91 +83,105 @@ class Shift extends Component {
     this.setState({ finish: e.target.value })
   }
 
-  formatTime_UserInputToDateObj = (timeString) => {
-    let hrsMinsStringArray = timeString.split(':')
-    let hrs = Number(hrsMinsStringArray[0])
-    let mins = Number(hrsMinsStringArray[1])
-    var dateCopy = new Date(this.props.date)
-    dateCopy.setHours(hrs)
-    dateCopy.setMinutes(mins)
-    return dateCopy
+  formatTime_UserInputToDateObj = (timeString, shift) => {
+    if (timeString) {
+      let hrsMinsStringArray = timeString.split(':')
+      let hrs = Number(hrsMinsStringArray[0])
+      let mins = Number(hrsMinsStringArray[1])
+      var dateCopy = new Date(this.props.date)
+      dateCopy.setHours(hrs)
+      dateCopy.setMinutes(mins)
+      if (shift === 'start') {
+        this.setState({
+          start: dateCopy
+        })
+      } else {
+        this.setState({
+          finish: dateCopy
+        })
+      }
+      return dateCopy
+    } else {
+      return ''
+    }
   }
 
   edit = () => {
     this.setState({ editing: !this.state.editing })
+    this.openModal()
   }
 
-  post = async (e) => {
-    e.preventDefault()
+  handleSubmit = async (event) => {
+    event.preventDefault()
+    const shiftCategory = event.target.shiftCategory.value
+    const start = event.target.start.value
+    const finish = event.target.finish.value
 
-    const server = 'http://localhost:4000'
+    if (shiftCategory && start && finish) {
+      const server = 'http://localhost:4000'
 
-    await this.setState({ start: this.formatTime_UserInputToDateObj(this.state.start) })
-    await this.setState({ finish: this.formatTime_UserInputToDateObj(this.state.finish) })
+      let shift = {
+        staffID: this.state.staffID,
+        date: this.state.date,
+        start: this.formatTime_UserInputToDateObj(start, 'start'),
+        finish: this.formatTime_UserInputToDateObj(finish, 'finish'),
+        shiftCategory: shiftCategory
+      }
+      
+      this.props.addShift(shift)
+      // await this.setState({
+      // })
+      this.editShift()
 
-    this.editShift()
-
-    let shiftObj =  {
-                      weekID: this.props.weekID,
-                      shift:  {
-                                date: this.state.date,
-                                shiftCategory: this.state.shiftCategory,
-                                start: {
-                                          rostered: this.state.start,
-                                          actual: '',
-                                          timesheet: '',
-                                          flag: false,
-                                        },
-                                finish: {
-                                          rostered: this.state.finish,
-                                          actual: '',
-                                          timesheet: '',
-                                          flag: false,
-                                        }
-                              }
-
-                    }
-
-    // axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {
-    //   console.log(response)
-    // })
+      let shiftObj =  {
+        weekID: this.props.weekID,
+        shift: {
+          date: this.state.date,
+          shiftCategory: this.state.shiftCategory,
+          start: {
+            rostered: this.state.start,
+            actual: '',
+            timesheet: '',
+            flag: false,
+          },
+          finish: {
+            rostered: this.state.finish,
+            actual: '',
+            timesheet: '',
+            flag: false,
+          }
+        }
+      }
+      axios.post(server + `/rosters/shift/${this.state.staffID}`, {shiftObj}).then((response) => {
+        console.log(response)
+        this.closeModal(event.target)
+      })
+    } else {
+      this.setState({
+        validationError: !this.state.validationError,
+      })
+    }
   }
 
-  addShift = () => {
+  openModal = () => {
+    this.setState({modalIsOpen: true});
+  }
 
-    // this.setState({  })
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
+    this.props.fetchData()
   }
 
   render() {
-
     if (this.state.editing) {
       // if in editing mode we want the form / modle to render
       return (
-        <div>
+        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Shift Modal" >
+          <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.handleSubmit} />  
 
-          <form id='form' onSubmit={ this.post }>
-
-            <input  placeholder='Shift Category'
-                    value={ this.state.shiftCategory }
-                    onChange={this.updateShiftCategory }
-            />
-            <input  placeholder='start'
-                    value={ this.state.start }
-                    onChange={ this.updateStart }
-                    type='time'
-            />
-            <input  placeholder='finish'
-                    value={ this.state.finish }
-                    onChange={ this.updateFinish }
-                    type='time'
-            />
-            <input type="submit" />
-          </form>
-          {/* Jordan, try to remove this button if shifts.length === 3, so they can't add another */}
-          <button onClick={ () => this.addShift() }> add shift </button>
-
-        </div>
+        </Modal>
       )
+{/* Jordan, try to remove this button if shifts.length === 3, so they can't add another */}
   // if NOT in editing mode we want the shift to render
     } else {
       return (

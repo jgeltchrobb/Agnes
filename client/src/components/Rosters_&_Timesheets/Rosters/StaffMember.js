@@ -5,7 +5,7 @@ import '../../../stylesheets/StaffMember.css'
 class StaffMember extends Component {
   state = {
     staffName: '',
-    daysArray: '',
+    daysArray: [],
   }
 
   componentDidMount = () => {
@@ -90,13 +90,25 @@ class StaffMember extends Component {
                       )
       }
     }
-    // console.log(daysArray)
     this.setState({ daysArray: daysArray })
   }
 
+  addShift = (shift) => {
+    let days = [...this.state.daysArray]
+    let day = new Date(shift.date).getDay() - 1
+    if (day === -1) {day = 6}
+    if (days[day].shifts.length < 3) {
+      days[day].shifts.push(shift)
+    }
+
+    this.setState({
+      daysArray: days
+    })
+  }
 
   render() {
-
+    console.log(this.state, 'AASASASAS')
+    console.log(this.props)
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
 
@@ -114,7 +126,8 @@ class StaffMember extends Component {
                 <Day  shifts={ day.shifts }
                       staffID={ staffID }
                       weekID={ weekID }
-
+                      fetchData={this.props.fetchData}
+                      addShift={this.addShift}
                 />
               )
             })

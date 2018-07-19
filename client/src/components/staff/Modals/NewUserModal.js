@@ -54,15 +54,15 @@ class NewUserModal extends React.Component {
           <h2>New Staff</h2>
           <h4 >Enter a name and email</h4>
           <form onSubmit={this.submitHandler}>
-            <input name='name' placeholder='Name' /> <br /> <br />
+            <input autofocus="autofocus" name='name' placeholder='Name' /> <br /> <br />
             <input name='email' placeholder='Email' /> <br /> <br />
             <button type='submit' >Submit</button>
           </form>
         </div>
       )
-    }
-    return (
-      <div >
+    } else {
+      return (
+        <div >
         <h2>New Staff</h2>
         <form onSubmit={this.submitHandler}>
           <input name='name' placeholder='Name' /> <br /> <br />
@@ -71,6 +71,7 @@ class NewUserModal extends React.Component {
         </form>
       </div>
     ) 
+  }
   }
 }
 
