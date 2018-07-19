@@ -6,8 +6,8 @@ const router = express.Router();
 getMonday = (d) => {
   let day = d.getDay(),
   diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
-  d.setHours(d.getHours() - 4);
+  // d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
+  // d.setHours(d.getHours() - 4);
   return new Date(d.setDate(diff));
 }
 
@@ -42,6 +42,7 @@ router.get('/', async (req, res) => {
         weeks.push(week)
       }
     }
+    console.log(weeks)
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
