@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class Value extends Component {
   constructor(props) {
@@ -75,7 +76,6 @@ class Value extends Component {
                       value: this.state.value,
                     }
 
-  // JORDAN - SEND TO JORDAN:
     // valueObj = {
     //   weekID: ,
     //   staffID: ,
@@ -86,7 +86,7 @@ class Value extends Component {
     // posted to /timesheets/start
     // same for finish time changes posted to /timesheets/finish
 
-    // axios.post(server + /timesheets/start, {valueObj}).then((response) => {
+    // axios.post(server + '/timesheets/start', {valueObj}).then((response) => {
     //   console.log(response)
     // })
   }
