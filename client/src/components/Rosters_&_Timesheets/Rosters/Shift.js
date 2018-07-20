@@ -62,7 +62,7 @@ class Shift extends Component {
     })
   }
 
-  formatTime_DateObjtoDisplayTime = (time) => {
+  formatTime_DateObjtoDisplayString = (time) => {
     if (time) {
       let hr = new Date(time).getHours()
         if (hr < 10) {
@@ -155,6 +155,7 @@ class Shift extends Component {
       })
     } else {
       // PUSH to DB for CURRENT DATE
+      
     }
     
     this.currentEdit()
@@ -214,16 +215,6 @@ class Shift extends Component {
   // if NOT in editing mode we want the shift to render
     } else {
       return (
-<<<<<<< HEAD
-        <div className="shift-block" onClick={ () => this.edit() }>
-          <div className="shift-time">
-            <div>{ this.formatTime_DateObjtoDisplayTime(this.state.start) }</div>
-            <div className="shift-middle"><p>-</p></div>
-            <div>{ this.formatTime_DateObjtoDisplayTime(this.state.finish) }</div>
-          </div>
-          <div className="shift-category">
-            <p>{ this.state.shiftCategory.toUpperCase() }</p>
-=======
         <React.Fragment>
           <div className="shift-block" onClick={ () => this.currentEdit() } >
             <div className="shift-time" >
@@ -234,7 +225,6 @@ class Shift extends Component {
             <div className="shift-category">
               <p>{ this.state.shiftCategory.toUpperCase() }</p>
             </div>
->>>>>>> uu
           </div>
           {/* <button onClick={ () => this.addShift() }> add shift </button> */}
         </React.Fragment>

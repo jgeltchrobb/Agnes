@@ -14,6 +14,8 @@ class Roster extends Component {
   }
 
   render() {
+    console.log(this.props)
+
     const { users, weekDate, weekID, staff } = this.props
 
     return (

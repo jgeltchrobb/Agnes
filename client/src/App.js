@@ -47,6 +47,7 @@ class App extends Component {
 
     // Request all weeks
     axios.get(server + '/rosters').then(response => {
+      console.log(response, 'RESPONSE')
       this.setState({
         week1: response.data[0],
         week2: response.data[1],
@@ -161,7 +162,7 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.state, 'STATE')
+    console.log(this.state, 'STATE')
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
     let week = this.state.currentWeek
