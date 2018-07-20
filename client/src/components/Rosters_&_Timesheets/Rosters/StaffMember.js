@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import Day from './Day'
-import axios from 'axios'
 import '../../../stylesheets/StaffMember.css'
-
-const api = 'http://localhost:4000/'
 
 class StaffMember extends Component {
   state = {
@@ -19,6 +16,7 @@ class StaffMember extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props !== prevProps) {
+      console.log('HERERE')
       const { weekDate, staffMember, staffID, users } = this.props
       this.setStaffName(staffID, users)
       this.setDaysArray(weekDate, staffMember)
@@ -85,7 +83,7 @@ class StaffMember extends Component {
                           shifts: [
                                     {
                                       date: new Date(dateCopy.setDate(weekDate.getDate() + i)),
-                                      shiftCategory: 'e',
+                                      shiftCategory: 'empty',
                                       start: '',
                                       finish: '',
                                     },
@@ -99,26 +97,20 @@ class StaffMember extends Component {
 
   addShift = (shift) => {
     let days = [...this.state.daysArray]
-    console.log(days, 'DAAAAAAAAAYS')
-    console.log(shift)
-    for (let i = 0; i < days.length; i++) {
-      if (new Date(days[i].shifts[0].date).getDay() === new Date(shift[0].date).getDay()) {
-        if (days[i].shifts.length < 3) {
-          days.push(shift[0])
-          this.setState({days})
-          axios.post(api + 'rosters/shift/' + shift[0].shiftID, {shiftObj: shift[0], pushShift: true}).then((response) => {
-            console.log(response)
-          })
-        } else {
-          // GIVE ERROR TO USER
-        }
-        console.log(days[i].shifts.length, 'asdasd')
-        break
-      }
+    let day = new Date(shift.date).getDay() - 1
+    if (day === -1) {day = 6}
+    if (days[day].shifts.length < 3) {
+      days[day].shifts.push(shift)
     }
+
+    this.setState({
+      daysArray: days
+    })
   }
 
   render() {
+    console.log(this.props)
+
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
 

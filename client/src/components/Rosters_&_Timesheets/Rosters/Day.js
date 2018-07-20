@@ -32,7 +32,7 @@ class Day extends Component {
               shiftID={shift.shiftID}
               fetchData={this.props.fetchData}
               />
-              <button onClick={this.addShift} >asdas</button>
+              <button id='add-shift-btn' onClick={this.addShift} >Add Shift</button>
             </React.Fragment>
           )
         })

@@ -30,9 +30,4 @@ div.shifts > div:first-child > h3 {
   justify-content: center;
 }
 
-#add-shift-btn {
-  color: blue;
-  align-self: center;
-  margin: 2% 0;
-}
 
