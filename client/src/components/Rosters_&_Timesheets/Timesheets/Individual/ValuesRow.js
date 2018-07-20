@@ -2,27 +2,12 @@ import React, { Component } from 'react'
 import Value from './Value'
 
 class ValuesRow extends Component {
-  // constructor(props) {
-  //   super(props)
-  //
-  //   this.state = {
-  //     lable:        this.props.lable,
-  //     specificRow:  this.props.specificRow,
-  //     weekDates:    this.props.weekDates,
-  //   }
-  // }
 
   componentDidMount = () => {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    // const { specificRow, weekDates } = this.props
-    // if (weekDates !== prevProps.weekDates) {
-    //   this.setState({
-    //     specificRow: specificRow,
-    //     weekDates: weekDates,
-    //   })
-    // }
+  
   }
 
 
