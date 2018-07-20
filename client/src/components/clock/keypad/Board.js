@@ -56,11 +56,7 @@ class Board extends Component {
       this.setState({pinDetails: []})
       // Displays user's name
     } else if (pinDetails.join('') == this.props.user.PIN) {
-      return (
-        <div>
-          <p>foo</p>
-        </div>
-      )
+      console.log(this.props.user.name)
     }
   }
 
