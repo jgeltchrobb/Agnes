@@ -40,7 +40,7 @@ class Value extends Component {
     return dateCopy
   }
 
-  formatTime_DateObjtoDisplayString = (time) => {
+  formatTime_DateObjtoDisplayTime = (time) => {
     if (time) {
       let hr = new Date(time).getHours()
         if (hr < 10) {
@@ -121,7 +121,7 @@ class Value extends Component {
       if (!this.state.editing) {
         return (
           <div className='value-constainer' onClick={ () => this.edit() }>
-          { this.formatTime_DateObjtoDisplayString(this.state.value) }
+          { this.formatTime_DateObjtoDisplayTime(this.state.value) }
           </div>
         )
       } else {
@@ -143,7 +143,7 @@ class Value extends Component {
       if (!this.state.editing) {
         return (
           <div className='value-constainer' onClick={ () => this.edit() }>
-            { this.formatTime_DateObjtoDisplayString(this.state.value) }
+            { this.formatTime_DateObjtoDisplayTime(this.state.value) }
           </div>
         )
       } else {

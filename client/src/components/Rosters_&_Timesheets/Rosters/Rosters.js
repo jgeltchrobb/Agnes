@@ -1,16 +1,33 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import Header from '../HeaderBar/Header'
 import Roster from './Roster'
-import Flags from './Flags'
+import Flags from './Flags/Flags'
 import '../../../stylesheets/Rosters.css'
 
-
-
 class Rosters extends Component {
+  state = {
+    flags: '',
+  }
+
+  componentDidMount() {
+    this.fetchFlagsData()
+  }
+
+  fetchFlagsData = () => {
+    const server = 'http://localhost:4000'
+
+    axios.get(server + '/flags').then(response => {
+      this.setState({
+        flags: response.data[0].flags,
+      })
+    })
+  }
 
 
   render() {
     const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
+    if (!this.state.flags) return ''
     return (
       <div className="rosters-container">
 
@@ -25,15 +42,18 @@ class Rosters extends Component {
         <div className="rosters-main">
 
           <div className="rosters-flags">
-            <Flags staff={ week.staff } />
+            <Flags  flags={ this.state.flags }
+                    fetchFlagsData={ this.fetchFlagsData }
+                    users={ users }
+            />
           </div>
 
           <div className="rosters-date">
-            <Roster users={users}
-                    staff={this.props.currentWeek.staff}
-                    weekDate={this.props.currentWeek.date}
-                    weekID={this.props.currentWeek._id}
-                    fetchData={this.props.fetchData}
+            <Roster users={ users }
+                    staff={ this.props.currentWeek.staff }
+                    weekDate={ this.props.currentWeek.date }
+                    weekID={ this.props.currentWeek._id }
+                    fetchData={ this.props.fetchData }
 
             />
           </div>
