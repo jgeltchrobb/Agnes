@@ -23,7 +23,6 @@ class StaffMember extends Component {
   }
 
   setStaffName = (staffID, users) => {
-    console.log(users, 'USERS')
     users.map((user) => {
       if (user._id.toString() === staffID) {
         this.setState({ staffName: user.name })
@@ -47,6 +46,7 @@ class StaffMember extends Component {
             if (day && new Date(day.shifts[0].date).getDate() === weekDate.getDate() + i) {
               // if so push the shift to that shifts obj
               day.shifts.push ( {
+                                  shiftID: shift._id,
                                   date: new Date(shift.date),
                                   shiftCategory: shift.shiftCategory,
                                   start: new Date(shift.start.rostered),
@@ -62,6 +62,7 @@ class StaffMember extends Component {
             daysArray.push  ( {
                                 shifts: [
                                           {
+                                            shiftID: shift._id,
                                             date: new Date(shift.date),
                                             shiftCategory: shift.shiftCategory,
                                             start: new Date(shift.start.rostered),
@@ -107,8 +108,6 @@ class StaffMember extends Component {
   }
 
   render() {
-    console.log(this.state, 'AASASASAS')
-    console.log(this.props)
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
 
@@ -123,12 +122,15 @@ class StaffMember extends Component {
           {
             this.state.daysArray.map((day) => {
               return (
-                <Day  shifts={ day.shifts }
+                <div id='shift-cell'>
+                  <Day shifts={ day.shifts }
                       staffID={ staffID }
                       weekID={ weekID }
                       fetchData={this.props.fetchData}
                       addShift={this.addShift}
-                />
+                  />
+                  <button id='add-shift-btn' >heythere</button>
+                </div>
               )
             })
           }

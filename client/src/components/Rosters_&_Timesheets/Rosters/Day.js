@@ -14,9 +14,8 @@ class Day extends Component {
 
   render() {
     const { shifts, staffID, weekID } = this.props
-
     return (
-      <div>
+      <div className='shift-container'>
       {
         shifts.map((shift) => {
           return (
@@ -26,6 +25,7 @@ class Day extends Component {
             shiftCategory={ shift.shiftCategory }
             start={ shift.start }
             finish={ shift.finish }
+            shiftID={shift.shiftID}
             fetchData={this.props.fetchData}
             addShift={this.props.addShift}
             />

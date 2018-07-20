@@ -35,6 +35,7 @@ class Rosters extends Component {
                     weekDate={this.props.currentWeek.date}
                     weekID={this.props.currentWeek._id}
                     fetchData={this.props.fetchData}
+                    currentWeek={this.props.currentWeek}
 
             />
           </div>

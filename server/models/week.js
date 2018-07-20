@@ -7,7 +7,7 @@ const Week = new Schema({
     staffID: String,
     paid: {type: Boolean, default: false},
     shifts: [{
-      date: Date,
+      date: String,
       shiftCategory: String,
       publicHoliday: {type: Boolean, default: false},
       wayneShift: {type: Boolean, default: false},

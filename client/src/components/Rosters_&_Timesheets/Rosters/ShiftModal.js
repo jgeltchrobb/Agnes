@@ -44,23 +44,21 @@ class ShiftModal extends React.Component {
       <div>
         <form id='shiftForm' onSubmit={ this.props.handleSubmit }>
           <input  name='shiftCategory'
-                  placeholder='Shift Category'
-                  // value={ this.state.category }
+                  placeholder={ this.props.shiftCategory }
+                  onChange={this.props.shiftCatChange}
           /> <br />
           <input  name='start'
-                  placeholder='start'
-                  // value={ this.state.start }
+                  placeholder={ this.props.start }
                   type='time'
+                  onChange={this.props.startTimeChange}
           />
           <input  name='finish'
-                  placeholder='finish'
-                  // value={ this.state.finish }
+                  placeholder={ this.props.finish }
                   type='time'
+                  onChange={this.props.finishTimeChange}
           /> <br />
           <input type="submit" />
         </form>
-        <button onClick={ () => this.addShift() }> add shift </button>
-
       </div>
     )
   }
