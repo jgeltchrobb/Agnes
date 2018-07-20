@@ -111,6 +111,7 @@ class Shift extends Component {
 
   currentHandleSubmit = async (event) => {
     event.preventDefault()
+    console.log(this.state.date, '!!!!!!!!!!!!!')
     try {
 
     const server = 'http://localhost:4000'
@@ -147,19 +148,14 @@ class Shift extends Component {
     })
 
 
-    if (this.state.shiftID) {
-      // REPLACE IN DB
-      axios.post(server + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
-        console.log(response, 'RES')
-        this.currentCloseModal(event.target)
-      })
-    } else {
-      // PUSH to DB for CURRENT DATE
-      
-    }
+    // REPLACE IN DB
+    axios.post(server + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
+      console.log(response, 'RES')
+      this.currentCloseModal(event.target)
+      // this.props.fetchData()
+    })
     
     this.currentEdit()
-    this.props.fetchData()
   } catch (error) {
       this.setState({
         validationError: !this.state.validationError,
@@ -176,7 +172,7 @@ class Shift extends Component {
       currentModalIsOpen: false,
       editing: false
     });
-    // this.props.fetchData()
+    this.props.fetchData()
   }
 
   // shiftCatChange = (event) => {
@@ -197,22 +193,16 @@ class Shift extends Component {
   //   })
   // }
 
-  addShift = () => {
-    console.log('poop')
-  }
-
   render() {
+    console.log(this.state, 'OPOPOPOPOPO')
     const { shiftCategory, start, finish } = this.state
     if (this.state.currentEditing) {
-      // if in editing mode we want the form / modle to render
       return (
         <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
           <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} />
 
         </Modal>
       )
-{/* Jordan, try to remove this button if shifts.length === 3, so they can't add another */}
-  // if NOT in editing mode we want the shift to render
     } else {
       return (
         <React.Fragment>
@@ -226,7 +216,6 @@ class Shift extends Component {
               <p>{ this.state.shiftCategory.toUpperCase() }</p>
             </div>
           </div>
-          {/* <button onClick={ () => this.addShift() }> add shift </button> */}
         </React.Fragment>
       )
     }

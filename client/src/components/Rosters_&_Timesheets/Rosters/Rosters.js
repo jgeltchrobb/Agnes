@@ -24,7 +24,6 @@ class Rosters extends Component {
     })
   }
 
-
   render() {
     console.log(this.props)
 

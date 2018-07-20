@@ -11,6 +11,9 @@ class Day extends Component {
   componentDidUpdate = (prevProps, prevState) => {
   }
 
+  addShift = () => {
+    this.props.addShift(this.props.shifts)
+  }
 
   render() {
     const { shifts, staffID, weekID } = this.props
@@ -19,16 +22,18 @@ class Day extends Component {
       {
         shifts.map((shift) => {
           return (
-            <Shift  weekID={ weekID }
-            staffID={ staffID }
-            date={ shift.date }
-            shiftCategory={ shift.shiftCategory }
-            start={ shift.start }
-            finish={ shift.finish }
-            shiftID={shift.shiftID}
-            fetchData={this.props.fetchData}
-            addShift={this.props.addShift}
-            />
+            <React.Fragment>
+              <Shift  weekID={ weekID }
+              staffID={ staffID }
+              date={ shift.date }
+              shiftCategory={ shift.shiftCategory }
+              start={ shift.start }
+              finish={ shift.finish }
+              shiftID={shift.shiftID}
+              fetchData={this.props.fetchData}
+              />
+              <button onClick={this.addShift} >asdas</button>
+            </React.Fragment>
           )
         })
       }

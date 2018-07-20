@@ -9,7 +9,7 @@ import Staff from './components/staff/Staff'
 // import StaffHeader from './components/staff/Header'
 import './stylesheets/App.css';
 
-const api = 'http://localhost:4000/'
+const api = 'http://localhost:4000'
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +31,6 @@ class App extends Component {
       weeks: [],
       noRoster: false
     }
-
   }
 
   fetchShiftData = () => {
@@ -42,11 +41,8 @@ class App extends Component {
     })
   }
 
-  componentDidMount() {
-    const server = 'http://localhost:4000'
-
-    // Request all weeks
-    axios.get(server + '/rosters').then(response => {
+  fetchAllData = () => {
+    axios.get(api + '/rosters').then(response => {
       console.log(response, 'RESPONSE')
       this.setState({
         week1: response.data[0],
@@ -68,26 +64,31 @@ class App extends Component {
         ]
       })
     })
+  }
 
-    axios.get(server + '/rosters/all').then(response => {
+  componentDidMount() {
+    // Request all weeks
+    this.fetchAllData()
+
+    axios.get(api + '/rosters/all').then(response => {
       this.setState({
         week12: response.data[1],
       })
     })
 
-    axios.get(server + '/users').then(response => {
+    axios.get(api + '/users').then(response => {
       this.setState({
         users: response.data,
       })
     })
 
-    axios.get(server + '/payRateCategories').then(response => {
+    axios.get(api + '/payRateCategories').then(response => {
       this.setState({
         payRateCategories: response.data.payRateCategories,
       })
     })
 
-    axios.get(server + '/entitlements').then(response => {
+    axios.get(api + '/entitlements').then(response => {
       this.setState({
         entitlements: response.data.entitlements,
       })
@@ -105,7 +106,7 @@ class App extends Component {
     this.setState({ sideBarHeading: 'staff' })
   }
 
-  goToNextWeek = (date) => {
+  goToNextWeek = () => {
     if (this.state.currentWeek.date === this.state.weeks[0].date) {
       axios.get(api + 'rosters/' + 'new/' + this.state.currentWeek.date).then((response) => {
         let weeks = [...this.state.weeks]
@@ -127,10 +128,8 @@ class App extends Component {
       }
     }
   }
-
-  goToPreviousWeek = (date) => {
-    if (!this.noRoster) {
-
+  
+  goToPreviousWeek = () => {
     if (this.state.currentWeek.date === this.state.weeks[6].date) {
       axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
         let weeks = [...this.state.weeks]
@@ -155,14 +154,11 @@ class App extends Component {
     }
   }
 
-  }
-
   getStaffDataCallBack = (staffData) => {
     this.setState({staffData})
   }
 
   render() {
-    console.log(this.state, 'STATE')
     if (!this.state.week1 || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
     let week = this.state.currentWeek
