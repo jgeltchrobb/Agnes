@@ -9,12 +9,17 @@ import  '../../../stylesheets/Timesheets.css'
 
 
 class Timesheets extends Component {
-  state = {
-    columnHeadings: [],
-    totalsRows: [],
-    staffIdArray: '',
-    individual: '',
-    individualTotalsRow: [],
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      weekID: this.props.week._id,
+      columnHeadings: [],
+      totalsRows: [],
+      staffIdArray: '',
+      individual: '',
+      individualTotalsRow: [],
+    }
   }
 
   componentDidMount = () => {
@@ -28,7 +33,7 @@ class Timesheets extends Component {
   }
 
   setTotalsRowsAndColumnHeadings = () => {
-    // Posting to the data:
+    // Posting to db:
      // start.timesheet, finish.timesheet, flags set to true as required
      // Flags:
      // - if they clock in late or note at all
@@ -42,25 +47,38 @@ class Timesheets extends Component {
     const totalsRows = []
 
     this.props.week.staff.map((staffMember) => {
-      staffIdArray.push(staffMember.staffID)
+
+      var staffID = staffMember.staffID
+      staffIdArray.push(staffID)
       const totalsRow = {}
 
+      var prevShiftDate = ''
+      var prevPrevShiftDate = ''
+
       staffMember.shifts.map((shift) => {
+
         const rStart = new Date(shift.start.rostered)
         const aStart = new Date(shift.start.actual)
         var start = ''
         const rFinish = new Date(shift.finish.rostered)
         const aFinish = new Date(shift.finish.actual)
         var finish = ''
-        // set timnesheet start value. If not in db then calculate it
-        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart)
-        // if not in db need to post start.timesheet to db without updating App state or this will rerender and don't need because we now have the info required to go forward from here
-        // will have to decide how often App does a api request to update data
-        // also need to post flags, which are uncovered in the timesheetEntry method
-        // Same goes for finish time
 
+        var shiftNumber = 1
+
+        if (shift.date === prevShiftDate && shift.date !== prevPrevShiftDate) {
+          shiftNumber = 2
+        }
+        if (shift.date === prevPrevShiftDate) {
+          shiftNumber = 3
+        }
+        prevPrevShiftDate = prevShiftDate
+        prevShiftDate = shift.date
+
+        // set timnesheet start value. If not in db then calculate it
+        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber)
         // set timnesheet finsih value. If not in data then calculate it
-        shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish)
+        shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber)
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
         // determine the shift's payRateCategory and add it to totalsRow with the shiftHours as the value
@@ -109,7 +127,6 @@ class Timesheets extends Component {
       totalsRow.staffID = staffMember.staffID
       // push totalsRow object to totalsRows array
       totalsRows.push(totalsRow)
-      console.log(totalsRow)
     })
     // // Remove duplicates from columnHeadings array and merge with entitlements array to form final column heads array
     columnHeadings = [...this.removeDuplicates(columnHeadings), ...this.props.entitlements]
@@ -155,45 +172,68 @@ class Timesheets extends Component {
     return time
   }
 
-  timesheetEntry = (startOrFinish, rostered, actual) => {
+  timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber) => {
+
     if (actual) {
 
       if (actual <= rostered) {
         if (startOrFinish === 'start') {
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered)
           return rostered
         }
         if (startOrFinish === 'finish') {
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundDown(actual))
+          this.postFlag(staffID, shiftDate, shiftNumber, startOrFinish)
           return this.roundDown(actual)
-          // and post flag!!!
         }
       } else {
 
         if (startOrFinish === 'start') {
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundUp(actual))
+          this.postFlag(staffID, shiftDate, shiftNumber, startOrFinish)
           return this.roundUp(actual)
-          // and post flag!!!
         }
         if (startOrFinish === 'finish') {
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered)
           return rostered
         }
       }
       // If no clock time then return rostered
-    } else return rostered
+    } else {
+      this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered)
+      return rostered
+    }
   }
 
-  post = (startFinish, value) => {
+  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value) => {
     const server = 'http://localhost:4000'
 
-    let valueObj =  {
+    let timeAndLocation =   {
+                              weekID: this.state.weekID,
+                              staffID: staffID,
+                              date: shiftDate,
+                              shiftNumber: shiftNumber,
+                              value: value,
+                            }
+
+    // axios.post(server + `/timesheets/${startOrFinish}`, {timeAndLocation}).then((response) => {
+    //   console.log(response)
+    // })
+  }
+
+  postFlag = (staffID, shiftDate, shiftNumber, startOrFinish) => {
+    const server = 'http://localhost:4000'
+
+    let flagLocation =  {
                       weekID: this.state.weekID,
-                      staffID: this.state.individual,
-                      date: this.state.date,
-                      shiftNumber: this.state.shift,
-                      value: this.state.value,
+                      staffID: staffID,
+                      date: shiftDate,
+                      shiftNumber: shiftNumber,
                     }
 
-    axios.post(server + '/timesheets/start', {valueObj}).then((response) => {
-      console.log(response)
-    })
+    // axios.post(server + `/timesheets/${startOrFinish}/flag`, {flagLocation}).then((response) => {
+    //   console.log(response)
+    // })
   }
 
   removeDuplicates = (arr) => {
