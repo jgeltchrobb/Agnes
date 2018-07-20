@@ -93,7 +93,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("July 16 2018"),
+            date: new Date("July 16 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("July 16 2018 8:00"),
@@ -116,7 +116,7 @@ const seedData = async () => {
         staffID: user2._id, shifts:
         [
           {
-            date: new Date("July 17 2018"),
+            date: new Date("July 17 2018").toISOString().split('T')[0],
             shiftCategory: "room",
             start:  {
                       rostered: new Date("July 17 2018 8:00"),
@@ -138,7 +138,7 @@ const seedData = async () => {
         staffID: user3._id, shifts:
         [
           {
-            date: new Date("July 18 2018"),
+            date: new Date("July 18 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                       rostered: new Date("July 18 2018 8:00"),
@@ -167,7 +167,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("July 15 2018"),
+            date: new Date("July 15 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("July 15 2018 8:00"),
@@ -190,7 +190,7 @@ const seedData = async () => {
         staffID: user2._id, shifts:
         [
           {
-            date: new Date("July 9 2018"),
+            date: new Date("July 9 2018").toISOString().split('T')[0],
             shiftCategory: "room",
             start:  {
                       rostered: new Date("July 9 2018 8:00"),
@@ -212,7 +212,7 @@ const seedData = async () => {
         staffID: user3._id, shifts:
         [
           {
-            date: new Date("July 10 2018"),
+            date: new Date("July 10 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                       rostered: new Date("July 10 2018 8:00"),
@@ -241,7 +241,7 @@ const seedData = async () => {
           staffID: user1._id, shifts:
           [
             {
-              date: new Date("July 2 2018"),
+              date: new Date("July 2 2018").toISOString().split('T')[0],
               shiftCategory: "floor",
               start: {
                 rostered: new Date("July 2 2018 8:00"),
@@ -257,7 +257,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 2 2018"),
+              date: new Date("July 2 2018").toISOString().split('T')[0],
               shiftCategory: "bludge",
               start: {
                 rostered: new Date("July 2 2018 22:00"),
@@ -273,7 +273,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 3 2018").toISOString().split('T')[0],
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 3 2018 8:00"),
@@ -289,7 +289,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 3 2018").toISOString().split('T')[0],
               shiftCategory: "digging",
               start: {
                 rostered: new Date("July 3 2018 16:00"),
@@ -305,7 +305,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 4 2018"),
+              date: new Date("July 4 2018").toISOString().split('T')[0],
               shiftCategory: "Kitchen",
               start: {
                 rostered: new Date("July 4 2018 8:00"),
@@ -321,7 +321,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 5 2018"),
+              date: new Date("July 5 2018").toISOString().split('T')[0],
               shiftCategory: "floor",
               start: {
                 rostered: new Date("July 5 2018 8:00"),
@@ -337,7 +337,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 6 2018"),
+              date: new Date("July 6 2018").toISOString().split('T')[0],
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 6 2018 8:00"),
@@ -353,7 +353,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 7 2018"),
+              date: new Date("July 7 2018").toISOString().split('T')[0],
               shiftCategory: "Kitchen",
               start: {
                 rostered: new Date("July 7 2018 8:00"),
@@ -369,7 +369,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 8 2018"),
+              date: new Date("July 8 2018").toISOString().split('T')[0],
               shiftCategory: "floor",
               start: {
                 rostered: new Date("July 8 2018 8:00"),
@@ -392,7 +392,7 @@ const seedData = async () => {
           staffID: user2._id, shifts:
           [
             {
-              date: new Date("July 2 2018"),
+              date: new Date("July 2 2018").toISOString().split('T')[0],
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 2 2018 8:00"),
@@ -408,7 +408,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 3 2018").toISOString().split('T')[0],
               shiftCategory: "kitchen",
               start: {
                 rostered: new Date("July 3 2018 8:00"),
@@ -424,7 +424,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 4 2018"),
+              date: new Date("July 4 2018").toISOString().split('T')[0],
               shiftCategory: "floor",
               start: {
                 rostered: new Date("July 4 2018 8:00"),
@@ -440,7 +440,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 5 2018"),
+              date: new Date("July 5 2018").toISOString().split('T')[0],
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 5 2018 8:00"),
@@ -456,7 +456,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 6 2018"),
+              date: new Date("July 6 2018").toISOString().split('T')[0],
               shiftCategory: "kitchen",
               start: {
                 rostered: new Date("July 6 2018 8:00"),
@@ -472,7 +472,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 7 2018"),
+              date: new Date("July 7 2018").toISOString().split('T')[0],
               shiftCategory: "floor",
               start: {
                 rostered: new Date("July 7 2018 8:00"),
@@ -488,7 +488,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 8 2018"),
+              date: new Date("July 8 2018").toISOString().split('T')[0],
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 8 2018 8:00"),
@@ -510,7 +510,7 @@ const seedData = async () => {
           staffID: user3._id, shifts:
           [
             {
-              date: new Date("July 2 2018"),
+              date: new Date("July 2 2018").toISOString().split('T')[0],
               shiftCategory: "kitchen",
               start: {
                 rostered: new Date("July 2 2018 8:00"),
@@ -526,7 +526,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 3 2018").toISOString().split('T')[0],
               shiftCategory: "floor",
               start: {
                 rostered: new Date("July 3 2018 8:00"),
@@ -542,7 +542,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 4 2018"),
+              date: new Date("July 4 2018").toISOString().split('T')[0],
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 4 2018 8:00"),
@@ -558,7 +558,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 5 2018"),
+              date: new Date("July 5 2018").toISOString().split('T')[0],
               shiftCategory: "kitchen",
               start: {
                 rostered: new Date("July 5 2018 8:00"),
@@ -574,7 +574,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 6 2018"),
+              date: new Date("July 6 2018").toISOString().split('T')[0],
               shiftCategory: "floor",
               start: {
                 rostered: new Date("July 6 2018 8:00"),
@@ -590,7 +590,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 7 2018"),
+              date: new Date("July 7 2018").toISOString().split('T')[0],
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 7 2018 8:00"),
@@ -606,7 +606,7 @@ const seedData = async () => {
               }
             },
             {
-              date: new Date("July 8 2018"),
+              date: new Date("July 8 2018").toISOString().split('T')[0],
               shiftCategory: "kitchen",
               start: {
                 rostered: new Date("July 8 2018 8:00"),
@@ -635,7 +635,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("June 25 2018"),
+            date: new Date("June 25 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("June 25 2018 8:00"),
@@ -658,7 +658,7 @@ const seedData = async () => {
         staffID: user2._id, shifts:
         [
           {
-            date: new Date("June 26 2018"),
+            date: new Date("June 26 2018").toISOString().split('T')[0],
             shiftCategory: "room",
             start:  {
                       rostered: new Date("June 26 2018 8:00"),
@@ -680,7 +680,7 @@ const seedData = async () => {
         staffID: user3._id, shifts:
         [
           {
-            date: new Date("June 27 2018"),
+            date: new Date("June 27 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                       rostered: new Date("June 27 2018 8:00"),
@@ -709,7 +709,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("June 22 2018"),
+            date: new Date("June 22 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("June 22 2018 8:00"),
@@ -732,7 +732,7 @@ const seedData = async () => {
         staffID: user2._id, shifts:
         [
           {
-            date: new Date("June 23 2018"),
+            date: new Date("June 23 2018").toISOString().split('T')[0],
             shiftCategory: "room",
             start:  {
                       rostered: new Date("June 23 2018 8:00"),
@@ -754,7 +754,7 @@ const seedData = async () => {
         staffID: user3._id, shifts:
         [
           {
-            date: new Date("June 24 2018"),
+            date: new Date("June 24 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                       rostered: new Date("June 24 2018 8:00"),
@@ -783,7 +783,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("June 14 2018"),
+            date: new Date("June 14 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("June 14 2018 8:00"),
@@ -806,7 +806,7 @@ const seedData = async () => {
         staffID: user2._id, shifts:
         [
           {
-            date: new Date("June 15 2018"),
+            date: new Date("June 15 2018").toISOString().split('T')[0],
             shiftCategory: "room",
             start:  {
                       rostered: new Date("June 15 2018 8:00"),
@@ -828,7 +828,7 @@ const seedData = async () => {
         staffID: user3._id, shifts:
         [
           {
-            date: new Date("June 16 2018"),
+            date: new Date("June 16 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                       rostered: new Date("June 16 2018 8:00"),
@@ -857,7 +857,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("June 5 2018"),
+            date: new Date("June 5 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("June 5 2018 8:00"),
@@ -880,7 +880,7 @@ const seedData = async () => {
         staffID: user2._id, shifts:
         [
           {
-            date: new Date("June 6 2018"),
+            date: new Date("June 6 2018").toISOString().split('T')[0],
             shiftCategory: "room",
             start:  {
                       rostered: new Date("June 6 2018 8:00"),
@@ -902,7 +902,7 @@ const seedData = async () => {
         staffID: user3._id, shifts:
         [
           {
-            date: new Date("June 7 2018"),
+            date: new Date("June 7 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                       rostered: new Date("June 7 2018 8:00"),
@@ -931,7 +931,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("May 29 2018"),
+            date: new Date("May 29 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("May 29 2018 8:00"),
@@ -954,7 +954,7 @@ const seedData = async () => {
         staffID: user2._id, shifts:
         [
           {
-            date: new Date("May 30 2018"),
+            date: new Date("May 30 2018").toISOString().split('T')[0],
             shiftCategory: "room",
             start:  {
                       rostered: new Date("May 30 2018 8:00"),
@@ -976,7 +976,7 @@ const seedData = async () => {
         staffID: user3._id, shifts:
         [
           {
-            date: new Date("May 31 2018"),
+            date: new Date("May 31 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                       rostered: new Date("May 31 2018 8:00"),
