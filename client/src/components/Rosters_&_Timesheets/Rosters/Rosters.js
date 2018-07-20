@@ -49,11 +49,12 @@ class Rosters extends Component {
           </div>
 
           <div className="rosters-date">
-            <Roster users={ users }
-                    staff={ this.props.currentWeek.staff }
-                    weekDate={ this.props.currentWeek.date }
-                    weekID={ this.props.currentWeek._id }
-                    fetchData={ this.props.fetchData }
+            <Roster users={users}
+                    staff={this.props.currentWeek.staff}
+                    weekDate={this.props.currentWeek.date}
+                    weekID={this.props.currentWeek._id}
+                    fetchData={this.props.fetchData}
+                    currentWeek={this.props.currentWeek}
 
             />
           </div>

@@ -43,7 +43,6 @@ router.get('/', async (req, res) => {
         weeks.push(week)
       }
     }
-    // console.log(weeks, 'weeks')
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -113,25 +112,18 @@ router.get('/new/:weekDate', async (req, res) => {
 
 router.post('/shift/:id', async (req, res) => {
   try {
-    let found = false
     let week = await Week.findOne({_id: req.body.shiftObj.weekID})
     for (let staff of week.staff) {
-      if (staff.staffID === req.params.id) {
-        // for (let shift of staff.shifts) {
-        //   if (new Date(shift.date).toISOString().split('T')[0] === new Date(req.body.shiftObj.shift.date).toISOString().split('T')[0]) {
-        //     shift = req.body.shiftObj.shift
-        //     // WHY ISNT THIS REPLACING?
-        //     week.save()
-        //     found = true
-        //   }
-        // }
-        // if (!found) {
-          staff.shifts.push(req.body.shiftObj.shift)
-          week.save()
-        // }
-      }
-    }
-    res.send(week)
+      if (staff.staffID === req.body.shiftObj.staffID) {
+        for (let shift of staff.shifts) {
+          if (shift.date === req.body.shiftObj.shift.date) {
+            staff.shifts.splice(shift)
+            staff.shifts.push(req.body.shiftObj.shift)
+          }
+        }
+      }}
+      await week.save()
+      res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

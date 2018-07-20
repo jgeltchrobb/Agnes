@@ -1,5 +1,6 @@
 div.shift-block {
-  width: 100%;
+  min-width: 100%;
+  border-bottom: 1px solid black;
 }
 
 div.shift-middle > p {
