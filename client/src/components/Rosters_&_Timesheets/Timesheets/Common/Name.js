@@ -19,12 +19,12 @@ class Name extends Component {
   setNameState = (staffID, users) => {
     var staffName = ''
     users.map((user) => {
-      if (user.staffID.toString() === staffID) {
+      if (user._id.toString() === staffID) {
         staffName = user.name
       }
     })
     this.setState({ staffName: staffName })
-    // if (this.props.individual) { add a className to the div and make it a darker grey}
+    // if (this.props.individual === staffID) { add a className to the div and make it a darker grey}
   }
 
   summaryOrIndividual = (staffID) => {

@@ -16,7 +16,6 @@ class Timesheets extends Component {
       weekID: this.props.week._id,
       columnHeadings: [],
       totalsRows: [],
-      staffIdArray: '',
       individual: '',
       individualTotalsRow: [],
     }
@@ -42,16 +41,13 @@ class Timesheets extends Component {
      var DayShiftDefinitionClockinBeforeHours = 20
      const milliToHours = 0.00000027777777777778
 
-    const staffIdArray = []
     var columnHeadings = []
     const totalsRows = []
 
     this.props.week.staff.map((staffMember) => {
 
       var staffID = staffMember.staffID
-      staffIdArray.push(staffID)
       const totalsRow = {}
-
       var prevShiftDate = ''
       var prevPrevShiftDate = ''
 
@@ -134,7 +130,6 @@ class Timesheets extends Component {
     this.setState({
       columnHeadings: columnHeadings,
       totalsRows:  totalsRows,
-      staffIdArray: staffIdArray,
     })
   }
 
@@ -292,6 +287,7 @@ class Timesheets extends Component {
                   <Name key={ row.staffID }
                         staffID={ row.staffID }
                         users={ users }
+                        individual={ this.state.individual }
                         setIndividual={ this.setIndividual }
                         removeIndividual={ this.removeIndividual }
                   />
@@ -345,14 +341,15 @@ class Timesheets extends Component {
           <div className="main-timesheet-container">
             <div className='names-container'>
               {
-                this.state.staffIdArray.map((id) => {
-                return (
-                  <Name staffID={ id }
-                        users={ users }
-                        individual={ this.state.individual }
-                        setIndividual={ this.setIndividual }
-                        removeIndividual={ this.removeIndividual }
-                  />
+                this.state.totalsRows.map((row) => {
+                  return (
+                    <Name key={ row.staffID }
+                          staffID={ row.staffID }
+                          users={ users }
+                          individual={ this.state.individual }
+                          setIndividual={ this.setIndividual }
+                          removeIndividual={ this.removeIndividual }
+                    />
                   )
                 })
               }

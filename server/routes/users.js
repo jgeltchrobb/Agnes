@@ -26,10 +26,10 @@ router.get('/:id', async (req, res) => {
 
 // Create new user
 router.post('/', async (req, res) => {
-  console.log(req, 'REQREQ')
+  // console.log(req, 'REQREQ')
   try {
     let user = await User.create(req.body)
-    let standard = await StandardHour.create({staffID: user._id, name: user.name, 
+    let standard = await StandardHour.create({staffID: user._id, name: user.name,
       categories: [
         {
           category: 'Ordinary',
@@ -83,11 +83,11 @@ router.post('/', async (req, res) => {
         roster.staff.push({staffID: user._id, paid: false, shifts: []})
         roster.save()
       }
-      console.log(dateDif)
-      console.log(roster)
+      // console.log(dateDif)
+      // console.log(roster)
       let date = new Date(roster.date)
       let tempDate = new Date(date.setDate(date.getDate() - dateDif)).toISOString().split('T')[0]
-      console.log(tempDate)
+      // console.log(tempDate)
     }
     await Roster.update({
 

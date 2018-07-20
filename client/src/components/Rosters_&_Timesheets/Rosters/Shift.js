@@ -59,7 +59,7 @@ class Shift extends Component {
     })
   }
 
-  formatTime_DateObjtoDisplayString = (time) => {
+  formatTime_DateObjtoDisplayTime = (time) => {
     if (time) {
       let hr = new Date(time).getHours()
         if (hr < 10) {
@@ -188,9 +188,9 @@ class Shift extends Component {
       return (
         <div className="shift-block" onClick={ () => this.edit() }>
           <div className="shift-time">
-            <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
+            <div>{ this.formatTime_DateObjtoDisplayTime(this.state.start) }</div>
             <div className="shift-middle"><p>-</p></div>
-            <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
+            <div>{ this.formatTime_DateObjtoDisplayTime(this.state.finish) }</div>
           </div>
           <div className="shift-category">
             <p>{ this.state.shiftCategory.toUpperCase() }</p>

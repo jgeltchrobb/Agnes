@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
         weeks.push(week)
       }
     }
-    console.log(weeks, 'weeks')
+    // console.log(weeks, 'weeks')
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -74,13 +74,13 @@ router.get('/previous/:date', async (req, res) => {
     let date = new Date(req.params.date)
     date = new Date(date.setDate(date.getDate() - 7)).toISOString().split('T')[0]
     let week = await Week.findOne({date: date})
-    console.log(week, 'WEEEK')
-    console.log(!!week)
+    // console.log(week, 'WEEEK')
+    // console.log(!!week)
     if (week) {
-      console.log(1111)
+      // console.log(1111)
       res.send(week)
     } else {
-      console.log(22222)
+      // console.log(22222)
       res.send(false)
     }
   } catch (error) {

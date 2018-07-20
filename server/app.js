@@ -15,6 +15,7 @@ app.use('/', cors())
 // Routes
 // app.use('/', timesheetRoutes, rosterRoutes, userRoutes)
 app.use('/rosters', require('./routes/weeks'))
+app.use('/flags', require('./routes/flags'))
 app.use('/users', require('./routes/users'))
 app.use('/payRateCategories', require('./routes/payRateCategories'))
 app.use('/entitlements', require('./routes/entitlements'))
