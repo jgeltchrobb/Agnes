@@ -203,15 +203,16 @@ class Timesheets extends Component {
   postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value) => {
     const server = 'http://localhost:4000'
 
-    let timeAndLocation =   {
-                              weekID: this.state.weekID,
-                              staffID: staffID,
-                              date: shiftDate,
-                              shiftNumber: shiftNumber,
-                              value: value,
-                            }
+    let timeObj =   {
+                      weekID: this.state.weekID,
+                      staffID: staffID,
+                      date: shiftDate,
+                      shiftNumber: shiftNumber,
+                      startOrFinish: startOrFinish,
+                      value: value,
+                    }
 
-    // axios.post(server + `/timesheets/${startOrFinish}`, {timeAndLocation}).then((response) => {
+    // axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
     //   console.log(response)
     // })
   }

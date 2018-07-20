@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import TWeek from './TWeek'
 
 class Individual extends Component {
-  constructor(props) {
-    super(props)
-
-
-  }
 
   nameToTop = () => {
     // Take name/id array and sort clicked name to front
@@ -17,7 +12,6 @@ class Individual extends Component {
     return (
       `${dateObj.getDate()}/${dateObj.getMonth()}/${dateObj.getYear()}`
     )
-
   }
 
   render() {
@@ -31,7 +25,7 @@ class Individual extends Component {
         </div>
 
         <div className='dayNames-container'>
-          <div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
+          <div> M </div><div> T </div><div> W </div><div> T </div><div> F </div><div> S </div><div> S </div>
         </div>
 
         // WEEK COMPONENT - Current Week

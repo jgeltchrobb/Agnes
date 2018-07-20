@@ -7,6 +7,7 @@ class TWeek extends Component {
     valuesRows1: { '1': [] },
     valuesRows2: { '2': [] },
     valuesRows3: { '3': [] },
+    grandTotalsRow: '',
   }
 
   componentDidMount = () => {
@@ -18,17 +19,6 @@ class TWeek extends Component {
     if (this.props.individual !== prevProps.individual) {
       this.setValuesRows()
     }
-    // if(this.props !== prevProps) {
-    //   this.setWeekDatesArray()
-    //   this.setWeekDatesArray()
-    // }
-
-    // if (this.props.week.date !== prevProps.week.date)
-    //   { this.setWeekDatesArray() }
-    //
-    // if (this.props.week.date !== prevProps.week.date)
-    //     // || this.props.week.moreDetail to ensure new shift data pulls through
-    //   { this.setValuesRows() }
   }
 
   setWeekDatesArray = () => {
@@ -46,9 +36,9 @@ class TWeek extends Component {
     const { week, individual } = this.props
     const weekDate = new Date(week.date)
     const milliToHours = 0.00000027777777777778
-    const valuesRows1 = { ['1']: [] }
-    const valuesRows2 = { ['2']: [] }
-    const valuesRows3 = { ['3']: [] }
+    const valuesRows1 = { '1': [] }
+    const valuesRows2 = { '2': [] }
+    const valuesRows3 = { '3': [] }
     const starts1   = []
     const starts2   = []
     const starts3   = []
@@ -121,7 +111,7 @@ class TWeek extends Component {
         totals1.push( subTotal1 - (breaks1[i]/60) )
       } else {
         breaks1.push('no break')
-        totals1.push('no total')
+        totals1.push(0)
       }
       if (starts2 && finishes2) {
         if (starts2[i] && finishes2[i]) {
@@ -130,7 +120,7 @@ class TWeek extends Component {
           totals2.push( subTotal2 - (breaks2[i]/60) )
         } else {
           breaks2.push('no break')
-          totals2.push('no total')
+          totals2.push(0)
         }
       }
       if (starts3 && finishes3) {
@@ -140,14 +130,28 @@ class TWeek extends Component {
           totals3.push( subTotal3 - (breaks3[i]/60) )
         } else {
           breaks3.push('no break')
-          totals3.push('no total')
+          totals3.push(0)
         }
       }
     }
     valuesRows1['1'].push(starts1, breaks1, finishes1, totals1)
 
-    if  (starts2.join('')) { valuesRows2['2'].push(starts2, breaks2, finishes2, totals2) }
-    if  (starts3.join('')) { valuesRows3['3'].push(starts3, breaks3, finishes3, totals3) }
+    if  (starts2.join('')) {
+      valuesRows2['2'].push(starts2, breaks2, finishes2, totals2)
+    }
+    if  (starts3.join('')) {
+      valuesRows3['3'].push(starts3, breaks3, finishes3, totals3)
+    }
+    // sum totals for shift 2 (total2). If > 0 set a grandTotalsRow to add totals for each shit and show a grand total
+    const sumTotals2 = totals2.reduce(function (accumulator, currentValue) {
+      return accumulator + currentValue}, 0)
+    if (sumTotals2 > 0) {
+      const grandTotalsRow = []
+      for (let i=0; i<7; i++) {
+        grandTotalsRow.push(totals1[i] + totals2[i] + totals3[i])
+      }
+      this.setState({ grandTotalsRow: grandTotalsRow })
+    }
 
     this.setState({
       valuesRows1: valuesRows1,
@@ -160,12 +164,12 @@ class TWeek extends Component {
 
   render() {
     const { weekID, individual } = this.props
-    const { valuesRows1, valuesRows2, valuesRows3, weekDates } = this.state
-    // if (valuesRows1['1'].length === 0) { return '' }
+    const { valuesRows1, valuesRows2, valuesRows3, weekDates, grandTotalsRow } = this.state
 
     const shift1 = Object.keys(valuesRows1)
     const shift2 = Object.keys(valuesRows2)
     const shift3 = Object.keys(valuesRows3)
+    const shift4 = '4'
 
     if (valuesRows2['2'].length === 0) {
       return (
@@ -214,6 +218,15 @@ class TWeek extends Component {
             <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
             <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
           </div>
+          <div className='grand-totals-heading-container'>
+            <div>Grand Total</div>
+          </div>
+          <div className='grand-totals-row-container'>
+            <div className='grand-totals-row'>
+              <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            </div>
+          </div>
+
         </div>
       )
     }
@@ -255,6 +268,14 @@ class TWeek extends Component {
             <ValuesRow lable='break'  specificRow={ valuesRows3['3'][1] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
             <ValuesRow lable='finish' specificRow={ valuesRows3['3'][2] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
             <ValuesRow lable='total'  specificRow={ valuesRows3['3'][3] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+          </div>
+          <div className='grand-totals-heading-container'>
+            <div>Grand Total</div>
+          </div>
+          <div className='grand-totals-row-container'>
+            <div className='grand-totals-row'>
+              <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            </div>
           </div>
         </div>
       )
