@@ -43,7 +43,6 @@ router.get('/', async (req, res) => {
         weeks.push(week)
       }
     }
-    console.log(weeks)
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -112,19 +111,38 @@ router.get('/new/:weekDate', async (req, res) => {
 })
 
 router.post('/shift/:id', async (req, res) => {
+  console.log(req.body, 'ADSD')
   try {
-    let week = await Week.findOne({_id: req.body.shiftObj.weekID})
-    for (let staff of week.staff) {
-      if (staff.staffID === req.body.shiftObj.staffID) {
-        for (let shift of staff.shifts) {
-          if (shift.date === req.body.shiftObj.shift.date) {
-            staff.shifts.splice(shift)
+    if (!req.body.pushShift) {
+      let found = false
+      let week = await Week.findOne({_id: req.body.shiftObj.weekID})
+      for (let staff of week.staff) {
+        if (staff.staffID === req.body.shiftObj.staffID) {
+          for (let shift of staff.shifts) {
+            if (shift.date === req.body.shiftObj.shift.date) {
+              staff.shifts.splice(shift)
+              staff.shifts.push(req.body.shiftObj.shift)
+              found = true
+            }
+          }
+          if (!found) {
             staff.shifts.push(req.body.shiftObj.shift)
           }
-        }
-      }}
+        }}
       await week.save()
       res.send(week)
+    } else {
+      let week = await Week.findOne({_id: req.body.shiftObj.weekID})
+      for (let staff of week.staff) {
+        if (staff.staffID === req.body.shiftObj.staffID) {
+          console.log(staff.shifts)
+
+          staff.shifts.push(req.body.shiftObj)
+          console.log(staff.shifts)
+        }}
+      await week.save()
+      res.send(week)
+    }
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
