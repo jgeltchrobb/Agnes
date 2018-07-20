@@ -7,7 +7,6 @@ class Flags extends Component {
   }
 
   render() {
-      // console.log(this.props.flags)
 
     return (
       <div>
