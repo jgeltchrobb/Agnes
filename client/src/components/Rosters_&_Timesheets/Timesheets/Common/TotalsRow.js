@@ -13,6 +13,16 @@ class TotalsRow extends Component {
     }
   }
 
+  componentDidMount = () => {
+    this.setTotalsArray()
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (this.props.row !== prevProps.row) {
+      this.setTotalsArray()
+    }
+  }
+  
   setTotalsArray = () => {
     const { row, columnHeadings } = this.props
 
@@ -32,15 +42,6 @@ class TotalsRow extends Component {
     })
   }
 
-  componentDidMount = () => {
-    this.setTotalsArray()
-  }
-
-  componentDidUpdate = (prevProps) => {
-    if (this.props.row !== prevProps.row) {
-      this.setTotalsArray()
-    }
-  }
 
   render() {
     const { row, setIndividual } = this.props

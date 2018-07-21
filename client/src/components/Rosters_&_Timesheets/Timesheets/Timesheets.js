@@ -131,6 +131,7 @@ class Timesheets extends Component {
       columnHeadings: columnHeadings,
       totalsRows:  totalsRows,
     })
+    console.log(totalsRows)
   }
 
   roundUp = (time) => {
@@ -242,7 +243,7 @@ class Timesheets extends Component {
     this.setState({ individual: staffID })
     this.state.totalsRows.map((row) => {
       if (row.staffID === staffID) {
-        this.setState({ individualTotalsRow: row, })
+        this.setState({ individualTotalsRow: row })
       }
     })
   }
