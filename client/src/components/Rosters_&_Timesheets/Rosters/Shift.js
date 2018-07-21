@@ -116,7 +116,7 @@ class Shift extends Component {
   currentEdit = () => {
     const { shiftCategory, start, finish } = this.state
     if (!this.state.currentEditing) {
-      console.log('FALSEFALSEFALSE')
+      // console.log('FALSEFALSEFALSE')
     }
     this.setState({ currentEditing: !this.state.currentEditing })
     this.currentOpenModal()
@@ -222,7 +222,6 @@ class Shift extends Component {
     this.props.stopAdd()    
     // this.currentEdit()
     } else {
-      console.log('gothere')
       this.setState({
         validationError: true,
       })

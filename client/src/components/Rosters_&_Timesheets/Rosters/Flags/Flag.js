@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 class Flag extends Component {
+  constructor(props) {
+    super(props)
 
-  state = {
-    staffName: '',
-    date: '',
-    rostered: '',
-    difference: '',
-    actual: '',
+    this.state = {
+      flagID: this.props.flagID,
+      staffName: '',
+      date: '',
+      rostered: '',
+      difference: '',
+      actual: '',
+    }
   }
 
   componentDidMount = () => {
@@ -87,6 +92,17 @@ class Flag extends Component {
     } else { return '' }
   }
 
+  removeFlag = async (e) => {
+    const server = 'http://localhost:4000'
+
+    let flagID = this.state.FlagID
+
+    // await axios.put(server + '/flags/remove', {flagID}).then((response) => {
+    //   // console.log(response.data.confirmation)
+    // })
+    this.props.fetchFlagsData()
+  }
+
 
   render() {
     const { staffName, date, rostered, difference, actual } = this.state
@@ -96,6 +112,7 @@ class Flag extends Component {
 
         <div> { staffName } </div>
         <div> { date } </div>
+        <div> <button onClick={ () => { this.removeFlag() } }> x </button> </div>
         <div> { rostered } </div>
         <div> { difference } </div>
         <div> { actual } </div>

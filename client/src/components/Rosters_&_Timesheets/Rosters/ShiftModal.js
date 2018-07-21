@@ -38,6 +38,7 @@ class ShiftModal extends React.Component {
   // }
 
   render () {
+
     if (!this.props.shiftAdd) {
       if (!this.props.validationError) {
         return (

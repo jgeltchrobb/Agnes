@@ -8,6 +8,7 @@ const Flags = new Schema({
               date: String,
               rostered: Date,
               actual: Date,
+              active: {type: Boolean, default: true},
             },
           ]
 })
