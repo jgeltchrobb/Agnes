@@ -173,7 +173,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("July 15 2018").toISOString().split('T')[0],
+            date: new Date("July 14 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("July 15 2018 8:00"),

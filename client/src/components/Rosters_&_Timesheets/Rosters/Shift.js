@@ -5,6 +5,8 @@ import Modal from 'react-modal'
 import ShiftModal from './ShiftModal'
 import '../../../stylesheets/Shift.css'
 
+const api = 'http://localhost:4000'
+
 
 const customStyles = {
   content : {
@@ -31,9 +33,9 @@ class Shift extends Component {
       currentModalIsOpen: false,
       validationError: false,
       shift: '',
-      shiftID: ''
+      shiftID: '',
+      addShift: ''
     }
-
   }
 
   componentDidMount = () => {
@@ -41,24 +43,36 @@ class Shift extends Component {
     this.setState({
       weekID: weekID,
       staffID: staffID,
-      date: date,
+      // date: date,
       shiftID: shiftID,
     })
-    this.setShift(shiftCategory, start, finish)
+    this.setShift(shiftCategory, start, finish, date)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { shiftCategory, start, finish } = this.props
+    const { weekID, staffID, date, shiftCategory, start, finish, shiftID, addShift } = this.props
+    // const { shiftCategory, start, finish, date } = this.props
     if (this.props !== prevProps) {
-      this.setShift(shiftCategory, start, finish)
+      this.setState({
+        weekID: weekID,
+        staffID: staffID,
+        // date: date,
+        shiftID: shiftID,
+        addShift: addShift
+      })
+        this.setShift(shiftCategory, start, finish, date)
+        if (addShift) {
+          this.currentEdit()
+        }
     }
   }
 
-  setShift = (shiftCategory, start, finish) => {
+  setShift = (shiftCategory, start, finish, date) => {
     this.setState ({
       shiftCategory: shiftCategory,
       start: start,
       finish: finish,
+      date: date,
     })
   }
 
@@ -101,7 +115,6 @@ class Shift extends Component {
 
   currentEdit = () => {
     const { shiftCategory, start, finish } = this.state
-    // console.log(shiftCategory, start, finish, 'OOOOOOOOOOOOOOOOOOOOO')
     if (!this.state.currentEditing) {
       // console.log('FALSEFALSEFALSE')
     }
@@ -109,61 +122,112 @@ class Shift extends Component {
     this.currentOpenModal()
   }
 
+  addShiftSubmit = async (event) => {
+    event.preventDefault()
+    try {
+      const shiftCategory = event.target.shiftCategory.value
+      const start = event.target.start.value
+      const finish = event.target.finish.value
+      if (shiftCategory && start && finish) {
+
+        let shiftObj =  {
+          staffID: this.state.staffID,
+          weekID: this.props.currentWeek._id,
+          shift: {
+            date: this.state.date.toISOString().split('T')[0],
+            shiftCategory: shiftCategory,
+            start: {
+              rostered: this.formatTime_UserInputToDateObj(start, 'start'),
+              actual: '',
+              timesheet: '',
+              flag: false,
+            },
+            finish: {
+              rostered: this.formatTime_UserInputToDateObj(finish, 'finish'),
+              actual: '',
+              timesheet: '',
+              flag: false,
+            }
+          }
+        }
+        console.log(shiftObj, 'SHIFTOBJJBJOB')
+      
+      this.setState({
+        shiftCategory,
+        start: this.formatTime_UserInputToDateObj(start, 'start'),
+        finish: this.formatTime_UserInputToDateObj(finish, 'finish')
+      })
+  
+      // REPLACE IN DB
+      axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
+        console.log(response, 'RES')
+        console.log(this.props.weekID)
+        this.props.fetchData(this.props.weekID)
+      })
+      this.currentCloseModal()
+      this.props.stopAdd()
+      // this.current Edit()
+      } else {
+        this.setState({
+          validationError: true,
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   currentHandleSubmit = async (event) => {
     event.preventDefault()
     try {
+      const shiftCategory = event.target.shiftCategory.value
+      const start = event.target.start.value
+      const finish = event.target.finish.value
+      if (shiftCategory && start && finish) {
 
-    const server = 'http://localhost:4000'
-
-    const shiftCategory = event.target.shiftCategory.value
-    const start = event.target.start.value
-    const finish = event.target.finish.value
-
-    let shiftObj =  {
-      staffID: this.state.staffID,
-      weekID: this.props.weekID,
-      shift: {
-        date: this.state.date.toISOString().split('T')[0],
-        shiftCategory: shiftCategory,
-        start: {
-          rostered: this.formatTime_UserInputToDateObj(start, 'start'),
-          actual: '',
-          timesheet: '',
-          flag: false,
-        },
-        finish: {
-          rostered: this.formatTime_UserInputToDateObj(finish, 'finish'),
-          actual: '',
-          timesheet: '',
-          flag: false,
+      let shiftObj =  {
+        staffID: this.state.staffID,
+        weekID: this.props.currentWeek._id,
+        shift: {
+          date: this.props.date.toISOString().split('T')[0],
+          shiftCategory: shiftCategory,
+          start: {
+            rostered: this.formatTime_UserInputToDateObj(start, 'start'),
+            actual: '',
+            timesheet: '',
+            flag: false,
+          },
+          finish: {
+            rostered: this.formatTime_UserInputToDateObj(finish, 'finish'),
+            actual: '',
+            timesheet: '',
+            flag: false,
+          }
         }
       }
-    }
-
+    
     this.setState({
       shiftCategory,
       start: this.formatTime_UserInputToDateObj(start, 'start'),
       finish: this.formatTime_UserInputToDateObj(finish, 'finish')
     })
 
-
-    if (this.state.shiftID) {
-      // REPLACE IN DB
-      axios.post(server + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
-        console.log(response, 'RES')
-        this.currentCloseModal(event.target)
-      })
+    // REPLACE IN DB
+    axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
+      console.log(response, 'RES')
+      console.log(this.props.weekID)
+      this.props.fetchData(this.props.weekID)
+    })
+    this.currentCloseModal()
+    this.props.stopAdd()    
+    // this.currentEdit()
     } else {
-      // PUSH to DB for CURRENT DATE
-
-    }
-
-    this.currentEdit()
-    this.props.fetchData()
-  } catch (error) {
       this.setState({
-        validationError: !this.state.validationError,
+        validationError: true,
       })
+    }
+  } catch (error) {
+    console.log(error)
     }
   }
 
@@ -174,45 +238,27 @@ class Shift extends Component {
   currentCloseModal = () => {
     this.setState({
       currentModalIsOpen: false,
-      editing: false
+      // currentEditing: false
     });
-    // this.props.fetchData()
-  }
-
-  // shiftCatChange = (event) => {
-  //   this.setState({
-  //     shiftCategory: event.target.value
-  //   })
-  // }
-
-  // startTimeChange = (event) => {
-  //   this.setState({
-  //     start: event.target.value
-  //   })
-  // }
-
-  // finishTimeChange = (event) => {
-  //   this.setState({
-  //     finish: event.target.value
-  //   })
-  // }
-
-  addShift = () => {
-    console.log('poop')
   }
 
   render() {
     const { shiftCategory, start, finish } = this.state
-    if (this.state.currentEditing) {
-      // if in editing mode we want the form / modle to render
+    console.log(this.state, 'OPOPOPPOPOOPOPOPPO')
+    if (this.state.currentEditing && !this.props.addShift) {
       return (
         <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-          <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} />
+          <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false}/>
 
         </Modal>
       )
-{/* Jordan, try to remove this button if shifts.length === 3, so they can't add another */}
-  // if NOT in editing mode we want the shift to render
+    } else if (this.state.currentEditing && this.props.addShift && (this.state.date === this.props.currentShiftDate)) {
+      return (
+        <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
+          <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={true} addShiftSubmit={this.addShiftSubmit} />
+
+        </Modal>
+      )
     } else {
       return (
         <React.Fragment>
@@ -226,13 +272,10 @@ class Shift extends Component {
               <p>{ this.state.shiftCategory.toUpperCase() }</p>
             </div>
           </div>
-          {/* <button onClick={ () => this.addShift() }> add shift </button> */}
         </React.Fragment>
       )
     }
-
   }
-
 }
 
 export default Shift

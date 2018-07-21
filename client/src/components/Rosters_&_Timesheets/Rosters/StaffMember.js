@@ -6,6 +6,8 @@ class StaffMember extends Component {
   state = {
     staffName: '',
     daysArray: [],
+    addShift: '',
+    currentShiftDate: ''
   }
 
   componentDidMount = () => {
@@ -15,9 +17,8 @@ class StaffMember extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
+    const { weekDate, staffMember, staffID, users } = this.props
     if (this.props !== prevProps) {
-      console.log('HERERE')
-      const { weekDate, staffMember, staffID, users } = this.props
       this.setStaffName(staffID, users)
       this.setDaysArray(weekDate, staffMember)
     }
@@ -83,7 +84,7 @@ class StaffMember extends Component {
                           shifts: [
                                     {
                                       date: new Date(dateCopy.setDate(weekDate.getDate() + i)),
-                                      shiftCategory: 'e',
+                                      shiftCategory: 'empty',
                                       start: '',
                                       finish: '',
                                     },
@@ -95,23 +96,42 @@ class StaffMember extends Component {
     this.setState({ daysArray: daysArray })
   }
 
-  addShift = (shift) => {
-    let days = [...this.state.daysArray]
-    let day = new Date(shift.date).getDay() - 1
-    if (day === -1) {day = 6}
-    if (days[day].shifts.length < 3) {
-      days[day].shifts.push(shift)
+  addShift = (day) => {
+
+    console.log(day, 'DAAAAAAAA')
+
+    // let days = [...this.state.daysArray]
+    // console.log(days, 'days')
+    // let day = new Date(shift.date).getDay() - 1
+    // if (day === -1) {day = 6}
+    console.log(day.shifts)
+    if (day.shifts.length < 3) {
+      this.setState({
+        addShift: true,
+        currentShiftDate: day.shifts[0].date
+      })
+    //   days[day].shifts.push(shift)
+    } else {
+      this.setState({
+        addShift: false
+      })
     }
 
+    // this.setState({
+    //   daysArray: days
+    // })
+  }
+
+  stopAdd = () => {
     this.setState({
-      daysArray: days
+      addShift: false
     })
   }
 
   render() {
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
-
+    console.log(this.state.currentShiftDate, 'DAYSARRAY')
     return (
       <div className="shift-row">
 
@@ -128,9 +148,12 @@ class StaffMember extends Component {
                       staffID={ staffID }
                       weekID={ weekID }
                       fetchData={this.props.fetchData}
-                      addShift={this.addShift}
+                      addShift={this.state.addShift}
+                      currentWeek={this.props.currentWeek}
+                      stopAdd={this.stopAdd}
+                      currentShiftDate={this.state.currentShiftDate}
                   />
-                  <button id='add-shift-btn' >heythere</button>
+                  <button id='add-shift-btn' onClick={() => this.addShift(day)} >Add Shift</button>
                 </div>
               )
             })

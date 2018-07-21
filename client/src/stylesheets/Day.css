@@ -18,3 +18,11 @@ div.shift-category > p {
 .shift-container {
   min-width: 100%;
 }
+
+#add-shift-btn {
+  color: blue;
+  align-self: center;
+  /* margin: 2% 0;
+   */
+   width: 100%
+}
