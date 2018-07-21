@@ -9,15 +9,9 @@ class Roster extends Component {
 
   }
 
-  componentDidMount = () => {
-
-  }
-
   render() {
-    console.log(this.props)
-
     const { users, weekDate, weekID, staff } = this.props
-
+    console.log(this.props.staff, 'HERE STAFF DAWG')
     return (
       <div className="rosters-cells">
 
@@ -46,6 +40,7 @@ class Roster extends Component {
                                 weekID={ weekID }
                                 fetchData={this.props.fetchData}
                                 currentWeek={this.props.currentWeek}
+                                weeks={this.props.weeks}
                   />
                 )
               })

@@ -72,7 +72,6 @@ class SubCategory extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'AAAAAAA')
     return (
       this.props.categories.map((category) => {
         if (this.props.revealed == this.props.name) {
