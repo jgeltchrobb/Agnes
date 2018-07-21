@@ -6,3 +6,7 @@ div.shift-block {
 div.shift-middle > p {
   margin: 0;
 }
+
+#validation-error {
+  color: red;
+}

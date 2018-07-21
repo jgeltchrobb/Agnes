@@ -178,14 +178,14 @@ class Timesheets extends Component {
         }
         if (startOrFinish === 'finish') {
           this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundDown(actual))
-          this.postFlag(staffID, shiftDate, shiftNumber, startOrFinish)
+          this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundDown(actual)
         }
       } else {
 
         if (startOrFinish === 'start') {
           this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundUp(actual))
-          this.postFlag(staffID, shiftDate, shiftNumber, startOrFinish)
+          this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundUp(actual)
         }
         if (startOrFinish === 'finish') {
@@ -217,18 +217,19 @@ class Timesheets extends Component {
     // })
   }
 
-  postFlag = (staffID, shiftDate, shiftNumber, startOrFinish) => {
+  postFlag = (staffID, shiftDate, rostered, actual) => {
     const server = 'http://localhost:4000'
 
-    let flagLocation =  {
-                      weekID: this.state.weekID,
+    let flagObj =  {
                       staffID: staffID,
                       date: shiftDate,
-                      shiftNumber: shiftNumber,
+                      rostered: rostered,
+                      actual: actual,
+                      active: true,
                     }
 
-    // axios.post(server + `/timesheets/${startOrFinish}/flag`, {flagLocation}).then((response) => {
-    //   console.log(response)
+    // axios.put(server + '/flags/new', {flagObj}).then((response) => {
+    //   // console.log(response.data.confirmation)
     // })
   }
 

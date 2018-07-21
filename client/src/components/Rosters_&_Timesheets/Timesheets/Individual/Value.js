@@ -53,7 +53,7 @@ class Value extends Component {
 
   }
 
-  postTime = async (lable, e) => {
+  postTimesheetTime = async (lable, e) => {
     e.preventDefault()
 
     const server = 'http://localhost:4000'
@@ -100,7 +100,7 @@ class Value extends Component {
       } else {
         return(
           <div className='value-constainer'>
-            <form onSubmit={ (e) => this.postTime(lable, e) }>
+            <form onSubmit={ (e) => this.postTimesheetTime(lable, e) }>
               <input  placeholder='value'
                       value={ this.state.value }
                       onChange={ this.update }
@@ -112,58 +112,6 @@ class Value extends Component {
         )
       }
     }
-
-
-    // if (lable === 'start') {
-    //   if (!this.state.editing) {
-    //     return (
-    //       <div className='value-constainer' onClick={ () => this.edit() }>
-    //       { this.formatTime_DateObjtoDisplayTime(this.state.value) }
-    //       </div>
-    //     )
-    //   } else {
-    //     return(
-    //       <div className='value-constainer'>
-    //         <form onSubmit={ this.postStartTime }>
-    //           <input  placeholder='value'
-    //                   value={ this.state.value }
-    //                   onChange={ this.update }
-    //                   type='time'
-    //           />
-    //           <input type='Submit' />
-    //         </form>
-    //       </div>
-    //     )
-    //   }
-    //
-    // } else if (lable === 'finish') {
-    //   if (!this.state.editing) {
-    //     return (
-    //       <div className='value-constainer' onClick={ () => this.edit() }>
-    //         { this.formatTime_DateObjtoDisplayTime(this.state.value) }
-    //       </div>
-    //     )
-    //   } else {
-    //     return(
-    //       <div className='value-constainer'>
-    //         <form onSubmit={ this.postFinishTime }>
-    //           <input  placeholder='value'
-    //                   value={ this.state.value }
-    //                   onChange={ this.update }
-    //                   type='time'
-    //           />
-    //           <input type='Submit' />
-    //         </form>
-    //       </div>
-    //     )
-    //   }
-    // } else {
-    //   return (
-    //     <div className='value-constainer'>
-    //       { value }
-    //     </div>
-    //   )
-    // }
 
   }
 }

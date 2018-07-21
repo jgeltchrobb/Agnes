@@ -25,7 +25,6 @@ class Rosters extends Component {
   }
 
   render() {
-    console.log(this.props)
 
     const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading, weekDate } = this.props
     if (!this.state.flags) return ''
@@ -33,7 +32,7 @@ class Rosters extends Component {
       <div className="rosters-container">
 
         <div>
-          <Header weekDate={ week.date }
+          <Header weekDate={ this.props.currentWeek.date }
                   goToNextWeek={ goToNextWeek }
                   goToPreviousWeek={ goToPreviousWeek }
                   sideBarHeading={ sideBarHeading }
@@ -54,8 +53,9 @@ class Rosters extends Component {
                     staff={this.props.currentWeek.staff}
                     weekDate={this.props.currentWeek.date}
                     weekID={this.props.currentWeek._id}
-                    fetchData={this.props.fetchData}  
+                    fetchData={this.props.fetchData}
                     currentWeek={this.props.currentWeek}
+                    weeks={this.props.weeks}
 
             />
           </div>
