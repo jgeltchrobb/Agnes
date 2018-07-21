@@ -98,13 +98,10 @@ class StaffMember extends Component {
 
   addShift = (day) => {
 
-    console.log(day, 'DAAAAAAAA')
-
     // let days = [...this.state.daysArray]
     // console.log(days, 'days')
     // let day = new Date(shift.date).getDay() - 1
     // if (day === -1) {day = 6}
-    console.log(day.shifts)
     if (day.shifts.length < 3) {
       this.setState({
         addShift: true,
@@ -131,7 +128,6 @@ class StaffMember extends Component {
   render() {
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
-    console.log(this.state.currentShiftDate, 'DAYSARRAY')
     return (
       <div className="shift-row">
 

@@ -151,13 +151,13 @@ class Shift extends Component {
           }
         }
         console.log(shiftObj, 'SHIFTOBJJBJOB')
-      
+
       this.setState({
         shiftCategory,
         start: this.formatTime_UserInputToDateObj(start, 'start'),
         finish: this.formatTime_UserInputToDateObj(finish, 'finish')
       })
-  
+
       // REPLACE IN DB
       axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
         console.log(response, 'RES')
@@ -205,7 +205,7 @@ class Shift extends Component {
           }
         }
       }
-    
+
     this.setState({
       shiftCategory,
       start: this.formatTime_UserInputToDateObj(start, 'start'),
@@ -214,12 +214,10 @@ class Shift extends Component {
 
     // REPLACE IN DB
     axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
-      console.log(response, 'RES')
-      console.log(this.props.weekID)
       this.props.fetchData(this.props.weekID)
     })
     this.currentCloseModal()
-    this.props.stopAdd()    
+    this.props.stopAdd()
     // this.currentEdit()
     } else {
       this.setState({
@@ -227,7 +225,6 @@ class Shift extends Component {
       })
     }
   } catch (error) {
-    console.log(error)
     }
   }
 
@@ -244,7 +241,6 @@ class Shift extends Component {
 
   render() {
     const { shiftCategory, start, finish } = this.state
-    console.log(this.state, 'OPOPOPPOPOOPOPOPPO')
     if (this.state.currentEditing && !this.props.addShift) {
       return (
         <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
