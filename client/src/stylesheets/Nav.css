@@ -1,7 +1,13 @@
 button.nav-button {
-  width: 80px;
+  width: 100px;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(180deg, #78b7ff, #15468f);
   font-size: 0.9rem;
-  background: none;
-  border-radius: 0.2em;
-  padding: 0.5em;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+}
+
+button.nav-button:hover {
+  background: linear-gradient(180deg, #15468f, #78b7ff);
 }

@@ -1,0 +1,29 @@
+div.staff-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+div.new-staff-button-container {
+  width: 80%;
+  margin-top: 1em;
+}
+
+div.new-staff-button-container > button {
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(180deg, #78b7ff, #15468f);
+  font-size: 0.9rem;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+}
+
+div.new-staff-button-container > button:hover {
+  background: linear-gradient(180deg, #15468f, #78b7ff);
+}
+
+div.staff-main {
+  margin-top: 1.5em;
+  display: flex;
+  justify-content: center;
+}

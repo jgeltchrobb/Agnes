@@ -7,6 +7,7 @@ import Header from './Header'
 import NewUser from './NewUser'
 import NewUserModal from './Modals/NewUserModal'
 import classNames from 'classnames'
+import '../../stylesheets/Staff.css'
 
 import axios from 'axios'
 
@@ -37,7 +38,7 @@ class Staff extends Component {
       addHours: false
     }
   }
-  
+
   componentDidMount = () => {
     this.fetchStandard()
   }
@@ -204,17 +205,21 @@ class Staff extends Component {
     console.log(new Date().getHours(), 'ABCDEFGHIJ')
     return (
       <React.Fragment>
-        <button onClick={this.openModal} >New Staff</button>
-        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Add Staff Modal" >
-          <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} />
-        </Modal>
-        <div className="staff-container" >
-          <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
-          <div className="scroll-container" onScroll={this.handleScroll}>
-            <div className="staff-header">
-              <Header payRates={this.props.payRates} />
+        <div className="staff-container">
+          <div className="new-staff-button-container">
+            <button onClick={this.openModal} >New Staff</button>
+            <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Add Staff Modal" >
+              <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} />
+            </Modal>
+          </div>
+          <div className="staff-main" >
+            <SideBar staffData={this.state.staffData} handleClick={this.clickHandler} revealed={this.state.revealed} fetchStandard={this.fetchStandard} totals={this.state.totals} />
+            <div className="scroll-container" onScroll={this.handleScroll}>
+              <div className="staff-header">
+                <Header payRates={this.props.payRates} />
+              </div>
+              <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} rosteredTotals={this.state.totals} />
             </div>
-            <StaffRow staffData={this.state.staffData} revealed={this.state.revealed} fetchStandard={this.fetchStandard} passTotal={this.passTotal} rosteredTotals={this.state.totals} />
           </div>
         </div>
       </React.Fragment>

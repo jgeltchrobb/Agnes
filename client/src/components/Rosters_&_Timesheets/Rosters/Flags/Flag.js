@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '../../../../stylesheets/Flag.css'
 import axios from 'axios'
 
 class Flag extends Component {
@@ -108,14 +109,18 @@ class Flag extends Component {
     const { staffName, date, rostered, difference, actual } = this.state
 
     return (
-      <div>
+      <div className="flag-container">
 
-        <div> { staffName } </div>
-        <div> { date } </div>
-        <div> <button onClick={ () => { this.removeFlag() } }> x </button> </div>
-        <div> { rostered } </div>
-        <div> { difference } </div>
-        <div> { actual } </div>
+        <div className="flag-top">
+          <div className="flag-name"> { staffName } </div>
+          <div className="flag-date"> { date } </div>
+          <button className="flag-remove" onClick={ () => { this.removeFlag() } }> x </button>
+        </div>
+        <div className="flag-bottom">
+          <div className="flag-rostered"> { rostered } </div>
+          <div className="flag-diff"> { difference } </div>
+          <div className="flag-actual"> { actual } </div>
+        </div>
 
       </div>
     )

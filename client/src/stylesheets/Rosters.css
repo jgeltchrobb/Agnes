@@ -8,11 +8,13 @@ div.rosters-main {
 }
 
 div.rosters-flags {
-  width: 10%;
-  border-right: 3px groove #dfe0d8;
+  width: 15%;
+  border-right: 3px groove #6851ff;
+  display: flex;
+  justify-content: center;
 }
 
 div.rosters-date {
-  width: 90%;
+  width: 85%;
   padding: 1em;
 }

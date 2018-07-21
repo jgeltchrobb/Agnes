@@ -1,6 +1,7 @@
 import React from 'react'
 import RosterTotalCell from './cells/RosterTotalCell';
 import NameHeaderCell from './cells/NameHeaderCell';
+import '../../stylesheets/SideBar.css'
 
 class SideBar extends React.Component {
   constructor(props) {

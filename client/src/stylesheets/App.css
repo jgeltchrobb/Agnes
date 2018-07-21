@@ -36,11 +36,6 @@ body {
   font-weight: bold;
 }
 
-.staff-container {
-  display: flex;
-  overflow: auto
-}
-
 /* this needs to be fixed for horizontal only */
 .sidebar {
   position: sticky;

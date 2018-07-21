@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Flag from './Flag'
+import '../../../../stylesheets/Flags.css'
 
 class Flags extends Component {
 
@@ -11,7 +12,7 @@ class Flags extends Component {
     const { fetchFlagsData, users } = this.props
 
     return (
-      <div>
+      <div class="flags-container">
         {
           this.props.flags.map((flag) => {
             return (

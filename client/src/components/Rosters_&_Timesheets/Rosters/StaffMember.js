@@ -139,7 +139,7 @@ class StaffMember extends Component {
           {
             this.state.daysArray.map((day) => {
               return (
-                <div id='shift-cell'>
+                <div class='shift-cell'>
                   <Day shifts={ day.shifts }
                       staffID={ staffID }
                       weekID={ weekID }

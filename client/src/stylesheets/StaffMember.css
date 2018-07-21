@@ -9,8 +9,8 @@ div.shifts {
 
 div.shifts > div {
   width: 12%;
-  border-top: 0.5px solid grey;
-  border-right: 0.5px solid grey;
+  border-top: 2px solid #02026e;
+  border-right: 2px solid #02026e;
   display: flex;
   flex-wrap: wrap;
 }
@@ -25,7 +25,7 @@ div.shifts > div:first-child > h3 {
   padding-left: 1em;
 }
 
-#shift-cell {
+div.shift-cell {
   display: flex;
   justify-content: center;
 }
