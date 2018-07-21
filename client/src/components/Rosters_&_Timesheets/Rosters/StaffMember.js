@@ -109,8 +109,6 @@ class StaffMember extends Component {
   }
 
   render() {
-    console.log(this.props)
-
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
 

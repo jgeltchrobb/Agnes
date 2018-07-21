@@ -38,8 +38,8 @@ class ShiftModal extends React.Component {
   }
 
   render () {
-    console.log(this.state, 'ASJDKASDKKAJSDAKLSDJKAJSDKAJDKASDJKAJDAKLDJ')
-    console.log(this.props, 'BBBBBBBBBBBBBBBBBBBBB')
+    // console.log(this.state, 'ASJDKASDKKAJSDAKLSDJKAJSDKAJDKASDJKAJDAKLDJ')
+    // console.log(this.props, 'BBBBBBBBBBBBBBBBBBBBB')
     return (
       <div>
         <form id='shiftForm' onSubmit={ this.props.handleSubmit }>

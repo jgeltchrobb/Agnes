@@ -101,9 +101,9 @@ class Shift extends Component {
 
   currentEdit = () => {
     const { shiftCategory, start, finish } = this.state
-    console.log(shiftCategory, start, finish, 'OOOOOOOOOOOOOOOOOOOOO')
+    // console.log(shiftCategory, start, finish, 'OOOOOOOOOOOOOOOOOOOOO')
     if (!this.state.currentEditing) {
-      console.log('FALSEFALSEFALSE')
+      // console.log('FALSEFALSEFALSE')
     }
     this.setState({ currentEditing: !this.state.currentEditing })
     this.currentOpenModal()
@@ -155,9 +155,9 @@ class Shift extends Component {
       })
     } else {
       // PUSH to DB for CURRENT DATE
-      
+
     }
-    
+
     this.currentEdit()
     this.props.fetchData()
   } catch (error) {

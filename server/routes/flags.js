@@ -12,6 +12,18 @@ router.get('/', async (req, res) => {
   }
 })
 
+// New flag
+router.put('/new', async (req, res) => {
+  try {
+    await Flags.update( {}, { $push: { flags: req.body.flagObj } } )
+    res.status(200).json({ confirmation: 'flag was added' })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+
+
 // Remove flag
 // router.put('/remove', async (req, res) => {
 //   try {

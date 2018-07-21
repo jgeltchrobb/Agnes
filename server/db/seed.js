@@ -40,48 +40,54 @@ const seedData = async () => {
   await Flags.create({
     flags:
       [
-        {
-          staffID: user1._id,
-          date: '2018-07-02',
-          rostered: new Date("July 2 2018 8:00"),
-          actual: new Date("July 2 2018 9:00"),
-        },
-        {
-          staffID: user1._id,
-          date: '2018-07-02',
-          rostered: new Date("July 2 2018 16:00"),
-          actual: new Date("July 2 2018 15:00"),
-        },
-        {
-          staffID: user2._id,
-          date: '2018-07-02',
-          rostered: new Date("July 2 2018 8:00"),
-          actual: new Date("July 2 2018 9:00"),
-        },
-        {
-          staffID: user2._id,
-          date: '2018-07-02',
-          rostered: new Date("July 2 2018 16:00"),
-          actual: new Date("July 2 2018 15:00"),
-        },
-        {
-          staffID: user3._id,
-          date: '2018-07-02',
-          rostered: new Date("July 2 2018 8:00"),
-          actual: new Date("July 2 2018 9:00"),
-        },
-        {
-          staffID: user2._id,
-          date: '2018-06-25',
-          rostered: new Date("June 25 2018 8:00"),
-          actual: new Date("June 25 2018 9:00"),
-        },
-        {
-          staffID: user2._id,
-          date: '2018-06-25',
-          rostered: new Date("June 25 2018 16:00"),
-          actual: new Date("June 25 2018 15:00"),
-        },
+        // {
+        //   staffID: user1._id,
+        //   date: '2018-07-02',
+        //   rostered: new Date("July 2 2018 8:00"),
+        //   actual: new Date("July 2 2018 9:00"),
+        //   active: true,
+        // },
+        // {
+        //   staffID: user1._id,
+        //   date: '2018-07-02',
+        //   rostered: new Date("July 2 2018 16:00"),
+        //   actual: new Date("July 2 2018 15:00"),
+        //   active: true,
+        // },
+        // {
+        //   staffID: user2._id,
+        //   date: '2018-07-02',
+        //   rostered: new Date("July 2 2018 8:00"),
+        //   actual: new Date("July 2 2018 9:00"),
+        //   active: true,
+        // },
+        // {
+        //   staffID: user2._id,
+        //   date: '2018-07-02',
+        //   rostered: new Date("July 2 2018 16:00"),
+        //   actual: new Date("July 2 2018 15:00"),
+        //   active: true,
+        // },
+        // {
+        //   staffID: user3._id,
+        //   date: '2018-07-02',
+        //   rostered: new Date("July 2 2018 8:00"),
+        //   actual: new Date("July 2 2018 9:00"),
+        //   active: true,
+        // },
+        // {
+        //   staffID: user2._id,
+        //   date: '2018-06-25',
+        //   rostered: new Date("June 25 2018 8:00"),
+        //   actual: new Date("June 25 2018 9:00"),
+        //   active: true,
+        // },
+        // {
+        //   staffID: user2._id,
+        //   date: '2018-06-25',
+        //   rostered: new Date("June 25 2018 16:00"),
+        //   actual: new Date("June 25 2018 15:00"),
+        // },
       ]
   })
 
@@ -122,13 +128,13 @@ const seedData = async () => {
                       rostered: new Date("July 17 2018 8:00"),
                       actual: new Date("July 17 2018 9:00"),
                       timesheet: '',
-                      flag: false
+                      flag: true
                     },
             finish: {
-              rostered: new Date("July 17 2018 16:00"),
-              actual: new Date("July 17 2018 15:00"),
-              timesheet: '',
-              flag: false
+                      rostered: new Date("July 17 2018 16:00"),
+                      actual: new Date("July 17 2018 15:00"),
+                      timesheet: '',
+                      flag: true
                     }
           },
         ], // end of shifts

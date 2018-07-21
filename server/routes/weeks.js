@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
         weeks.push(week)
       }
     }
-    console.log(weeks)
+    // console.log(weeks)
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
