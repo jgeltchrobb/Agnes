@@ -1,0 +1,24 @@
+div.flag-container {
+  height: auto;
+  background: linear-gradient(180deg, #c7cccb, #eef2ef);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0.3em;
+  font-size: 0.9rem;
+  margin: 2em 0.75em;
+  padding: 0.5em;
+}
+
+div.flag-top, div.flag-bottom {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+div.flag-top {
+  margin-bottom: 1em;
+}
+
+div.flag-diff {
+  color: #ff3c32;
+}

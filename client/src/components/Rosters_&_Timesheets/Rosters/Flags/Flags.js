@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Flag from './Flag'
+import '../../../../stylesheets/Flags.css'
 
 class Flags extends Component {
 
@@ -9,7 +10,7 @@ class Flags extends Component {
   render() {
 
     return (
-      <div>
+      <div class="flags-container">
         {
           this.props.flags.map((flag) => {
             return (
