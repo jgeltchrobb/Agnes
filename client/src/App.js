@@ -34,6 +34,7 @@ class App extends Component {
   }
 
   fetchShiftData = (weekID) => {
+    // METHOD CALL COMMENTED OUT AS REPLACING STATE WEEK DATA SO NOT AVAILABLE TO TIMESHEETS
     for (let week of this.state.weeks) {
       if (weekID === week._id) {
           axios.get(api + 'rosters/' + weekID).then((response) => {
@@ -56,7 +57,7 @@ class App extends Component {
 
   fetchAllData = (date) => {
     axios.get(api + 'rosters').then(response => {
-      console.log(response, 'RESPONSE')
+
       this.setState({
         // week1: response.data[0],
         // week2: response.data[1],
@@ -82,12 +83,6 @@ class App extends Component {
   componentDidMount() {
     // Request all weeks
     this.fetchAllData()
-
-    axios.get(api + 'rosters/all').then(response => {
-      this.setState({
-        week12: response.data[1],
-      })
-    })
 
     axios.get(api + 'users').then(response => {
       this.setState({
@@ -141,7 +136,7 @@ class App extends Component {
       }
     }
   }
-  
+
   goToPreviousWeek = () => {
     if (this.state.currentWeek.date === this.state.weeks[6].date) {
       axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
@@ -168,8 +163,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state, 'asdajkshd')
-    if (!this.state.weeks || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
+    if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
@@ -188,7 +182,7 @@ class App extends Component {
             </div>
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters  currentWeek={this.state.currentWeek} 
+              <Rosters  currentWeek={this.state.currentWeek}
                         weeks={this.state.weeks}
                         users={this.state.users}
                         goToNextWeek={this.goToNextWeek}
