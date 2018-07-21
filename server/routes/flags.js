@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 router.put('/new', async (req, res) => {
   try {
     let flagID = req.body.flagObj
-    console.log(flagObj)
+    console.log(flagID)
     //  JORDAN - NEED TO SEARCH FLAGS ARRAY TO FIND OBJECT THAT MATCHES THE STAFFID AND ROSTERED TIME.
               // - If it exists do nothing, if not push it as per below
     await Flags.update( {}, { $push: { flags: req.body.flagObj } } )
