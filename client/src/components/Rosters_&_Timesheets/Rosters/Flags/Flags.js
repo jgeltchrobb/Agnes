@@ -8,17 +8,20 @@ class Flags extends Component {
 
   render() {
 
+    const { fetchFlagsData, users } = this.props
+
     return (
       <div>
         {
           this.props.flags.map((flag) => {
             return (
-              <Flag staffID={ flag.staffID }
+              <Flag flagID= { flag._id }
+                    staffID={ flag.staffID }
                     date={ flag.date }
                     rostered={ flag.rostered }
                     actual={ flag.actual }
-                    fetchFlagsData={ this.fetchFlagsData }
-                    users={ this.props.users }
+                    fetchFlagsData={ fetchFlagsData }
+                    users={ users }
               />
             )
           })

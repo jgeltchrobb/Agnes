@@ -228,9 +228,9 @@ class Timesheets extends Component {
                       active: true,
                     }
 
-    axios.put(server + '/flags/new', {flagObj}).then((response) => {
-      // console.log(response.data.confirmation)
-    })
+    // axios.put(server + '/flags/new', {flagObj}).then((response) => {
+    //   // console.log(response.data.confirmation)
+    // })
   }
 
   removeDuplicates = (arr) => {
