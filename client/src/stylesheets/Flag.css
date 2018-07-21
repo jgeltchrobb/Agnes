@@ -19,6 +19,18 @@ div.flag-top {
   margin-bottom: 1em;
 }
 
+button.flag-remove {
+  height: 15px;
+  cursor: pointer;
+  font-size: 0.6rem;
+  border: none;
+}
+
+button.flag-remove:hover {
+  color: white;
+  background-color: black;
+}
+
 div.flag-diff {
   color: #ff3c32;
 }
