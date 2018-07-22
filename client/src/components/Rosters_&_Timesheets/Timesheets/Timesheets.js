@@ -16,6 +16,7 @@ class Timesheets extends Component {
       weekID: this.props.week._id,
       columnHeadings: [],
       totalsRows: [],
+      individual: '',
       individualTotalsRow: [],
     }
   }
@@ -27,6 +28,7 @@ class Timesheets extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
       this.setTotalsRowsAndColumnHeadings()
+      this.setIndividualTotalsRow(this.state.individual)
     }
   }
 
@@ -236,6 +238,10 @@ class Timesheets extends Component {
 
   setIndividual = (staffID) => {
     this.setState({ individual: staffID })
+    this.setIndividualTotalsRow(staffID)
+  }
+
+  setIndividualTotalsRow = (staffID) => {
     this.state.totalsRows.map((row) => {
       if (row.staffID === staffID) {
         this.setState({ individualTotalsRow: row })
@@ -243,9 +249,6 @@ class Timesheets extends Component {
     })
   }
 
-  removeIndividual = () => {
-    this.setState({ individual: '' })
-  }
 
 
   render() {
