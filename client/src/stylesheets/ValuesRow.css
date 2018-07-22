@@ -1,0 +1,12 @@
+div.values-row-container {
+  height: 25%;
+  display: flex;
+}
+
+div.values-row-container > div {
+  width: 14.28%;
+  text-align: center;
+  border-right: 2px solid #02026e;
+  border-bottom: 2px solid #02026e;
+  padding: 0.5em 0;
+}
