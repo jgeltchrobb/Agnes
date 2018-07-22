@@ -25,9 +25,10 @@ class Timesheets extends Component {
     this.setTotalsRowsAndColumnHeadings()
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = async (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
-      this.setTotalsRowsAndColumnHeadings()
+      await this.setTotalsRowsAndColumnHeadings()
+      this.setIndividual(this.state.individual)
     }
   }
 
@@ -131,7 +132,7 @@ class Timesheets extends Component {
       columnHeadings: columnHeadings,
       totalsRows:  totalsRows,
     })
-    console.log(totalsRows)
+    // console.log(totalsRows)
   }
 
   roundUp = (time) => {
@@ -255,6 +256,10 @@ class Timesheets extends Component {
 
   render() {
     const { week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
+
+    console.log(this.state.individualTotalsRow)
+    console.log(this.state.totalsRows)
+
 
     if (!this.state.individual) {
 
