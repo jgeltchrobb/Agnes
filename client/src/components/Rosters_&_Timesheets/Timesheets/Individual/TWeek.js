@@ -159,6 +159,7 @@ class TWeek extends Component {
       valuesRows3: valuesRows3,
     })
 
+    // console.log(valuesRows1)
   }
 
 
