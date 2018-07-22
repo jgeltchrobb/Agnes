@@ -17,7 +17,7 @@ class TWeek extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.individual !== prevProps.individual) {
+    if (this.props.individual !== prevProps.individual || this.props.week !== prevProps.week || this.props.prevWeek !== prevProps.prevWeek) {
       this.setValuesRows()
     }
   }
@@ -160,6 +160,7 @@ class TWeek extends Component {
       valuesRows3: valuesRows3,
     })
 
+    // console.log(valuesRows1)
   }
 
 

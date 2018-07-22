@@ -182,13 +182,13 @@ class App extends Component {
             </div>
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters  currentWeek={this.state.currentWeek}
-                        weeks={this.state.weeks}
-                        users={this.state.users}
-                        goToNextWeek={this.goToNextWeek}
-                        goToPreviousWeek={this.goToPreviousWeek}
-                        sideBarHeading={this.state.sideBarHeading}
-                        fetchData={this.fetchShiftData}
+              <Rosters  currentWeek={ this.state.currentWeek }
+                        weeks={ this.state.weeks }
+                        users={ this.state.users }
+                        goToNextWeek={ this.goToNextWeek }
+                        goToPreviousWeek={ this.goToPreviousWeek }
+                        sideBarHeading={ this.state.sideBarHeading }
+                        fetchData={ this.fetchShiftData }
                         /> )}
             />
 
@@ -207,17 +207,17 @@ class App extends Component {
 
             <Route path='/staff' render={(routerProps) => {
               return (
-                <Staff payRates={this.state.payRateCategories}/>
+                <Staff payRates={ this.state.payRateCategories }/>
               )
             }} />
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock week={week} user={user}/>
+                <Clock week={ week } user={ user }/>
               )
             }} />
 
-            <Route path='/login' component={LogInPage} />
+            <Route path='/login' component={ LogInPage } />
 
 
 
