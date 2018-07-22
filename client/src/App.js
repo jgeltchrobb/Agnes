@@ -111,7 +111,7 @@ class App extends Component {
 
   selectTimesheets = () => {
 
-    this.setState({ sideBarHeading: 'staff' })
+    this.setState({ sideBarHeading: 'STAFF' })
   }
 
   goToNextWeek = () => {

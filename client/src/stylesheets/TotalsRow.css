@@ -1,13 +1,14 @@
 div.individual-timesheet {
   width: 100%;
-  border-bottom: 1px solid black;
+  border-bottom: 3px groove #6851ff;
   display: flex;
 }
 
 div.individual-timesheet > div {
   width: 14.28%;
+  color: #02026e;
   text-align: center;
-  border-right: 1px solid black;
+  border-right: 3px groove #6851ff;
   padding: 1em;
 }
 

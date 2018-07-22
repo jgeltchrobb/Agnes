@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ValuesRow from './ValuesRow'
+import '../../../../stylesheets/TWeek.css'
 
 class TWeek extends Component {
   state = {
@@ -173,7 +174,7 @@ class TWeek extends Component {
 
     if (valuesRows2['2'].length === 0) {
       return (
-        <div className='week-constainer'>
+        <div className='week-container'>
           <div className='headings-container'>
             <div>Start</div>
             <div>Break</div>
@@ -193,7 +194,7 @@ class TWeek extends Component {
 
     if (valuesRows2['2'].length > 0 && valuesRows3['3'].length === 0) {
       return (
-        <div className='week-constainer'>
+        <div className='week-container'>
           <div className='headings-container'>
             <div>Start</div>
             <div>Break</div>
@@ -232,7 +233,7 @@ class TWeek extends Component {
     }
     if (valuesRows3['3'].length > 0) {
       return (
-        <div className='week-constainer'>
+        <div className='week-container'>
           <div className='headings-container'>
             <div>Start</div>
             <div>Break</div>
