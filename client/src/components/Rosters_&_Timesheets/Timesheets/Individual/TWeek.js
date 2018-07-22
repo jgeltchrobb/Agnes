@@ -195,91 +195,109 @@ class TWeek extends Component {
 
     if (valuesRows2['2'].length > 0 && valuesRows3['3'].length === 0) {
       return (
-        <div className='week-container'>
-          <div className='headings-container'>
-            <div>Start</div>
-            <div>Break</div>
-            <div>Finish</div>
-            <div>Total</div>
-          </div>
-          <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-          </div>
-          <div className='headings-container'>
-            <div>Start</div>
-            <div>Break</div>
-            <div>Finish</div>
-            <div>Total</div>
-          </div>
-          <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-          </div>
-          <div className='grand-totals-heading-container'>
-            <div>Grand Total</div>
-          </div>
-          <div className='grand-totals-row-container'>
-            <div className='grand-totals-row'>
-              <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+        <React.Fragment>
+          <div className='week-container'>
+            <div className='headings-container'>
+              <div>Start</div>
+              <div>Break</div>
+              <div>Finish</div>
+              <div>Total</div>
+            </div>
+            <div className='values-block-container'>
+              <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
             </div>
           </div>
 
-        </div>
+          <div className='week-container'>
+            <div className='headings-container'>
+              <div>Start</div>
+              <div>Break</div>
+              <div>Finish</div>
+              <div>Total</div>
+            </div>
+            <div className='values-block-container'>
+              <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            </div>
+          </div>
+
+          <div className="grand-totals-container">
+            <div className='grand-totals-heading-container'>
+              <div>Grand Total</div>
+            </div>
+            <div className='grand-totals-row-container'>
+              <div className='grand-totals-row'>
+                <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
       )
     }
     if (valuesRows3['3'].length > 0) {
       return (
-        <div className='week-container'>
-          <div className='headings-container'>
-            <div>Start</div>
-            <div>Break</div>
-            <div>Finish</div>
-            <div>Total</div>
-          </div>
-          <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-          </div>
-          <div className='headings-container'>
-            <div>Start</div>
-            <div>Break</div>
-            <div>Finish</div>
-            <div>Total</div>
-          </div>
-          <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-          </div>
-          <div className='headings-container'>
-            <div>Start</div>
-            <div>Break</div>
-            <div>Finish</div>
-            <div>Total</div>
-          </div>
-          <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows3['3'][0] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows3['3'][1] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows3['3'][2] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows3['3'][3] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-          </div>
-          <div className='grand-totals-heading-container'>
-            <div>Grand Total</div>
-          </div>
-          <div className='grand-totals-row-container'>
-            <div className='grand-totals-row'>
-              <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+        <React.Fragment>
+          <div className='week-container'>
+            <div className='headings-container'>
+              <div>Start</div>
+              <div>Break</div>
+              <div>Finish</div>
+              <div>Total</div>
+            </div>
+            <div className='values-block-container'>
+              <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
             </div>
           </div>
-        </div>
+
+          <div className="week-container">
+            <div className='headings-container'>
+              <div>Start</div>
+              <div>Break</div>
+              <div>Finish</div>
+              <div>Total</div>
+            </div>
+            <div className='values-block-container'>
+              <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            </div>
+          </div>
+
+          <div className="week-container">
+            <div className='headings-container'>
+              <div>Start</div>
+              <div>Break</div>
+              <div>Finish</div>
+              <div>Total</div>
+            </div>
+            <div className='values-block-container'>
+              <ValuesRow lable='start'  specificRow={ valuesRows3['3'][0] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='break'  specificRow={ valuesRows3['3'][1] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='finish' specificRow={ valuesRows3['3'][2] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='total'  specificRow={ valuesRows3['3'][3] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            </div>
+          </div>
+
+          <div className="grand-totals-container">
+            <div className='grand-totals-heading-container'>
+              <div>Grand Total</div>
+            </div>
+            <div className='grand-totals-row-container'>
+              <div className='grand-totals-row'>
+                <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
       )
     }
 
