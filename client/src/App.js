@@ -167,7 +167,6 @@ class App extends Component {
 
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
-    let user = this.state.users[3]
     return (
       <div>
 
@@ -213,7 +212,10 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock week={ week } user={ user }/>
+                <Clock  week={ this.state.weeks[2] }
+                        staffID={ this.state.users[0]._id }
+                        api={ api }
+                />
               )
             }} />
 
