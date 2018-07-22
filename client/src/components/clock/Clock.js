@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Pin from './office-clock/Pin'
-import ClockButton from './mobile/ClockButton'
+import ClockButton from './ClockButton'
+import KeyPad from './office-clock/KeyPad'
 
 class Clock extends Component {
 
@@ -10,24 +10,42 @@ class Clock extends Component {
   }
 
   render() {
+    const { week, staffID, api } = this.props
 
     // if (this.props.role === 'staff') {
-
-      return (
-        <div className='mobile-clock'>
-
-          <ClockButton week={this.props.week} staffID={ this.props.staffID } />
-        </div>
-      )
-    // }
-
-    // if (this.props.role === 'office clock') {
     //
     //   return (
     //     <div className='mobile-clock'>
-    //       <Pin week={this.props.week} user={this.props.user} />
+    //
+    //       <ClockButton  week={ week }
+    //                     staffID={ staffID }
+    //                     api={ api }
+    //       />
+    //
     //     </div>
     //   )
+    // }
+
+    // if (this.props.role === 'office clock') {
+
+      return (
+        <div className='office-clock'>
+
+          <div>
+            Enter Pin and then press Clock In/Out
+          </div>
+
+          <div>
+            <KeyPad />
+          </div>
+
+          <ClockButton  week={ week }
+                        staffID={ staffID }
+                        api={ api }
+          />
+
+        </div>
+      )
     // }
 
   }

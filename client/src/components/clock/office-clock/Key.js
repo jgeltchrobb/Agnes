@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
-import Pin from './Pin'
-// import data from './data'
 
+class Key extends Component {
 
-
-class Square extends Component {
-  
   render() {
     return (
-      <button className="square" onClick={() =>
+      <button className="key" onClick={() =>
         this.props.clickHandler(this.props.value)
       }>
         { this.props.value }
@@ -17,4 +13,4 @@ class Square extends Component {
   }
 }
 
-export default Square
+export default Key

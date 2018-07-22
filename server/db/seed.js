@@ -252,7 +252,7 @@ const seedData = async () => {
               start: {
                 rostered: new Date("July 02 2018 8:00"),
                 actual: new Date("July 02 2018 9:00"),
-                timesheet: '',
+                timesheet: new Date("July 02 2018 9:00"),
                 flag: true
               },
               finish: {
@@ -268,13 +268,13 @@ const seedData = async () => {
               start: {
                 rostered: new Date("July 02 2018 22:00"),
                 actual: new Date("July 02 2018 22:00"),
-                timesheet: '',
+                timesheet: new Date("July 02 2018 22:00"),
                 flag: false
               },
               finish: {
                 rostered: new Date("July 03 2018 06:00"),
-                actual: '',
-                timesheet: '',
+                actual: new Date("July 03 2018 06:00"),
+                timesheet: new Date("July 03 2018 06:00"),
                 flag: false
               }
             },
@@ -283,14 +283,14 @@ const seedData = async () => {
               shiftCategory: "room",
               start: {
                 rostered: new Date("July 3 2018 8:00"),
-                actual: '',
-                timesheet: '',
+                actual: new Date("July 3 2018 8:00"),
+                timesheet: new Date("July 3 2018 8:00"),
                 flag: false
               },
               finish: {
                 rostered: new Date("July 3 2018 16:00"),
-                actual: '',
-                timesheet: '',
+                actual: new Date("July 3 2018 16:00"),
+                timesheet: new Date("July 3 2018 16:00"),
                 flag: false
               }
             },
@@ -299,14 +299,14 @@ const seedData = async () => {
               shiftCategory: "digging",
               start: {
                 rostered: new Date("July 3 2018 16:00"),
-                actual: '',
-                timesheet: '',
+                actual: new Date("July 3 2018 16:00"),
+                timesheet: new Date("July 3 2018 16:00"),
                 flag: false
               },
               finish: {
                 rostered: new Date("July 3 2018 19:00"),
-                actual: '',
-                timesheet: '',
+                actual: new Date("July 3 2018 19:00"),
+                timesheet: new Date("July 3 2018 19:00"),
                 flag: false
               }
             },
