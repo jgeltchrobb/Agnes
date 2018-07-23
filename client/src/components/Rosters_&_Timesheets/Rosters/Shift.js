@@ -35,7 +35,8 @@ class Shift extends Component {
       shift: '',
       shiftID: '',
       addShift: '',
-      removeShiftVal: ''
+      removeShiftVal: '',
+      timeError: ''
     }
   }
 
@@ -131,11 +132,13 @@ class Shift extends Component {
 
   addShiftSubmit = async (event) => {
     event.preventDefault()
+    let shiftCategory = event.target.shiftCategory.value
+    let start = event.target.start.value
+    let finish = event.target.finish.value
     try {
-      let shiftCategory = event.target.shiftCategory.value
-      let start = event.target.start.value
-      let finish = event.target.finish.value
       if (shiftCategory && start && finish) {
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.staffID)
+        if (shiftCheck) {
         start = this.formatTime_UserInputToDateObj(start, 'start')
         finish = this.formatTime_UserInputToDateObj(finish, 'finish')
         let shiftObj =  {
@@ -176,6 +179,11 @@ class Shift extends Component {
       this.props.stopAdd()
       } else {
         this.setState({
+          timeError: true
+        })
+      }
+    } else {
+        this.setState({
           validationError: true,
         })
       }
@@ -186,13 +194,15 @@ class Shift extends Component {
 
   currentHandleSubmit = async (event) => {
     event.preventDefault()
+    let shiftCategory = event.target.shiftCategory.value
+    let start = event.target.start.value
+    let finish = event.target.finish.value
+    start = this.formatTime_UserInputToDateObj(start, 'start')
+    finish = this.formatTime_UserInputToDateObj(finish, 'finish')
     try {
-      let shiftCategory = event.target.shiftCategory.value
-      let start = event.target.start.value
-      let finish = event.target.finish.value
       if (shiftCategory && start && finish) {
-      start = this.formatTime_UserInputToDateObj(start, 'start')
-      finish = this.formatTime_UserInputToDateObj(finish, 'finish')
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.staffID)
+        if (shiftCheck) {
 
       let shiftObj =  {
         staffID: this.state.staffID,
@@ -231,6 +241,11 @@ class Shift extends Component {
     // this.currentEdit()
     } else {
       this.setState({
+        timeError: true
+      })
+    }
+  } else {
+      this.setState({
         validationError: true,
       })
     }
@@ -256,7 +271,7 @@ class Shift extends Component {
       return (
         <React.Fragment>
           <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID}/>
+            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError} />
 
           </Modal>
             <div className="shift-block">
@@ -278,7 +293,7 @@ class Shift extends Component {
       return (
         <React.Fragment>
           <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={true} addShiftSubmit={this.addShiftSubmit} closeModal={this.currentCloseModal} />
+            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={true} addShiftSubmit={this.addShiftSubmit} closeModal={this.currentCloseModal} timeError={this.state.timeError} />
 
           </Modal>
             <div className="shift-block">
