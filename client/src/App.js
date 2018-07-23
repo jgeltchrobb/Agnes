@@ -164,8 +164,8 @@ class App extends Component {
 
   render() {
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
-    let role = 'admin'
-    // let role = 'staff'
+    // let role = 'admin'
+    let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
@@ -195,6 +195,7 @@ class App extends Component {
                         goToPreviousWeek={ this.goToPreviousWeek }
                         sideBarHeading={ this.state.sideBarHeading }
                         fetchData={ this.fetchShiftData }
+                        role={ role }
                         /> )}
             />
 
@@ -208,6 +209,7 @@ class App extends Component {
                           goToNextWeek={ this.goToNextWeek }
                           goToPreviousWeek={ this.goToPreviousWeek }
                           sideBarHeading={ this.state.sideBarHeading }
+                          role={ role }
               /> )}
             />
 
