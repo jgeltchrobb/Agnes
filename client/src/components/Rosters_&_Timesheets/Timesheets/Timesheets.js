@@ -23,12 +23,15 @@ class Timesheets extends Component {
 
   componentDidMount = () => {
     this.setTotalsRowsAndColumnHeadings()
+    if (this.props.staffUser) {
+      this.setIndividual(this.props.staffUser._id)
+    }
   }
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
       this.setTotalsRowsAndColumnHeadings()
-      this.setIndividualTotalsRow(this.state.individual)
+      this.setIndividual(this.props.staffUser._id)
     }
   }
 
@@ -231,7 +234,9 @@ class Timesheets extends Component {
     return unique_array
   }
 
-  setIndividual = (staffID) => {
+  setIndividual = (userID) => {
+    var staffID = userID
+    if (this.props.staffUser) {staffID = this.props.staffUser._id}
     this.setState({ individual: staffID })
     this.setIndividualTotalsRow(staffID)
   }
@@ -247,7 +252,7 @@ class Timesheets extends Component {
 
 
   render() {
-    const { week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
+    const { staffUser, role, week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
 
     if (!this.state.individual) {
 
@@ -345,6 +350,7 @@ class Timesheets extends Component {
                           individual={ this.state.individual }
                           setIndividual={ this.setIndividual }
                           removeIndividual={ this.removeIndividual }
+                          staffUser={ staffUser }
                     />
                   )
                 })

@@ -164,11 +164,14 @@ class App extends Component {
 
   render() {
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
-    // let role = 'admin'
-    let role = 'staff'
+    let role = 'admin'
+    // let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
+    // this is to mimic a staff member login
+    let staffUser = ''
+    // let staffUser = this.state.users[0]
     return (
       <div>
 
@@ -211,6 +214,8 @@ class App extends Component {
                           goToPreviousWeek={ this.goToPreviousWeek }
                           sideBarHeading={ this.state.sideBarHeading }
                           role={ role }
+                          staffUser={ staffUser }
+
               /> )}
             />
 
@@ -223,7 +228,7 @@ class App extends Component {
             <Route path='/clock' render={(routerProps) => {
               return (
                 <Clock  week={ this.state.weeks[2] }
-                        user={ this.state.users[0] }
+                        user={ staffUser }
                         users={ this.state.users }
                         api={ api }
                 />
