@@ -47,7 +47,6 @@ class Timesheets extends Component {
       var prevPrevShiftDate = ''
 
       staffMember.shifts.map((shift) => {
-        console.log(shift, 'IIIIIIIIIIIIIIIIIIII')
         const rStart = new Date(shift.start.rostered)
         const aStart = new Date(shift.start.actual)
         var start = ''
@@ -196,7 +195,6 @@ class Timesheets extends Component {
 
   postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value, shiftID) => {
     const server = 'http://localhost:4000'
-    console.log(shiftID, 'ASSAAAASS')
     let timeObj =   {
                       weekID: this.state.weekID,
                       staffID: staffID,
@@ -222,7 +220,6 @@ class Timesheets extends Component {
                       actual: actual,
                       active: true,
                     }
-                    console.log(flagObj, 'rRRRRrrrrrrrrrrrrrrrrS')
 
     axios.put(server + '/flags/new', {flagObj}).then((response) => {
       // console.log(response.data.confirmation)

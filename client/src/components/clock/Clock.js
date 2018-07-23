@@ -32,17 +32,17 @@ class Clock extends Component {
   }
 
   componentDidMount = () => {
-    if (this.props.user) {
+    // if (this.props.user) {
       this.setClock(this.props.user._id)
-      this.setState({ user: this.props.user})
-    }
+      // this.setState({ user: this.props.user})
+    // }
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.user && this.props.user._id !== prevProps.user._id) {
-      this.setClock(this.props.user._id)
-    }
-  }
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (this.props.user && this.props.user._id !== prevProps.user._id) {
+  //     this.setClock(this.props.user._id)
+  //   }
+  // }
 
   setClock = (staffID) => {
     // set clock status
@@ -220,20 +220,20 @@ class Clock extends Component {
   // }
 
   render() {
-    const role = 'office-clock'
-    // const role = 'mobile-clock'
+    // const role = 'office-clock'
+    const role = 'mobile-clock'
     const { clockedIn } = this.state
     const { LastNightShiftID, LastNightShiftClockIn, LastNightShiftClockOut } = this.state
     const { shift1ID, shift1clockIn, shift1clockOut } = this.state
     const { shift2ID, shift2clockIn, shift2clockOut } = this.state
     const { TonightShiftID, TonightShiftClockIn, TonightShiftClockOut } = this.state
 
-    // console.log('last night OUT..', LastNightShiftClockOut)
-    // console.log('1 IN..', shift1clockIn)
-    // console.log('1 OUT..', shift1clockOut)
-    // console.log('2 IN..', shift2clockIn)
-    // console.log('2 OUT..', shift2clockOut)
-    // console.log('tonight IN..', TonightShiftClockIn)
+    console.log('last night OUT..', LastNightShiftClockOut)
+    console.log('1 IN..', shift1clockIn)
+    console.log('1 OUT..', shift1clockOut)
+    console.log('2 IN..', shift2clockIn)
+    console.log('2 OUT..', shift2clockOut)
+    console.log('tonight IN..', TonightShiftClockIn)
 
     if (role === 'mobile-clock') {
 
