@@ -20,7 +20,7 @@ app.use('/users', require('./routes/users'))
 app.use('/payRateCategories', require('./routes/payRateCategories'))
 app.use('/entitlements', require('./routes/entitlements'))
 app.use('/standardHours', require('./routes/standardHours'))
-// app.use('/timesheets', require('./routes/timesheets'))
+app.use('/timesheets', require('./routes/timesheets'))
 
 
 // Mongoose

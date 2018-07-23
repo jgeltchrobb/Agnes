@@ -53,7 +53,7 @@ class Timesheets extends Component {
       var prevPrevShiftDate = ''
 
       staffMember.shifts.map((shift) => {
-
+        console.log(shift, 'IIIIIIIIIIIIIIIIIIII')
         const rStart = new Date(shift.start.rostered)
         const aStart = new Date(shift.start.actual)
         var start = ''
@@ -73,9 +73,9 @@ class Timesheets extends Component {
         prevShiftDate = shift.date
 
         // set timnesheet start value. If not in db then calculate it
-        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber)
+        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
         // set timnesheet finsih value. If not in data then calculate it
-        shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber)
+        shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
         // determine the shift's payRateCategory and add it to totalsRow with the shiftHours as the value
@@ -169,48 +169,48 @@ class Timesheets extends Component {
     return time
   }
 
-  timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber) => {
-
+  timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber, shiftID) => {
     if (actual) {
 
       if (actual <= rostered) {
         if (startOrFinish === 'start') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered)
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
           return rostered
         }
         if (startOrFinish === 'finish') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundDown(actual))
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundDown(actual), shiftID)
           this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundDown(actual)
         }
       } else {
 
         if (startOrFinish === 'start') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundUp(actual))
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundUp(actual), shiftID)
           this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundUp(actual)
         }
         if (startOrFinish === 'finish') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered)
+          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
           return rostered
         }
       }
       // If no clock time then return rostered
     } else {
-      this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered)
+      this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
       return rostered
     }
   }
 
-  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value) => {
+  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value, shiftID) => {
     const server = 'http://localhost:4000'
-
+    console.log(shiftID, 'ASSAAAASS')
     let timeObj =   {
                       weekID: this.state.weekID,
                       staffID: staffID,
                       date: shiftDate,
                       shiftNumber: shiftNumber,
                       startOrFinish: startOrFinish,
+                      shiftID: shiftID,
                       value: value,
                     }
 
@@ -229,10 +229,11 @@ class Timesheets extends Component {
                       actual: actual,
                       active: true,
                     }
+                    console.log(flagObj, 'rRRRRrrrrrrrrrrrrrrrrS')
 
-    // axios.put(server + '/flags/new', {flagObj}).then((response) => {
-    //   // console.log(response.data.confirmation)
-    // })
+    axios.put(server + '/flags/new', {flagObj}).then((response) => {
+      // console.log(response.data.confirmation)
+    })
   }
 
   removeDuplicates = (arr) => {

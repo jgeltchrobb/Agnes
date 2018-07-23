@@ -18,8 +18,7 @@ router.get('/', async (req, res) => {
 // Run by clicking on Timesheets in the navbar
 router.put('/new', async (req, res) => {
   try {
-    let flagID = req.body.flagObj
-    console.log(flagID)
+    let flagObj = req.body.flagObj
     //  JORDAN - NEED TO SEARCH FLAGS ARRAY TO FIND OBJECT THAT MATCHES THE STAFFID AND ROSTERED TIME.
               // - If it exists do nothing, if not push it as per below
     await Flags.update( {}, { $push: { flags: req.body.flagObj } } )
@@ -32,13 +31,17 @@ router.put('/new', async (req, res) => {
 // Remove flag
 // Request comes from Flag.js in removeFlag method
 // Run by clicking the x button on the flag
-router.put('/remove', async (req, res) => {
+router.delete('/remove/:id', async (req, res) => {
   try {
-    let flagID = req.body.flagID
-    console.log(flagID)
-    // JORDAN - use the flag id to find it and delete it from the flags array. Please bra.. lol
-    await flags.update( {}, )
-    res.status(200).json({ confirmation: '...flag removed' })
+    let flagID = req.params.id
+    let flags = await Flags.findOne()
+    for (let flag of flags.flags) {
+      if (flag._id == flagID) {
+        flags.flags.splice(flags.flags.indexOf(flag), 1)
+      }
+    }
+    await flags.save()
+    res.status(200).json({ confirmation: '...flag removed', flags: flags })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

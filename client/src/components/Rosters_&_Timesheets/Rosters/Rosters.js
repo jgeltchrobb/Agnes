@@ -24,8 +24,23 @@ class Rosters extends Component {
     })
   }
 
-  render() {
+  resetFlags = (flagData) => {
+    console.log(flagData, 'FLAGUS')
+    let flags = [...this.state.flags]
+    flags = flagData.flags.flags
+    this.setState({flags})
 
+    // console.log(flags)
+    // for (let flag of flags) {
+    //   if (flag._id == flagID) {
+    //     flags.splice(flags.indexOf(flag), 1)
+    //   }
+    // }
+    // console.log(flags)
+
+  }
+
+  render() {
     const { week, users, goToNextWeek, goToPreviousWeek, sideBarHeading, weekDate } = this.props
     if (!this.state.flags) return ''
     return (
@@ -45,6 +60,7 @@ class Rosters extends Component {
             <Flags  flags={ this.state.flags }
                     fetchFlagsData={ this.fetchFlagsData }
                     users={ users }
+                    resetFlags={this.resetFlags}
             />
           </div>
 
