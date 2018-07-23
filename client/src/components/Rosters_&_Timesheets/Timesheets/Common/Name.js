@@ -28,9 +28,8 @@ class Name extends Component {
   }
 
   summaryOrIndividual = (staffID) => {
-    const { setIndividual, removeIndividual } = this.props
-    this.state.clicked ? removeIndividual() : setIndividual(staffID)
-    this.setState({ clicked: !this.state.clicked })
+    const { individual, setIndividual, removeIndividual } = this.props
+      this.props.individual === staffID ? removeIndividual() : setIndividual(staffID)
   }
 
   render() {

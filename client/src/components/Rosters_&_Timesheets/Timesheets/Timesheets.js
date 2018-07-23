@@ -25,20 +25,14 @@ class Timesheets extends Component {
     this.setTotalsRowsAndColumnHeadings()
   }
 
-  componentDidUpdate = async (prevProps, prevState) => {
+  componentDidUpdate = (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
-      await this.setTotalsRowsAndColumnHeadings()
-      this.setIndividual(this.state.individual)
+      this.setTotalsRowsAndColumnHeadings()
+      this.setIndividualTotalsRow(this.state.individual)
     }
   }
 
   setTotalsRowsAndColumnHeadings = () => {
-    // Posting to db:
-     // start.timesheet, finish.timesheet, flags set to true as required
-     // Flags:
-     // - if they clock in late or note at all
-     // - if don't clock in before end of shift (shift.finish.rostered) then set
-     //    shift.start.timesheet to 1 min before rostered  finish time
      var DayShiftDefinitionClockinBeforeHours = 20
      const milliToHours = 0.00000027777777777778
 
@@ -132,7 +126,6 @@ class Timesheets extends Component {
       columnHeadings: columnHeadings,
       totalsRows:  totalsRows,
     })
-    // console.log(totalsRows)
   }
 
   roundUp = (time) => {
@@ -170,6 +163,9 @@ class Timesheets extends Component {
   }
 
   timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber) => {
+
+    // - if don't clock in before end of shift (shift.finish.rostered) then set
+    // //    shift.start.timesheet to 1 min before rostered  finish time
 
     if (actual) {
 
@@ -242,6 +238,10 @@ class Timesheets extends Component {
 
   setIndividual = (staffID) => {
     this.setState({ individual: staffID })
+    this.setIndividualTotalsRow(staffID)
+  }
+
+  setIndividualTotalsRow = (staffID) => {
     this.state.totalsRows.map((row) => {
       if (row.staffID === staffID) {
         this.setState({ individualTotalsRow: row })
@@ -249,17 +249,10 @@ class Timesheets extends Component {
     })
   }
 
-  removeIndividual = () => {
-    this.setState({ individual: '' })
-  }
 
 
   render() {
     const { week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-
-    console.log(this.state.individualTotalsRow)
-    console.log(this.state.totalsRows)
-
 
     if (!this.state.individual) {
 

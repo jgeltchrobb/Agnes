@@ -99,7 +99,7 @@ class Value extends Component {
         )
       } else {
         return(
-          <div className='value-constainer'>
+          <div className='value-container'>
             <form onSubmit={ (e) => this.postTimesheetTime(lable, e) }>
               <input  placeholder='value'
                       value={ this.state.value }

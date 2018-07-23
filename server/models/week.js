@@ -12,15 +12,15 @@ const Week = new Schema({
       publicHoliday: {type: Boolean, default: false},
       wayneShift: {type: Boolean, default: false},
       start: {
-        rostered: Date,
-        actual: Date,
-        timesheet: Date,
+        rostered: String,
+        actual: String,
+        timesheet: String,
         flag: {type: Boolean, default: false}
       },
       finish: {
-        rostered: Date,
-        actual: Date,
-        timesheet: Date,
+        rostered: String,
+        actual: String,
+        timesheet: String,
         flag: {type: Boolean, default: false}
       }
     }]

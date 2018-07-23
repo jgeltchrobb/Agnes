@@ -111,7 +111,7 @@ class App extends Component {
 
   selectTimesheets = () => {
 
-    this.setState({ sideBarHeading: 'staff' })
+    this.setState({ sideBarHeading: 'STAFF' })
   }
 
   goToNextWeek = () => {
@@ -167,7 +167,6 @@ class App extends Component {
 
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
-    let user = this.state.users[3]
     return (
       <div>
 
@@ -182,13 +181,13 @@ class App extends Component {
             </div>
 
             <Route path='/rosters' render={(routerprops) => (
-              <Rosters  currentWeek={this.state.currentWeek}
-                        weeks={this.state.weeks}
-                        users={this.state.users}
-                        goToNextWeek={this.goToNextWeek}
-                        goToPreviousWeek={this.goToPreviousWeek}
-                        sideBarHeading={this.state.sideBarHeading}
-                        fetchData={this.fetchShiftData}
+              <Rosters  currentWeek={ this.state.currentWeek }
+                        weeks={ this.state.weeks }
+                        users={ this.state.users }
+                        goToNextWeek={ this.goToNextWeek }
+                        goToPreviousWeek={ this.goToPreviousWeek }
+                        sideBarHeading={ this.state.sideBarHeading }
+                        fetchData={ this.fetchShiftData }
                         /> )}
             />
 
@@ -207,17 +206,20 @@ class App extends Component {
 
             <Route path='/staff' render={(routerProps) => {
               return (
-                <Staff payRates={this.state.payRateCategories}/>
+                <Staff payRates={ this.state.payRateCategories }/>
               )
             }} />
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock week={week} user={user}/>
+                <Clock  week={ this.state.weeks[2] }
+                        staffID={ this.state.users[0]._id }
+                        api={ api }
+                />
               )
             }} />
 
-            <Route path='/login' component={LogInPage} />
+            <Route path='/login' component={ LogInPage } />
 
 
 
