@@ -213,7 +213,8 @@ class App extends Component {
             <Route path='/clock' render={(routerProps) => {
               return (
                 <Clock  week={ this.state.weeks[2] }
-                        staffID={ this.state.users[0]._id }
+                        user={ this.state.users[0] }
+                        users={ this.state.users }
                         api={ api }
                 />
               )
