@@ -124,8 +124,8 @@ class StaffMember extends Component {
     if (shiftID) {
       axios.post(api + '/rosters/' + 'shift/' + 'remove/' + shiftID, {staffID: staffID, weekID: this.props.weekID}).then((response) => {
       })
-    
-      
+
+
       console.log(daysArray, 'DAYSARRY')
       let shiftDate = ''
       for (let day of daysArray) {
@@ -205,7 +205,7 @@ class StaffMember extends Component {
   }
 
   render() {
-    const { weekID, staffID } = this.props
+    const { role, weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
     return (
       <div className="shift-row">
@@ -231,7 +231,10 @@ class StaffMember extends Component {
                       removeShiftVal={this.state.removeShiftVal}
                       checkShiftTimes={this.checkShiftTimes}
                   />
-                  <button id='add-shift-btn' onClick={() => this.addShift(day)} >Add Shift</button>
+              {
+                (role !== 'admin') ? '' :
+                <button id='add-shift-btn' onClick={() => this.addShift(day)} >Add Shift</button>
+              }
                 </div>
               )
             })

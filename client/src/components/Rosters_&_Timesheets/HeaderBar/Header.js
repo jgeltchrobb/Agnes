@@ -7,14 +7,15 @@ import '../../../stylesheets/Header.css'
 class Header extends Component {
 
   render() {
-    const { weekDate, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
+    const { role, weekDate, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
     return (
       <div className="header">
 
+    { (role !== 'admin') ? '' :
         <div className="header-sidebar">
           <SideBarHeading sideBarHeading={ sideBarHeading }/>
         </div>
-
+    }
         <div className="header-mainbar">
           <div>
             <Nav goToPreviousWeek={ goToPreviousWeek } weekDate={ weekDate } />

@@ -40,6 +40,7 @@ class Roster extends Component {
                                 fetchData={this.props.fetchData}
                                 currentWeek={this.props.currentWeek}
                                 weeks={this.props.weeks}
+                                role={ this.props.role }
                   />
                 )
               })

@@ -266,7 +266,7 @@ class Shift extends Component {
   }
 
   render() {
-    const { shiftCategory, start, finish } = this.state
+    const { role, shiftCategory, start, finish } = this.state
     if (this.state.currentEditing && !this.props.addShift) {
       return (
         <React.Fragment>
@@ -323,9 +323,11 @@ class Shift extends Component {
             <div className="shift-category">
               <p>{ this.state.shiftCategory.toUpperCase() }</p>
             </div>
+        { (role !== 'admin') ? '' :
             <button id='remove-shift-btn' onClick={
               () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
               } >x</button>
+        }
           </div>
         </React.Fragment>
       )

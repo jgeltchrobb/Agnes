@@ -164,8 +164,8 @@ class App extends Component {
 
   render() {
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
-    let role = 'admin'
-    // let role = 'staff'
+    // let role = 'admin'
+    let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
@@ -175,16 +175,17 @@ class App extends Component {
         <Router>
           <div>
 
-          {
-            (role === 'admin')
-            ? <div className="navbar">
+
+              <div className="navbar">
                 <Link to="/rosters" onClick={ this.selectRosters }>Rosters</Link>
                 <Link to="/timesheets" onClick={ this.selectTimesheets }>Timesheets</Link>
-                <Link to="/staff">Staff</Link>
-                <Link to="/">Logout</Link>
+          {    (role !== 'admin') ? '' :
+                  <Link to="/staff">Staff</Link> }
+          {    (role === 'office-clock') ? '' :
+                  <Link to="/">Logout</Link>     }
+
               </div>
-            : <div></div>
-          }
+
 
 
             <Route path='/rosters' render={(routerprops) => (
@@ -195,6 +196,7 @@ class App extends Component {
                         goToPreviousWeek={ this.goToPreviousWeek }
                         sideBarHeading={ this.state.sideBarHeading }
                         fetchData={ this.fetchShiftData }
+                        role={ role }
                         /> )}
             />
 
@@ -208,6 +210,7 @@ class App extends Component {
                           goToNextWeek={ this.goToNextWeek }
                           goToPreviousWeek={ this.goToPreviousWeek }
                           sideBarHeading={ this.state.sideBarHeading }
+                          role={ role }
               /> )}
             />
 
