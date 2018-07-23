@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Key from './Key'
-import data from './data'
+import ClockButton from '../ClockButton'
+
 
 // Where the buttons are displayed.
 
@@ -9,63 +10,60 @@ class KeyPad extends Component {
   constructor(props){
     super(props)
     this.state = {
-      pinDetails: [],
+      pinInput: [],
     }
   }
 
-  displayNumber = (i) => {
-    // Displays the numbers when their buttons are clicked
-    // & puts them into an array
-    const pinDetails = [...this.state.pinDetails]
-    if (pinDetails.length < 4) {
-      pinDetails.push(i)
-      this.setState({
-        pinDetails
-      })
+  validatePIN = () => {
+    const { users, officeClock } = this.props
+    const pinInput = [...this.state.pinInput]
+    users.map((user) => {
+      if (user.PIN.toString() === pinInput.join('')) {
+        if (user) {
+          officeClock(user)
+          return true
+        } else {
+          alert('Incorrect PIN please try again')
+          return false
+        }
+      }
+    })
+    this.clearPinInput()
+  }
+
+  clickKey = (i) => {
+    const pinInput = [...this.state.pinInput]
+    if (pinInput.length < 4) {
+      pinInput.push(i)
+      this.setState({ pinInput })
     } else {
-      alert('PIN can only have 4 numbers')
-      this.setState({pinDetails: []})
+      alert('PIN must be 4 numbers')
+      this.clearPinInput()
     }
 
-
-  }
-
-  removeNumber = () => {
-    let removeNumber = [...this.state.pinDetails]
-    removeNumber.pop()
-    this.setState({pinDetails: removeNumber})
-    console.log(removeNumber)
-  }
-
-  submitPin = () => {
-    const pinDetails = [...this.state.pinDetails]
-    if (pinDetails.join('') != this.props.user.PIN) {
-      alert('Incorrect details please try again')
-      // Resets the pin numbers without refreshing the page
-      this.setState({pinDetails: []})
-      // Displays user's name
-    } else if (pinDetails.join('') == this.props.user.PIN) {
-      console.log(this.props.user.name)
-    }
   }
 
   renderKey(i) {
-    return <Key value={i} clickHandler={this.displayNumber} />;
+    return <Key value={i} clickKey={ this.clickKey } />
   }
 
   displayPIN = () => {
     let pin = ''
-    for (let num of this.state.pinDetails) {
+    for (let num of this.state.pinInput) {
       pin += num
     }
-    return `Pin number: ${pin}`;
+    return pin
+  }
+
+  clearPinInput = () => {
+    this.setState({ pinInput: [] })
   }
 
   render() {
-    const status = 'Please enter you pin below:';
 
     return (
       <div>
+
         <div className="keypad-row">
           {this.renderKey(1)}
           {this.renderKey(2)}
@@ -84,9 +82,13 @@ class KeyPad extends Component {
         <div className="keypad-row">
         {this.renderKey(0)}
         </div>
-        <div className="status">{this.displayPIN()}</div>
-        <button onClick={this.submitPin}>Submit</button>
-        <button onClick={this.removeNumber}>Remove Number</button>
+
+        <input value={this.displayPIN()} placeholder='Enter pin'/>
+
+        <button onClick={ this.clearPinInput }>Clear</button>
+
+        <button onClick={ this.validatePIN }> Clock </button>
+
       </div>
     );
   }
