@@ -20,21 +20,21 @@ const seedData = async () => {
     name: 'Pubert Gesepi',
     email: 'test@test.com',
     role: 'staff',
-    PIN: 1234
+    PIN: 1111
   })
 
   let user2 = await User.create({
     name: 'Shaun Lamb',
     email: 'test@test.com',
     role: 'staff',
-    PIN: 1234
+    PIN: 2222
   })
 
   let user3 = await User.create({
     name: 'Justin Case',
     email: 'test@test.com',
     role: 'staff',
-    PIN: 1234
+    PIN: 3333
   })
 
   await Flags.create({
