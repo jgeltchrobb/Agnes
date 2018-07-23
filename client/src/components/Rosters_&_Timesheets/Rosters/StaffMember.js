@@ -153,12 +153,19 @@ class StaffMember extends Component {
     })
   }
 
-  checkShiftTimes = (start, finish, date, staffID) => {
+  checkShiftTimes = (start, finish, date, shiftID) => {
     let startAllowed = false
     let finishAllowed = false
     let daysArray = this.state.daysArray
     for (let day of daysArray) {
       for (let shift of day.shifts) {
+        console.log(shift)
+        if (shiftID === shift.shiftID && day.shifts.length < 2) {
+          startAllowed = true,
+          finishAllowed = true
+          console.log(1111)
+          break
+        }
         if (shift.date.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
           let startHourDiff = start.getHours() - shift.start.getHours()
           let startMinDiff = start.getMinutes() - shift.start.getMinutes()
