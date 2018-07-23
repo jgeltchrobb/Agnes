@@ -18,6 +18,10 @@ class ShiftModal extends React.Component {
       if (!this.props.validationError) {
         return (
           <div>
+            {this.props.timeError ? 
+              <p id='validation-error'>! Shift Conflict !</p> : 
+              <p></p>
+            }
             <form id='shiftForm' onSubmit={ this.props.handleSubmit }>
               <input  name='shiftCategory'
                       placeholder={ this.props.shiftCategory }
@@ -72,6 +76,10 @@ class ShiftModal extends React.Component {
       if (!this.props.validationError) {
         return (
           <div>
+            {this.props.timeError ? 
+              <p id='validation-error'>! Shift Conflict !</p> : 
+              <p></p>
+            }
             <form id='shiftForm' onSubmit={ this.props.addShiftSubmit }>
               <input  name='shiftCategory'
                       placeholder={ this.props.shiftCategory }

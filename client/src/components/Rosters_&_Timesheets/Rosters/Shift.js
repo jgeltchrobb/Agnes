@@ -137,7 +137,7 @@ class Shift extends Component {
     let finish = event.target.finish.value
     try {
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.staffID)
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date)
         if (shiftCheck) {
         start = this.formatTime_UserInputToDateObj(start, 'start')
         finish = this.formatTime_UserInputToDateObj(finish, 'finish')
@@ -201,7 +201,7 @@ class Shift extends Component {
     finish = this.formatTime_UserInputToDateObj(finish, 'finish')
     try {
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.staffID)
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
         if (shiftCheck) {
 
       let shiftObj =  {
@@ -271,7 +271,7 @@ class Shift extends Component {
       return (
         <React.Fragment>
           <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError} />
+            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError } />
 
           </Modal>
             <div className="shift-block">
