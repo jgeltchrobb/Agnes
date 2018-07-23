@@ -57,6 +57,7 @@ class Day extends Component {
               currentShiftDate={this.props.currentShiftDate}
               removeShiftVal={this.props.removeShiftVal}
               removeShift={this.props.removeShift}
+              checkShiftTimes={this.props.checkShiftTimes}
               />
               {/* <button id='add-shift-btn' onClick={() => this.addShift(shift)} >Add Shift</button> */}
             </React.Fragment>

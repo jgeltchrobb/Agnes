@@ -153,8 +153,58 @@ class StaffMember extends Component {
     })
   }
 
+  checkShiftTimes = (start, finish, date, staffID) => {
+    let startAllowed = false
+    let finishAllowed = false
+    let daysArray = this.state.daysArray
+    for (let day of daysArray) {
+      for (let shift of day.shifts) {
+        if (shift.date.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
+          let startHourDiff = start.getHours() - shift.start.getHours()
+          let startMinDiff = start.getMinutes() - shift.start.getMinutes()
+
+          let finishHourDiff = finish.getHours() - shift.finish.getHours()
+          let finishMinDiff = finish.getMinutes() - shift.finish.getMinutes()
+          if (shift.start) {
+
+            if (startHourDiff < 0) {
+              break
+            } else if (startHourDiff === 0) {
+              // check misn
+              if (startMinDiff <= 0) {
+                break
+              } else {
+                startAllowed = true
+              }
+            } else {
+              if (start.getHours() >= finish.getHours()) {
+                startAllowed = true
+              }
+            }
+
+            if (finishHourDiff < 0) {
+              break
+            } else if (finishHourDiff === 0) {
+              if (finishMinDiff <= 0) {
+                break
+              } else {
+                finishAllowed = true
+              }
+            } else {
+              finishAllowed = true
+            }
+          }
+        }
+      }
+    }
+    if (startAllowed && finishAllowed) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
-    console.log(this.props, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
     return (
@@ -179,6 +229,7 @@ class StaffMember extends Component {
                       currentShiftDate={this.state.currentShiftDate}
                       removeShift={this.removeShift}
                       removeShiftVal={this.state.removeShiftVal}
+                      checkShiftTimes={this.checkShiftTimes}
                   />
                   <button id='add-shift-btn' onClick={() => this.addShift(day)} >Add Shift</button>
                 </div>

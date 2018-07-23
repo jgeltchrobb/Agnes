@@ -1,19 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
-import axios from 'axios'
-
-const api = 'http://localhost:4000/rosters/shift/'
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
 
 class ShiftModal extends React.Component {
   constructor(props) {
@@ -26,16 +11,6 @@ class ShiftModal extends React.Component {
       finish: ''
     }
   }
-
-  // afterOpenModal = () => {
-  //   // references are now sync'd and can be accessed.
-  //   // this.subtitle.style.color = '#f00';
-  //   this.setState({
-  //     category: this.props.shiftCategory,
-  //     start: this.props.start,
-  //     finish: this.props.finish
-  //   })
-  // }
 
   render () {
     console.log(this.props, 'YOOOOOOOOOOOOOOO')
@@ -67,7 +42,10 @@ class ShiftModal extends React.Component {
       } else {
         return (
           <div>
-            <p id='validation-error'>! Fill out all fields !</p>
+            {this.props.timeError ? 
+              <p id='validation-error'>! Shift Conflict !</p> : 
+              <p id='validation-error'>! Fill out all fields !</p>
+            }
             <form id='shiftForm' onSubmit={ this.props.handleSubmit }>
               <input  name='shiftCategory'
                       placeholder={ this.props.shiftCategory }
@@ -87,7 +65,6 @@ class ShiftModal extends React.Component {
               <label><input type="checkbox" name="wayne"/>Wayne Shift</label><br />
               <input type="submit" />
             </form>
-            {/* <button id='remove-shift-btn' onClick={() => this.props.removeShift(this.props.staffID, this.props.shiftID)} >Remove</button> */}
           </div>
         )
       }
@@ -120,7 +97,10 @@ class ShiftModal extends React.Component {
         // validation error
         return (
           <div>
-            <p id='validation-error'>! Fill out all fields !</p>
+            {this.props.timeError ? 
+              <p id='validation-error'>! Shift Conflict !</p> : 
+              <p id='validation-error'>! Fill out all fields !</p>
+            }
             <form id='shiftForm' onSubmit={ this.props.addShiftSubmit }>
               <input  name='shiftCategory'
                       placeholder={ this.props.shiftCategory }
