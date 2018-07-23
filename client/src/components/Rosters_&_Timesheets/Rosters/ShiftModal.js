@@ -38,7 +38,7 @@ class ShiftModal extends React.Component {
   // }
 
   render () {
-
+    console.log(this.props, 'YOOOOOOOOOOOOOOO')
     if (!this.props.shiftAdd) {
       if (!this.props.validationError) {
         return (
@@ -83,6 +83,7 @@ class ShiftModal extends React.Component {
               /> <br />
               <input type="submit" />
             </form>
+            {/* <button id='remove-shift-btn' onClick={() => this.props.removeShift(this.props.staffID, this.props.shiftID)} >Remove</button> */}
           </div>
         )
       }

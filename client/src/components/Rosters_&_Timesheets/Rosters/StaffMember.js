@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import Day from './Day'
+import axios from 'axios'
 import '../../../stylesheets/StaffMember.css'
+
+const api = 'http://localhost:4000'
 
 class StaffMember extends Component {
   state = {
     staffName: '',
     daysArray: [],
     addShift: '',
+    removeShiftVal: '',
     currentShiftDate: ''
   }
 
@@ -97,26 +101,16 @@ class StaffMember extends Component {
   }
 
   addShift = (day) => {
-
-    // let days = [...this.state.daysArray]
-    // console.log(days, 'days')
-    // let day = new Date(shift.date).getDay() - 1
-    // if (day === -1) {day = 6}
     if (day.shifts.length < 3) {
       this.setState({
         addShift: true,
         currentShiftDate: day.shifts[0].date
       })
-    //   days[day].shifts.push(shift)
     } else {
       this.setState({
         addShift: false
       })
     }
-
-    // this.setState({
-    //   daysArray: days
-    // })
   }
 
   stopAdd = () => {
@@ -125,7 +119,42 @@ class StaffMember extends Component {
     })
   }
 
+  removeShift = (staffID, shiftID) => {
+    let daysArray = this.state.daysArray
+    if (shiftID) {
+      axios.post(api + '/rosters/' + 'shift/' + 'remove/' + shiftID, {staffID: staffID, weekID: this.props.weekID}).then((response) => {
+      })
+    
+      
+      console.log(daysArray, 'DAYSARRY')
+      let shiftDate = ''
+      for (let day of daysArray) {
+        console.log(day.shifts[0].shiftID)
+        for (let shift of day.shifts) {
+          if (shiftID === shift.shiftID) {
+            console.log(day.shifts.length, 'SSSSSSSSSS')
+            if (day.shifts.length > 1) {
+              day.shifts.splice(day.shifts.indexOf(shift), 1)
+            } else {
+              day.shifts.splice(day.shifts.indexOf(shift), 1, {
+                date: '',
+                shiftCategory: 'empty',
+                start: '',
+                finish: ''
+              })
+            }
+          }
+        }
+      }
+    }
+    this.setState({
+      removeShiftVal: true,
+      daysArray
+    })
+  }
+
   render() {
+    console.log(this.props, 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
     const { weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
     return (
@@ -148,6 +177,8 @@ class StaffMember extends Component {
                       currentWeek={this.props.currentWeek}
                       stopAdd={this.stopAdd}
                       currentShiftDate={this.state.currentShiftDate}
+                      removeShift={this.removeShift}
+                      removeShiftVal={this.state.removeShiftVal}
                   />
                   <button id='add-shift-btn' onClick={() => this.addShift(day)} >Add Shift</button>
                 </div>

@@ -121,42 +121,53 @@ router.post('/shift/:id', async (req, res) => {
   try {
     if (!req.body.pushShift) {
       let found = false
-      let count = 0
       let week = await Week.findOne({_id: req.body.shiftObj.weekID})
       for (let staff of week.staff) {
         if (staff.staffID === req.body.shiftObj.staffID) {
           for (let shift of staff.shifts) {
             if (shift.date === req.body.shiftObj.shift.date) {
-              count += 1
               if (shift._id == req.params.id) {
                 found = true
                 staff.shifts.splice(staff.shifts.indexOf(shift), 1)
                 staff.shifts.push(req.body.shiftObj.shift)
               }
-              // staff.shifts.push(req.body.shiftObj.shift)
             }
           }
-          console.log(count, 'COUNTCOUNT')
           if (!found) {
-            console.log('YEEEEEEEEEEp')
             staff.shifts.push(req.body.shiftObj.shift)
           }
         }}
       await week.save()
       res.send(week)
     } else {
-  console.log(req.body.shiftObj, 'JJJJJJJJJJJJJJJJJJJ')
-
       let week = await Week.findOne({_id: req.body.shiftObj.weekID})
       for (let staff of week.staff) {
         if (staff.staffID === req.body.shiftObj.staffID) {
-          console.log(staff.shifts, 'jkjkjkj')
           staff.shifts.push(req.body.shiftObj.shift)
         }
       }
       await week.save()
       res.send(week)
     }
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+router.post('/shift/remove/:id', async (req, res) => {
+  try {
+    console.log(req.body, req.params)
+    let week = await Week.findOne({_id: req.body.weekID})
+    for (let staff of week.staff) {
+      if (staff.staffID === req.body.staffID) {
+        for (let shift of staff.shifts) {
+          if (shift._id == req.params.id) {
+            staff.shifts.splice(staff.shifts.indexOf(shift), 1)
+          }
+        }
+      }}
+      await week.save()
+    res.status(200).json({ confirmation: '...shift removed' })
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

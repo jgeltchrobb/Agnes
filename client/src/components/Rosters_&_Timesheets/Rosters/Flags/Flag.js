@@ -25,6 +25,17 @@ class Flag extends Component {
     this.setDifferenceState(rostered, actual)
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps !== this.props) {
+      const { staffID, users, date, rostered, actual } = this.props
+      this.setNameState(staffID, users)
+      this.setDateState(date)
+      this.setRosteredState(rostered)
+      this.setActualState(actual)
+      this.setDifferenceState(rostered, actual)
+    }
+  }
+
   setNameState = (staffID, users) => {
     var staffName = ''
     users.map((user) => {
@@ -96,18 +107,19 @@ class Flag extends Component {
   removeFlag = async (e) => {
     const server = 'http://localhost:4000'
 
-    let flagID = this.state.FlagID
-
-    // await axios.put(server + '/flags/remove', {flagID}).then((response) => {
-    //   // console.log(response.data.confirmation)
-    // })
-    this.props.fetchFlagsData()
+    let flagID = this.state.flagID
+    await axios.delete(server + '/flags/remove/' + flagID).then((response) => {
+      this.props.resetFlags(response.data)
+    })
+    // this.props.fetchFlagsData()
   }
 
 
   render() {
     const { staffName, date, rostered, difference, actual } = this.state
+    // if () {
 
+    // }
     return (
       <div className="flag-container">
 

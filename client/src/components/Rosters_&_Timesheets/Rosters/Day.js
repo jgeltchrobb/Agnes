@@ -8,6 +8,7 @@ class Day extends Component {
     super(props)
     this.state = {
       addShift: '',
+      removeShiftVal: ''
     }
   }
 
@@ -18,6 +19,11 @@ class Day extends Component {
     if (prevProps.addShift !== this.props.addShift) {
       this.setState({
         addShift: this.props.addShift
+      })
+    }
+    if (prevProps.removeShiftVal !== this.props.removeShiftVal) {
+      this.setState({
+        removeShiftVal: this.props.removeShiftVal
       })
     }
   }
@@ -49,6 +55,8 @@ class Day extends Component {
               addShift={this.state.addShift}
               stopAdd={this.props.stopAdd}
               currentShiftDate={this.props.currentShiftDate}
+              removeShiftVal={this.props.removeShiftVal}
+              removeShift={this.props.removeShift}
               />
               {/* <button id='add-shift-btn' onClick={() => this.addShift(shift)} >Add Shift</button> */}
             </React.Fragment>

@@ -23,6 +23,7 @@ class Flags extends Component {
                     actual={ flag.actual }
                     fetchFlagsData={ fetchFlagsData }
                     users={ users }
+                    resetFlags={this.props.resetFlags}
               />
             )
           })
