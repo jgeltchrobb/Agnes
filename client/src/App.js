@@ -164,7 +164,9 @@ class App extends Component {
 
   render() {
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
-
+    let role = 'admin'
+    // let role = 'staff'
+    // let role = 'office-clock'
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
     return (
@@ -173,12 +175,17 @@ class App extends Component {
         <Router>
           <div>
 
-            <div className="navbar">
-              <Link to="/rosters" onClick={ this.selectRosters }>Rosters</Link>
-              <Link to="/timesheets" onClick={ this.selectTimesheets }>Timesheets</Link>
-              <Link to="/staff">Staff</Link>
-              <Link to="/">Logout</Link>
-            </div>
+          {
+            (role === 'admin')
+            ? <div className="navbar">
+                <Link to="/rosters" onClick={ this.selectRosters }>Rosters</Link>
+                <Link to="/timesheets" onClick={ this.selectTimesheets }>Timesheets</Link>
+                <Link to="/staff">Staff</Link>
+                <Link to="/">Logout</Link>
+              </div>
+            : <div></div>
+          }
+
 
             <Route path='/rosters' render={(routerprops) => (
               <Rosters  currentWeek={ this.state.currentWeek }
