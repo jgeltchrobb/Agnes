@@ -175,16 +175,17 @@ class App extends Component {
         <Router>
           <div>
 
-          {
-            (role === 'admin')
-            ? <div className="navbar">
+
+              <div className="navbar">
                 <Link to="/rosters" onClick={ this.selectRosters }>Rosters</Link>
                 <Link to="/timesheets" onClick={ this.selectTimesheets }>Timesheets</Link>
-                <Link to="/staff">Staff</Link>
-                <Link to="/">Logout</Link>
+          {    (role !== 'admin') ? '' :
+                  <Link to="/staff">Staff</Link> }
+          {    (role === 'office-clock') ? '' :
+                  <Link to="/">Logout</Link>     }
+
               </div>
-            : <div></div>
-          }
+
 
 
             <Route path='/rosters' render={(routerprops) => (

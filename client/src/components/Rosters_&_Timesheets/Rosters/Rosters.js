@@ -46,8 +46,6 @@ class Rosters extends Component {
     return (
       <div className="rosters-container">
 
-      {
-        (role === 'admin') ?
 
         <div>
           <Header weekDate={ this.props.currentWeek.date }
@@ -55,11 +53,10 @@ class Rosters extends Component {
                   goToPreviousWeek={ goToPreviousWeek }
                   sideBarHeading={ sideBarHeading }
                   week={ week }
+                  role={ role } 
           />
         </div>
 
-        : ''
-      }
         <div className="rosters-main">
       {
         (role !== 'admin') ? '' :
