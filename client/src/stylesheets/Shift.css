@@ -10,3 +10,7 @@ div.shift-middle > p {
 #validation-error {
   color: red;
 }
+
+#remove-shift-btn {
+  color: red;
+}

@@ -107,6 +107,7 @@ class Shift extends Component {
       var dateCopy = new Date(this.props.date)
       dateCopy.setHours(hrs)
       dateCopy.setMinutes(mins)
+      console.log(dateCopy, 'DATECOPY')
       if (shift === 'start') {
         this.setState({
           start: dateCopy
@@ -131,25 +132,28 @@ class Shift extends Component {
   addShiftSubmit = async (event) => {
     event.preventDefault()
     try {
-      const shiftCategory = event.target.shiftCategory.value
-      const start = event.target.start.value
-      const finish = event.target.finish.value
+      let shiftCategory = event.target.shiftCategory.value
+      let start = event.target.start.value
+      let finish = event.target.finish.value
       if (shiftCategory && start && finish) {
-
+        start = this.formatTime_UserInputToDateObj(start, 'start')
+        finish = this.formatTime_UserInputToDateObj(finish, 'finish')
         let shiftObj =  {
           staffID: this.state.staffID,
           weekID: this.props.currentWeek._id,
+          publicHoliday: event.target.pubHol.checked,
+          wayneShift: event.target.wayne.checked,
           shift: {
             date: this.state.date.toISOString().split('T')[0],
             shiftCategory: shiftCategory,
             start: {
-              rostered: this.formatTime_UserInputToDateObj(start, 'start'),
+              rostered: start,
               actual: '',
               timesheet: '',
               flag: false,
             },
             finish: {
-              rostered: this.formatTime_UserInputToDateObj(finish, 'finish'),
+              rostered: finish,
               actual: '',
               timesheet: '',
               flag: false,
@@ -159,13 +163,14 @@ class Shift extends Component {
 
       this.setState({
         shiftCategory,
-        start: this.formatTime_UserInputToDateObj(start, 'start'),
-        finish: this.formatTime_UserInputToDateObj(finish, 'finish'),
+        start: start,
+        finish: finish,
       })
 
       // REPLACE IN DB
       axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
         this.props.fetchData(this.props.weekID)
+        console.log(response)
       })
       // this.currentCloseModal()
       this.props.stopAdd()
@@ -182,25 +187,29 @@ class Shift extends Component {
   currentHandleSubmit = async (event) => {
     event.preventDefault()
     try {
-      const shiftCategory = event.target.shiftCategory.value
-      const start = event.target.start.value
-      const finish = event.target.finish.value
+      let shiftCategory = event.target.shiftCategory.value
+      let start = event.target.start.value
+      let finish = event.target.finish.value
       if (shiftCategory && start && finish) {
+      start = this.formatTime_UserInputToDateObj(start, 'start')
+      finish = this.formatTime_UserInputToDateObj(finish, 'finish')
 
       let shiftObj =  {
         staffID: this.state.staffID,
         weekID: this.props.currentWeek._id,
+        publicHoliday: event.target.pubHol.checked,
+        wayneShift: event.target.wayne.checked,
         shift: {
           date: this.props.date.toISOString().split('T')[0],
           shiftCategory: shiftCategory,
           start: {
-            rostered: this.formatTime_UserInputToDateObj(start, 'start'),
+            rostered: start,
             actual: '',
             timesheet: '',
             flag: false,
           },
           finish: {
-            rostered: this.formatTime_UserInputToDateObj(finish, 'finish'),
+            rostered: finish,
             actual: '',
             timesheet: '',
             flag: false,
@@ -209,8 +218,8 @@ class Shift extends Component {
       }
     this.setState({
       shiftCategory: shiftCategory,
-      start: this.formatTime_UserInputToDateObj(start, 'start'),
-      finish: this.formatTime_UserInputToDateObj(finish, 'finish')
+      start: start,
+      finish: finish
     })
 
     // REPLACE IN DB
@@ -262,7 +271,7 @@ class Shift extends Component {
           </div>
           <button id='remove-shift-btn' onClick={
               () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-              } ></button>
+              } >x</button>
         </React.Fragment>
       )
     } else if (this.state.currentEditing && this.props.addShift && (this.state.date === this.props.currentShiftDate)) {
@@ -283,7 +292,7 @@ class Shift extends Component {
             </div>
             <button id='remove-shift-btn' onClick={
               () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-              } ></button>
+              } >x</button>
           </div>
         </React.Fragment>
       )
@@ -301,7 +310,7 @@ class Shift extends Component {
             </div>
             <button id='remove-shift-btn' onClick={
               () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-              } ></button>
+              } >x</button>
           </div>
         </React.Fragment>
       )

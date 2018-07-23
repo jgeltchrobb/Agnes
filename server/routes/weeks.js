@@ -6,8 +6,6 @@ const router = express.Router();
 getMonday = (d) => {
   let day = d.getDay(),
   diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  // d.setTime( d.getTime() + d.getTimezoneOffset()*60*1000 );
-  // d.setHours(d.getHours() - 4);
   return new Date(d.setDate(diff));
 }
 
@@ -66,6 +64,7 @@ router.get('/:id', async (req, res) => {
 })
 
 router.get('/date/:date', async (req, res) => {
+  console.log(req.params.date, 'DATE')
   try {
     let date = getMonday(new Date(req.params.date))
     let week = await Week.findOne({date: req.params.date})
@@ -80,13 +79,9 @@ router.get('/previous/:date', async (req, res) => {
     let date = new Date(req.params.date)
     date = new Date(date.setDate(date.getDate() - 7)).toISOString().split('T')[0]
     let week = await Week.findOne({date: date})
-    // console.log(week, 'WEEEK')
-    // console.log(!!week)
     if (week) {
-      // console.log(1111)
       res.send(week)
     } else {
-      // console.log(22222)
       res.send(false)
     }
   } catch (error) {
@@ -119,6 +114,7 @@ router.get('/new/:weekDate', async (req, res) => {
 
 router.post('/shift/:id', async (req, res) => {
   try {
+    console.log(req.body.shiftObj, 'asdasd')
     if (!req.body.pushShift) {
       let found = false
       let week = await Week.findOne({_id: req.body.shiftObj.weekID})
@@ -156,7 +152,6 @@ router.post('/shift/:id', async (req, res) => {
 
 router.post('/shift/remove/:id', async (req, res) => {
   try {
-    console.log(req.body, req.params)
     let week = await Week.findOne({_id: req.body.weekID})
     for (let staff of week.staff) {
       if (staff.staffID === req.body.staffID) {

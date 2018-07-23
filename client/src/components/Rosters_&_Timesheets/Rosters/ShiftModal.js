@@ -58,6 +58,8 @@ class ShiftModal extends React.Component {
                       type='time'
                       onChange={this.props.finishTimeChange}
               /> <br />
+              <label><input type="checkbox" name="pubHol"/>Pub Hol</label><br />
+              <label><input type="checkbox" name="wayne"/>Wayne Shift</label><br />
               <input type="submit" />
             </form>
           </div>
@@ -81,6 +83,8 @@ class ShiftModal extends React.Component {
                       type='time'
                       onChange={this.props.finishTimeChange}
               /> <br />
+              <label><input type="checkbox" name="pubHol"/>Pub Hol</label><br />
+              <label><input type="checkbox" name="wayne"/>Wayne Shift</label><br />
               <input type="submit" />
             </form>
             {/* <button id='remove-shift-btn' onClick={() => this.props.removeShift(this.props.staffID, this.props.shiftID)} >Remove</button> */}
@@ -106,6 +110,8 @@ class ShiftModal extends React.Component {
                       type='time'
                       onChange={this.props.finishTimeChange}
               /> <br />
+              <label><input type="checkbox" name="pubHol"/>Pub Hol</label><br />
+              <label><input type="checkbox" name="wayne"/>Wayne Shift</label><br />
               <input type="submit" />
             </form>
           </div>
@@ -130,6 +136,8 @@ class ShiftModal extends React.Component {
                       type='time'
                       onChange={this.props.finishTimeChange}
               /> <br />
+              <label><input type="checkbox" name="pubHol"/>Pub Hol</label><br />
+              <label><input type="checkbox" name="wayne"/>Wayne Shift</label><br />
               <input type="submit" />
             </form>
           </div>

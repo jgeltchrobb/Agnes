@@ -66,8 +66,7 @@ class Staff extends Component {
   }
 
   fetchRosters = (staffData) => {
-    // let date = new Date().toISOString().split('T')[0];
-    let date = "2018-07-09"
+    let date = new Date().toISOString().split('T')[0]
     axios.get(api + '/rosters' + '/date/' + date).then((response) => {
       return response.data
     }).then((obj) => {
@@ -83,7 +82,6 @@ class Staff extends Component {
     const DayShiftDefinitionClockinBeforeHours = 20
     const milliToHours = 0.00000027777777777778
     for (let staff of roster.staff) {
-      console.log(staff, 'staff')
       let totalsRow = {}
       for (let shift of staff.shifts) {
         let finish = new Date(shift.finish.rostered)
@@ -201,8 +199,6 @@ class Staff extends Component {
   }
 
   render() {
-    console.log(this.state)
-    console.log(new Date().getHours(), 'ABCDEFGHIJ')
     return (
       <React.Fragment>
         <div className="staff-container">
