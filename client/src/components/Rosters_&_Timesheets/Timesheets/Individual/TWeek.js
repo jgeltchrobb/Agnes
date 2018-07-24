@@ -171,7 +171,7 @@ class TWeek extends Component {
     const shift1 = Object.keys(valuesRows1)
     const shift2 = Object.keys(valuesRows2)
     const shift3 = Object.keys(valuesRows3)
-    const shift4 = '4'
+    const grandTotal = '4'
 
     if (valuesRows2['2'].length === 0) {
       return (
@@ -232,7 +232,7 @@ class TWeek extends Component {
             </div>
             <div className='grand-totals-row-container'>
               <div className='grand-totals-row'>
-                <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+                <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ grandTotal } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
               </div>
             </div>
           </div>
@@ -293,7 +293,7 @@ class TWeek extends Component {
             </div>
             <div className='grand-totals-row-container'>
               <div className='grand-totals-row'>
-                <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ shift4 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+                <ValuesRow lable='grandTotal'  specificRow={ grandTotalsRow } shift={ grandTotal } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
               </div>
             </div>
           </div>
