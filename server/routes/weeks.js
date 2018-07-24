@@ -84,7 +84,10 @@ router.get('/date/:date', async (req, res) => {
 router.get('/previous/:date', async (req, res) => {
   try {
     let date = new Date(req.params.date)
-    date = new Date(date.setDate(date.getDate() - 7)).toISOString().split('T')[0]
+    console.log(date)
+    date = new Date(date.setDate(date.getDate() - 14)).toISOString().split('T')[0]
+    console.log(date)
+
     let week = await Week.findOne({date: date})
     if (week) {
       res.send(week)
