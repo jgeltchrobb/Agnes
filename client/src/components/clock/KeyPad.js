@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Key from './Key'
-import ClockButton from '../ClockButton'
 
 
 // Where the buttons are displayed.

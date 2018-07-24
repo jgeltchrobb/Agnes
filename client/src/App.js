@@ -164,12 +164,13 @@ class App extends Component {
 
   render() {
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
+    // this is to simulate user suthenication (roles) - switch between the following three statements
     let role = 'admin'
     // let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
-    // this is to mimic a staff member login
+    // this is to simulate a staff member login - switch between the following two statements
     let staffUser = ''
     // let staffUser = this.state.users[0]
     return (
