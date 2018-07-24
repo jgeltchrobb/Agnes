@@ -14,9 +14,17 @@ class Timesheets extends Component {
 
     this.state = {
       weekID: this.props.week._id,
+      // columnHeadings: Array of strings - All applicable payRateCategories for the week so far (for which at least one rostered shift exists), followed all entitlements in the database (Entitlements model (Array of strings))
+      // e.g. [ 'Ordinary', 'Sat', 'Night', 'Annual Leave', 'Sick Leave',...]
       columnHeadings: [],
+      // totalsRows: Array containing an obj for each staff member with at least one rostered shift
+      // e.g. [ {Ordinary: 28, Sat: 6.5,... staffID: 'u76taefd67eas'}, {Ordinary: 32, Night: 8,... staffID: 'dsf76SDf576f'} ]
       totalsRows: [],
+      // individual: The staffID of the name selected for indiviual timesheets view
+      // 'u76taefd67eas'
       individual: '',
+      // individualTotalsRow: The obj in totalsRows array that corresponds to the individual selected (the staffID in this.state.indiviual)
+      // e.g. {Ordinary: 28, Sat: 6.5,... staffID: 'u76taefd67eas'}
       individualTotalsRow: [],
     }
   }
@@ -76,9 +84,7 @@ class Timesheets extends Component {
         prevShiftDate = shift.date
 
         // set timnesheet start value. If not in db then calculate it
-        shift.start.timesheet ? start = new Date(shift.start.timesheet) :
-        start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
-        console.log(start)
+        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
         // set timnesheet finsih value. If not in data then calculate it
         shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
         // shift hours are just finish - start times converted to a number of hours with two decimal places
@@ -268,7 +274,6 @@ class Timesheets extends Component {
 
   render() {
     const { staffUser, role, week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-
     if (!this.state.individual) {
 
       return (
@@ -373,22 +378,24 @@ class Timesheets extends Component {
             </div>
 
             <div className="individual-view-container">
+
               <div className='timesheet-container'>
-                      <TotalsRow  row={ this.state.individualTotalsRow }
-                                  columnHeadings={ this.state.columnHeadings }
-                                  setIndividual={ this.setIndividual }
-                      />
+                  <TotalsRow  row={ this.state.individualTotalsRow }
+                              columnHeadings={ this.state.columnHeadings }
+                              setIndividual={ this.setIndividual }
+                  />
               </div>
               <div className="individual-container">
                 <Individual week={ week }
                             prevWeek={ prevWeek }
                             individual={ this.state.individual }
-                            individualTotalsRow={ this.state.individualTotalsRow }
                             setIndividual={ this.setIndividual }
                             removeIndividual={ this.removeIndividual }
                 />
               </div>
+
             </div>
+
           </div>
 
         </div>

@@ -8,8 +8,10 @@ class TotalsRow extends Component {
     super(props)
 
     this.state = {
+      // totalsArray: Array of totals for each columnHeading (which include applicable payRateCategories and all entitlements)
+      // e.g. if the only applicable payRateCategory for the week is 'Ordinary' and there are 4 entitlements in the database then it might be:
+        // [ 38, '', '', '', '']
       totalsArray: [],
-
     }
   }
 
@@ -42,27 +44,16 @@ class TotalsRow extends Component {
     })
   }
 
-
   render() {
     const { row, setIndividual } = this.props
 
     return (
       <div onClick={() => setIndividual(row.staffID)} className="individual-timesheet">
         {
-          // totalsArray is essentially a copy of display catergories for each
-          // staff staffMember or row, but with totals / empty strings.
-          // Then we can loop through that array in the render method and either render
-          // the total (if value) or an empty div (if '')
           this.state.totalsArray.map((total, index) => {
-            // if (total) {
-              return (
-                <Total key={index} total={total} />
-              )
-            // } else {
-            //   return (
-            //     <div> - </div>
-            //   )
-            // }
+            return (
+              <Total key={index} total={total} />
+            )
           })
         }
 
