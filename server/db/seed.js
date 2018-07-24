@@ -173,7 +173,7 @@ const seedData = async () => {
         staffID: user1._id, shifts:
         [
           {
-            date: new Date("July 14 2018").toISOString().split('T')[0],
+            date: new Date("July 15 2018").toISOString().split('T')[0],
             shiftCategory: "floor",
             start:  {
                         rostered: new Date("July 15 2018 8:00"),
@@ -282,29 +282,29 @@ const seedData = async () => {
               date: new Date("July 03 2018"),
               shiftCategory: "room",
               start: {
-                rostered: new Date("July 3 2018 8:00"),
+                rostered: new Date("July 03 2018 08:00"),
                 actual: '',
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 3 2018 16:00"),
+                rostered: new Date("July 03 2018 16:00"),
                 actual: '',
                 timesheet: '',
                 flag: false
               }
             },
             {
-              date: new Date("July 3 2018"),
+              date: new Date("July 03 2018"),
               shiftCategory: "digging",
               start: {
-                rostered: new Date("July 3 2018 16:00"),
+                rostered: new Date("July 03 2018 16:00"),
                 actual: '',
                 timesheet: '',
                 flag: false
               },
               finish: {
-                rostered: new Date("July 3 2018 19:00"),
+                rostered: new Date("July 03 2018 19:00"),
                 actual: '',
                 timesheet: '',
                 flag: false
