@@ -67,9 +67,7 @@ class Shift extends Component {
           currentModalIsOpen: !this.state.currentModalIsOpen
         })
       }
-      console.log(removeShiftVal)
       if (removeShiftVal) {
-        console.log('YEAH HERE')
         this.setState({
           currentEditing: false,
         })
