@@ -124,15 +124,9 @@ class StaffMember extends Component {
     if (shiftID) {
       axios.post(api + '/rosters/' + 'shift/' + 'remove/' + shiftID, {staffID: staffID, weekID: this.props.weekID}).then((response) => {
       })
-
-
-      console.log(daysArray, 'DAYSARRY')
-      let shiftDate = ''
       for (let day of daysArray) {
-        console.log(day.shifts[0].shiftID)
         for (let shift of day.shifts) {
           if (shiftID === shift.shiftID) {
-            console.log(day.shifts.length, 'SSSSSSSSSS')
             if (day.shifts.length > 1) {
               day.shifts.splice(day.shifts.indexOf(shift), 1)
             } else {
@@ -153,62 +147,56 @@ class StaffMember extends Component {
     })
   }
 
-  checkShiftTimes = (start, finish, date, shiftID) => {
+  checkShiftTimes = (start, finish, date, shiftID, add) => {
     let startAllowed = false
     let finishAllowed = false
     let daysArray = this.state.daysArray
-    for (let day of daysArray) {
-      for (let shift of day.shifts) {
-        console.log(shift)
-        if (shiftID === shift.shiftID && day.shifts.length < 2) {
-          startAllowed = true,
-          finishAllowed = true
-          console.log(1111)
-          break
-        }
-        if (shift.date.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
-          let startHourDiff = start.getHours() - shift.start.getHours()
-          let startMinDiff = start.getMinutes() - shift.start.getMinutes()
+    let day = ''
+    if (date.getDay() === 0) {
+      day = 6
+    } else {
+      day = date.getDay() - 1
+    }
+    for (let shift of daysArray[day].shifts) {
+      console.log('SOOOOOOOOOOOOOOOO')
+      if (daysArray[day].shifts.length > 2) {
+        return false
+      }
+      console.log(date, shift.date, 'aklsjdlasdla')
+      if (shift.date.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
+        console.log(shift, '!!!!!!!!!!!!!!!!!!!')
+        let startHours = start.getHours()
+        let finishHours = finish.getHours()
+        let oldFinishHours = shift.finish.getHours()
+        let oldStartHours = shift.start.getHours()
 
-          let finishHourDiff = finish.getHours() - shift.finish.getHours()
-          let finishMinDiff = finish.getMinutes() - shift.finish.getMinutes()
-          if (shift.start) {
+        let startMinutes = start.getMinutes()
+        let finishMinutes = finish.getMinutes()
+        let oldFinishMinutes = shift.finish.getMinutes()
+        let oldStartMinutes = shift.start.getMinutes()
 
-            if (startHourDiff < 0) {
-              break
-            } else if (startHourDiff === 0) {
-              // check misn
-              if (startMinDiff <= 0) {
-                break
-              } else {
-                startAllowed = true
-              }
-            } else {
-              if (start.getHours() >= finish.getHours()) {
-                startAllowed = true
-              }
-            }
+        let startHourDiff = start - shift.start.getHours()
+        let startMinDiff = start.getMinutes() - shift.start.getMinutes()
 
-            if (finishHourDiff < 0) {
-              break
-            } else if (finishHourDiff === 0) {
-              if (finishMinDiff <= 0) {
-                break
-              } else {
-                finishAllowed = true
-              }
-            } else {
-              finishAllowed = true
-            }
+        let finishHourDiff = finish - shift.finish.getHours()
+        let finishMinDiff = finish.getMinutes() - shift.finish.getMinutes()
+
+        if (startHours < oldStartHours && finishHours < oldStartHours) {
+          return true
+        } else if (startHours > oldFinishHours && finishHours > oldFinishHours) {
+          return true
+        } else if (startHours < oldStartHours && finishHours > oldFinishHours) {
+          return false
+        } else {
+          if (startHours >= oldStartHours) { return false }
+          else if (finishHours <= oldFinishHours) { return false }
+          else {
+            return true
           }
         }
       }
     }
-    if (startAllowed && finishAllowed) {
-      return true
-    } else {
-      return false
-    }
+    return true
   }
 
   render() {

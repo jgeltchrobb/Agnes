@@ -102,6 +102,7 @@ class Shift extends Component {
 
   formatTime_UserInputToDateObj = (timeString, shift) => {
     if (timeString) {
+      console.log(timeString, 'TIMESTRING')
       let hrsMinsStringArray = timeString.split(':')
       let hrs = Number(hrsMinsStringArray[0])
       let mins = Number(hrsMinsStringArray[1])
@@ -132,52 +133,55 @@ class Shift extends Component {
 
   addShiftSubmit = async (event) => {
     event.preventDefault()
-    let shiftCategory = event.target.shiftCategory.value
-    let start = event.target.start.value
-    let finish = event.target.finish.value
     try {
+      let shiftCategory = event.target.shiftCategory.value
+      let start = event.target.start.value
+      let finish = event.target.finish.value
+      start = this.formatTime_UserInputToDateObj(start, 'start')
+      finish = this.formatTime_UserInputToDateObj(finish, 'finish')
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date)
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, true)
         if (shiftCheck) {
-        start = this.formatTime_UserInputToDateObj(start, 'start')
-        finish = this.formatTime_UserInputToDateObj(finish, 'finish')
-        let shiftObj =  {
-          staffID: this.state.staffID,
-          weekID: this.props.currentWeek._id,
-          publicHoliday: event.target.pubHol.checked,
-          wayneShift: event.target.wayne.checked,
-          shift: {
-            date: this.state.date.toISOString().split('T')[0],
-            shiftCategory: shiftCategory,
-            start: {
-              rostered: start,
-              actual: '',
-              timesheet: '',
-              flag: false,
-            },
-            finish: {
-              rostered: finish,
-              actual: '',
-              timesheet: '',
-              flag: false,
+          console.log('bleeeeeeeeeeh')
+          let shiftObj =  {
+            staffID: this.state.staffID,
+            weekID: this.props.currentWeek._id,
+            publicHoliday: event.target.pubHol.checked,
+            wayneShift: event.target.wayne.checked,
+            shift: {
+              date: this.state.date.toISOString().split('T')[0],
+              shiftCategory: shiftCategory,
+              start: {
+                rostered: start,
+                actual: '',
+                timesheet: '',
+                flag: false,
+              },
+              finish: {
+                rostered: finish,
+                actual: '',
+                timesheet: '',
+                flag: false,
+              }
             }
           }
-        }
 
-      this.setState({
-        shiftCategory,
-        start: start,
-        finish: finish,
-      })
+        this.setState({
+          shiftCategory,
+          start: start,
+          finish: finish,
+        })
 
-      // REPLACE IN DB
-      axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
-        this.props.fetchData(this.props.weekID)
-        console.log(response)
-      })
-      // this.currentCloseModal()
-      this.props.stopAdd()
+        // REPLACE IN DB
+        axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
+          this.props.fetchData(this.props.weekID)
+          console.log(response)
+        })
+        // this.currentCloseModal()
+        this.props.stopAdd()
       } else {
+      // this.props.stopAdd()
+
         this.setState({
           timeError: true
         })
@@ -194,14 +198,17 @@ class Shift extends Component {
 
   currentHandleSubmit = async (event) => {
     event.preventDefault()
-    let shiftCategory = event.target.shiftCategory.value
-    let start = event.target.start.value
-    let finish = event.target.finish.value
-    start = this.formatTime_UserInputToDateObj(start, 'start')
-    finish = this.formatTime_UserInputToDateObj(finish, 'finish')
     try {
+      let shiftCategory = event.target.shiftCategory.value
+      let start = event.target.start.value
+      let finish = event.target.finish.value
+      start = this.formatTime_UserInputToDateObj(start, 'start')
+      finish = this.formatTime_UserInputToDateObj(finish, 'finish')
+      console.log(start, finish)
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID, false)
+        console.log(shiftCheck)
+
         if (shiftCheck) {
 
       let shiftObj =  {
