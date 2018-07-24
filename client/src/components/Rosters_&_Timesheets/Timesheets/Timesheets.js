@@ -28,11 +28,18 @@ class Timesheets extends Component {
     }
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = async (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
       this.setTotalsRowsAndColumnHeadings()
-      this.setIndividual(this.props.staffUser._id)
+      if (this.props.staffUser) {
+        this.setIndividual(this.props.staffUser._id)
+      }
+      if (this.state.individual) {
+        this.setIndividual(this.state.individual)
+
+      }
     }
+
   }
 
   setTotalsRowsAndColumnHeadings = () => {
@@ -232,6 +239,10 @@ class Timesheets extends Component {
   removeDuplicates = (arr) => {
     let unique_array = Array.from(new Set(arr))
     return unique_array
+  }
+
+  removeIndividual = () => {
+    this.setState({ individual: '' })
   }
 
   setIndividual = (userID) => {

@@ -4,10 +4,6 @@ import '../../../../stylesheets/Individual.css'
 
 class Individual extends Component {
 
-  nameToTop = () => {
-    // Take name/id array and sort clicked name to front
-  }
-
   // formatDate = (date) => {
   //   var dateObj = new Date(date)
   //   return (
@@ -17,7 +13,6 @@ class Individual extends Component {
 
   render() {
     const { week, prevWeek, individual, individualTotalsRow, setIndividual, removeIndividual } = this.props
-console.log(week.date)
     return (
       <div className='timesheet-card-container'>
 
@@ -35,16 +30,22 @@ console.log(week.date)
                 individual={ individual }
         />
 
-        <div className="timesheet-card-header">
-          <div className='week-date'>
-            { prevWeek.date }
+      {
+        (prevWeek) ?
+        <div>
+          <div className="timesheet-card-header">
+            <div className='week-date'>
+              { prevWeek.date }
+            </div>
           </div>
-        </div>
 
-        <TWeek  week={ prevWeek }
-                weekID={ prevWeek._id }
-                individual={ individual }
-        />
+          <TWeek  week={ prevWeek }
+                  weekID={ prevWeek._id }
+                  individual={ individual }
+          />
+        </div>
+        : ''
+      }
 
       </div>
     )
