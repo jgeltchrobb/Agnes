@@ -219,9 +219,9 @@ class Timesheets extends Component {
                       value: value,
                     }
 
-    // axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
-    //   console.log(response)
-    // })
+    axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
+      console.log(response)
+    })
   }
 
   postFlag = (staffID, shiftDate, rostered, actual) => {

@@ -199,6 +199,7 @@ class Staff extends Component {
   }
 
   render() {
+    console.log(this.state.staffData, 'STAFFFFFFFFFFFDATATA')
     return (
       <React.Fragment>
         <div className="staff-container">

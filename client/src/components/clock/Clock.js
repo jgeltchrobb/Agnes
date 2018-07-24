@@ -127,6 +127,7 @@ class Clock extends Component {
   }
 
   clockIn = () => {
+    console.log('ask')
     const { validatePIN, shift1ID, shift1clockIn, shift2ID, shift2clockIn, TonightShiftID, TonightShiftClockIn } = this.state
     // Mark clock time as now
     var clockTime = new Date()
@@ -143,6 +144,8 @@ class Clock extends Component {
   }
 
   clockOut = () => {
+    console.log('askdjasdl')
+
     const { validatePIN, LastNightShiftID, LastNightShiftClockOut, shift1ID, shift1clockOut, shift2ID, shift2clockOut } = this.state
     // Mark clock time as now
     var clockTime = new Date()
@@ -160,6 +163,7 @@ class Clock extends Component {
 
   clock = (shift, clockTime, startOrFinish, shiftID) => {
     // change clock status
+    console.log('ashdkja')
     this.setState({ clockedIn: !this.state.clockedIn })
     this.setGreeting(clockTime)
     this.setState({ [shift]: clockTime })
@@ -168,6 +172,7 @@ class Clock extends Component {
 
   postTime = (startOrFinish, shiftID, time) => {
     const { api, week, } = this.props
+    console.log('ajksdhkajsdgjhasdg')
 
     let timeObj =   {
                       weekID: week._id,
@@ -176,8 +181,7 @@ class Clock extends Component {
                       startOrFinish: startOrFinish,
                       time: time,
                     }
-
-    axios.post(api + '/clock/new', timeObj).then((response) => {
+    axios.post(api + 'clock/new', timeObj).then((response) => {
       console.log(response)
     })
   }
@@ -206,8 +210,8 @@ class Clock extends Component {
   }
 
   render() {
-    const role = 'office-clock'
-    // const role = 'mobile-clock'
+    // const role = 'office-clock'
+    const role = 'mobile-clock'
     const { clockedIn } = this.state
     const { LastNightShiftID, LastNightShiftClockIn, LastNightShiftClockOut } = this.state
     const { shift1ID, shift1clockIn, shift1clockOut } = this.state

@@ -22,7 +22,7 @@ router.post('/new', async (req, res) => {
       }
     }
     week.save()
-    res.send(week)
+    res.sendStatus(203)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
