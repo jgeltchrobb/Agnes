@@ -57,24 +57,13 @@ class App extends Component {
 
   fetchAllData = (date) => {
     axios.get(api + 'rosters').then(response => {
+      let weeks = []
+      for (let i=0; i<response.data.length; i++) {
+        weeks.push(response.data[i])
+      }
       this.setState({
-        // week1: response.data[0],
-        // week2: response.data[1],
-        // week3: response.data[2],
-        // week4: response.data[3],
-        // week5: response.data[4],
-        // week6: response.data[5],
-        // week7: response.data[6],
-        currentWeek: response.data[0],
-        weeks: [
-          response.data[0],
-          response.data[1],
-          response.data[2],
-          response.data[3],
-          response.data[4],
-          response.data[5],
-          response.data[6],
-        ]
+        weeks: weeks,
+        currentWeek: weeks[0],
       })
     })
   }
@@ -137,7 +126,7 @@ class App extends Component {
   }
 
   goToPreviousWeek = () => {
-    if (this.state.currentWeek.date === this.state.weeks[6].date) {
+    if (this.state.weeks[6] && this.state.currentWeek.date === this.state.weeks[6].date) {
       axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
         let weeks = [...this.state.weeks]
         weeks.shift()
@@ -163,15 +152,16 @@ class App extends Component {
 
   render() {
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
+
+    console.log(this.state.weeks)
+
     // this is to simulate user authenication (roles) - switch between the following three statements
     let role = 'admin'
     // let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
-    console.log(week)
 
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
-    console.log(prevWeek)
 
     // this is to simulate a staff member login - switch between the following two statements
     let staffUser = ''
