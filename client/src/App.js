@@ -57,6 +57,7 @@ class App extends Component {
 
   fetchAllData = (date) => {
     axios.get(api + 'rosters').then(response => {
+      console.log(response, 'RESPONSE')
       this.setState({
         // week1: response.data[0],
         // week2: response.data[1],
@@ -162,6 +163,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state, 'ASDJASDK')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
     // this is to simulate user authenication (roles) - switch between the following three statements
     let role = 'admin'
