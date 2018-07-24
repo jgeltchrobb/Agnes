@@ -12,7 +12,7 @@ class Individual extends Component {
   // }
 
   render() {
-    const { week, prevWeek, individual, individualTotalsRow, setIndividual, removeIndividual } = this.props
+    const { week, prevWeek, individual, setIndividual, removeIndividual } = this.props
     return (
       <div className='timesheet-card-container'>
 

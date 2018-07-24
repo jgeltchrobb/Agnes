@@ -4,10 +4,17 @@ import '../../../../stylesheets/TWeek.css'
 
 class TWeek extends Component {
   state = {
+    // weekDates: Array of 7 date objects (one for every day of the week, starting with Monday)
     weekDates: [],
+    // valuesRows: Per staff member. (one values row for each possible shift of 3 - So valuesRows2['2'] will stay empty if only one shift that day)
+      // Object with one key which corresponds to an Array of 4 arrays, arr1 has 7 start time objects ('' is n/a), arr2 has 7 breaks # ('' if n/a), arr3 has 7 finish time objects ('' is n/a), arr2 has 7 totals # ('' if n/a)
+      // e.g { '#': [ [timeObj, timeObj, timeObj,...], [#, #, #,...], [timeObj, timeObj, timeObj,...], [#, #, #,...] ] }
     valuesRows1: { '1': [] },
     valuesRows2: { '2': [] },
     valuesRows3: { '3': [] },
+    // grandTotalsRow: Per staff member. Only set if more than one shift that day, otherwise = ''
+      // Array of 7 values, which are the sum of the total shift hours for each day.
+      // e.g. [ 7.5, 6, '', 8, '', 6.5, '' ]
     grandTotalsRow: '',
   }
 
@@ -56,7 +63,8 @@ class TWeek extends Component {
           var starts2Pushed = false
           var starts3Pushed = false
           staffMember.shifts.map((shift) => {
-            if ( (weekDate.getDate() + day) === new Date(shift.date).getDate() ) {
+            // console.log(new Date(shift.date))
+            if ( date === new Date(shift.date) ) {
               if (starts1Pushed === false) {
                 shift.start.timesheet   ? starts1.push(new Date(shift.start.timesheet))
                                         : starts1.push('')
@@ -166,7 +174,7 @@ class TWeek extends Component {
   render() {
     const { weekID, individual } = this.props
     const { valuesRows1, valuesRows2, valuesRows3, weekDates, grandTotalsRow } = this.state
-    console.log(valuesRows1)
+    // console.log(valuesRows1)
 
     const shift1 = Object.keys(valuesRows1)
     const shift2 = Object.keys(valuesRows2)
