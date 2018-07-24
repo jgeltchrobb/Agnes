@@ -22,7 +22,7 @@ class TotalsRow extends Component {
       this.setTotalsArray()
     }
   }
-  
+
   setTotalsArray = () => {
     const { row, columnHeadings } = this.props
 
@@ -31,11 +31,11 @@ class TotalsRow extends Component {
       let pushed = 'no'
       for (let key in row) {
         if (key === cat) {
-          pushed = 'yes'
           totalsArray.push(row[key])
+          pushed = 'yes'
         }
       }
-      if (pushed === 'no') { totalsArray.push('no shift') }
+      if (pushed === 'no') { totalsArray.push('-') }
     })
     this.setState({
       totalsArray: totalsArray
@@ -54,15 +54,15 @@ class TotalsRow extends Component {
           // Then we can loop through that array in the render method and either render
           // the total (if value) or an empty div (if '')
           this.state.totalsArray.map((total, index) => {
-            if (total) {
+            // if (total) {
               return (
                 <Total key={index} total={total} />
               )
-            } else {
-              return (
-                <div>empty</div>
-              )
-            }
+            // } else {
+            //   return (
+            //     <div> - </div>
+            //   )
+            // }
           })
         }
 
