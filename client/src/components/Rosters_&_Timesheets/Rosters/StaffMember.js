@@ -148,8 +148,6 @@ class StaffMember extends Component {
   }
 
   checkShiftTimes = (start, finish, date, shiftID, add) => {
-    let startAllowed = false
-    let finishAllowed = false
     let daysArray = this.state.daysArray
     let day = ''
     if (date.getDay() === 0) {

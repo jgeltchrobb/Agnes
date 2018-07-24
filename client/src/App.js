@@ -164,7 +164,7 @@ class App extends Component {
 
   render() {
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
-    // this is to simulate user suthenication (roles) - switch between the following three statements
+    // this is to simulate user authenication (roles) - switch between the following three statements
     let role = 'admin'
     // let role = 'staff'
     // let role = 'office-clock'

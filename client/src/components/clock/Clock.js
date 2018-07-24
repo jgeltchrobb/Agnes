@@ -177,9 +177,9 @@ class Clock extends Component {
                       time: time,
                     }
 
-    // axios.post(api + '/clock/new', {timeObj}).then((response) => {
-    //   console.log(response)
-    // })
+    axios.post(api + '/clock/new', timeObj).then((response) => {
+      console.log(response)
+    })
   }
 
 
