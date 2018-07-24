@@ -100,14 +100,12 @@ class Shift extends Component {
 
   formatTime_UserInputToDateObj = (timeString, shift) => {
     if (timeString) {
-      console.log(timeString, 'TIMESTRING')
       let hrsMinsStringArray = timeString.split(':')
       let hrs = Number(hrsMinsStringArray[0])
       let mins = Number(hrsMinsStringArray[1])
       var dateCopy = new Date(this.props.date)
       dateCopy.setHours(hrs)
       dateCopy.setMinutes(mins)
-      console.log(dateCopy, 'DATECOPY')
       if (shift === 'start') {
         this.setState({
           start: dateCopy
@@ -140,7 +138,6 @@ class Shift extends Component {
       if (shiftCategory && start && finish) {
         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
         if (shiftCheck) {
-          console.log('bleeeeeeeeeeh')
           let shiftObj =  {
             staffID: this.state.staffID,
             weekID: this.props.currentWeek._id,
@@ -173,7 +170,6 @@ class Shift extends Component {
         // REPLACE IN DB
         axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
           this.props.fetchData(this.props.weekID)
-          console.log(response)
         })
         // this.currentCloseModal()
         this.props.stopAdd()
@@ -190,7 +186,6 @@ class Shift extends Component {
         })
       }
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -202,10 +197,8 @@ class Shift extends Component {
       let finish = event.target.finish.value
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
-      console.log(start, finish)
       if (shiftCategory && start && finish) {
         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
-        console.log(shiftCheck)
 
         if (shiftCheck) {
 
@@ -255,7 +248,6 @@ class Shift extends Component {
       })
     }
   } catch (error) {
-    console.log(error)
     }
   }
 

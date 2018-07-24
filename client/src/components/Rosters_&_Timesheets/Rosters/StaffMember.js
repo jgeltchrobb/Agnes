@@ -88,7 +88,7 @@ class StaffMember extends Component {
                           shifts: [
                                     {
                                       date: new Date(dateCopy.setDate(weekDate.getDate() + i)),
-                                      shiftCategory: 'empty',
+                                      shiftCategory: '',
                                       start: '',
                                       finish: '',
                                     },
@@ -132,7 +132,7 @@ class StaffMember extends Component {
             } else {
               day.shifts.splice(day.shifts.indexOf(shift), 1, {
                 date: '',
-                shiftCategory: 'empty',
+                shiftCategory: '',
                 start: '',
                 finish: ''
               })
@@ -157,14 +157,10 @@ class StaffMember extends Component {
     }
     let shiftAllowed = false
     for (let shift of daysArray[day].shifts) {
-      console.log('SOOOOOOOOOOOOOOOO')
       if (daysArray[day].shifts.length > 2) {
         shiftAllowed = false
       }
-      console.log(date, shift.date, 'aklsjdlasdla')
       if (shift.date.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
-        console.log(shift, '!!!!!!!!!!!!!!!!!!!')
-        console.log(shiftID, 'SHIFTIDD')
         if (!shift.start || !shift.finish) {
           shiftAllowed = true
         } else {
@@ -210,6 +206,7 @@ class StaffMember extends Component {
   render() {
     const { role, weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
+    console.log(this.state.daysArray)
     return (
       <div className="shift-row">
 

@@ -82,12 +82,19 @@ class Timesheets extends Component {
         }
         prevPrevShiftDate = prevShiftDate
         prevShiftDate = shift.date
-        console.log('setTotalsRowsAndColumnHeadings...')
 
-        // set timnesheet start value. If not in db then calculate it
-        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
-        // set timnesheet finsih value. If not in data then calculate it
-        shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
+        // calculate timnesheet start value according to current data.
+        start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
+        // if no timesheet time in current data or if the new start value is different to the timesheet time then replace with new value
+        if (!shift.start.timesheet || shift.start.timesheet !== start) {
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
+        }
+        // calculate timnesheet finish value according to current data.
+        finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
+        // if no timesheet time in current data or if the new finish value is different to the timesheet time then replace with new value
+        if (!shift.finish.timesheet || shift.finish.timesheet !== finish) {
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
+        }
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
         // determine the shift's payRateCategory and add it to totalsRow with the shiftHours as the value
@@ -119,8 +126,6 @@ class Timesheets extends Component {
                 totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours
               } else {
                 totalsRow['Night'] ? totalsRow['Night'] += shiftHours : totalsRow['Night'] = shiftHours
-                // console.log('rStart...', rStart.toString())
-                // console.log('start...', start.toString())
               }
           }
         } else if (shift.publicHoliday && shift.wayneShift) {
@@ -183,35 +188,30 @@ class Timesheets extends Component {
   }
 
   timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber, shiftID) => {
-    console.log('timesheetEntry...')
 
     if (actual) {
 
       if (actual <= rostered) {
+
         if (startOrFinish === 'start') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
           return rostered
         }
         if (startOrFinish === 'finish') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundDown(actual), shiftID)
           this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundDown(actual)
         }
       } else {
 
         if (startOrFinish === 'start') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundUp(actual), shiftID)
           this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundUp(actual)
         }
         if (startOrFinish === 'finish') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
           return rostered
         }
       }
       // If no clock time then return rostered
     } else {
-      this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
       return rostered
     }
   }
@@ -246,7 +246,6 @@ class Timesheets extends Component {
                     }
 
     axios.put(server + '/flags/new', {flagObj}).then((response) => {
-      // console.log(response.data.confirmation)
     })
   }
 
@@ -273,7 +272,6 @@ class Timesheets extends Component {
       }
     })
   }
-
 
 
   render() {
