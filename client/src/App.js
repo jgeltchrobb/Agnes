@@ -151,6 +151,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state, 'ASDJASDK')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
 
     console.log(this.state.weeks)
