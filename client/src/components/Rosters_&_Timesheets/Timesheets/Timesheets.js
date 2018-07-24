@@ -82,6 +82,7 @@ class Timesheets extends Component {
         }
         prevPrevShiftDate = prevShiftDate
         prevShiftDate = shift.date
+        console.log('setTotalsRowsAndColumnHeadings...')
 
         // set timnesheet start value. If not in db then calculate it
         shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
@@ -182,6 +183,8 @@ class Timesheets extends Component {
   }
 
   timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber, shiftID) => {
+    console.log('timesheetEntry...')
+
     if (actual) {
 
       if (actual <= rostered) {
@@ -214,6 +217,7 @@ class Timesheets extends Component {
   }
 
   postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value, shiftID) => {
+    console.log('posting...')
     const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
@@ -225,9 +229,9 @@ class Timesheets extends Component {
                       value: value,
                     }
 
-    // axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
-    //   console.log(response)
-    // })
+    axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
+      console.log(response)
+    })
   }
 
   postFlag = (staffID, shiftDate, rostered, actual) => {

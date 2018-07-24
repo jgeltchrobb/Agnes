@@ -39,969 +39,864 @@ const seedData = async () => {
 
   await Flags.create({
     flags:
-      [
-        // {
-        //   staffID: user1._id,
-        //   date: '2018-07-02',
-        //   rostered: new Date("July 2 2018 8:00"),
-        //   actual: new Date("July 2 2018 9:00"),
-        //   active: true,
-        // },
-        // {
-        //   staffID: user1._id,
-        //   date: '2018-07-02',
-        //   rostered: new Date("July 2 2018 16:00"),
-        //   actual: new Date("July 2 2018 15:00"),
-        //   active: true,
-        // },
-        // {
-        //   staffID: user2._id,
-        //   date: '2018-07-02',
-        //   rostered: new Date("July 2 2018 8:00"),
-        //   actual: new Date("July 2 2018 9:00"),
-        //   active: true,
-        // },
-        // {
-        //   staffID: user2._id,
-        //   date: '2018-07-02',
-        //   rostered: new Date("July 2 2018 16:00"),
-        //   actual: new Date("July 2 2018 15:00"),
-        //   active: true,
-        // },
-        // {
-        //   staffID: user3._id,
-        //   date: '2018-07-02',
-        //   rostered: new Date("July 2 2018 8:00"),
-        //   actual: new Date("July 2 2018 9:00"),
-        //   active: true,
-        // },
-        // {
-        //   staffID: user2._id,
-        //   date: '2018-06-25',
-        //   rostered: new Date("June 25 2018 8:00"),
-        //   actual: new Date("June 25 2018 9:00"),
-        //   active: true,
-        // },
-        // {
-        //   staffID: user2._id,
-        //   date: '2018-06-25',
-        //   rostered: new Date("June 25 2018 16:00"),
-        //   actual: new Date("June 25 2018 15:00"),
-        // },
-      ]
-  })
-
-  await Week.create({
-    date: '2018-07-16',
-    staff:
-    [
-      {
-        staffID: user1._id, shifts:
-        [
-          {
-            date: new Date("July 16 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                        rostered: new Date("July 16 2018 8:00"),
-                        actual: new Date("July 16 2018 8:00"),
-                        timesheet: new Date("July 16 2018 8:00"),
-                        flag: false
-                    },
-            finish: {
-                        rostered: new Date("July 16 2018 16:00"),
-                        actual: new Date("July 16 2018 16:00"),
-                        timesheet: new Date("July 16 2018 16:00"),
-                        flag: false
-                    }
-          },
-        ], // end of shifts
-
-      }, //end of staff member
-
-      {
-        staffID: user2._id, shifts:
-        [
-          {
-            date: new Date("July 17 2018").toISOString().split('T')[0],
-            shiftCategory: "room",
-            start:  {
-                      rostered: new Date("July 17 2018 8:00"),
-                      actual: new Date("July 17 2018 9:00"),
-                      timesheet: '',
-                      flag: true
-                    },
-            finish: {
-                      rostered: new Date("July 17 2018 16:00"),
-                      actual: new Date("July 17 2018 15:00"),
-                      timesheet: '',
-                      flag: true
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-      {
-        staffID: user3._id, shifts:
-        [
-          {
-            date: new Date("July 18 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                      rostered: new Date("July 18 2018 8:00"),
-                      actual: new Date("July 18 2018 7:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-                      rostered: new Date("July 18 2018 16:00"),
-                      actual: new Date("July 18 2018 17:00"),
-                      timesheet: '',
-                      flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-    ]
+      []
   })
 
   await Week.create({
     date: '2018-07-09',
-    staff:
-    [
-      {
-        staffID: user1._id, shifts:
-        [
-          {
-            date: new Date("July 15 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                        rostered: new Date("July 15 2018 8:00"),
-                        actual: new Date("July 15 2018 8:00"),
-                        timesheet: new Date("July 15 2018 8:00"),
-                        flag: false
-                    },
-            finish: {
-                        rostered: new Date("July 15 2018 16:00"),
-                        actual: new Date("July 15 2018 16:00"),
-                        timesheet: new Date("July 15 2018 16:00"),
-                        flag: false
-                    }
-          },
-        ], // end of shifts
-
-      }, //end of staff member
-
-      {
-        staffID: user2._id, shifts:
-        [
-          {
-            date: new Date("July 9 2018").toISOString().split('T')[0],
-            shiftCategory: "room",
-            start:  {
-                      rostered: new Date("July 9 2018 8:00"),
-                      actual: new Date("July 9 2018 9:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-              rostered: new Date("July 9 2018 16:00"),
-              actual: new Date("July 9 2018 15:00"),
-              timesheet: '',
-              flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-      {
-        staffID: user3._id, shifts:
-        [
-          {
-            date: new Date("July 10 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                      rostered: new Date("July 10 2018 8:00"),
-                      actual: new Date("July 10 2018 7:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-                      rostered: new Date("July 10 2018 16:00"),
-                      actual: new Date("July 10 2018 17:00"),
-                      timesheet: '',
-                      flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-    ]
+    staff:  [
+              { staffID: user1._id, shifts: [] },
+              { staffID: user2._id, shifts: [] },
+              { staffID: user3._id, shifts: [] },
+            ]
   })
 
   await Week.create({
-      date: '2018-07-02',
-      staff:
-      [
-        {
-          staffID: user1._id, shifts:
-          [
-            {
-              date: new Date("July 02 2018"),
-              shiftCategory: "floor",
-              start: {
-                rostered: new Date("July 02 2018 8:00"),
-                actual: new Date("July 02 2018 9:00"),
-                timesheet: new Date("July 02 2018 9:00"),
-                flag: true
-              },
-              finish: {
-                rostered: new Date("July 02 2018 16:00"),
-                actual: '',
-                timesheet: '',
-                flag: true
-              }
-            },
-            {
-              date: new Date("July 02 2018"),
-              shiftCategory: "bludge",
-              start: {
-                rostered: new Date("July 02 2018 22:00"),
-                actual: '',
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 03 2018 06:00"),
-                actual: '',
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 03 2018"),
-              shiftCategory: "room",
-              start: {
-                rostered: new Date("July 03 2018 08:00"),
-                actual: '',
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 03 2018 16:00"),
-                actual: '',
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 03 2018"),
-              shiftCategory: "digging",
-              start: {
-                rostered: new Date("July 03 2018 16:00"),
-                actual: '',
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 03 2018 19:00"),
-                actual: '',
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 4 2018"),
-              shiftCategory: "Kitchen",
-              start: {
-                rostered: new Date("July 4 2018 8:00"),
-                actual: new Date("July 4 2018 8:00"),
-                timesheet: new Date("July 4 2018 8:00"),
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 4 2018 16:00"),
-                actual: new Date("July 4 2018 16:00"),
-                timesheet: new Date("July 4 2018 16:00"),
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 5 2018"),
-              shiftCategory: "floor",
-              start: {
-                rostered: new Date("July 5 2018 8:00"),
-                actual: new Date("July 5 2018 8:00"),
-                timesheet: new Date("July 5 2018 8:00"),
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 5 2018 16:00"),
-                actual: new Date("July 5 2018 16:00"),
-                timesheet: new Date("July 5 2018 16:00"),
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 6 2018"),
-              shiftCategory: "room",
-              start: {
-                rostered: new Date("July 6 2018 8:00"),
-                actual: new Date("July 6 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 6 2018 16:00"),
-                actual: new Date("July 6 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 7 2018"),
-              shiftCategory: "Kitchen",
-              start: {
-                rostered: new Date("July 7 2018 8:00"),
-                actual: new Date("July 7 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 7 2018 16:00"),
-                actual: new Date("July 7 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 8 2018"),
-              shiftCategory: "floor",
-              start: {
-                rostered: new Date("July 8 2018 8:00"),
-                actual: new Date("July 8 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 8 2018 16:00"),
-                actual: new Date("July 8 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            }, // end of saterday
-          ] // end of shifts
-
-        }, //end of staff member
-
-        {
-          staffID: user2._id, shifts:
-          [
-            {
-              date: new Date("July 2 2018").toISOString().split('T')[0],
-              shiftCategory: "room",
-              start: {
-                rostered: new Date("July 2 2018 8:00"),
-                actual: new Date("July 2 2018 9:00"),
-                timesheet: new Date("July 2 2018 9:00"),
-                flag: true
-              },
-              finish: {
-                rostered: new Date("July 2 2018 16:00"),
-                actual: new Date("July 2 2018 15:00"),
-                timesheet: new Date("July 2 2018 15:00"),
-                flag: true
-              }
-            },
-            {
-              date: new Date("July 3 2018").toISOString().split('T')[0],
-              shiftCategory: "kitchen",
-              start: {
-                rostered: new Date("July 3 2018 8:00"),
-                actual: new Date("July 3 2018 7:00"),
-                timesheet: new Date("July 3 2018 8:00"),
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 3 2018 16:00"),
-                actual: new Date("July 3 2018 17:00"),
-                timesheet: new Date("July 3 2018 16:00"),
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 4 2018").toISOString().split('T')[0],
-              shiftCategory: "floor",
-              start: {
-                rostered: new Date("July 4 2018 8:00"),
-                actual: new Date("July 4 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 4 2018 16:00"),
-                actual: new Date("July 4 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 5 2018").toISOString().split('T')[0],
-              shiftCategory: "room",
-              start: {
-                rostered: new Date("July 5 2018 8:00"),
-                actual: new Date("July 5 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 5 2018 16:00"),
-                actual: new Date("July 5 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 6 2018").toISOString().split('T')[0],
-              shiftCategory: "kitchen",
-              start: {
-                rostered: new Date("July 6 2018 8:00"),
-                actual: new Date("July 6 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 6 2018 16:00"),
-                actual: new Date("July 6 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 7 2018").toISOString().split('T')[0],
-              shiftCategory: "floor",
-              start: {
-                rostered: new Date("July 7 2018 8:00"),
-                actual: new Date("July 7 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 7 2018 16:00"),
-                actual: new Date("July 7 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 8 2018").toISOString().split('T')[0],
-              shiftCategory: "room",
-              start: {
-                rostered: new Date("July 8 2018 8:00"),
-                actual: new Date("July 8 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 8 2018 16:00"),
-                actual: new Date("July 8 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            }, // end of saterday
-          ] // end of shifts
-        }, // end of staff member
-
-        {
-          staffID: user3._id, shifts:
-          [
-            {
-              date: new Date("July 2 2018").toISOString().split('T')[0],
-              shiftCategory: "kitchen",
-              start: {
-                rostered: new Date("July 2 2018 8:00"),
-                actual: new Date("July 2 2018 9:00"),
-                timesheet: new Date("July 2 2018 9:00"),
-                flag: true
-              },
-              finish: {
-                rostered: new Date("July 2 2018 16:00"),
-                actual: new Date("July 2 2018 17:00"),
-                timesheet: new Date("July 2 2018 16:00"),
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 3 2018").toISOString().split('T')[0],
-              shiftCategory: "floor",
-              start: {
-                rostered: new Date("July 3 2018 8:00"),
-                actual: new Date("July 3 2018 7:00"),
-                timesheet: new Date("July 3 2018 8:00"),
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 3 2018 16:00"),
-                actual: new Date("July 3 2018 17:00"),
-                timesheet: new Date("July 3 2018 16:00"),
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 4 2018").toISOString().split('T')[0],
-              shiftCategory: "room",
-              start: {
-                rostered: new Date("July 4 2018 8:00"),
-                actual: new Date("July 4 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 4 2018 17:00"),
-                actual: new Date("July 4 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 5 2018").toISOString().split('T')[0],
-              shiftCategory: "kitchen",
-              start: {
-                rostered: new Date("July 5 2018 8:00"),
-                actual: new Date("July 5 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 5 2018 16:00"),
-                actual: new Date("July 5 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 6 2018").toISOString().split('T')[0],
-              shiftCategory: "floor",
-              start: {
-                rostered: new Date("July 6 2018 8:00"),
-                actual: new Date("July 6 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 6 2018 16:00"),
-                actual: new Date("July 6 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 7 2018").toISOString().split('T')[0],
-              shiftCategory: "room",
-              start: {
-                rostered: new Date("July 7 2018 8:00"),
-                actual: new Date("July 7 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 7 2018 18:00"),
-                actual: new Date("July 7 2018 19:00"),
-                timesheet: '',
-                flag: false
-              }
-            },
-            {
-              date: new Date("July 8 2018").toISOString().split('T')[0],
-              shiftCategory: "kitchen",
-              start: {
-                rostered: new Date("July 8 2018 8:00"),
-                actual: new Date("July 8 2018 8:00"),
-                timesheet: '',
-                flag: false
-              },
-              finish: {
-                rostered: new Date("July 8 2018 16:00"),
-                actual: new Date("July 8 2018 16:00"),
-                timesheet: '',
-                flag: false
-              }
-            }, // end of saterday
-          ] // end of shifts
-        }, // end of staff member
-
-      ]
-    })
-
-  await Week.create({
-    date: '2018-06-25',
-    staff:
-    [
-      {
-        staffID: user1._id, shifts:
-        [
-          {
-            date: new Date("June 25 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                        rostered: new Date("June 25 2018 8:00"),
-                        actual: new Date("June 25 2018 8:00"),
-                        timesheet: new Date("June 25 2018 8:00"),
-                        flag: false
-                    },
-            finish: {
-                        rostered: new Date("June 25 2018 16:00"),
-                        actual: new Date("June 25 2018 16:00"),
-                        timesheet: new Date("June 25 2018 16:00"),
-                        flag: false
-                    }
-          },
-        ], // end of shifts
-
-      }, //end of staff member
-
-      {
-        staffID: user2._id, shifts:
-        [
-          {
-            date: new Date("June 26 2018").toISOString().split('T')[0],
-            shiftCategory: "room",
-            start:  {
-                      rostered: new Date("June 26 2018 8:00"),
-                      actual: new Date("June 26 2018 9:00"),
-                      timesheet: new Date("June 26 2018 9:00"),
-                      flag: true
-                    },
-            finish: {
-                      rostered: new Date("June 26 2018 16:00"),
-                      actual: new Date("June 26 2018 15:00"),
-                      timesheet: new Date("June 26 2018 15:00"),
-                      flag: true
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-      {
-        staffID: user3._id, shifts:
-        [
-          {
-            date: new Date("June 27 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                      rostered: new Date("June 27 2018 8:00"),
-                      actual: new Date("June 27 2018 7:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-                      rostered: new Date("June 27 2018 16:00"),
-                      actual: new Date("June 27 2018 17:00"),
-                      timesheet: '',
-                      flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-    ]
+    date: '2018-07-16',
+    staff:  [
+              { staffID: user1._id, shifts: [] },
+              { staffID: user2._id, shifts: [] },
+              { staffID: user3._id, shifts: [] },
+            ]
   })
-
-  await Week.create({
-    date: '2018-06-18',
-    staff:
-    [
-      {
-        staffID: user1._id, shifts:
-        [
-          {
-            date: new Date("June 22 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                        rostered: new Date("June 22 2018 8:00"),
-                        actual: new Date("June 22 2018 8:00"),
-                        timesheet: new Date("June 22 2018 8:00"),
-                        flag: false
-                    },
-            finish: {
-                        rostered: new Date("June 22 2018 16:00"),
-                        actual: new Date("June 22 2018 16:00"),
-                        timesheet: new Date("June 22 2018 16:00"),
-                        flag: false
-                    }
-          },
-        ], // end of shifts
-
-      }, //end of staff member
-
-      {
-        staffID: user2._id, shifts:
-        [
-          {
-            date: new Date("June 23 2018").toISOString().split('T')[0],
-            shiftCategory: "room",
-            start:  {
-                      rostered: new Date("June 23 2018 8:00"),
-                      actual: new Date("June 23 2018 9:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-              rostered: new Date("June 23 2018 16:00"),
-              actual: new Date("June 23 2018 15:00"),
-              timesheet: '',
-              flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-      {
-        staffID: user3._id, shifts:
-        [
-          {
-            date: new Date("June 24 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                      rostered: new Date("June 24 2018 8:00"),
-                      actual: new Date("June 24 2018 7:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-                      rostered: new Date("June 24 2018 16:00"),
-                      actual: new Date("June 24 2018 17:00"),
-                      timesheet: '',
-                      flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-    ]
-  })
-
-  await Week.create({
-    date: '2018-06-11',
-    staff:
-    [
-      {
-        staffID: user1._id, shifts:
-        [
-          {
-            date: new Date("June 14 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                        rostered: new Date("June 14 2018 8:00"),
-                        actual: new Date("June 14 2018 8:00"),
-                        timesheet: new Date("June 14 2018 8:00"),
-                        flag: false
-                    },
-            finish: {
-                        rostered: new Date("June 14 2018 16:00"),
-                        actual: new Date("June 14 2018 16:00"),
-                        timesheet: new Date("June 14 2018 16:00"),
-                        flag: false
-                    }
-          },
-        ], // end of shifts
-
-      }, //end of staff member
-
-      {
-        staffID: user2._id, shifts:
-        [
-          {
-            date: new Date("June 15 2018").toISOString().split('T')[0],
-            shiftCategory: "room",
-            start:  {
-                      rostered: new Date("June 15 2018 8:00"),
-                      actual: new Date("June 15 2018 9:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-              rostered: new Date("June 15 2018 16:00"),
-              actual: new Date("June 15 2018 15:00"),
-              timesheet: '',
-              flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-      {
-        staffID: user3._id, shifts:
-        [
-          {
-            date: new Date("June 16 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                      rostered: new Date("June 16 2018 8:00"),
-                      actual: new Date("June 16 2018 7:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-                      rostered: new Date("June 16 2018 16:00"),
-                      actual: new Date("June 16 2018 17:00"),
-                      timesheet: '',
-                      flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-    ]
-  })
-
-  await Week.create({
-    date: '2018-06-04',
-    staff:
-    [
-      {
-        staffID: user1._id, shifts:
-        [
-          {
-            date: new Date("June 5 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                        rostered: new Date("June 5 2018 8:00"),
-                        actual: new Date("June 5 2018 8:00"),
-                        timesheet: new Date("June 5 2018 8:00"),
-                        flag: false
-                    },
-            finish: {
-                        rostered: new Date("June 5 2018 16:00"),
-                        actual: new Date("June 5 2018 16:00"),
-                        timesheet: new Date("June 5 2018 16:00"),
-                        flag: false
-                    }
-          },
-        ], // end of shifts
-
-      }, //end of staff member
-
-      {
-        staffID: user2._id, shifts:
-        [
-          {
-            date: new Date("June 6 2018").toISOString().split('T')[0],
-            shiftCategory: "room",
-            start:  {
-                      rostered: new Date("June 6 2018 8:00"),
-                      actual: new Date("June 6 2018 9:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-              rostered: new Date("June 6 2018 16:00"),
-              actual: new Date("June 6 2018 15:00"),
-              timesheet: '',
-              flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-      {
-        staffID: user3._id, shifts:
-        [
-          {
-            date: new Date("June 7 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                      rostered: new Date("June 7 2018 8:00"),
-                      actual: new Date("June 7 2018 7:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-                      rostered: new Date("June 7 2018 16:00"),
-                      actual: new Date("June 7 2018 17:00"),
-                      timesheet: '',
-                      flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-    ]
-  })
-
-  await Week.create({
-    date: '2018-05-28',
-    staff:
-    [
-      {
-        staffID: user1._id, shifts:
-        [
-          {
-            date: new Date("May 29 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                        rostered: new Date("May 29 2018 8:00"),
-                        actual: new Date("May 29 2018 8:00"),
-                        timesheet: new Date("May 29 2018 8:00"),
-                        flag: false
-                    },
-            finish: {
-                        rostered: new Date("May 29 2018 16:00"),
-                        actual: new Date("May 29 2018 16:00"),
-                        timesheet: new Date("May 29 2018 16:00"),
-                        flag: false
-                    }
-          },
-        ], // end of shifts
-
-      }, //end of staff member
-
-      {
-        staffID: user2._id, shifts:
-        [
-          {
-            date: new Date("May 30 2018").toISOString().split('T')[0],
-            shiftCategory: "room",
-            start:  {
-                      rostered: new Date("May 30 2018 8:00"),
-                      actual: new Date("May 30 2018 9:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-              rostered: new Date("May 30 2018 16:00"),
-              actual: new Date("May 30 2018 15:00"),
-              timesheet: '',
-              flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-      {
-        staffID: user3._id, shifts:
-        [
-          {
-            date: new Date("May 31 2018").toISOString().split('T')[0],
-            shiftCategory: "floor",
-            start:  {
-                      rostered: new Date("May 31 2018 8:00"),
-                      actual: new Date("May 31 2018 7:00"),
-                      timesheet: '',
-                      flag: false
-                    },
-            finish: {
-                      rostered: new Date("May 31 2018 16:00"),
-                      actual: new Date("May 31 2018 17:00"),
-                      timesheet: '',
-                      flag: false
-                    }
-          },
-        ], // end of shifts
-      }, // end of staff member
-
-    ]
-  })
+  //
+  // await Week.create({
+  //   date: '2018-07-09',
+  //   staff:
+  //   [
+  //     {
+  //       staffID: user1._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("July 15 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                       rostered: new Date("July 15 2018 8:00"),
+  //                       actual: new Date("July 15 2018 8:00"),
+  //                       timesheet: new Date("July 15 2018 8:00"),
+  //                       flag: false
+  //                   },
+  //           finish: {
+  //                       rostered: new Date("July 15 2018 16:00"),
+  //                       actual: new Date("July 15 2018 16:00"),
+  //                       timesheet: new Date("July 15 2018 16:00"),
+  //                       flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //
+  //     }, //end of staff member
+  //
+  //     {
+  //       staffID: user2._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("July 9 2018").toISOString().split('T')[0],
+  //           shiftCategory: "room",
+  //           start:  {
+  //                     rostered: new Date("July 9 2018 8:00"),
+  //                     actual: new Date("July 9 2018 9:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //             rostered: new Date("July 9 2018 16:00"),
+  //             actual: new Date("July 9 2018 15:00"),
+  //             timesheet: '',
+  //             flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //     {
+  //       staffID: user3._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("July 10 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                     rostered: new Date("July 10 2018 8:00"),
+  //                     actual: new Date("July 10 2018 7:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //                     rostered: new Date("July 10 2018 16:00"),
+  //                     actual: new Date("July 10 2018 17:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //   ]
+  // })
+  //
+  // await Week.create({
+  //     date: '2018-07-02',
+  //     staff:
+  //     [
+  //       {
+  //         staffID: user1._id, shifts:
+  //         [
+  //           {
+  //             date: new Date("July 02 2018"),
+  //             shiftCategory: "floor",
+  //             start: {
+  //               rostered: new Date("July 02 2018 8:00"),
+  //               actual: new Date("July 02 2018 9:00"),
+  //               timesheet: new Date("July 02 2018 9:00"),
+  //               flag: true
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 02 2018 16:00"),
+  //               actual: '',
+  //               timesheet: '',
+  //               flag: true
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 02 2018"),
+  //             shiftCategory: "bludge",
+  //             start: {
+  //               rostered: new Date("July 02 2018 22:00"),
+  //               actual: '',
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 03 2018 06:00"),
+  //               actual: '',
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 03 2018"),
+  //             shiftCategory: "room",
+  //             start: {
+  //               rostered: new Date("July 03 2018 08:00"),
+  //               actual: '',
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 03 2018 16:00"),
+  //               actual: '',
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 03 2018"),
+  //             shiftCategory: "digging",
+  //             start: {
+  //               rostered: new Date("July 03 2018 16:00"),
+  //               actual: '',
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 03 2018 19:00"),
+  //               actual: '',
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 4 2018"),
+  //             shiftCategory: "Kitchen",
+  //             start: {
+  //               rostered: new Date("July 4 2018 8:00"),
+  //               actual: new Date("July 4 2018 8:00"),
+  //               timesheet: new Date("July 4 2018 8:00"),
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 4 2018 16:00"),
+  //               actual: new Date("July 4 2018 16:00"),
+  //               timesheet: new Date("July 4 2018 16:00"),
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 5 2018"),
+  //             shiftCategory: "floor",
+  //             start: {
+  //               rostered: new Date("July 5 2018 8:00"),
+  //               actual: new Date("July 5 2018 8:00"),
+  //               timesheet: new Date("July 5 2018 8:00"),
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 5 2018 16:00"),
+  //               actual: new Date("July 5 2018 16:00"),
+  //               timesheet: new Date("July 5 2018 16:00"),
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 6 2018"),
+  //             shiftCategory: "room",
+  //             start: {
+  //               rostered: new Date("July 6 2018 8:00"),
+  //               actual: new Date("July 6 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 6 2018 16:00"),
+  //               actual: new Date("July 6 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 7 2018"),
+  //             shiftCategory: "Kitchen",
+  //             start: {
+  //               rostered: new Date("July 7 2018 8:00"),
+  //               actual: new Date("July 7 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 7 2018 16:00"),
+  //               actual: new Date("July 7 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 8 2018"),
+  //             shiftCategory: "floor",
+  //             start: {
+  //               rostered: new Date("July 8 2018 8:00"),
+  //               actual: new Date("July 8 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 8 2018 16:00"),
+  //               actual: new Date("July 8 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           }, // end of saterday
+  //         ] // end of shifts
+  //
+  //       }, //end of staff member
+  //
+  //       {
+  //         staffID: user2._id, shifts:
+  //         [
+  //           {
+  //             date: new Date("July 2 2018").toISOString().split('T')[0],
+  //             shiftCategory: "room",
+  //             start: {
+  //               rostered: new Date("July 2 2018 8:00"),
+  //               actual: new Date("July 2 2018 9:00"),
+  //               timesheet: new Date("July 2 2018 9:00"),
+  //               flag: true
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 2 2018 16:00"),
+  //               actual: new Date("July 2 2018 15:00"),
+  //               timesheet: new Date("July 2 2018 15:00"),
+  //               flag: true
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 3 2018").toISOString().split('T')[0],
+  //             shiftCategory: "kitchen",
+  //             start: {
+  //               rostered: new Date("July 3 2018 8:00"),
+  //               actual: new Date("July 3 2018 7:00"),
+  //               timesheet: new Date("July 3 2018 8:00"),
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 3 2018 16:00"),
+  //               actual: new Date("July 3 2018 17:00"),
+  //               timesheet: new Date("July 3 2018 16:00"),
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 4 2018").toISOString().split('T')[0],
+  //             shiftCategory: "floor",
+  //             start: {
+  //               rostered: new Date("July 4 2018 8:00"),
+  //               actual: new Date("July 4 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 4 2018 16:00"),
+  //               actual: new Date("July 4 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 5 2018").toISOString().split('T')[0],
+  //             shiftCategory: "room",
+  //             start: {
+  //               rostered: new Date("July 5 2018 8:00"),
+  //               actual: new Date("July 5 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 5 2018 16:00"),
+  //               actual: new Date("July 5 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 6 2018").toISOString().split('T')[0],
+  //             shiftCategory: "kitchen",
+  //             start: {
+  //               rostered: new Date("July 6 2018 8:00"),
+  //               actual: new Date("July 6 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 6 2018 16:00"),
+  //               actual: new Date("July 6 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 7 2018").toISOString().split('T')[0],
+  //             shiftCategory: "floor",
+  //             start: {
+  //               rostered: new Date("July 7 2018 8:00"),
+  //               actual: new Date("July 7 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 7 2018 16:00"),
+  //               actual: new Date("July 7 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 8 2018").toISOString().split('T')[0],
+  //             shiftCategory: "room",
+  //             start: {
+  //               rostered: new Date("July 8 2018 8:00"),
+  //               actual: new Date("July 8 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 8 2018 16:00"),
+  //               actual: new Date("July 8 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           }, // end of saterday
+  //         ] // end of shifts
+  //       }, // end of staff member
+  //
+  //       {
+  //         staffID: user3._id, shifts:
+  //         [
+  //           {
+  //             date: new Date("July 2 2018").toISOString().split('T')[0],
+  //             shiftCategory: "kitchen",
+  //             start: {
+  //               rostered: new Date("July 2 2018 8:00"),
+  //               actual: new Date("July 2 2018 9:00"),
+  //               timesheet: new Date("July 2 2018 9:00"),
+  //               flag: true
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 2 2018 16:00"),
+  //               actual: new Date("July 2 2018 17:00"),
+  //               timesheet: new Date("July 2 2018 16:00"),
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 3 2018").toISOString().split('T')[0],
+  //             shiftCategory: "floor",
+  //             start: {
+  //               rostered: new Date("July 3 2018 8:00"),
+  //               actual: new Date("July 3 2018 7:00"),
+  //               timesheet: new Date("July 3 2018 8:00"),
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 3 2018 16:00"),
+  //               actual: new Date("July 3 2018 17:00"),
+  //               timesheet: new Date("July 3 2018 16:00"),
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 4 2018").toISOString().split('T')[0],
+  //             shiftCategory: "room",
+  //             start: {
+  //               rostered: new Date("July 4 2018 8:00"),
+  //               actual: new Date("July 4 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 4 2018 17:00"),
+  //               actual: new Date("July 4 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 5 2018").toISOString().split('T')[0],
+  //             shiftCategory: "kitchen",
+  //             start: {
+  //               rostered: new Date("July 5 2018 8:00"),
+  //               actual: new Date("July 5 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 5 2018 16:00"),
+  //               actual: new Date("July 5 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 6 2018").toISOString().split('T')[0],
+  //             shiftCategory: "floor",
+  //             start: {
+  //               rostered: new Date("July 6 2018 8:00"),
+  //               actual: new Date("July 6 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 6 2018 16:00"),
+  //               actual: new Date("July 6 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 7 2018").toISOString().split('T')[0],
+  //             shiftCategory: "room",
+  //             start: {
+  //               rostered: new Date("July 7 2018 8:00"),
+  //               actual: new Date("July 7 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 7 2018 18:00"),
+  //               actual: new Date("July 7 2018 19:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           },
+  //           {
+  //             date: new Date("July 8 2018").toISOString().split('T')[0],
+  //             shiftCategory: "kitchen",
+  //             start: {
+  //               rostered: new Date("July 8 2018 8:00"),
+  //               actual: new Date("July 8 2018 8:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             },
+  //             finish: {
+  //               rostered: new Date("July 8 2018 16:00"),
+  //               actual: new Date("July 8 2018 16:00"),
+  //               timesheet: '',
+  //               flag: false
+  //             }
+  //           }, // end of saterday
+  //         ] // end of shifts
+  //       }, // end of staff member
+  //
+  //     ]
+  //   })
+  //
+  // await Week.create({
+  //   date: '2018-06-25',
+  //   staff:
+  //   [
+  //     {
+  //       staffID: user1._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 25 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                       rostered: new Date("June 25 2018 8:00"),
+  //                       actual: new Date("June 25 2018 8:00"),
+  //                       timesheet: new Date("June 25 2018 8:00"),
+  //                       flag: false
+  //                   },
+  //           finish: {
+  //                       rostered: new Date("June 25 2018 16:00"),
+  //                       actual: new Date("June 25 2018 16:00"),
+  //                       timesheet: new Date("June 25 2018 16:00"),
+  //                       flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //
+  //     }, //end of staff member
+  //
+  //     {
+  //       staffID: user2._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 26 2018").toISOString().split('T')[0],
+  //           shiftCategory: "room",
+  //           start:  {
+  //                     rostered: new Date("June 26 2018 8:00"),
+  //                     actual: new Date("June 26 2018 9:00"),
+  //                     timesheet: new Date("June 26 2018 9:00"),
+  //                     flag: true
+  //                   },
+  //           finish: {
+  //                     rostered: new Date("June 26 2018 16:00"),
+  //                     actual: new Date("June 26 2018 15:00"),
+  //                     timesheet: new Date("June 26 2018 15:00"),
+  //                     flag: true
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //     {
+  //       staffID: user3._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 27 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                     rostered: new Date("June 27 2018 8:00"),
+  //                     actual: new Date("June 27 2018 7:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //                     rostered: new Date("June 27 2018 16:00"),
+  //                     actual: new Date("June 27 2018 17:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //   ]
+  // })
+  //
+  // await Week.create({
+  //   date: '2018-06-18',
+  //   staff:
+  //   [
+  //     {
+  //       staffID: user1._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 22 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                       rostered: new Date("June 22 2018 8:00"),
+  //                       actual: new Date("June 22 2018 8:00"),
+  //                       timesheet: new Date("June 22 2018 8:00"),
+  //                       flag: false
+  //                   },
+  //           finish: {
+  //                       rostered: new Date("June 22 2018 16:00"),
+  //                       actual: new Date("June 22 2018 16:00"),
+  //                       timesheet: new Date("June 22 2018 16:00"),
+  //                       flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //
+  //     }, //end of staff member
+  //
+  //     {
+  //       staffID: user2._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 23 2018").toISOString().split('T')[0],
+  //           shiftCategory: "room",
+  //           start:  {
+  //                     rostered: new Date("June 23 2018 8:00"),
+  //                     actual: new Date("June 23 2018 9:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //             rostered: new Date("June 23 2018 16:00"),
+  //             actual: new Date("June 23 2018 15:00"),
+  //             timesheet: '',
+  //             flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //     {
+  //       staffID: user3._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 24 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                     rostered: new Date("June 24 2018 8:00"),
+  //                     actual: new Date("June 24 2018 7:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //                     rostered: new Date("June 24 2018 16:00"),
+  //                     actual: new Date("June 24 2018 17:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //   ]
+  // })
+  //
+  // await Week.create({
+  //   date: '2018-06-11',
+  //   staff:
+  //   [
+  //     {
+  //       staffID: user1._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 14 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                       rostered: new Date("June 14 2018 8:00"),
+  //                       actual: new Date("June 14 2018 8:00"),
+  //                       timesheet: new Date("June 14 2018 8:00"),
+  //                       flag: false
+  //                   },
+  //           finish: {
+  //                       rostered: new Date("June 14 2018 16:00"),
+  //                       actual: new Date("June 14 2018 16:00"),
+  //                       timesheet: new Date("June 14 2018 16:00"),
+  //                       flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //
+  //     }, //end of staff member
+  //
+  //     {
+  //       staffID: user2._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 15 2018").toISOString().split('T')[0],
+  //           shiftCategory: "room",
+  //           start:  {
+  //                     rostered: new Date("June 15 2018 8:00"),
+  //                     actual: new Date("June 15 2018 9:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //             rostered: new Date("June 15 2018 16:00"),
+  //             actual: new Date("June 15 2018 15:00"),
+  //             timesheet: '',
+  //             flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //     {
+  //       staffID: user3._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 16 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                     rostered: new Date("June 16 2018 8:00"),
+  //                     actual: new Date("June 16 2018 7:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //                     rostered: new Date("June 16 2018 16:00"),
+  //                     actual: new Date("June 16 2018 17:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //   ]
+  // })
+  //
+  // await Week.create({
+  //   date: '2018-06-04',
+  //   staff:
+  //   [
+  //     {
+  //       staffID: user1._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 5 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                       rostered: new Date("June 5 2018 8:00"),
+  //                       actual: new Date("June 5 2018 8:00"),
+  //                       timesheet: new Date("June 5 2018 8:00"),
+  //                       flag: false
+  //                   },
+  //           finish: {
+  //                       rostered: new Date("June 5 2018 16:00"),
+  //                       actual: new Date("June 5 2018 16:00"),
+  //                       timesheet: new Date("June 5 2018 16:00"),
+  //                       flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //
+  //     }, //end of staff member
+  //
+  //     {
+  //       staffID: user2._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 6 2018").toISOString().split('T')[0],
+  //           shiftCategory: "room",
+  //           start:  {
+  //                     rostered: new Date("June 6 2018 8:00"),
+  //                     actual: new Date("June 6 2018 9:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //             rostered: new Date("June 6 2018 16:00"),
+  //             actual: new Date("June 6 2018 15:00"),
+  //             timesheet: '',
+  //             flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //     {
+  //       staffID: user3._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("June 7 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                     rostered: new Date("June 7 2018 8:00"),
+  //                     actual: new Date("June 7 2018 7:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //                     rostered: new Date("June 7 2018 16:00"),
+  //                     actual: new Date("June 7 2018 17:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //   ]
+  // })
+  //
+  // await Week.create({
+  //   date: '2018-05-28',
+  //   staff:
+  //   [
+  //     {
+  //       staffID: user1._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("May 29 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                       rostered: new Date("May 29 2018 8:00"),
+  //                       actual: new Date("May 29 2018 8:00"),
+  //                       timesheet: new Date("May 29 2018 8:00"),
+  //                       flag: false
+  //                   },
+  //           finish: {
+  //                       rostered: new Date("May 29 2018 16:00"),
+  //                       actual: new Date("May 29 2018 16:00"),
+  //                       timesheet: new Date("May 29 2018 16:00"),
+  //                       flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //
+  //     }, //end of staff member
+  //
+  //     {
+  //       staffID: user2._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("May 30 2018").toISOString().split('T')[0],
+  //           shiftCategory: "room",
+  //           start:  {
+  //                     rostered: new Date("May 30 2018 8:00"),
+  //                     actual: new Date("May 30 2018 9:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //             rostered: new Date("May 30 2018 16:00"),
+  //             actual: new Date("May 30 2018 15:00"),
+  //             timesheet: '',
+  //             flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //     {
+  //       staffID: user3._id, shifts:
+  //       [
+  //         {
+  //           date: new Date("May 31 2018").toISOString().split('T')[0],
+  //           shiftCategory: "floor",
+  //           start:  {
+  //                     rostered: new Date("May 31 2018 8:00"),
+  //                     actual: new Date("May 31 2018 7:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   },
+  //           finish: {
+  //                     rostered: new Date("May 31 2018 16:00"),
+  //                     actual: new Date("May 31 2018 17:00"),
+  //                     timesheet: '',
+  //                     flag: false
+  //                   }
+  //         },
+  //       ], // end of shifts
+  //     }, // end of staff member
+  //
+  //   ]
+  // })
 
   await PayRateCategories.create({
     payRateCategories:

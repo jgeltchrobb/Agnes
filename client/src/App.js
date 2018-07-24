@@ -57,7 +57,6 @@ class App extends Component {
 
   fetchAllData = (date) => {
     axios.get(api + 'rosters').then(response => {
-
       this.setState({
         // week1: response.data[0],
         // week2: response.data[1],
@@ -169,7 +168,11 @@ class App extends Component {
     // let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
+    console.log(week)
+
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
+    console.log(prevWeek)
+
     // this is to simulate a staff member login - switch between the following two statements
     let staffUser = ''
     // let staffUser = this.state.users[0]
