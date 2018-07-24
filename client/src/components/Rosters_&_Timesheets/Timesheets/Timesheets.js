@@ -58,10 +58,10 @@ class Timesheets extends Component {
 
       staffMember.shifts.map((shift) => {
         const rStart = new Date(shift.start.rostered)
-        const aStart = new Date(shift.start.actual)
+        const aStart = shift.start.actual ? new Date(shift.start.actual) : ''
         var start = ''
         const rFinish = new Date(shift.finish.rostered)
-        const aFinish = new Date(shift.finish.actual)
+        const aFinish = shift.finish.actual ? new Date(shift.finish.actual) : ''
         var finish = ''
 
         var shiftNumber = 1
@@ -76,7 +76,9 @@ class Timesheets extends Component {
         prevShiftDate = shift.date
 
         // set timnesheet start value. If not in db then calculate it
-        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
+        shift.start.timesheet ? start = new Date(shift.start.timesheet) :
+        start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
+        console.log(start)
         // set timnesheet finsih value. If not in data then calculate it
         shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
         // shift hours are just finish - start times converted to a number of hours with two decimal places
@@ -110,6 +112,8 @@ class Timesheets extends Component {
                 totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours
               } else {
                 totalsRow['Night'] ? totalsRow['Night'] += shiftHours : totalsRow['Night'] = shiftHours
+                // console.log('rStart...', rStart.toString())
+                // console.log('start...', start.toString())
               }
           }
         } else if (shift.publicHoliday && shift.wayneShift) {

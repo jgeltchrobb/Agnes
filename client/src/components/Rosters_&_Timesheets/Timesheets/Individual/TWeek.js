@@ -111,7 +111,7 @@ class TWeek extends Component {
         subTotal1 > 4 ? breaks1.push(30) : breaks1.push(15)
         totals1.push( subTotal1 - (breaks1[i]/60) )
       } else {
-        breaks1.push('no break')
+        breaks1.push('')
         totals1.push(0)
       }
       if (starts2 && finishes2) {
@@ -120,7 +120,7 @@ class TWeek extends Component {
           subTotal2 > 4 ? breaks2.push(30) : breaks2.push(15)
           totals2.push( subTotal2 - (breaks2[i]/60) )
         } else {
-          breaks2.push('no break')
+          breaks2.push('')
           totals2.push(0)
         }
       }
@@ -130,7 +130,7 @@ class TWeek extends Component {
           subTotal3 > 4 ? breaks3.push(30) : breaks3.push(15)
           totals3.push( subTotal3 - (breaks3[i]/60) )
         } else {
-          breaks3.push('no break')
+          breaks3.push('')
           totals3.push(0)
         }
       }
@@ -160,13 +160,13 @@ class TWeek extends Component {
       valuesRows3: valuesRows3,
     })
 
-    // console.log(valuesRows1)
   }
 
 
   render() {
     const { weekID, individual } = this.props
     const { valuesRows1, valuesRows2, valuesRows3, weekDates, grandTotalsRow } = this.state
+    console.log(valuesRows1)
 
     const shift1 = Object.keys(valuesRows1)
     const shift2 = Object.keys(valuesRows2)
