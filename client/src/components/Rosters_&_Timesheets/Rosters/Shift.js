@@ -140,7 +140,7 @@ class Shift extends Component {
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, true)
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
         if (shiftCheck) {
           console.log('bleeeeeeeeeeh')
           let shiftObj =  {
@@ -206,7 +206,7 @@ class Shift extends Component {
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
       console.log(start, finish)
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID, false)
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
         console.log(shiftCheck)
 
         if (shiftCheck) {
