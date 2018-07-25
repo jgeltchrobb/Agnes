@@ -49,7 +49,6 @@ class Day extends Component {
 
   render() {
     const { shifts, staffID, weekID } = this.props
-    console.log(this.state.shifts, 'LLLLLLLLL')
     return (
       <div className='shift-container'>
       {
@@ -59,6 +58,7 @@ class Day extends Component {
               <Shift  weekID={ weekID }
               staffID={ staffID }
               date={ shift.date }
+              weekDate={ this.props.weekDate }
               shiftCategory={ shift.shiftCategory }
               start={ shift.start }
               finish={ shift.finish }

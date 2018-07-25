@@ -25,6 +25,7 @@ class Shift extends Component {
     this.state = {
       weekID: '',
       staffID: '',
+      weekDate: '',
       date: '',
       shiftCategory: '',
       start: '',
@@ -41,22 +42,24 @@ class Shift extends Component {
   }
 
   componentDidMount = () => {
-    const { weekID, staffID, date, shiftCategory, start, finish, shiftID } = this.props
+    const { weekID, staffID, date, shiftCategory, start, finish, shiftID, weekDate } = this.props
     this.setState({
       weekID: weekID,
       staffID: staffID,
       shiftID: shiftID,
+      weekDate: weekDate,
     })
     this.setShift(shiftCategory, start, finish, date)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    const { weekID, staffID, date, shiftCategory, start, finish, shiftID, addShift, removeShiftVal } = this.props
+    const { weekID, staffID, date, shiftCategory, start, finish, shiftID, addShift, removeShiftVal, weekDate } = this.props
     if (this.props !== prevProps) {
       this.setState({
         weekID: weekID,
         staffID: staffID,
         shiftID: shiftID,
+        weekDate: weekDate,
         addShift: addShift,
         removeShiftVal: removeShiftVal
       })
@@ -70,6 +73,7 @@ class Shift extends Component {
       if (removeShiftVal) {
         this.setState({
           currentEditing: false,
+          // removeShift: true
         })
       }
     }
@@ -127,19 +131,94 @@ class Shift extends Component {
     this.currentOpenModal()
   }
 
+  setNightShift = async (event, startTime, finishTime, shiftCategory, push, sunday) => {
+    let pubHol = event.target.pubHol
+    let wayneShift = event.target.wayne
+    let shiftObj =  {
+      staffID: this.state.staffID,
+      weekID: this.props.currentWeek._id,
+      publicHoliday: pubHol.checked,
+      wayneShift: wayneShift.checked,
+      shift: {
+        date: this.state.date.toISOString().split('T')[0],
+        shiftCategory: shiftCategory,
+        sleepOver: true,
+        start: {
+          rostered: startTime,
+          actual: '',
+          timesheet: '',
+          flag: false,
+        },
+        finish: {
+          rostered: this.formatTime_UserInputToDateObj('22:00', 'finish'),
+          actual: '',
+          timesheet: '',
+          flag: false,
+        }
+      }
+    }
+
+    this.setState({
+      shiftCategory,
+      start: startTime,
+      finish: this.formatTime_UserInputToDateObj('22:00', 'finish'),
+    })
+
+    // REPLACE IN DB
+    let nightResponse = await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
+    let weekID = nightResponse.data._id
+    let shiftDate = this.state.date
+    shiftDate.setDate(shiftDate.getDate() + 1)
+    console.log(shiftObj)
+
+    if (sunday) {
+      let weekDate = new Date(this.state.weekDate)
+      weekDate.setDate(weekDate.getDate() + 7)
+      let weekResponse = await axios.get(api + '/rosters/' + 'date/' + weekDate)
+      shiftDate = new Date(weekResponse.data.date)
+      weekID = weekResponse.data._id
+
+      shiftObj.weekID = weekID
+      shiftObj.shift.firstHalfID = nightResponse.data._id
+      shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
+      shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
+      shiftObj.shift.finish.rostered = finishTime
+      console.log(shiftObj)
+      await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
+
+    } else {
+      shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
+      shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
+      shiftObj.shift.finish.rostered = finishTime
+      shiftObj.shift.firstHalfID = nightResponse.data._id
+      console.log(shiftObj)
+
+      await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
+    }
+      this.props.fetchData(this.props.weekID)
+    }
+
   addShiftSubmit = async (event) => {
     event.preventDefault()
     try {
-      console.log(this.state, 'LOLOLOLOLOLOLOLOLOL')
       let shiftCategory = event.target.shiftCategory.value
       let start = event.target.start.value
       let finish = event.target.finish.value
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
-      if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, false, false)
-        console.log(shiftCheck, 'SHIFTUSCHECKUS')
 
+      if (finish < start) {
+        let shiftDay = this.state.date.getDay()
+        console.log(shiftDay, 'SHIDAT')
+        let sunday = false
+        console.log(shiftDay, "DAYDAYDAYDAYDAYD")
+        if (shiftDay === 0) { sunday = true }
+        this.setNightShift(event, start, finish, shiftCategory, true, sunday)
+        //STOP ADD??
+      } else if (shiftCategory && start && finish) {
+          
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, false, false)
+        
         if (shiftCheck) {
           let shiftObj =  {
             staffID: this.state.staffID,
@@ -200,7 +279,15 @@ class Shift extends Component {
       let finish = event.target.finish.value
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
-      if (shiftCategory && start && finish) {
+
+      if (finish < start) {
+        let shiftDay = this.state.date.getDay()
+        let sunday = false
+        console.log(shiftDay, "DAYDAYDAYDAYDAYD")
+        if (shiftDay === 0) { sunday = true }
+        this.setNightShift(event, start, finish, shiftCategory, false, sunday)
+        //STOP ADD??
+      } else if (shiftCategory && start && finish) {
         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID, true)
         if (shiftCheck) {
 
@@ -254,6 +341,16 @@ class Shift extends Component {
     }
   }
 
+  removeCurrentShift = () => {
+    // console.log('yo')
+    // this.setState({
+    //   shiftCategory: '',
+    //   start: '',
+    //   finish: ''
+    // })
+    this.props.removeShift(this.props.staffID, this.props.shiftID)
+  }
+
   currentOpenModal = () => {
     this.setState({currentModalIsOpen: true});
   }
@@ -284,9 +381,8 @@ class Shift extends Component {
                 <p>{ this.state.shiftCategory.toUpperCase() }</p>
               </div>
             </div>
-            <button id='remove-shift-btn' onClick={
-              () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-              } >x</button>
+            <button id='remove-shift-btn' onClick={this.removeCurrentShift}>x</button>
+
         </React.Fragment>
       )
     } else if (this.state.currentEditing && this.props.addShift && (this.state.date === this.props.currentShiftDate)) {
@@ -305,15 +401,28 @@ class Shift extends Component {
               <div className="shift-category">
                 <p>{ this.state.shiftCategory.toUpperCase() }</p>
               </div>
-              <button id='remove-shift-btn' onClick={
-                () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-                } >x</button>
+              <button id='remove-shift-btn' onClick={this.removeCurrentShift}>x</button>
             </div>
         </React.Fragment>
       )
-    } else if (!this.state.start && !this.state.finish) {
-      return ''
-    } else {
+    } else if ((!this.state.start && !this.state.finish)) {
+      return (
+        <React.Fragment>
+                  {/* // <div className="shift-block" onClick={ () => this.currentEdit() } > */}
+            <div className="shift-time" >
+              <div></div>
+              <div className="shift-middle"><p></p></div>
+              <div></div>
+            </div>
+            <div className="shift-category">
+              <p></p>
+            </div>
+          {/* // </div> */}
+          </React.Fragment>
+      )
+    }
+    
+    else {
       return (
         <React.Fragment>
           <div className="shift-block" onClick={ () => this.currentEdit() } >
@@ -326,9 +435,8 @@ class Shift extends Component {
               <p>{ this.state.shiftCategory.toUpperCase() }</p>
             </div>
         {/* { (role !== 'admin') ? '' : */}
-            <button id='remove-shift-btn' onClick={
-              () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-              } >x</button>
+        <button id='remove-shift-btn' onClick={this.removeCurrentShift}>x</button>
+
         {/* } */}
           </div>
         </React.Fragment>
