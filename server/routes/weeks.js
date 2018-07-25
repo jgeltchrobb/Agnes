@@ -134,12 +134,16 @@ router.get('/new/:weekDate', async (req, res) => {
 
 router.post('/shift/:id', async (req, res) => {
   try {
+    let shifts = ''
     if (!req.body.pushShift) {
       let found = false
       let week = await Week.findOne({_id: req.body.shiftObj.weekID})
       for (let staff of week.staff) {
         if (staff.staffID === req.body.shiftObj.staffID) {
           for (let shift of staff.shifts) {
+            console.log(shift, 'HERESHIFT')
+            console.log(shift.date)
+            console.log(req.body.shiftObj.shift.date)
             if (shift.date === req.body.shiftObj.shift.date) {
               if (shift._id == req.params.id) {
                 found = true
@@ -158,11 +162,12 @@ router.post('/shift/:id', async (req, res) => {
       let week = await Week.findOne({_id: req.body.shiftObj.weekID})
       for (let staff of week.staff) {
         if (staff.staffID === req.body.shiftObj.staffID) {
+          shifts = staff.shifts
           staff.shifts.push(req.body.shiftObj.shift)
         }
       }
       await week.save()
-      res.send(week)
+      res.send(shifts[shifts.length - 1])
     }
   } catch (error) {
     res.status(500).json({ error: error.message })

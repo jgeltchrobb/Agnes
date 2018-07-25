@@ -1,0 +1,17 @@
+div.mobile-clock {
+  margin-top: 5em;
+  display: flex;
+  justify-content: center;
+}
+
+div.mobile-clock > button {
+  border-radius: 0.3em;
+  font-size: 1.5rem;
+  padding: 0.25em 0.75em;
+}
+
+div.office-clock-container {
+  margin-top: 6em;
+  display: flex;
+  justify-content: center;
+}

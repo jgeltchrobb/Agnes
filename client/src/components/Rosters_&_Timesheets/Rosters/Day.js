@@ -58,6 +58,7 @@ class Day extends Component {
               <Shift  weekID={ weekID }
               staffID={ staffID }
               date={ shift.date }
+              weekDate={ this.props.weekDate }
               shiftCategory={ shift.shiftCategory }
               start={ shift.start }
               finish={ shift.finish }
