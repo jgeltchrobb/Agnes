@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import KeyPad from './KeyPad'
+import '../../stylesheets/Clock.css'
 
 class Clock extends Component {
   constructor(props) {
@@ -253,7 +254,7 @@ class Clock extends Component {
             { this.state.greeting }
           </div>
 
-          <div>
+          <div className="office-clock-container">
             <KeyPad users={ this.props.users }
                     officeClock={ this.officeClock }
 
