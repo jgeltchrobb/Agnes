@@ -88,7 +88,7 @@ class StaffMember extends Component {
                           shifts: [
                                     {
                                       date: new Date(dateCopy.setDate(weekDate.getDate() + i)),
-                                      shiftCategory: 'empty',
+                                      shiftCategory: '',
                                       start: '',
                                       finish: '',
                                     },
@@ -132,7 +132,7 @@ class StaffMember extends Component {
             } else {
               day.shifts.splice(day.shifts.indexOf(shift), 1, {
                 date: '',
-                shiftCategory: 'empty',
+                shiftCategory: '',
                 start: '',
                 finish: ''
               })

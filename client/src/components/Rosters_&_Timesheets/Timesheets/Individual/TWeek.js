@@ -63,8 +63,7 @@ class TWeek extends Component {
           var starts2Pushed = false
           var starts3Pushed = false
           staffMember.shifts.map((shift) => {
-            // console.log(new Date(shift.date))
-            if ( date === new Date(shift.date) ) {
+            if ( date.getDate() === new Date(shift.date).getDate() ) {
               if (starts1Pushed === false) {
                 shift.start.timesheet   ? starts1.push(new Date(shift.start.timesheet))
                                         : starts1.push('')

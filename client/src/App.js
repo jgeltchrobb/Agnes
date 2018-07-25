@@ -35,6 +35,7 @@ class App extends Component {
 
   fetchShiftData = (weekID) => {
     // METHOD CALL COMMENTED OUT AS REPLACING STATE WEEK DATA SO NOT AVAILABLE TO TIMESHEETS
+<<<<<<< HEAD
     let weeks = this.state.weeks
     if (weeks) {
       for (let week of weeks) {
@@ -52,6 +53,24 @@ class App extends Component {
               })
             })
           }
+=======
+    for (let week of this.state.weeks) {
+      if (weekID === week._id) {
+          axios.get(api + 'rosters/' + weekID).then((response) => {
+            this.setState({
+              currentWeek: response.data[0],
+              weeks: [
+                response.data[0],
+                response.data[1],
+                response.data[2],
+                response.data[3],
+                response.data[4],
+                response.data[5],
+                response.data[6],
+              ]
+            })
+          })
+>>>>>>> master
         }
       }
     }
@@ -105,22 +124,23 @@ class App extends Component {
   }
 
   goToNextWeek = () => {
-    if (this.state.currentWeek.date === this.state.weeks[0].date) {
+    let weeks = this.state.weeks
+    if (this.state.currentWeek.date === weeks[0].date) {
       axios.get(api + 'rosters/' + 'new/' + this.state.currentWeek.date).then((response) => {
-        let weeks = [...this.state.weeks]
+        weeks = [...weeks]
         weeks.unshift(response.data)
-        weeks.pop()
+        if (weeks.length === 8) { weeks.pop() }
         this.setState({
           weeks: weeks,
-          currentWeek: response.data
+          currentWeek: weeks[0]
         })
       })
     } else {
-      for (let week of this.state.weeks) {
+      for (let week of weeks) {
         if (this.state.currentWeek.date === week.date) {
-          let index = this.state.weeks.indexOf(week)
+          let index = weeks.indexOf(week)
           this.setState({
-            currentWeek: this.state.weeks[index - 1]
+            currentWeek: weeks[index - 1]
           })
         }
       }
@@ -128,25 +148,26 @@ class App extends Component {
   }
 
   goToPreviousWeek = () => {
-    if (this.state.weeks[6] && this.state.currentWeek.date === this.state.weeks[6].date) {
+    let weeks = this.state.weeks
+    if (weeks.length === 7 && this.state.currentWeek.date === weeks[5].date) {
       axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
-        let weeks = [...this.state.weeks]
+        weeks = [...weeks]
         weeks.shift()
         weeks.push(response.data)
         if (response.data) {
           this.setState({
             weeks: weeks,
-            currentWeek: response.data,
+            currentWeek: weeks[5],
           })
         }
       })
     } else {
-      for (let week of this.state.weeks) {
-        if (this.state.currentWeek.date === week.date) {
-          let index = this.state.weeks.indexOf(week)
-          this.setState({
-            currentWeek: this.state.weeks[index + 1]
-          })
+      let weeks = this.state.weeks
+      for (let i=0; i<weeks.length; i++) {
+        if (this.state.currentWeek.date === weeks[i].date) {
+          if (weeks[i + 2]) {
+            this.setState({ currentWeek: weeks[i + 1] })
+          } else { return }
         }
       }
     }
@@ -155,20 +176,15 @@ class App extends Component {
   render() {
     console.log(this.state, 'ASDJASDK')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
-
-    console.log(this.state.weeks)
-
     // this is to simulate user authenication (roles) - switch between the following three statements
-    let role = 'admin'
-    // let role = 'staff'
+    // let role = 'admin'
+    let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
-
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
-
     // this is to simulate a staff member login - switch between the following two statements
-    let staffUser = ''
-    // let staffUser = this.state.users[0]
+    // let staffUser = ''
+    let staffUser = this.state.users[0]
     return (
       <div>
 
@@ -224,7 +240,7 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock  week={ this.state.weeks[2] }
+                <Clock  week={ week }
                         user={ staffUser }
                         users={ this.state.users }
                         api={ api }

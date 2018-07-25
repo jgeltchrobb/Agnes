@@ -18,9 +18,9 @@ router.post('/timesheet-time/update', async (req, res) => {
         for (let shift of staff.shifts) {
           if (shift._id == req.body.timeObj.shiftID) {
             if (req.body.timeObj.startOrFinish === 'start') {
-              shift.start.timesheet = req.body.timeObj.value
+              shift.start.timesheet = req.body.timeObj.time
             } else {
-              shift.finish.timesheet = req.body.timeObj.value
+              shift.finish.timesheet = req.body.timeObj.time
             }
           }
         }

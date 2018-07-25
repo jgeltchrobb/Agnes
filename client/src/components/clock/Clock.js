@@ -40,32 +40,36 @@ class Clock extends Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (this.props.user && this.props.user._id !== prevProps.user._id) {
-      console.log('comp updating...')
+      this.setClock(this.props.user._id)
+    }
+    if (this.state.clockedIn !== prevState.clockedIn) {
       this.setClock(this.props.user._id)
     }
   }
 
   setClock = (staffID) => {
+    console.log('set clock')
     // set clock status
     var clockedIn = false
     // today date needs to update daily with some kind of setTimeout function
     // const today = new Date()
     // for now we will use it to adjust what day we are looking at
-    const today = new Date('2018-07-02')
+    const today = new Date()
 
     this.props.week.staff.map((staffMember) => {
     // Only for the staff member who is logged in
       if (staffMember.staffID === staffID) {
-
         var prevShiftDate = ''
         var prevPrevShiftDate = ''
         var shiftNumber = 1
 
+        console.log(staffMember)
         staffMember.shifts.map((shift) => {
           // shifts that finish today
           if (new Date(shift.finish.rostered).getDate() === today.getDate()) {
             // shift that finishes today but starts yesterday - Last Night's Shift
             if (new Date(shift.start.rostered).getDate() === today.getDate() - 1) {
+              console.log('last nights shift', shift)
               // toggle through previous clocks to set clock status
               if (shift.start.actual)   { clockedIn = true }
               if (shift.finish.actual)  { clockedIn = false }
@@ -78,6 +82,8 @@ class Clock extends Component {
             }
             // shifts that finish today and start today - shift 1 and 2
             if (new Date(shift.start.rostered).getDate() === today.getDate()) {
+              console.log('day shift', shift)
+
               // toggle through previous clocks to set clock status
               if (shift.start.actual)   { clockedIn = true }
               if (shift.finish.actual)  { clockedIn = false }
@@ -127,25 +133,30 @@ class Clock extends Component {
   }
 
   clockIn = () => {
-    console.log('ask')
+    console.log('IN........')
     const { validatePIN, shift1ID, shift1clockIn, shift2ID, shift2clockIn, TonightShiftID, TonightShiftClockIn } = this.state
     // Mark clock time as now
     var clockTime = new Date()
     // if no clock time for this shift and the shift exists
     if (shift1ID && !shift1clockIn) {
+      console.log('shift1ID')
+
       this.clock('shift1clockIn', clockTime, 'start', shift1ID)
       // else, if no clock time for this shift and the shift exists
     } else if (shift2ID && !shift2clockIn) {
+      console.log('shift2ID')
+
       this.clock('shift2clockIn', clockTime, 'start', shift2ID)
       // else, if no clock time for this shift and the shift exists
     } else if (TonightShiftID && !TonightShiftClockIn) {
+      console.log('TonightShiftID')
+
       this.clock('TonightShiftClockIn', clockTime, 'start', TonightShiftID)
     }
   }
 
   clockOut = () => {
-    console.log('askdjasdl')
-
+    console.log('OUT........')
     const { validatePIN, LastNightShiftID, LastNightShiftClockOut, shift1ID, shift1clockOut, shift2ID, shift2clockOut } = this.state
     // Mark clock time as now
     var clockTime = new Date()
@@ -162,8 +173,6 @@ class Clock extends Component {
   }
 
   clock = (shift, clockTime, startOrFinish, shiftID) => {
-    // change clock status
-    console.log('ashdkja')
     this.setState({ clockedIn: !this.state.clockedIn })
     this.setGreeting(clockTime)
     this.setState({ [shift]: clockTime })
@@ -172,7 +181,6 @@ class Clock extends Component {
 
   postTime = (startOrFinish, shiftID, time) => {
     const { api, week, } = this.props
-    console.log('ajksdhkajsdgjhasdg')
 
     let timeObj =   {
                       weekID: week._id,
@@ -181,9 +189,9 @@ class Clock extends Component {
                       startOrFinish: startOrFinish,
                       time: time,
                     }
-                    
+
     axios.post(api + 'clock/new', timeObj).then((response) => {
-      console.log(response)
+      console.log(response.data)
     })
   }
 
@@ -208,6 +216,7 @@ class Clock extends Component {
 
   mobileClock = () => {
     this.state.clockedIn ? this.clockOut() : this.clockIn()
+    console.log('mobileClock')
   }
 
   render() {

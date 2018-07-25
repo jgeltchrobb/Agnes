@@ -29,8 +29,8 @@ class Timesheets extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.setTotalsRowsAndColumnHeadings()
+  componentDidMount = async () => {
+    await this.setTimesheets()
     if (this.props.staffUser) {
       this.setIndividual(this.props.staffUser._id)
     }
@@ -38,7 +38,7 @@ class Timesheets extends Component {
 
   componentDidUpdate = async (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
-      this.setTotalsRowsAndColumnHeadings()
+      await this.setTimesheets()
       if (this.props.staffUser) {
         this.setIndividual(this.props.staffUser._id)
       }
@@ -50,7 +50,8 @@ class Timesheets extends Component {
 
   }
 
-  setTotalsRowsAndColumnHeadings = () => {
+  setTimesheets = () => {
+    console.log('setTimesheets...running')
      var DayShiftDefinitionClockinBeforeHours = 20
      const milliToHours = 0.00000027777777777778
 
@@ -82,14 +83,32 @@ class Timesheets extends Component {
         }
         prevPrevShiftDate = prevShiftDate
         prevShiftDate = shift.date
-        console.log('setTotalsRowsAndColumnHeadings...')
 
-        // set timnesheet start value. If not in db then calculate it
-        shift.start.timesheet ? start = new Date(shift.start.timesheet) : start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
-        // set timnesheet finsih value. If not in data then calculate it
-        shift.finish.timesheet ? finish = new Date(shift.finish.timesheet) : finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
+        // calculate timnesheet start value according to current data.
+        // - if no timesheet time or
+        //
+        start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
+// shift.start.timesheet ? console.log('current timesheet start...', (new Date(shift.start.timesheet)).getTime())
+// : console.log('No start timesheet time!!!')
+// console.log('calculated start...', start)
+        // if no timesheet time in current data or if the new start value is different to the timesheet time then replace with new value
+        if (!shift.start.timesheet || new Date(shift.start.timesheet).getTime() !== start.getTime()) {
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
+        }
+        // calculate timnesheet finish value according to current data.
+        finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
+// console.log('current timesheet finish...', shift.finish.timesheet)
+// shift.finish.timesheet ? console.log('current timesheet finish...', (new Date(shift.finish.timesheet)).getTime())
+// : console.log('No finish timesheet time!!!')
+// console.log('calculated finish...', finish)
+        // if no timesheet time in current data or if the new finish value is different to the timesheet time then replace with new value
+        if (!shift.finish.timesheet || new Date(shift.finish.timesheet).getTime() !== finish.getTime()) {
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
+        }
         // shift hours are just finish - start times converted to a number of hours with two decimal places
-        const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
+        const startFinishDifference = (Number(((finish - start) * milliToHours).toFixed(2)))
+        // take off break time (15 or 30 mins)
+        const shiftHours = (startFinishDifference < 4) ? (startFinishDifference - 0.25) : (startFinishDifference - 0.5)
         // determine the shift's payRateCategory and add it to totalsRow with the shiftHours as the value
         if (!shift.publicHoliday) {
 
@@ -119,8 +138,6 @@ class Timesheets extends Component {
                 totalsRow['Wayne Night'] ? totalsRow['Wayne Night'] += shiftHours : totalsRow['Wayne Night'] = shiftHours
               } else {
                 totalsRow['Night'] ? totalsRow['Night'] += shiftHours : totalsRow['Night'] = shiftHours
-                // console.log('rStart...', rStart.toString())
-                // console.log('start...', start.toString())
               }
           }
         } else if (shift.publicHoliday && shift.wayneShift) {
@@ -183,41 +200,36 @@ class Timesheets extends Component {
   }
 
   timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber, shiftID) => {
-    console.log('timesheetEntry...')
 
     if (actual) {
 
       if (actual <= rostered) {
+
         if (startOrFinish === 'start') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
           return rostered
         }
         if (startOrFinish === 'finish') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundDown(actual), shiftID)
           this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundDown(actual)
         }
       } else {
 
         if (startOrFinish === 'start') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, this.roundUp(actual), shiftID)
           this.postFlag(staffID, shiftDate, rostered, actual)
           return this.roundUp(actual)
         }
         if (startOrFinish === 'finish') {
-          this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
           return rostered
         }
       }
       // If no clock time then return rostered
     } else {
-      this.postTimesheetTime(staffID, shiftDate, shiftNumber, startOrFinish, rostered, shiftID)
       return rostered
     }
   }
 
-  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value, shiftID) => {
-    console.log('posting...')
+  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
+    console.log('postTimesheetTime...', )
     const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
@@ -226,7 +238,7 @@ class Timesheets extends Component {
                       shiftNumber: shiftNumber,
                       startOrFinish: startOrFinish,
                       shiftID: shiftID,
-                      value: value,
+                      time: time,
                     }
 
     axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
@@ -235,6 +247,7 @@ class Timesheets extends Component {
   }
 
   postFlag = (staffID, shiftDate, rostered, actual) => {
+    console.log('postFlag...', )
     const server = 'http://localhost:4000'
 
     let flagObj =  {
@@ -246,7 +259,6 @@ class Timesheets extends Component {
                     }
 
     axios.put(server + '/flags/new', {flagObj}).then((response) => {
-      // console.log(response.data.confirmation)
     })
   }
 
@@ -273,7 +285,6 @@ class Timesheets extends Component {
       }
     })
   }
-
 
 
   render() {
