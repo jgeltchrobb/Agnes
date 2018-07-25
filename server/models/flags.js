@@ -6,6 +6,7 @@ const Flags = new Schema({
             {
               staffID: String,
               shiftID: String,
+              date: String,
               startOrFinish: String,
               rostered: String,
               actual: String,

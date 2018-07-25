@@ -25,19 +25,9 @@ class Rosters extends Component {
   }
 
   resetFlags = (flagData) => {
-    console.log(flagData, 'FLAGUS')
     let flags = [...this.state.flags]
     flags = flagData.flags.flags
-    this.setState({flags})
-
-    // console.log(flags)
-    // for (let flag of flags) {
-    //   if (flag._id == flagID) {
-    //     flags.splice(flags.indexOf(flag), 1)
-    //   }
-    // }
-    // console.log(flags)
-
+    this.setState({ flags })
   }
 
   render() {
@@ -53,7 +43,7 @@ class Rosters extends Component {
                   goToPreviousWeek={ goToPreviousWeek }
                   sideBarHeading={ sideBarHeading }
                   week={ week }
-                  role={ role } 
+                  role={ role }
           />
         </div>
 

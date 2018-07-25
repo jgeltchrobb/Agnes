@@ -49,7 +49,6 @@ class Day extends Component {
 
   render() {
     const { shifts, staffID, weekID } = this.props
-    console.log(this.state.shifts, 'LLLLLLLLL')
     return (
       <div className='shift-container'>
       {

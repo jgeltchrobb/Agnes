@@ -42,6 +42,7 @@ router.put('/new', async (req, res) => {
                     staffID: flagObj.staffID,
                     shiftID: flagObj.shiftID,
                     startOrFinish: flagObj.startOrFinish,
+                    date: flagObj.date,
                     rostered: flagObj.rostered,
                     actual: flagObj.actual,
                     active: true,

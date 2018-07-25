@@ -250,11 +250,12 @@ console.log('existing finish...', finish)
                       staffID: staffID,
                       shiftID: shiftID,
                       startOrFinish: startOrFinish,
-                      // date: shiftDate,
+                      date: shiftDate,
                       rostered: rostered,
                       actual: actual,
                       active: true,
                     }
+                    console.log(flagObj)
 
     axios.put(server + '/flags/new', {flagObj}).then((response) => {
     })

@@ -155,20 +155,18 @@ class StaffMember extends Component {
     } else {
       day = date.getDay() - 1
     }
-    
+
     // if no shiftID, the day is empty
     if (self) {
       if (!shiftID) {
         return true
       }
     }
-    
+
     // if its a change to a current shift
     for (let shift of daysArray[day].shifts) {
-      console.log(shift, 'HHHHHHHHHHHHHHHh')
       // if shift === currentShift, dont check it's times
       if (shift.shiftID === shiftID) {
-        console.log(shift, 'HEREIBE')
         continue
       } else if (!shift.start || !shift.finish) {
         continue

@@ -26,6 +26,7 @@ class App extends Component {
       // week6: '',
       // week7: '',
       currentWeek: '',
+      clockWeek: '',
       staffData: [],
       payRateCategories: [],
       weeks: [],
@@ -33,15 +34,32 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.fetchWeeks()
+    axios.get(api + 'users').then(response => {
+      this.setState({
+        users: response.data,
+      })
+    })
+    axios.get(api + 'payRateCategories').then(response => {
+      this.setState({
+        payRateCategories: response.data.payRateCategories,
+      })
+    })
+    axios.get(api + 'entitlements').then(response => {
+      this.setState({
+        entitlements: response.data.entitlements,
+      })
+    })
+  }
+// fetch
   fetchShiftData = (weekID) => {
-    // METHOD CALL COMMENTED OUT AS REPLACING STATE WEEK DATA SO NOT AVAILABLE TO TIMESHEETS
     let weeks = this.state.weeks
     if (weeks) {
       for (let week of weeks) {
-        console.log(week, 'WEEEEK')
         if (week) {
           if (weekID === week._id) {
-            axios.get(api + 'rosters/' + weekID).then((response) => {
+            axios.get(api + 'rosters/all/' + weekID).then((response) => {
               let weeks = []
               for (let i=0; i<response.data.length; i++) {
                 weeks.push(response.data[i])
@@ -57,7 +75,7 @@ class App extends Component {
     }
   }
 
-  fetchAllData = (date) => {
+  fetchWeeks = (date) => {
     axios.get(api + 'rosters').then(response => {
       let weeks = []
       for (let i=0; i<response.data.length; i++) {
@@ -66,41 +84,22 @@ class App extends Component {
       this.setState({
         weeks: weeks,
         currentWeek: weeks[0],
+        clockWeek: weeks[0],
       })
     })
   }
 
-  componentDidMount() {
-    // Request all weeks
-    this.fetchAllData()
-
-    axios.get(api + 'users').then(response => {
-      this.setState({
-        users: response.data,
-      })
+  clockUpdateCurrentWeek = (weekID) => {
+    axios.get(api + 'rosters/' + weekID).then(response => {
+      this.setState({ clockWeek: response.data })
+      console.log(response.data)
     })
-
-    axios.get(api + 'payRateCategories').then(response => {
-      this.setState({
-        payRateCategories: response.data.payRateCategories,
-      })
-    })
-
-    axios.get(api + 'entitlements').then(response => {
-      this.setState({
-        entitlements: response.data.entitlements,
-      })
-    })
-
   }
 
   selectRosters = () => {
-
     this.setState({ sideBarHeading: 'FLAGS' })
   }
-
   selectTimesheets = () => {
-
     this.setState({ sideBarHeading: 'STAFF' })
   }
 
@@ -155,7 +154,7 @@ class App extends Component {
   }
 
   render() {
-    if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
+    if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements || !this.state.clockWeek) {return ''}
     // this is to simulate user authenication (roles) - switch between the following three statements
     let role = 'admin'
     // let role = 'staff'
@@ -163,8 +162,8 @@ class App extends Component {
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
     // this is to simulate a staff member login - switch between the following two statements
-    // let staffUser = ''
-    let staffUser = this.state.users[0]
+    let staffUser = ''
+    // let staffUser = this.state.users[0]
     return (
       <div>
 
@@ -220,10 +219,11 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock  week={ week }
+                <Clock  week={ this.state.clockWeek }
                         user={ staffUser }
                         users={ this.state.users }
                         api={ api }
+                        clockUpdateCurrentWeek={ this.clockUpdateCurrentWeek }
                 />
               )
             }} />

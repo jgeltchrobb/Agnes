@@ -130,7 +130,6 @@ class Shift extends Component {
   addShiftSubmit = async (event) => {
     event.preventDefault()
     try {
-      console.log(this.state, 'LOLOLOLOLOLOLOLOLOL')
       let shiftCategory = event.target.shiftCategory.value
       let start = event.target.start.value
       let finish = event.target.finish.value
@@ -138,7 +137,6 @@ class Shift extends Component {
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
       if (shiftCategory && start && finish) {
         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, false, false)
-        console.log(shiftCheck, 'SHIFTUSCHECKUS')
 
         if (shiftCheck) {
           let shiftObj =  {
