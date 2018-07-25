@@ -1,5 +1,6 @@
 const express = require('express')
 const Flags = require('../models/flags')
+const Week = require('../models/week')
 const router = express.Router()
 
 // Get all flags
@@ -19,9 +20,33 @@ router.get('/', async (req, res) => {
 router.put('/new', async (req, res) => {
   try {
     let flagObj = req.body.flagObj
-    //  JORDAN - NEED TO SEARCH FLAGS ARRAY TO FIND OBJECT THAT MATCHES THE STAFFID AND ROSTERED TIME.
-              // - If it exists do nothing, if not push it as per below
-    await Flags.update( {}, { $push: { flags: req.body.flagObj } } )
+    let week = await Week.findOne({ _id: flagObj.weekID})
+    for (let staff of week.staff) {
+      if (staff.staffID === flagObj.staffID) {
+        for (let shift of staff.shifts) {
+          if (shift._id == flagObj.shiftID) {
+            if (flagObj.startOrFinish === 'start') {
+              shift.start.flag = true
+              break
+            } else {
+              shift.finish.flag = true
+              break
+            }
+          }
+        }
+      }
+    }
+    week.save()
+
+    let newFlag = {
+                    staffID: flagObj.staffID,
+                    shiftID: flagObj.shiftID,
+                    startOrFinish: flagObj.startOrFinish,
+                    rostered: flagObj.rostered,
+                    actual: flagObj.actual,
+                    active: true,
+                  }
+    await Flags.update( {}, { $push: { flags: newFlag } } )
     res.status(200).json({ confirmation: '...flag added' })
   } catch (error) {
     res.status(500).json({ error: error.message })

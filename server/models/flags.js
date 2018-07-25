@@ -5,9 +5,10 @@ const Flags = new Schema({
   flags:  [
             {
               staffID: String,
-              date: String,
-              rostered: Date,
-              actual: Date,
+              shiftID: String,
+              startOrFinish: String,
+              rostered: String,
+              actual: String,
               active: {type: Boolean, default: true},
             },
           ]

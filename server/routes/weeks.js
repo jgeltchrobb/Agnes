@@ -47,17 +47,27 @@ router.get('/', async (req, res) => {
   }
 })
 
+// get all weeks by id - old route but may still be in use?????????
+// router.get('/:id', async (req, res) => {
+//   try {
+//     let weeks = []
+//     let week = await Week.findOne({_id: req.params.id})
+//     weeks.push(week)
+//     let weekDate = new Date(week.date)
+//     for (let i = 0; i < 6; i++) {
+//       let date = new Date(weekDate.setDate(weekDate.getDate() - 7)).toISOString().split('T')[0]
+//       weeks.push(await Week.findOne({date: date}))
+//     }
+//     res.send(weeks)
+//   } catch (error) {
+//     res.status(500).json({ error: error.message })
+//   }
+// })
+// get one week by it's id
 router.get('/:id', async (req, res) => {
   try {
-    let weeks = []
     let week = await Week.findOne({_id: req.params.id})
-    weeks.push(week)
-    let weekDate = new Date(week.date)
-    for (let i = 0; i < 6; i++) {
-      let date = new Date(weekDate.setDate(weekDate.getDate() - 7)).toISOString().split('T')[0]
-      weeks.push(await Week.findOne({date: date}))
-    }
-    res.send(weeks)
+    res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
