@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import KeyPad from './KeyPad'
+import '../../stylesheets/Clock.css'
 
 class Clock extends Component {
   constructor(props) {
@@ -217,8 +218,8 @@ class Clock extends Component {
   }
 
   render() {
-    // const role = 'office-clock'
-    const role = 'mobile-clock'
+    const role = 'office-clock'
+    // const role = 'mobile-clock'
     const { clockedIn } = this.state
     const { LastNightShiftID, LastNightShiftClockIn, LastNightShiftClockOut } = this.state
     const { shift1ID, shift1clockIn, shift1clockOut } = this.state
@@ -253,7 +254,7 @@ class Clock extends Component {
             { this.state.greeting }
           </div>
 
-          <div>
+          <div className="office-clock-container">
             <KeyPad users={ this.props.users }
                     officeClock={ this.officeClock }
 

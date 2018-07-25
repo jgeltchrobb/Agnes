@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Key from './Key'
+import '../../stylesheets/KeyPad.css'
 
 
 // Where the buttons are displayed.
@@ -61,33 +62,37 @@ class KeyPad extends Component {
   render() {
 
     return (
-      <div>
+      <div className="keypad-container">
+        <input value={this.displayPIN()} placeholder='Enter pin' className="keypad-input" />
 
         <div className="keypad-row">
           {this.renderKey(1)}
           {this.renderKey(2)}
           {this.renderKey(3)}
         </div>
+
         <div className="keypad-row">
           {this.renderKey(4)}
           {this.renderKey(5)}
           {this.renderKey(6)}
         </div>
+
         <div className="keypad-row">
           {this.renderKey(7)}
           {this.renderKey(8)}
           {this.renderKey(9)}
         </div>
-        <div className="keypad-row">
-        {this.renderKey(0)}
+
+        <div className="keypad-row last-row">
+          <button className="placeholder"></button>
+          {this.renderKey(0)}
+          <button className="placeholder"></button>
         </div>
 
-        <input value={this.displayPIN()} placeholder='Enter pin'/>
-
-        <button onClick={ this.clearPinInput }>Clear</button>
-
-        <button onClick={ this.validatePIN }> Clock </button>
-
+        <div className="keypad-action">
+          <button onClick={ this.clearPinInput }>Clear</button>
+          <button onClick={ this.validatePIN }> Clock </button>
+        </div>
       </div>
     );
   }
