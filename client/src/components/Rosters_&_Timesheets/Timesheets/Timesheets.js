@@ -84,26 +84,21 @@ class Timesheets extends Component {
         prevPrevShiftDate = prevShiftDate
         prevShiftDate = shift.date
 
-        // calculate timnesheet start value according to current data.
-        // - if no timesheet time or
-        //
-        start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
-// shift.start.timesheet ? console.log('current timesheet start...', (new Date(shift.start.timesheet)).getTime())
-// : console.log('No start timesheet time!!!')
-// console.log('calculated start...', start)
-        // if no timesheet time in current data or if the new start value is different to the timesheet time then replace with new value
-        if (!shift.start.timesheet || new Date(shift.start.timesheet).getTime() !== start.getTime()) {
+        // calculate timnesheet start and post. Will also post flag if required
+        if (!shift.start.timesheet || shift.start.flag === false) {
+          start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
+console.log('calculated start...', start)
+        } else { start = new Date(shift.start.timesheet)
+console.log('existing start...', start)
         }
-        // calculate timnesheet finish value according to current data.
-        finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
-// console.log('current timesheet finish...', shift.finish.timesheet)
-// shift.finish.timesheet ? console.log('current timesheet finish...', (new Date(shift.finish.timesheet)).getTime())
-// : console.log('No finish timesheet time!!!')
-// console.log('calculated finish...', finish)
-        // if no timesheet time in current data or if the new finish value is different to the timesheet time then replace with new value
-        if (!shift.finish.timesheet || new Date(shift.finish.timesheet).getTime() !== finish.getTime()) {
+        // calculate timnesheet finish and post. Will also post flag if required
+        if (!shift.start.timesheet || shift.start.flag === false) {
+          finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
+console.log('calculated finish...', finish)
+        } else { finish = new Date(shift.finish.timesheet)
+console.log('existing finish...', finish)
         }
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const startFinishDifference = (Number(((finish - start) * milliToHours).toFixed(2)))
@@ -209,13 +204,13 @@ class Timesheets extends Component {
           return rostered
         }
         if (startOrFinish === 'finish') {
-          this.postFlag(staffID, shiftDate, rostered, actual)
+          this.postFlag(shiftID, startOrFinish, staffID, shiftDate, rostered, actual)
           return this.roundDown(actual)
         }
       } else {
 
         if (startOrFinish === 'start') {
-          this.postFlag(staffID, shiftDate, rostered, actual)
+          this.postFlag(shiftID, startOrFinish, staffID, shiftDate, rostered, actual)
           return this.roundUp(actual)
         }
         if (startOrFinish === 'finish') {
@@ -246,13 +241,16 @@ class Timesheets extends Component {
     })
   }
 
-  postFlag = (staffID, shiftDate, rostered, actual) => {
+  postFlag = (shiftID, startOrFinish, staffID, shiftDate, rostered, actual) => {
     console.log('postFlag...', )
     const server = 'http://localhost:4000'
 
     let flagObj =  {
+                      weekID: this.state.weekID,
                       staffID: staffID,
-                      date: shiftDate,
+                      shiftID: shiftID,
+                      startOrFinish: startOrFinish,
+                      // date: shiftDate,
                       rostered: rostered,
                       actual: actual,
                       active: true,

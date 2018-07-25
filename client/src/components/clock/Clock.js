@@ -7,47 +7,45 @@ class Clock extends Component {
     super(props)
     this.state = {
 
+      week: '',
       user: '',
-
       greeting: '',
-
       clockedIn: '',
-
       LastNightShiftID: '',
       LastNightShiftClockIn: '',
       LastNightShiftClockOut: '',
-
       shift1ID: '',
       shift1clockIn: '',
       shift1clockOut: '',
-
       shift2ID: '',
       shift2clockIn: '',
       shift2clockOut: '',
-
       TonightShiftID: '',
       TonightShiftClockIn: '',
       TonightShiftClockOut: '',
     }
   }
 
-  componentDidMount = () => {
-    if (this.props.user) {
-      this.setClock(this.props.user._id)
-      this.setState({ user: this.props.user})
+  componentDidMount = async () => {
+    const { week, user } = this.props
+    await this.setState({ week: week })
+    if (user) {
+      this.setState({ user: user})
+      this.setClock()
     }
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.user && this.props.user._id !== prevProps.user._id) {
-      this.setClock(this.props.user._id)
+    const { user } = this.props
+    if (user && user._id !== prevProps.user._id) {
+      this.setClock()
     }
     if (this.state.clockedIn !== prevState.clockedIn) {
-      this.setClock(this.props.user._id)
+      this.setClock()
     }
   }
 
-  setClock = (staffID) => {
+  setClock = () => {
     console.log('set clock')
     // set clock status
     var clockedIn = false
@@ -56,9 +54,9 @@ class Clock extends Component {
     // for now we will use it to adjust what day we are looking at
     const today = new Date()
 
-    this.props.week.staff.map((staffMember) => {
+    this.state.week.staff.map((staffMember) => {
     // Only for the staff member who is logged in
-      if (staffMember.staffID === staffID) {
+      if (staffMember.staffID === this.state.user._id) {
         var prevShiftDate = ''
         var prevPrevShiftDate = ''
         var shiftNumber = 1
@@ -172,11 +170,16 @@ class Clock extends Component {
     }
   }
 
-  clock = (shift, clockTime, startOrFinish, shiftID) => {
-    this.setState({ clockedIn: !this.state.clockedIn })
+  clock = async (shift, clockTime, startOrFinish, shiftID) => {
+    await this.setState({ clockedIn: !this.state.clockedIn })
     this.setGreeting(clockTime)
-    this.setState({ [shift]: clockTime })
-    this.postTime(startOrFinish, shiftID, clockTime)
+    // this.setState({ [shift]: clockTime })
+    await this.postTime(startOrFinish, shiftID, clockTime)
+    await axios.get(this.props.api + `rosters/${this.state.week._id}`).then(response => {
+      this.setState({ week: response.data })
+      console.log(response.data)
+    })
+    this.setClock()
   }
 
   postTime = (startOrFinish, shiftID, time) => {
@@ -191,32 +194,26 @@ class Clock extends Component {
                     }
 
     axios.post(api + 'clock/new', timeObj).then((response) => {
-      console.log(response.data)
+      console.log('clock time posted...!!!!!!!!')
     })
   }
-
 
   setGreeting = (clockTime) => {
     const inOrOut = this.state.clockedIn ? 'in' : 'out'
     this.setState({
       greeting: `${this.state.user.name} clocked ${inOrOut} at ${clockTime}`
     })
-    // await above then clear greeting. Clock state can stay like this I think
   }
 
   officeClock = async (user) => {
-    if (user !== this.state.user) {
-      await this.setClock(user._id)
-    }
-    await this.setState({
-      user: user
-    })
+    await this.setState({ user: user })
+    await this.setClock()
     this.state.clockedIn ? this.clockOut() : this.clockIn()
   }
 
   mobileClock = () => {
-    this.state.clockedIn ? this.clockOut() : this.clockIn()
     console.log('mobileClock')
+    this.state.clockedIn ? this.clockOut() : this.clockIn()
   }
 
   render() {
