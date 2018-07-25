@@ -35,24 +35,26 @@ class App extends Component {
 
   fetchShiftData = (weekID) => {
     // METHOD CALL COMMENTED OUT AS REPLACING STATE WEEK DATA SO NOT AVAILABLE TO TIMESHEETS
-    for (let week of this.state.weeks) {
-      if (weekID === week._id) {
-          axios.get(api + 'rosters/' + weekID).then((response) => {
-          this.setState({
-            currentWeek: response.data[0],
-            weeks: [
-              response.data[0],
-              response.data[1],
-              response.data[2],
-              response.data[3],
-              response.data[4],
-              response.data[5],
-              response.data[6],
-            ]
-          })
-          })
+    let weeks = this.state.weeks
+    if (weeks) {
+      for (let week of weeks) {
+        console.log(week, 'WEEEEK')
+        if (week) {
+          if (weekID === week._id) {
+            axios.get(api + 'rosters/' + weekID).then((response) => {
+              let weeks = []
+              for (let i=0; i<response.data.length; i++) {
+                weeks.push(response.data[i])
+              }
+              this.setState({
+                weeks: weeks,
+                currentWeek: weeks[0],
+              })
+            })
+          }
         }
       }
+    }
   }
 
   fetchAllData = (date) => {

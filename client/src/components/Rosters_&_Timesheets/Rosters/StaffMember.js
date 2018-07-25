@@ -147,7 +147,7 @@ class StaffMember extends Component {
     })
   }
 
-  checkShiftTimes = (start, finish, date, shiftID) => {
+  checkShiftTimes = (start, finish, date, shiftID, self) => {
     let daysArray = this.state.daysArray
     let day = ''
     if (date.getDay() === 0) {
@@ -155,69 +155,66 @@ class StaffMember extends Component {
     } else {
       day = date.getDay() - 1
     }
-    let shiftAllowed = false
-    for (let shift of daysArray[day].shifts) {
-      console.log('SOOOOOOOOOOOOOOOO')
-      if (daysArray[day].shifts.length > 2) {
-        shiftAllowed = false
-        continue
+    
+    // if no shiftID, the day is empty
+    if (self) {
+      if (!shiftID) {
+        return true
       }
-      console.log(date, shift.date, 'aklsjdlasdla')
-      if (shift.date.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
-        console.log(shift, '!!!!!!!!!!!!!!!!!!!')
-        console.log(shiftID, 'SHIFTIDD')
-        if (!shift.start || !shift.finish) {
-          shiftAllowed = true
+    }
+    
+    // if its a change to a current shift
+    for (let shift of daysArray[day].shifts) {
+      console.log(shift, 'HHHHHHHHHHHHHHHh')
+      // if shift === currentShift, dont check it's times
+      if (shift.shiftID === shiftID) {
+        console.log(shift, 'HEREIBE')
+        continue
+      } else if (!shift.start || !shift.finish) {
+        continue
+      } else {
+        let startHours = start.getHours()
+        let finishHours = finish.getHours()
+        let oldFinishHours = shift.finish.getHours()
+        let oldStartHours = shift.start.getHours()
+
+        let startMinutes = start.getMinutes()
+        let finishMinutes = finish.getMinutes()
+        let oldFinishMinutes = shift.finish.getMinutes()
+        let oldStartMinutes = shift.start.getMinutes()
+
+        // Check Hours
+        if (startHours > oldStartHours && startHours < oldFinishHours) {
+          return false
+        } else if (finishHours > oldStartHours && finishHours < oldFinishHours) {
+          return false
+        } else if (startHours < oldStartHours && finishHours < oldStartHours) {
           continue
-        } else {
-          let startHours = start.getHours()
-          let finishHours = finish.getHours()
-          let oldFinishHours = shift.finish.getHours()
-          let oldStartHours = shift.start.getHours()
+        } else if (startHours > oldFinishHours && finishHours > oldFinishHours) {
+          continue
+        } else if (startHours <= oldStartHours && finishHours >= oldFinishHours) {
+          return false
+        } else if (startHours >= oldStartHours && finishHours <= oldFinishHours) {
+          return false
+        }
 
-          let startMinutes = start.getMinutes()
-          let finishMinutes = finish.getMinutes()
-          let oldFinishMinutes = shift.finish.getMinutes()
-          let oldStartMinutes = shift.start.getMinutes()
-
-          if (startHours < oldStartHours && finishHours < oldStartHours) {
-            shiftAllowed = true
-            continue
-          } else if (startHours > oldFinishHours && finishHours > oldFinishHours) {
-            shiftAllowed = true
-            continue
-          } else if (startHours <= oldStartHours && finishHours >= oldFinishHours) {
-            shiftAllowed = false
-            continue
-          } else if (startHours >= oldStartHours && finishHours <= oldFinishHours) {
-            shiftAllowed = false
+        // Check Minutes
+        if (startHours === oldFinishHours) {
+          if (startMinutes >= oldFinishMinutes) {
             continue
           } else {
-            if (startHours === oldFinishHours) {
-              if (startMinutes >= oldFinishMinutes) {
-                shiftAllowed = true
-              } else {
-                shiftAllowed = false
-                continue
-              }
-            }
-            else if (finishHours === oldStartHours) {
-              if (finishMinutes <= oldStartMinutes) {
-                shiftAllowed = true
-              } else {
-                shiftAllowed = false
-                continue
-              }
-            }
+            return false
+          }
+        } else if (finishHours === oldStartHours) {
+          if (finishMinutes <= oldStartMinutes) {
+            continue
+          } else {
+            return false
           }
         }
       }
     }
-    if (shiftAllowed) {
-      return true
-    } else {
-      return false
-    }
+    return true
   }
 
   render() {
