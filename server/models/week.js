@@ -11,6 +11,9 @@ const Week = new Schema({
       shiftCategory: String,
       publicHoliday: {type: Boolean, default: false},
       wayneShift: {type: Boolean, default: false},
+      firstHalfID: String,
+      secondHalfID: String,
+      sleepOver: {type: String, default: false},
       start: {
         rostered: String,
         actual: String,

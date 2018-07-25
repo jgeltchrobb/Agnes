@@ -101,6 +101,7 @@ class StaffMember extends Component {
   }
 
   addShift = (day) => {
+    console.log(day, 'DAY')
     if (day.shifts.length < 3) {
       this.setState({
         addShift: true,
@@ -143,7 +144,7 @@ class StaffMember extends Component {
     }
     this.setState({
       removeShiftVal: true,
-      daysArray
+      daysArray: daysArray
     })
   }
 
@@ -165,10 +166,8 @@ class StaffMember extends Component {
     
     // if its a change to a current shift
     for (let shift of daysArray[day].shifts) {
-      console.log(shift, 'HHHHHHHHHHHHHHHh')
       // if shift === currentShift, dont check it's times
       if (shift.shiftID === shiftID) {
-        console.log(shift, 'HEREIBE')
         continue
       } else if (!shift.start || !shift.finish) {
         continue
@@ -218,7 +217,7 @@ class StaffMember extends Component {
   }
 
   render() {
-    const { role, weekID, staffID } = this.props
+    const { role, weekID, staffID, weekDate } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
     return (
       <div className="shift-row">
@@ -235,6 +234,7 @@ class StaffMember extends Component {
                   <Day shifts={ day.shifts }
                       staffID={ staffID }
                       weekID={ weekID }
+                      weekDate={ weekDate }
                       fetchData={this.props.fetchData}
                       addShift={this.state.addShift}
                       currentWeek={this.props.currentWeek}
