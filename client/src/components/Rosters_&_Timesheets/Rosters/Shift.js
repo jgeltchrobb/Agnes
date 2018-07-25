@@ -106,15 +106,15 @@ class Shift extends Component {
       var dateCopy = new Date(this.props.date)
       dateCopy.setHours(hrs)
       dateCopy.setMinutes(mins)
-      if (shift === 'start') {
-        this.setState({
-          start: dateCopy
-        })
-      } else {
-        this.setState({
-          finish: dateCopy
-        })
-      }
+      // if (shift === 'start') {
+      //   this.setState({
+      //     start: dateCopy
+      //   })
+      // } else {
+      //   this.setState({
+      //     finish: dateCopy
+      //   })
+      // }
       return dateCopy
     } else {
       return ''
@@ -130,13 +130,16 @@ class Shift extends Component {
   addShiftSubmit = async (event) => {
     event.preventDefault()
     try {
+      console.log(this.state, 'LOLOLOLOLOLOLOLOLOL')
       let shiftCategory = event.target.shiftCategory.value
       let start = event.target.start.value
       let finish = event.target.finish.value
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, false, false)
+        console.log(shiftCheck, 'SHIFTUSCHECKUS')
+
         if (shiftCheck) {
           let shiftObj =  {
             staffID: this.state.staffID,
@@ -198,45 +201,44 @@ class Shift extends Component {
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
       if (shiftCategory && start && finish) {
-        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID)
-
+        let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID, true)
         if (shiftCheck) {
 
-      let shiftObj =  {
-        staffID: this.state.staffID,
-        weekID: this.props.currentWeek._id,
-        publicHoliday: event.target.pubHol.checked,
-        wayneShift: event.target.wayne.checked,
-        shift: {
-          date: this.props.date.toISOString().split('T')[0],
-          shiftCategory: shiftCategory,
-          start: {
-            rostered: start,
-            actual: '',
-            timesheet: '',
-            flag: false,
-          },
-          finish: {
-            rostered: finish,
-            actual: '',
-            timesheet: '',
-            flag: false,
+          let shiftObj =  {
+            staffID: this.state.staffID,
+            weekID: this.props.currentWeek._id,
+            publicHoliday: event.target.pubHol.checked,
+            wayneShift: event.target.wayne.checked,
+            shift: {
+              date: this.props.date.toISOString().split('T')[0],
+              shiftCategory: shiftCategory,
+              start: {
+                rostered: start,
+                actual: '',
+                timesheet: '',
+                flag: false,
+              },
+              finish: {
+                rostered: finish,
+                actual: '',
+                timesheet: '',
+                flag: false,
+              }
+            }
           }
-        }
-      }
-    this.setState({
-      shiftCategory: shiftCategory,
-      start: start,
-      finish: finish
-    })
+        this.setState({
+          shiftCategory: shiftCategory,
+          start: start,
+          finish: finish
+        })
 
-    // REPLACE IN DB
-    axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
-      this.props.fetchData(this.props.weekID)
-    })
-    this.currentCloseModal()
-    // this.props.stopAdd()
-    // this.currentEdit()
+        // REPLACE IN DB
+        axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
+          this.props.fetchData(this.props.weekID)
+        })
+        this.currentCloseModal()
+        // this.props.stopAdd()
+        // this.currentEdit()
     } else {
       this.setState({
         timeError: true
@@ -248,6 +250,7 @@ class Shift extends Component {
       })
     }
   } catch (error) {
+    console.log(error)
     }
   }
 
@@ -268,20 +271,20 @@ class Shift extends Component {
       return (
         <React.Fragment>
           <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError } />
+            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError } />
 
           </Modal>
             <div className="shift-block">
-            <div className="shift-time" >
-              <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
-              <div className="shift-middle"><p>-</p></div>
-              <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
+              <div className="shift-time" >
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
+                <div className="shift-middle"><p>-</p></div>
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
+              </div>
+              <div className="shift-category">
+                <p>{ this.state.shiftCategory.toUpperCase() }</p>
+              </div>
             </div>
-            <div className="shift-category">
-              <p>{ this.state.shiftCategory.toUpperCase() }</p>
-            </div>
-          </div>
-          <button id='remove-shift-btn' onClick={
+            <button id='remove-shift-btn' onClick={
               () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
               } >x</button>
         </React.Fragment>
@@ -290,41 +293,43 @@ class Shift extends Component {
       return (
         <React.Fragment>
           <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={true} addShiftSubmit={this.addShiftSubmit} closeModal={this.currentCloseModal} timeError={this.state.timeError} />
+            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} validationError={this.state.validationError} shiftAdd={true} addShiftSubmit={this.addShiftSubmit} closeModal={this.currentCloseModal} timeError={this.state.timeError} />
 
           </Modal>
             <div className="shift-block">
-            <div className="shift-time" >
-              <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
-              <div className="shift-middle"><p>-</p></div>
-              <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
+              <div className="shift-time" >
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
+                <div className="shift-middle"><p>-</p></div>
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
+              </div>
+              <div className="shift-category">
+                <p>{ this.state.shiftCategory.toUpperCase() }</p>
+              </div>
+              <button id='remove-shift-btn' onClick={
+                () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
+                } >x</button>
             </div>
-            <div className="shift-category">
-              <p>{ this.state.shiftCategory.toUpperCase() }</p>
-            </div>
-            <button id='remove-shift-btn' onClick={
-              () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-              } >x</button>
-          </div>
         </React.Fragment>
       )
+    } else if (!this.state.start && !this.state.finish) {
+      return ''
     } else {
       return (
         <React.Fragment>
           <div className="shift-block" onClick={ () => this.currentEdit() } >
             <div className="shift-time" >
               <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
-              <div className="shift-middle"><p>-</p></div>
+              <div className="shift-middle"><p></p></div>
               <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
             </div>
             <div className="shift-category">
               <p>{ this.state.shiftCategory.toUpperCase() }</p>
             </div>
-        { (role !== 'admin') ? '' :
+        {/* { (role !== 'admin') ? '' : */}
             <button id='remove-shift-btn' onClick={
               () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
               } >x</button>
-        }
+        {/* } */}
           </div>
         </React.Fragment>
       )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Shift from './Shift'
+import _ from 'underscore'
 import '../../../stylesheets/Day.css'
 
 class Day extends Component {
@@ -8,14 +9,25 @@ class Day extends Component {
     super(props)
     this.state = {
       addShift: '',
-      removeShiftVal: ''
+      removeShiftVal: '',
+      shifts: this.props.shifts
     }
   }
 
   componentDidMount = () => {
+    let sortedShifts = _.sortBy( this.props.shifts, 'start' );
+    this.setState({
+      shifts: sortedShifts
+    })
   }
 
   componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.shifts !== this.props.shifts) {
+      let sortedShifts = _.sortBy( this.props.shifts, 'start' );
+      this.setState({
+        shifts: sortedShifts
+      })
+    }
     if (prevProps.addShift !== this.props.addShift) {
       this.setState({
         addShift: this.props.addShift
@@ -37,10 +49,11 @@ class Day extends Component {
 
   render() {
     const { shifts, staffID, weekID } = this.props
+    console.log(this.state.shifts, 'LLLLLLLLL')
     return (
       <div className='shift-container'>
       {
-        shifts.map((shift) => {
+        this.state.shifts.map((shift) => {
           return (
             <React.Fragment>
               <Shift  weekID={ weekID }
