@@ -13,13 +13,12 @@ class ShiftModal extends React.Component {
   }
 
   render () {
-    console.log(this.props, 'YOOOOOOOOOOOOOOO')
     if (!this.props.shiftAdd) {
       if (!this.props.validationError) {
         return (
           <div>
-            {this.props.timeError ? 
-              <p id='validation-error'>! Shift Conflict !</p> : 
+            {this.props.timeError ?
+              <p id='validation-error'>! Shift Conflict !</p> :
               <p></p>
             }
             <form id='shiftForm' onSubmit={ this.props.handleSubmit }>
@@ -46,8 +45,8 @@ class ShiftModal extends React.Component {
       } else {
         return (
           <div>
-            {this.props.timeError ? 
-              <p id='validation-error'>! Shift Conflict !</p> : 
+            {this.props.timeError ?
+              <p id='validation-error'>! Shift Conflict !</p> :
               <p id='validation-error'>! Fill out all fields !</p>
             }
             <form id='shiftForm' onSubmit={ this.props.handleSubmit }>
@@ -76,8 +75,8 @@ class ShiftModal extends React.Component {
       if (!this.props.validationError) {
         return (
           <div>
-            {this.props.timeError ? 
-              <p id='validation-error'>! Shift Conflict !</p> : 
+            {this.props.timeError ?
+              <p id='validation-error'>! Shift Conflict !</p> :
               <p></p>
             }
             <form id='shiftForm' onSubmit={ this.props.addShiftSubmit }>
@@ -105,8 +104,8 @@ class ShiftModal extends React.Component {
         // validation error
         return (
           <div>
-            {this.props.timeError ? 
-              <p id='validation-error'>! Shift Conflict !</p> : 
+            {this.props.timeError ?
+              <p id='validation-error'>! Shift Conflict !</p> :
               <p id='validation-error'>! Fill out all fields !</p>
             }
             <form id='shiftForm' onSubmit={ this.props.addShiftSubmit }>

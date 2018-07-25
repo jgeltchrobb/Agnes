@@ -29,8 +29,8 @@ class Timesheets extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.setTotalsRowsAndColumnHeadings()
+  componentDidMount = async () => {
+    await this.setTimesheets()
     if (this.props.staffUser) {
       this.setIndividual(this.props.staffUser._id)
     }
@@ -38,7 +38,7 @@ class Timesheets extends Component {
 
   componentDidUpdate = async (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
-      this.setTotalsRowsAndColumnHeadings()
+      await this.setTimesheets()
       if (this.props.staffUser) {
         this.setIndividual(this.props.staffUser._id)
       }
@@ -50,7 +50,8 @@ class Timesheets extends Component {
 
   }
 
-  setTotalsRowsAndColumnHeadings = () => {
+  setTimesheets = () => {
+    console.log('setTimesheets...running')
      var DayShiftDefinitionClockinBeforeHours = 20
      const milliToHours = 0.00000027777777777778
 
@@ -84,19 +85,30 @@ class Timesheets extends Component {
         prevShiftDate = shift.date
 
         // calculate timnesheet start value according to current data.
+        // - if no timesheet time or
+        //
         start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
+// shift.start.timesheet ? console.log('current timesheet start...', (new Date(shift.start.timesheet)).getTime())
+// : console.log('No start timesheet time!!!')
+// console.log('calculated start...', start)
         // if no timesheet time in current data or if the new start value is different to the timesheet time then replace with new value
-        if (!shift.start.timesheet || shift.start.timesheet !== start) {
+        if (!shift.start.timesheet || new Date(shift.start.timesheet).getTime() !== start.getTime()) {
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
         }
         // calculate timnesheet finish value according to current data.
         finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
+// console.log('current timesheet finish...', shift.finish.timesheet)
+// shift.finish.timesheet ? console.log('current timesheet finish...', (new Date(shift.finish.timesheet)).getTime())
+// : console.log('No finish timesheet time!!!')
+// console.log('calculated finish...', finish)
         // if no timesheet time in current data or if the new finish value is different to the timesheet time then replace with new value
-        if (!shift.finish.timesheet || shift.finish.timesheet !== finish) {
+        if (!shift.finish.timesheet || new Date(shift.finish.timesheet).getTime() !== finish.getTime()) {
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
         }
         // shift hours are just finish - start times converted to a number of hours with two decimal places
-        const shiftHours = (Number(((finish - start) * milliToHours).toFixed(2)))
+        const startFinishDifference = (Number(((finish - start) * milliToHours).toFixed(2)))
+        // take off break time (15 or 30 mins)
+        const shiftHours = (startFinishDifference < 4) ? (startFinishDifference - 0.25) : (startFinishDifference - 0.5)
         // determine the shift's payRateCategory and add it to totalsRow with the shiftHours as the value
         if (!shift.publicHoliday) {
 
@@ -216,8 +228,8 @@ class Timesheets extends Component {
     }
   }
 
-  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, value, shiftID) => {
-    console.log('posting...')
+  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
+    console.log('postTimesheetTime...', )
     const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
@@ -226,7 +238,7 @@ class Timesheets extends Component {
                       shiftNumber: shiftNumber,
                       startOrFinish: startOrFinish,
                       shiftID: shiftID,
-                      value: value,
+                      time: time,
                     }
 
     axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
@@ -235,6 +247,7 @@ class Timesheets extends Component {
   }
 
   postFlag = (staffID, shiftDate, rostered, actual) => {
+    console.log('postFlag...', )
     const server = 'http://localhost:4000'
 
     let flagObj =  {

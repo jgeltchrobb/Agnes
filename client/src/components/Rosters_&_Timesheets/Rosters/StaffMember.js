@@ -206,7 +206,6 @@ class StaffMember extends Component {
   render() {
     const { role, weekID, staffID } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
-    console.log(this.state.daysArray)
     return (
       <div className="shift-row">
 
