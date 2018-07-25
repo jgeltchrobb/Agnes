@@ -156,14 +156,14 @@ class StaffMember extends Component {
     } else {
       day = date.getDay() - 1
     }
-    
+
     // if no shiftID, the day is empty
     if (self) {
       if (!shiftID) {
         return true
       }
     }
-    
+
     // if its a change to a current shift
     for (let shift of daysArray[day].shifts) {
       // if shift === currentShift, dont check it's times

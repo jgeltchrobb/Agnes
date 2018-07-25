@@ -206,6 +206,10 @@ class Shift extends Component {
       let finish = event.target.finish.value
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
+      
+      
+//       if (shiftCategory && start && finish) {
+//         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, false, false)
 
       if (finish < start) {
         let shiftDay = this.state.date.getDay()

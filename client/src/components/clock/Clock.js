@@ -11,6 +11,7 @@ class Clock extends Component {
       week: '',
       user: '',
       greeting: '',
+      clocked: false,
       clockedIn: '',
       LastNightShiftID: '',
       LastNightShiftClockIn: '',
@@ -28,6 +29,7 @@ class Clock extends Component {
   }
 
   componentDidMount = async () => {
+    // console.log('cDID MOUNT!!!')
     const { week, user } = this.props
     await this.setState({ week: week })
     if (user) {
@@ -36,18 +38,18 @@ class Clock extends Component {
     }
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    const { user } = this.props
-    if (user && user._id !== prevProps.user._id) {
+  componentDidUpdate = async (prevProps, prevState) => {
+    const { week, user } = this.props
+    if (week !== prevProps.week) {
+      await this.setState({ week: week })
       this.setClock()
     }
-    if (this.state.clockedIn !== prevState.clockedIn) {
+    if  (this.state.clockedIn !== prevState.clockedIn) {
       this.setClock()
     }
   }
 
   setClock = () => {
-    console.log('set clock')
     // set clock status
     var clockedIn = false
     // today date needs to update daily with some kind of setTimeout function
@@ -62,13 +64,12 @@ class Clock extends Component {
         var prevPrevShiftDate = ''
         var shiftNumber = 1
 
-        console.log(staffMember)
         staffMember.shifts.map((shift) => {
           // shifts that finish today
           if (new Date(shift.finish.rostered).getDate() === today.getDate()) {
             // shift that finishes today but starts yesterday - Last Night's Shift
             if (new Date(shift.start.rostered).getDate() === today.getDate() - 1) {
-              console.log('last nights shift', shift)
+              // console.log('last nights shift', shift)
               // toggle through previous clocks to set clock status
               if (shift.start.actual)   { clockedIn = true }
               if (shift.finish.actual)  { clockedIn = false }
@@ -81,8 +82,6 @@ class Clock extends Component {
             }
             // shifts that finish today and start today - shift 1 and 2
             if (new Date(shift.start.rostered).getDate() === today.getDate()) {
-              console.log('day shift', shift)
-
               // toggle through previous clocks to set clock status
               if (shift.start.actual)   { clockedIn = true }
               if (shift.finish.actual)  { clockedIn = false }
@@ -132,58 +131,40 @@ class Clock extends Component {
   }
 
   clockIn = () => {
-    console.log('IN........')
     const { validatePIN, shift1ID, shift1clockIn, shift2ID, shift2clockIn, TonightShiftID, TonightShiftClockIn } = this.state
     // Mark clock time as now
     var clockTime = new Date()
     // if no clock time for this shift and the shift exists
     if (shift1ID && !shift1clockIn) {
-      console.log('shift1ID')
-
-      this.clock('shift1clockIn', clockTime, 'start', shift1ID)
+      this.postTime('start', shift1ID, clockTime)
       // else, if no clock time for this shift and the shift exists
     } else if (shift2ID && !shift2clockIn) {
-      console.log('shift2ID')
-
-      this.clock('shift2clockIn', clockTime, 'start', shift2ID)
+      this.postTime('start', shift2ID, clockTime)
       // else, if no clock time for this shift and the shift exists
     } else if (TonightShiftID && !TonightShiftClockIn) {
-      console.log('TonightShiftID')
-
-      this.clock('TonightShiftClockIn', clockTime, 'start', TonightShiftID)
+      this.postTime('start', TonightShiftID, clockTime)
     }
+    this.setState({ greeting: `${this.state.user.name} clocked in at ${clockTime}` })
   }
 
   clockOut = () => {
-    console.log('OUT........')
     const { validatePIN, LastNightShiftID, LastNightShiftClockOut, shift1ID, shift1clockOut, shift2ID, shift2clockOut } = this.state
     // Mark clock time as now
     var clockTime = new Date()
     // if no clock time for this shift and the shift exists
     if (LastNightShiftID && !LastNightShiftClockOut) {
-      this.clock('LastNightShiftClockOut', clockTime, 'finish', LastNightShiftID)
-      // else, if no clock time for this shift and the shift exists
+      this.postTime('finish', LastNightShiftID, clockTime)
+    // else, if no clock time for this shift and the shift exists
     } else if (shift1ID && !shift1clockOut) {
-      this.clock('shift1clockOut', clockTime, 'finish', shift1ID)
-      // else, if no clock time for this shift and the shift exists
+      this.postTime('finish', shift1ID, clockTime)
+    // else, if no clock time for this shift and the shift exists
     } else if (shift2ID && !shift2clockOut) {
-      this.clock('shift2clockOut', clockTime, 'finish', shift2ID)
+      this.postTime('finish', shift2ID, clockTime)
     }
+    this.setState({ greeting: `${this.state.user.name} clocked out at ${clockTime}` })
   }
 
-  clock = async (shift, clockTime, startOrFinish, shiftID) => {
-    await this.setState({ clockedIn: !this.state.clockedIn })
-    this.setGreeting(clockTime)
-    // this.setState({ [shift]: clockTime })
-    await this.postTime(startOrFinish, shiftID, clockTime)
-    await axios.get(this.props.api + `rosters/${this.state.week._id}`).then(response => {
-      this.setState({ week: response.data })
-      console.log(response.data)
-    })
-    this.setClock()
-  }
-
-  postTime = (startOrFinish, shiftID, time) => {
+  postTime = async (startOrFinish, shiftID, time) => {
     const { api, week, } = this.props
 
     let timeObj =   {
@@ -194,26 +175,22 @@ class Clock extends Component {
                       time: time,
                     }
 
-    axios.post(api + 'clock/new', timeObj).then((response) => {
-      console.log('clock time posted...!!!!!!!!')
+    await axios.post(api + 'clock/new', timeObj).then((response) => {
     })
+    this.props.clockUpdateCurrentWeek(this.state.week._id)
   }
 
-  setGreeting = (clockTime) => {
-    const inOrOut = this.state.clockedIn ? 'in' : 'out'
-    this.setState({
-      greeting: `${this.state.user.name} clocked ${inOrOut} at ${clockTime}`
-    })
+  setGreeting = (inOrOut, clockTime) => {
+    this.setState({ greeting: `${this.state.user.name} clocked ${inOrOut} at ${clockTime}` })
   }
 
   officeClock = async (user) => {
-    await this.setState({ user: user })
+    this.setState({ user: user })
     await this.setClock()
     this.state.clockedIn ? this.clockOut() : this.clockIn()
   }
 
   mobileClock = () => {
-    console.log('mobileClock')
     this.state.clockedIn ? this.clockOut() : this.clockIn()
   }
 
@@ -226,17 +203,21 @@ class Clock extends Component {
     const { shift2ID, shift2clockIn, shift2clockOut } = this.state
     const { TonightShiftID, TonightShiftClockIn, TonightShiftClockOut } = this.state
 
-    console.log('last night OUT..', LastNightShiftClockOut)
+    // console.log('last night OUT..', LastNightShiftClockOut)
     console.log('1 IN..', shift1clockIn)
     console.log('1 OUT..', shift1clockOut)
-    console.log('2 IN..', shift2clockIn)
-    console.log('2 OUT..', shift2clockOut)
-    console.log('tonight IN..', TonightShiftClockIn)
+    // console.log('2 IN..', shift2clockIn)
+    // console.log('2 OUT..', shift2clockOut)
+    // console.log('tonight IN..', TonightShiftClockIn)
 
     if (role === 'mobile-clock') {
 
       return (
         <div className='mobile-clock'>
+
+          <div>
+            { this.state.greeting }
+          </div>
 
           <button onClick={ this.mobileClock }> clock </button>
 

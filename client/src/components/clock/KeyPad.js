@@ -20,7 +20,7 @@ class KeyPad extends Component {
     users.map((user) => {
       if (user.PIN.toString() === pinInput.join('')) {
         if (user) {
-          this.officeClock(user)
+          officeClock(user)
           return true
         } else {
           alert('Incorrect PIN please try again')

@@ -117,9 +117,7 @@ class Flag extends Component {
 
   render() {
     const { staffName, date, rostered, difference, actual } = this.state
-    // if () {
 
-    // }
     return (
       <div className="flag-container">
 

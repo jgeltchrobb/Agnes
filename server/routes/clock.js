@@ -22,6 +22,7 @@ router.post('/new', async (req, res) => {
       }
     }
     week.save()
+    console.log('!!!!!!!!!!!!!!!!after post', week.staff[0].shifts[0])
     res.sendStatus(203)
   } catch (error) {
     res.status(500).json({ error: error.message })
