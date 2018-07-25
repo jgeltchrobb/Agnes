@@ -35,7 +35,6 @@ class App extends Component {
 
   fetchShiftData = (weekID) => {
     // METHOD CALL COMMENTED OUT AS REPLACING STATE WEEK DATA SO NOT AVAILABLE TO TIMESHEETS
-<<<<<<< HEAD
     let weeks = this.state.weeks
     if (weeks) {
       for (let week of weeks) {
@@ -53,24 +52,6 @@ class App extends Component {
               })
             })
           }
-=======
-    for (let week of this.state.weeks) {
-      if (weekID === week._id) {
-          axios.get(api + 'rosters/' + weekID).then((response) => {
-            this.setState({
-              currentWeek: response.data[0],
-              weeks: [
-                response.data[0],
-                response.data[1],
-                response.data[2],
-                response.data[3],
-                response.data[4],
-                response.data[5],
-                response.data[6],
-              ]
-            })
-          })
->>>>>>> master
         }
       }
     }
@@ -177,8 +158,8 @@ class App extends Component {
     console.log(this.state, 'ASDJASDK')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements) {return ''}
     // this is to simulate user authenication (roles) - switch between the following three statements
-    // let role = 'admin'
-    let role = 'staff'
+    let role = 'admin'
+    // let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
     let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]

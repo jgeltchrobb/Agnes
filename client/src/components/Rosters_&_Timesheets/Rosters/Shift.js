@@ -51,9 +51,6 @@ class Shift extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    // if (prevState.start !== this.state.start) {
-    //   co
-    // }
     const { weekID, staffID, date, shiftCategory, start, finish, shiftID, addShift, removeShiftVal } = this.props
     if (this.props !== prevProps) {
       this.setState({
@@ -109,15 +106,15 @@ class Shift extends Component {
       var dateCopy = new Date(this.props.date)
       dateCopy.setHours(hrs)
       dateCopy.setMinutes(mins)
-      if (shift === 'start') {
-        this.setState({
-          start: dateCopy
-        })
-      } else {
-        this.setState({
-          finish: dateCopy
-        })
-      }
+      // if (shift === 'start') {
+      //   this.setState({
+      //     start: dateCopy
+      //   })
+      // } else {
+      //   this.setState({
+      //     finish: dateCopy
+      //   })
+      // }
       return dateCopy
     } else {
       return ''
@@ -133,6 +130,7 @@ class Shift extends Component {
   addShiftSubmit = async (event) => {
     event.preventDefault()
     try {
+      console.log(this.state, 'LOLOLOLOLOLOLOLOLOL')
       let shiftCategory = event.target.shiftCategory.value
       let start = event.target.start.value
       let finish = event.target.finish.value
@@ -204,8 +202,6 @@ class Shift extends Component {
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
       if (shiftCategory && start && finish) {
         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, this.state.shiftID, true)
-        console.log(shiftCheck, 'SHIFTUSCHECKUS')
-
         if (shiftCheck) {
 
           let shiftObj =  {
@@ -254,6 +250,7 @@ class Shift extends Component {
       })
     }
   } catch (error) {
+    console.log(error)
     }
   }
 
@@ -270,39 +267,18 @@ class Shift extends Component {
 
   render() {
     const { role, shiftCategory, start, finish } = this.state
-    // if (this.state.currentEditing && this.state.timeError) { 
-    //   <React.Fragment>
-    //   <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-    //     <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError } />
-
-    //   </Modal>
-    //     <div className="shift-block">
-    //       <div className="shift-time" >
-    //         <div>1</div>
-    //         <div className="shift-middle"><p>-</p></div>
-    //         <div>1</div>
-    //       </div>
-    //       <div className="shift-category">
-    //         <p>{ this.state.shiftCategory.toUpperCase() }</p>
-    //       </div>
-    //     </div>
-    //     <button id='remove-shift-btn' onClick={
-    //       () => {this.props.removeShift(this.props.staffID, this.props.shiftID)}
-    //       } >x</button>
-    // </React.Fragment>
-    // } else 
     if (this.state.currentEditing && !this.props.addShift) {
       return (
         <React.Fragment>
           <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError } />
+            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} validationError={this.state.validationError} shiftAdd={false} removeShift={this.props.removeShift} shiftID={this.props.shiftID} timeError={this.state.timeError } />
 
           </Modal>
             <div className="shift-block">
               <div className="shift-time" >
-                <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }1</div>
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
                 <div className="shift-middle"><p>-</p></div>
-                <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }1</div>
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
               </div>
               <div className="shift-category">
                 <p>{ this.state.shiftCategory.toUpperCase() }</p>
@@ -317,14 +293,14 @@ class Shift extends Component {
       return (
         <React.Fragment>
           <Modal isOpen={this.state.currentModalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.currentCloseModal} style={customStyles} contentLabel="Shift Modal" >
-            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} shiftCatChange={this.shiftCatChange} startTimeChange={this.startTimeChange} finishTimeChange={this.finishTimeChange} validationError={this.state.validationError} shiftAdd={true} addShiftSubmit={this.addShiftSubmit} closeModal={this.currentCloseModal} timeError={this.state.timeError} />
+            <ShiftModal staffID={this.props.staffID} validation={this.state.validationError} handleSubmit={this.currentHandleSubmit} shiftCategory={shiftCategory} start={start} finish={finish} validationError={this.state.validationError} shiftAdd={true} addShiftSubmit={this.addShiftSubmit} closeModal={this.currentCloseModal} timeError={this.state.timeError} />
 
           </Modal>
             <div className="shift-block">
               <div className="shift-time" >
-                <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }a</div>
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
                 <div className="shift-middle"><p>-</p></div>
-                <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }a</div>
+                <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
               </div>
               <div className="shift-category">
                 <p>{ this.state.shiftCategory.toUpperCase() }</p>
@@ -335,14 +311,16 @@ class Shift extends Component {
             </div>
         </React.Fragment>
       )
+    } else if (!this.state.start && !this.state.finish) {
+      return ''
     } else {
       return (
         <React.Fragment>
           <div className="shift-block" onClick={ () => this.currentEdit() } >
             <div className="shift-time" >
-              <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }b</div>
-              <div className="shift-middle"><p>-</p></div>
-              <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }b</div>
+              <div>{ this.formatTime_DateObjtoDisplayString(this.state.start) }</div>
+              <div className="shift-middle"><p></p></div>
+              <div>{ this.formatTime_DateObjtoDisplayString(this.state.finish) }</div>
             </div>
             <div className="shift-category">
               <p>{ this.state.shiftCategory.toUpperCase() }</p>
