@@ -10,7 +10,7 @@ class Day extends Component {
     this.state = {
       addShift: '',
       removeShiftVal: '',
-      shifts: this.props.shifts
+      shifts: ''
     }
   }
 
@@ -48,11 +48,14 @@ class Day extends Component {
   // }
 
   render() {
-    const { shifts, staffID, weekID } = this.props
+    let shifts = ''
+    if (this.state.shifts) { shifts = this.state.shifts }
+    else { shifts = this.props.shifts }
+    const { staffID, weekID } = this.props
     return (
       <div className='shift-container'>
       {
-        this.state.shifts.map((shift) => {
+        this.props.shifts.map((shift) => {
           return (
             <React.Fragment>
               <Shift  weekID={ weekID }
