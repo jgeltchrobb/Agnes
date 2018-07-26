@@ -42,17 +42,57 @@ const seedData = async () => {
       []
   })
 
+
   await Week.create({
-    date: '2018-07-09',
+    date: new Date('2018-06-11'),
     staff:  [
               { staffID: user1._id, shifts: [] },
               { staffID: user2._id, shifts: [] },
               { staffID: user3._id, shifts: [] },
             ]
   })
-
   await Week.create({
-    date: '2018-07-16',
+    date: new Date('2018-06-18'),
+    staff:  [
+              { staffID: user1._id, shifts: [] },
+              { staffID: user2._id, shifts: [] },
+              { staffID: user3._id, shifts: [] },
+            ]
+  })
+  await Week.create({
+    date: new Date('2018-06-25'),
+    staff:  [
+              { staffID: user1._id, shifts: [] },
+              { staffID: user2._id, shifts: [] },
+              { staffID: user3._id, shifts: [] },
+            ]
+  })
+  await Week.create({
+    date: new Date('2018-07-02'),
+    staff:  [
+              { staffID: user1._id, shifts: [] },
+              { staffID: user2._id, shifts: [] },
+              { staffID: user3._id, shifts: [] },
+            ]
+  })
+  await Week.create({
+    date: new Date('2018-07-09'),
+    staff:  [
+              { staffID: user1._id, shifts: [] },
+              { staffID: user2._id, shifts: [] },
+              { staffID: user3._id, shifts: [] },
+            ]
+  })
+  await Week.create({
+    date: new Date('2018-07-16'),
+    staff:  [
+              { staffID: user1._id, shifts: [] },
+              { staffID: user2._id, shifts: [] },
+              { staffID: user3._id, shifts: [] },
+            ]
+  })
+  await Week.create({
+    date: new Date('2018-07-23'),
     staff:  [
               { staffID: user1._id, shifts: [] },
               { staffID: user2._id, shifts: [] },

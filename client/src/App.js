@@ -35,7 +35,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchWeeks()
+    this.fetchWeeks('2018-07-23T00:00:00Z')
+
     axios.get(api + 'users').then(response => {
       this.setState({
         users: response.data,
@@ -75,26 +76,42 @@ class App extends Component {
     }
   }
 
+// get last 7 weeks
   fetchWeeks = (date) => {
-    axios.get(api + 'rosters').then(response => {
+    axios.get(api + `rosters/update/${date}`).then(response => {
+      console.log(response.data)
       let weeks = []
       for (let i=0; i<response.data.length; i++) {
         weeks.push(response.data[i])
       }
       this.setState({
-        weeks: weeks,
         currentWeek: weeks[0],
         clockWeek: weeks[0],
+        weeks: weeks,
       })
     })
   }
 
-  clockUpdateCurrentWeek = (weekID) => {
-    axios.get(api + 'rosters/' + weekID).then(response => {
-      this.setState({ clockWeek: response.data })
-      console.log(response.data)
-    })
-  }
+  // refreshWeeks = () => {
+  //   axios.get(api + 'rosters/refresh').then(response => {
+  //     let weeks = []
+  //     for (let i=0; i<response.data.length; i++) {
+  //       weeks.push(response.data[i])
+  //     }
+  //     this.setState({
+  //       weeks: weeks,
+  //       currentWeek: weeks[0],
+  //       clockWeek: weeks[0],
+  //     })
+  //   })
+  // }
+
+  // this will only work for a week so needs to be changed to get the week by todays date
+  // clockUpdateCurrentWeek = () => {
+  //   axios.get(api + 'rosters/' + weekID).then(response => {
+  //     this.setState({ clockWeek: response.data })
+  //   })
+  // }
 
   selectRosters = () => {
     this.setState({ sideBarHeading: 'FLAGS' })
@@ -159,8 +176,7 @@ class App extends Component {
     let role = 'admin'
     // let role = 'staff'
     // let role = 'office-clock'
-    let week = this.state.currentWeek
-    let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
+    let prevWeek = this.state.weeks[this.state.weeks.indexOf(this.state.currentWeek) + 1]
     // this is to simulate a staff member login - switch between the following two statements
     let staffUser = ''
     // let staffUser = this.state.users[0]
@@ -196,9 +212,9 @@ class App extends Component {
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets currentWeek={ this.state.currentWeek }
-                          week={ week }
+              <Timesheets week={ this.state.currentWeek }
                           prevWeek={ prevWeek }
+                          fetchWeeks={ this.fetchWeeks }
                           users={ this.state.users }
                           payRateCategories={ this.state.payRateCategories }
                           entitlements={ this.state.entitlements }
@@ -219,11 +235,11 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock  week={ this.state.clockWeek }
+                <Clock  week={ this.state.currentWeek }
                         user={ staffUser }
                         users={ this.state.users }
                         api={ api }
-                        clockUpdateCurrentWeek={ this.clockUpdateCurrentWeek }
+                        fetchWeeks={ this.fetchWeeks }
                 />
               )
             }} />
