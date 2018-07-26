@@ -6,23 +6,32 @@ class Value extends Component {
     super(props)
 
     this.state = {
-      weekID: this.props.weekID,
-      individual: this.props.individual,
-      date: this.props.date,
-      shift: Number(this.props.shift),
-      value: this.props.value,
+      weekID: '',
+      individual: '',
+      date: '',
+      shift: '',
+      lable: '',
+      value: '',
       editing: false,
     }
   }
 
-  componentDidMount = () => {
-
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-
-  }
-
+  // componentDidMount = () => {
+  //   this.setState({
+  //     weekID: this.props.weekID,
+  //     individual: this.props.individual,
+  //     date: this.props.date,
+  //     shift: Number(this.props.shift),
+  //     lable: this.props.lable,
+  //     value: this.props.value,
+  //     editing: false,
+  //   })
+  // }
+  //
+  // componentDidUpdate = (prevProps, prevState) => {
+  //
+  // }
+  //
   formatTime_UserInputToDateObj = (timeString) => {
     let hrsMinsStringArray = timeString.split(':')
     let hrs = Number(hrsMinsStringArray[0])
@@ -62,20 +71,20 @@ class Value extends Component {
     this.setState({ editing: !this.state.editing })
 
     let timeObj =  {
-                      weekID: this.state.weekID,
-                      staffID: this.state.individual,
-                      date: this.state.date,
-                      shiftNumber: this.state.shift,
+                      weekID: this.props.weekID,
+                      staffID: this.props.individual,
+                      date: this.props.date,
+                      shiftNumber: this.props.shift,
                       startOrFinish: lable,
                       value: this.state.value,
                     }
 
-    // api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
-    //   console.log(response)
-    // })
-
+    api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
+      console.log(response)
+    })
+    this.props.fetchWeeks(this.props.date)
   }
-
+  //
   edit = () => {
     this.setState({ editing: !this.state.editing })
   }
@@ -95,7 +104,7 @@ class Value extends Component {
       if (!this.state.editing) {
         return (
           <div className='value-constainer' onClick={ () => this.edit() }>
-          { this.formatTime_DateObjtoDisplayTime(this.state.value) }
+          { this.formatTime_DateObjtoDisplayTime(value) }
           </div>
         )
       } else {

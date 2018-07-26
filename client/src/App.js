@@ -6,7 +6,7 @@ import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
 import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 import Staff from './components/staff/Staff'
 // import StaffHeader from './components/staff/Header'
-import './stylesheets/App.css';
+import './stylesheets/App.css'
 import { api, setJwt } from './api/init'
 
 class App extends Component {
@@ -83,8 +83,8 @@ class App extends Component {
 // get week by date and previous 6. That way app will stay on current week and just make it week[0] of the response
   fetchWeeks = (date) => {
     api.get(`rosters/update/${date}`).then(response => {
+      console.log(response)
       let weeks = []
-      console.log(response, 'RES')
       for (let i=0; i<response.data.length; i++) {
         weeks.push(response.data[i])
       }
@@ -152,7 +152,6 @@ class App extends Component {
     let weeks = this.state.weeks
     if (this.state.currentWeek.date === weeks[5].date) {
       api.get('rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
-console.log(response.data)
         weeks = [...weeks]
         weeks.shift()
         weeks.push(response.data)
@@ -198,7 +197,6 @@ console.log(response.data)
   }
 
   render() {
-    console.log(this.state.users, 'TOKEN')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements || !this.state.clockWeek) {return ''}
     // this is to simulate user authenication (roles) - switch between the following three statements
     let role = this.state.role
@@ -208,7 +206,6 @@ console.log(response.data)
     // this is to simulate a staff member login - switch between the following two statements
     let staffUser = ''
     // let staffUser = this.state.users[0]
-    console.log(this.state, 'HHHHHHHHHHH')
     if (!this.state.token) {
       return (
         <Router>
@@ -245,7 +242,8 @@ console.log(response.data)
                             goToNextWeek={ this.goToNextWeek }
                             goToPreviousWeek={ this.goToPreviousWeek }
                             sideBarHeading={ this.state.sideBarHeading }
-                            fetchData={ this.fetchShiftData }
+                            fetchData={ this.fetchData }
+                            fetchWeeks={ this.fetchWeeks }
                             role={ role }
                             /> )}
                 />
@@ -262,6 +260,10 @@ console.log(response.data)
                             sideBarHeading={ this.state.sideBarHeading }
                             role={ role }
                             staffUser={ staffUser }
+                            fetchData={ this.fetchData }
+                            fetchWeeks={ this.fetchWeeks }
+
+
 
                 /> )}
               />
