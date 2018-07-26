@@ -1,8 +1,8 @@
 import React from 'react'
+import { api, setJwt } from '../../../api/init'
 import classNames from 'classnames'
 import axios from 'axios'
 
-const api = 'http://localhost:4000/users'
 
 const customStyles = {
   content : {
@@ -35,11 +35,18 @@ class NewUserModal extends React.Component {
     event.preventDefault()
     const name = event.target.name.value
     const email = event.target.email.value
-    if (name && email) {
+    const password = event.target.password.value
+    const pin = event.target.pin.value
+    let role = 'staff'
+    let checkedValue = document.querySelector('#admin-check').checked
+    if (checkedValue) {role = 'admin'}
+    console.log(role)
+    const loginObj = {name: name, email: email, password: password, role: role, pin: parseInt(pin), weekID: this.props.weekID}
+    if (name && email && password && pin) {
 
-      axios.post(api, {name: name, email: email}).then((response) => {
+      this.props.closeModal()
+      api.post('users', loginObj).then((response) => {
         this.props.fetchData()
-        this.props.closeModal()
       })
     } else {
       this.setState({validationError: !this.state.validationError})
@@ -56,6 +63,10 @@ class NewUserModal extends React.Component {
           <form onSubmit={this.submitHandler}>
             <input autofocus="autofocus" name='name' placeholder='Name' /> <br /> <br />
             <input name='email' placeholder='Email' /> <br /> <br />
+            <input name='password' placeholder='Password' /> <br /> <br />
+            <input name='pin' type='number' placeholder='PIN' /> <br /> <br />
+            <label>Admin user <input id='admin-check' name='admin' type='checkbox' /></label> <br /> <br />
+
             <button type='submit' >Submit</button>
           </form>
         </div>
@@ -67,6 +78,9 @@ class NewUserModal extends React.Component {
         <form onSubmit={this.submitHandler}>
           <input name='name' placeholder='Name' /> <br /> <br />
           <input name='email' placeholder='Email' /> <br /> <br />
+          <input name='password' placeholder='Password' /> <br /> <br />
+          <input name='pin' placeholder='PIN' /> <br /> <br />
+          <label>Admin user <input id='admin-check' name='admin' type='checkbox' /></label> <br /> <br />
           <button type='submit' >Submit</button>
         </form>
       </div>

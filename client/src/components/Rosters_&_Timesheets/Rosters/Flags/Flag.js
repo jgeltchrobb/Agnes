@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../../../../stylesheets/Flag.css'
 import axios from 'axios'
+import { api, setJwt } from '../../../../api/init'
 
 class Flag extends Component {
   constructor(props) {
@@ -105,10 +106,8 @@ class Flag extends Component {
   }
 
   removeFlag = async (e) => {
-    const server = 'http://localhost:4000'
-
     let flagID = this.state.flagID
-    await axios.delete(server + '/flags/remove/' + flagID).then((response) => {
+    await api.delete('flags/remove/' + flagID).then((response) => {
       this.props.resetFlags(response.data)
     })
     // this.props.fetchFlagsData()

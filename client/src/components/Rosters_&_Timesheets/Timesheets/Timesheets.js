@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { api, setJwt } from '../../../api/init'
 import axios from 'axios'
 import Header from '../HeaderBar/Header'
 import ColumnHeading from './Common/ColumnHeading'
@@ -245,7 +246,6 @@ console.log('calculated finish...', finish)
 
   postTimesheetTime = async (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID, postRequired) => {
     // console.log('postTimesheetTime...', this.state.weekID)
-    const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
                       staffID: staffID,
@@ -257,14 +257,14 @@ console.log('calculated finish...', finish)
                       postRequired: postRequired,
                     }
 
-    await axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
+    api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
+      console.log(response)
     })
     this.props.fetchWeeks(this.state.weekDate)
   }
 
   postFlag = (shiftID, startOrFinish, staffID, shiftDate, rostered, actual) => {
-    // console.log('postFlag...', )
-    const server = 'http://localhost:4000'
+    console.log('postFlag...', )
 
     let flagObj =  {
                       weekID: this.state.weekID,
@@ -277,7 +277,7 @@ console.log('calculated finish...', finish)
                       active: true,
                     }
 
-    axios.put(server + '/flags/new', {flagObj}).then((response) => {
+    api.put('flags/new', {flagObj}).then((response) => {
     })
   }
 
@@ -308,6 +308,7 @@ console.log('calculated finish...', finish)
 
   render() {
     const { staffUser, role, week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
+    console.log(users, 'USERS')
     if (!this.state.individual) {
 
       // console.log('totalsRows from Timesheets..', this.state.totalsRows)

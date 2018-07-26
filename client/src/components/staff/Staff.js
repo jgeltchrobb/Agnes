@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
+import { api, setJwt } from '../../api/init'
 import Modal from 'react-modal';
 import StaffRow from './StaffRow'
 import SideBar from './SideBar'
 import Header from './Header'
-import NewUser from './NewUser'
 import NewUserModal from './Modals/NewUserModal'
-import classNames from 'classnames'
 import '../../stylesheets/Staff.css'
-
-import axios from 'axios'
-
 
 const customStyles = {
   content : {
@@ -23,8 +18,6 @@ const customStyles = {
   }
 };
 
-const api = 'http://localhost:4000'
-
 class Staff extends Component {
   constructor() {
     super()
@@ -35,7 +28,8 @@ class Staff extends Component {
       rosteredTotals: [],
       totals: '',
       modalIsOpen: false,
-      addHours: false
+      addHours: false,
+      staffTotals: []
     }
   }
 
@@ -54,9 +48,16 @@ class Staff extends Component {
   }
 
   fetchStandard = () => {
-    axios.get(api + '/standardHours').then((response) => {
+    let staffTotals = [...this.state.staffTotals]
+    api.get('/standardHours').then((response) => {
       for (let staff of response.data) {
-        staff.totalHours = parseInt(localStorage.getItem(`${staff.name}`))
+        for (let total of staffTotals) {
+          if (total.name === staff.name) {
+            staff.totalHours = total.total
+            break
+          }
+        }
+        // staff.totalHours = parseInt(localStorage.getItem(`${staff.name}`))
       }
       return response
     }).then((result) => {
@@ -67,7 +68,7 @@ class Staff extends Component {
 
   fetchRosters = (staffData) => {
     let date = new Date().toISOString().split('T')[0]
-    axios.get(api + '/rosters' + '/date/' + date).then((response) => {
+    api.get('rosters/date/' + date).then((response) => {
       return response.data
     }).then((obj) => {
       console.log(obj)
@@ -155,6 +156,7 @@ class Staff extends Component {
   }
 
   passTotal = (total) => {
+    let staffTotals = [...this.state.staffTotals]
     let name = ''
     let currentTotal = ''
     let plus = ''
@@ -173,7 +175,12 @@ class Staff extends Component {
     for (let obj of staffData) {
       if (obj._id === total.standardID) {
         name = obj.name
-        currentTotal = parseFloat(localStorage.getItem(`${name}`))
+        for (let total of staffTotals) {
+          if (total.name === name) {
+            currentTotal = total.total
+          }
+        }
+        // currentTotal = parseFloat(localStorage.getItem(`${name}`))
         for (let cat of obj.categories) {
           if (cat._id === total.id) {
             cat.hoursWorked = total.hours
@@ -186,8 +193,12 @@ class Staff extends Component {
         }
       }
     }
-    localStorage.setItem(`${name}`, currentTotal)
-    this.setState({staffData})
+    // localStorage.setItem(`${name}`, currentTotal)
+    staffTotals.push({name: name, total: currentTotal})
+    this.setState({
+      staffData: staffData,
+      staffTotals: staffTotals
+    })
   }
 
   openModal = () => {
@@ -200,13 +211,14 @@ class Staff extends Component {
 
   render() {
     console.log(this.state.staffData, 'STAFFFFFFFFFFFDATATA')
+    console.log(this.props, 'lllllllllllllllllllll')
     return (
       <React.Fragment>
         <div className="staff-container">
           <div className="new-staff-button-container">
             <button onClick={this.openModal} >New Staff</button>
             <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Add Staff Modal" >
-              <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} />
+              <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} weekID={ this.props.weekID } />
             </Modal>
           </div>
           <div className="staff-main" >

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { api, setJwt } from '../../../api/init'
 import axios from 'axios'
 import Header from '../HeaderBar/Header'
 import Roster from './Roster'
@@ -15,9 +16,7 @@ class Rosters extends Component {
   }
 
   fetchFlagsData = () => {
-    const server = 'http://localhost:4000'
-
-    axios.get(server + '/flags').then(response => {
+    api.get('flags').then(response => {
       this.setState({
         flags: response.data[0].flags,
       })
@@ -31,6 +30,7 @@ class Rosters extends Component {
   }
 
   render() {
+    console.log(this.props, 'HERD DAWG')
     const { role, week, users, goToNextWeek, goToPreviousWeek, sideBarHeading, weekDate } = this.props
     if (!this.state.flags) return ''
     return (

@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
+import { api, setJwt } from '../../../api/init'
 import axios from 'axios'
 // import '../../../stylesheets/Shift.css'
 import Modal from 'react-modal'
 import ShiftModal from './ShiftModal'
 import '../../../stylesheets/Shift.css'
-
-const api = 'http://localhost:4000'
-
 
 const customStyles = {
   content : {
@@ -165,27 +163,25 @@ class Shift extends Component {
     })
 
     // REPLACE IN DB
-    let nightResponse = await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
+    let nightResponse = await api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
     let weekID = nightResponse.data._id
     let shiftDate = this.state.date
     shiftDate.setDate(shiftDate.getDate() + 1)
-
     let newFinishTime = finishTime
-     newFinishTime = new Date(newFinishTime.setDate(newFinishTime.getDate() + 1))
-
+    newFinishTime = new Date(newFinishTime.setDate(newFinishTime.getDate() + 1))
     if (sunday) {
       let weekDate = new Date(this.state.weekDate)
       weekDate.setDate(weekDate.getDate() + 7)
-      let weekResponse = await axios.get(api + '/rosters/' + 'date/' + weekDate)
+      let weekResponse = await api.get('rosters/date/' + weekDate)
       shiftDate = new Date(weekResponse.data.date)
       weekID = weekResponse.data._id
-
       shiftObj.weekID = weekID
       shiftObj.shift.firstHalfID = nightResponse.data._id
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
       shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
       shiftObj.shift.finish.rostered = newFinishTime
-      await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
+      
+      await api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
 
     } else {
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
@@ -193,7 +189,7 @@ class Shift extends Component {
       shiftObj.shift.finish.rostered = newFinishTime
       shiftObj.shift.firstHalfID = nightResponse.data._id
 
-      await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
+      await api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
     }
       this.props.fetchData(this.props.weekID)
     }
@@ -252,7 +248,7 @@ class Shift extends Component {
         })
 
         // REPLACE IN DB
-        axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
+        api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: true}).then((response) => {
           this.props.fetchData(this.props.weekID)
         })
         // this.currentCloseModal()
@@ -321,7 +317,7 @@ class Shift extends Component {
         })
 
         // REPLACE IN DB
-        axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
+        api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: false}).then((response) => {
           this.props.fetchData(this.props.weekID)
         })
         this.currentCloseModal()
@@ -421,9 +417,7 @@ class Shift extends Component {
           {/* // </div> */}
           </React.Fragment>
       )
-    }
-
-    else {
+    } else {
       return (
         <React.Fragment>
           <div className="shift-block" onClick={ () => this.currentEdit() } >

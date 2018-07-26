@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { api, setJwt } from '../../../../api/init'
 
 class Value extends Component {
   constructor(props) {
@@ -56,7 +56,6 @@ class Value extends Component {
   postTimesheetTime = async (lable, e) => {
     e.preventDefault()
 
-    const server = 'http://localhost:4000'
 
     await this.setState({ value: this.formatTime_UserInputToDateObj(this.state.value) })
 
@@ -71,7 +70,7 @@ class Value extends Component {
                       value: this.state.value,
                     }
 
-    // axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
+    // api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
     //   console.log(response)
     // })
 
