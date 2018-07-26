@@ -84,10 +84,10 @@ class Timesheets extends Component {
         prevShiftDate = shift.date
 
         // calculate timnesheet start and post. Will also post flag if required
-        if (!shift.start.timesheet || shift.start.flag === false) {
+        if (!shift.start.timesheet || !shift.start.actual) {
           start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
-console.log('calculated start...', start)
+// console.log('calculated start...', start)
         } else { start = new Date(shift.start.timesheet)
 // console.log('existing start...', start)
         }
@@ -97,7 +97,7 @@ console.log('calculated start...', start)
         if (!shift.start.timesheet || shift.start.flag === false) {
           finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
-console.log('calculated finish...', finish)
+// console.log('calculated finish...', finish)
         } else { finish = new Date(shift.finish.timesheet)
 // console.log('existing finish...', finish)
         }
@@ -258,7 +258,6 @@ console.log('calculated finish...', finish)
                       actual: actual,
                       active: true,
                     }
-                    console.log(flagObj)
 
     axios.put(server + '/flags/new', {flagObj}).then((response) => {
     })

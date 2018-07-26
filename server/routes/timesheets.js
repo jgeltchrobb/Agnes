@@ -12,7 +12,7 @@ router.post('/timesheet-time/update', async (req, res) => {
   // same as updating rostered start / finish times in the shifts one you were working on
   // but now start.timesheet instead of start.rostered (same for finish)
   const timeObj = req.body.timeObj
-  console.log('week!!!!!!', timeObj)
+  // console.log('week!!!!!!', timeObj)
   try {
     let week = await Week.findOne({_id: timeObj.weekID})
     for (let staff of week.staff) {
