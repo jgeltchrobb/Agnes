@@ -16,26 +16,26 @@ mongoose.connect('mongodb://localhost/agnes', (err) => {
 
 const seedData = async () => {
 
-  let user1 = await User.create({
-    name: 'Pubert Gesepi',
-    email: 'test@test.com',
-    role: 'staff',
-    PIN: 1111
-  })
+  // let user1 = await User.create({
+  //   name: 'Pubert Gesepi',
+  //   email: 'test@test.com',
+  //   role: 'admin',
+  //   PIN: 1111
+  // })
 
-  let user2 = await User.create({
-    name: 'Shaun Lamb',
-    email: 'test@test.com',
-    role: 'staff',
-    PIN: 2222
-  })
+  // let user2 = await User.create({
+  //   name: 'Shaun Lamb',
+  //   email: 'test@test.com',
+  //   role: 'staff',
+  //   PIN: 2222
+  // })
 
-  let user3 = await User.create({
-    name: 'Justin Case',
-    email: 'test@test.com',
-    role: 'staff',
-    PIN: 3333
-  })
+  // let user3 = await User.create({
+  //   name: 'Justin Case',
+  //   email: 'test@test.com',
+  //   role: 'staff',
+  //   PIN: 3333
+  // })
 
   await Flags.create({
     flags:
@@ -43,22 +43,22 @@ const seedData = async () => {
   })
 
   await Week.create({
-    date: '2018-07-09',
+    date: '2018-07-23',
     staff:  [
-              { staffID: user1._id, shifts: [] },
-              { staffID: user2._id, shifts: [] },
-              { staffID: user3._id, shifts: [] },
+              // { staffID: user1._id, shifts: [] },
+              // { staffID: user2._id, shifts: [] },
+              // { staffID: user3._id, shifts: [] },
             ]
   })
 
-  await Week.create({
-    date: '2018-07-16',
-    staff:  [
-              { staffID: user1._id, shifts: [] },
-              { staffID: user2._id, shifts: [] },
-              { staffID: user3._id, shifts: [] },
-            ]
-  })
+  // await Week.create({
+  //   date: '2018-07-16',
+  //   staff:  [
+  //             { staffID: user1._id, shifts: [] },
+  //             { staffID: user2._id, shifts: [] },
+  //             { staffID: user3._id, shifts: [] },
+  //           ]
+  // })
   //
   // await Week.create({
   //   date: '2018-07-09',
@@ -913,147 +913,147 @@ const seedData = async () => {
     ]
   })
 
-  await StandardHours.create({
-    staffID: user1._id,
-    name: user1.name,
-    totalHours: '',
-    categories: [
-      {
-        category: 'Ordinary',
-        hoursWorked: 5
-      },
-      {
-        category: 'Sat',
-        hoursWorked: 3
-      },
-      {
-        category: 'Sun',
-        hoursWorked: 66
-      },
-      {
-        category: 'Night',
-        hoursWorked: 0
-      },
-      {
-        category: 'Public Holiday',
-        hoursWorked: 1
-      },
-      {
-        category: 'Wayne Ordinary',
-        hoursWorked: 1
-      },
-      {
-        category: 'Wayne Saturday',
-        hoursWorked: 4
-      },
-      {
-        category: 'Wayne Sunday',
-        hoursWorked: 22
-      },
-      {
-        category: 'Wayne Night',
-        hoursWorked: 11
-      },
-      {
-        category: 'Wayne Public Holiday',
-        hoursWorked: 0
-      }
-    ]
-  })
-  await StandardHours.create({
-    staffID: user2._id,
-    name: user2.name,
-    totalHours: '',
-    categories: [
-      {
-        category: 'Ordinary',
-        hoursWorked: 53
-      },
-      {
-        category: 'Sat',
-        hoursWorked: 32
-      },
-      {
-        category: 'Sun',
-        hoursWorked: 66
-      },
-      {
-        category: 'Night',
-        hoursWorked: 0
-      },
-      {
-        category: 'Public Holiday',
-        hoursWorked: 0
-      },
-      {
-        category: 'Wayne Ordinary',
-        hoursWorked: 1
-      },
-      {
-        category: 'Wayne Saturday',
-        hoursWorked: 4
-      },
-      {
-        category: 'Wayne Sunday',
-        hoursWorked: 2
-      },
-      {
-        category: 'Wayne Night',
-        hoursWorked: 1
-      },
-      {
-        category: 'Wayne Public Holiday',
-        hoursWorked: 1
-      }
-    ]
-  })
-  await StandardHours.create({
-    staffID: user3._id,
-    name: user3.name,
-    totalHours: '',
-    categories: [
-      {
-        category: 'Ordinary',
-        hoursWorked: 3
-      },
-      {
-        category: 'Sat',
-        hoursWorked: 1
-      },
-      {
-        category: 'Sun',
-        hoursWorked: 4
-      },
-      {
-        category: 'Night',
-        hoursWorked: 0
-      },
-      {
-        category: 'Public Holiday',
-        hoursWorked: 1
-      },
-      {
-        category: 'Wayne Ordinary',
-        hoursWorked: 4
-      },
-      {
-        category: 'Wayne Saturday',
-        hoursWorked: 4
-      },
-      {
-        category: 'Wayne Sunday',
-        hoursWorked: 22
-      },
-      {
-        category: 'Wayne Night',
-        hoursWorked: 11
-      },
-      {
-        category: 'Wayne Public Holiday',
-        hoursWorked: 0
-      }
-    ]
-  })
+  // await StandardHours.create({
+  //   staffID: user1._id,
+  //   name: user1.name,
+  //   totalHours: '',
+  //   categories: [
+  //     {
+  //       category: 'Ordinary',
+  //       hoursWorked: 5
+  //     },
+  //     {
+  //       category: 'Sat',
+  //       hoursWorked: 3
+  //     },
+  //     {
+  //       category: 'Sun',
+  //       hoursWorked: 66
+  //     },
+  //     {
+  //       category: 'Night',
+  //       hoursWorked: 0
+  //     },
+  //     {
+  //       category: 'Public Holiday',
+  //       hoursWorked: 1
+  //     },
+  //     {
+  //       category: 'Wayne Ordinary',
+  //       hoursWorked: 1
+  //     },
+  //     {
+  //       category: 'Wayne Saturday',
+  //       hoursWorked: 4
+  //     },
+  //     {
+  //       category: 'Wayne Sunday',
+  //       hoursWorked: 22
+  //     },
+  //     {
+  //       category: 'Wayne Night',
+  //       hoursWorked: 11
+  //     },
+  //     {
+  //       category: 'Wayne Public Holiday',
+  //       hoursWorked: 0
+  //     }
+  //   ]
+  // })
+  // await StandardHours.create({
+  //   staffID: user2._id,
+  //   name: user2.name,
+  //   totalHours: '',
+  //   categories: [
+  //     {
+  //       category: 'Ordinary',
+  //       hoursWorked: 53
+  //     },
+  //     {
+  //       category: 'Sat',
+  //       hoursWorked: 32
+  //     },
+  //     {
+  //       category: 'Sun',
+  //       hoursWorked: 66
+  //     },
+  //     {
+  //       category: 'Night',
+  //       hoursWorked: 0
+  //     },
+  //     {
+  //       category: 'Public Holiday',
+  //       hoursWorked: 0
+  //     },
+  //     {
+  //       category: 'Wayne Ordinary',
+  //       hoursWorked: 1
+  //     },
+  //     {
+  //       category: 'Wayne Saturday',
+  //       hoursWorked: 4
+  //     },
+  //     {
+  //       category: 'Wayne Sunday',
+  //       hoursWorked: 2
+  //     },
+  //     {
+  //       category: 'Wayne Night',
+  //       hoursWorked: 1
+  //     },
+  //     {
+  //       category: 'Wayne Public Holiday',
+  //       hoursWorked: 1
+  //     }
+  //   ]
+  // })
+  // await StandardHours.create({
+  //   staffID: user3._id,
+  //   name: user3.name,
+  //   totalHours: '',
+  //   categories: [
+  //     {
+  //       category: 'Ordinary',
+  //       hoursWorked: 3
+  //     },
+  //     {
+  //       category: 'Sat',
+  //       hoursWorked: 1
+  //     },
+  //     {
+  //       category: 'Sun',
+  //       hoursWorked: 4
+  //     },
+  //     {
+  //       category: 'Night',
+  //       hoursWorked: 0
+  //     },
+  //     {
+  //       category: 'Public Holiday',
+  //       hoursWorked: 1
+  //     },
+  //     {
+  //       category: 'Wayne Ordinary',
+  //       hoursWorked: 4
+  //     },
+  //     {
+  //       category: 'Wayne Saturday',
+  //       hoursWorked: 4
+  //     },
+  //     {
+  //       category: 'Wayne Sunday',
+  //       hoursWorked: 22
+  //     },
+  //     {
+  //       category: 'Wayne Night',
+  //       hoursWorked: 11
+  //     },
+  //     {
+  //       category: 'Wayne Public Holiday',
+  //       hoursWorked: 0
+  //     }
+  //   ]
+  // })
 
   await mongoose.connection.close(() => {
     console.log('Disconnected from database!')

@@ -424,9 +424,7 @@ class Shift extends Component {
           {/* // </div> */}
           </React.Fragment>
       )
-    }
-    
-    else {
+    } else {
       return (
         <React.Fragment>
           <div className="shift-block" onClick={ () => this.currentEdit() } >

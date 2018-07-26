@@ -1,8 +1,12 @@
 const express = require('express')
+const passport = require('passport');
 const User = require('../models/user')
 const StandardHour = require('../models/standardHours')
 const Roster = require('../models/week')
 const router = express.Router()
+
+const { requireJwt, register, signJwtForUser, login, isAdmin } = require('../middleware/auth')
+
 
 // Get all users
 router.get('/', async (req, res) => {

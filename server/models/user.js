@@ -7,7 +7,6 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const User = new Schema({
-  staffID: Number,
   name: String,
   email: String,
   role: {type: String, default: 'staff'},
@@ -15,6 +14,6 @@ const User = new Schema({
 });
 
 // connect passportLocalMongoose and use 'email' instead of 'username'
-// User.plugin(passportLocalMongoose);
+User.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', User);
