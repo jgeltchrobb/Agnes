@@ -51,7 +51,6 @@ class Timesheets extends Component {
 
   setTimesheets = () => {
     console.log('setTimesheets...')
-     var DayShiftDefinitionClockinBeforeHours = 20
      const milliToHours = 0.00000027777777777778
 
     var columnHeadings = []
@@ -106,11 +105,14 @@ console.log('calculated finish...', finish)
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const startFinishDifference = (Number(((finish - start) * milliToHours).toFixed(2)))
         // take off break time (15 or 30 mins)
-        const shiftHours = (startFinishDifference < 4) ? (startFinishDifference - 0.25) : (startFinishDifference - 0.5)
+        var shiftHours = startFinishDifference
+        if (start.getHours() < 17) {
+          shiftHours = (startFinishDifference < 4) ? (startFinishDifference - 0.25) : (startFinishDifference - 0.5)
+        }
         // determine the shift's payRateCategory and add it to totalsRow with the shiftHours as the value
         if (!shift.publicHoliday) {
 
-          if (start.getHours() < DayShiftDefinitionClockinBeforeHours) {
+          if (start.getHours() < 19) {
 
             if (start.getDay() === 6) {
               if (shift.wayneShift) {
@@ -144,18 +146,27 @@ console.log('calculated finish...', finish)
         } else {
           totalsRow['Public Holiday'] ? totalsRow['Public Holiday'] += shiftHours : totalsRow['Public Holiday'] = shiftHours
         }
+        if (shift.sleepOver === true) {
+          // 0.5 because it comes through as two shifts which both start after 5pm so they each add a sleep-over bonus
+          totalsRow['Sleep-over Bonus'] ? totalsRow['Sleep-over Bonus'] += 0.5 : totalsRow['Sleep-over Bonus'] = 0.5
+          console.log(rFinish)
+        }
       })
       // push totalsRow key to columnHeadings array
       for (let cat in totalsRow) {
         columnHeadings.push(cat)
+      }
+      // add entitlements to columnHeadings array
+      for (let e of this.props.entitlements) {
+        columnHeadings.push(e)
       }
       // add staffID to totalsRow
       totalsRow.staffID = staffMember.staffID
       // push totalsRow object to totalsRows array
       totalsRows.push(totalsRow)
     })
-    // // Remove duplicates from columnHeadings array and merge with entitlements array to form final column heads array
-    columnHeadings = [...this.removeDuplicates(columnHeadings), ...this.props.entitlements]
+    // // Remove duplicates from columnHeadings array
+    columnHeadings = this.removeDuplicates(columnHeadings)
 
     this.setState({
       columnHeadings: columnHeadings,

@@ -79,7 +79,6 @@ class App extends Component {
 // get last 7 weeks
   fetchWeeks = (date) => {
     axios.get(api + `rosters/update/${date}`).then(response => {
-      console.log(response.data)
       let weeks = []
       for (let i=0; i<response.data.length; i++) {
         weeks.push(response.data[i])
