@@ -3,6 +3,19 @@ import TWeek from './TWeek'
 import '../../../../stylesheets/Individual.css'
 
 class Individual extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     week: this.props.week,
+  //     prevWeek: this.props.prevWeek,
+  //   }
+  // }
+
+  // componentDidUpdate = () => {
+  //   if (this.props.) {
+  //
+  //   }
+  // }
 
   // formatDate = (date) => {
   //   var dateObj = new Date(date)
@@ -12,7 +25,8 @@ class Individual extends Component {
   // }
 
   render() {
-    const { week, prevWeek, individual, setIndividual, removeIndividual } = this.props
+    const {  week, prevWeek, fetchWeeks, individual, setIndividual, removeIndividual } = this.props
+    // const { week, prevWeek } = this.state
     return (
       <div className='timesheet-card-container'>
 
@@ -26,6 +40,7 @@ class Individual extends Component {
         </div>
 
         <TWeek  week={ week }
+                fetchWeeks={ fetchWeeks }
                 weekID={ week._id }
                 individual={ individual }
         />
@@ -40,6 +55,7 @@ class Individual extends Component {
           </div>
 
           <TWeek  week={ prevWeek }
+                  fetchWeeks={ fetchWeeks }
                   weekID={ prevWeek._id }
                   individual={ individual }
           />

@@ -45,12 +45,12 @@ class Timesheets extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
       await this.setTimesheets()
-      // if (this.props.staffUser ) {
-      //   this.setIndividual(this.props.staffUser._id)
-      // }
-      // if (this.state.individual) {
-      //   this.setIndividual(this.state.individual)
-      // }
+      if (this.props.staffUser ) {
+        this.setIndividual(this.props.staffUser._id)
+      }
+      if (this.state.individual) {
+        this.setIndividual(this.state.individual)
+      }
     }
   }
 
@@ -242,7 +242,6 @@ class Timesheets extends Component {
   }
 
   postTimesheetTime = async (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID, postRequired) => {
-    // console.log('postTimesheetTime...', this.state.weekID)
     let timeObj =   {
                       weekID: this.state.weekID,
                       staffID: staffID,
@@ -255,13 +254,11 @@ class Timesheets extends Component {
                     }
 
     api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
-      console.log(response)
     })
     this.props.fetchWeeks(this.state.weekDate)
   }
 
   postFlag = (shiftID, startOrFinish, staffID, shiftDate, rostered, actual) => {
-    console.log('postFlag...', )
 
     let flagObj =  {
                       weekID: this.state.weekID,
@@ -304,8 +301,7 @@ class Timesheets extends Component {
 
 
   render() {
-    const { staffUser, role, week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-    console.log(users, 'USERS')
+    const { staffUser, role, week, prevWeek, fetchWeeks, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
     if (!this.state.individual) {
 
       // console.log('totalsRows from Timesheets..', this.state.totalsRows)
@@ -422,6 +418,7 @@ class Timesheets extends Component {
               <div className="individual-container">
                 <Individual week={ week }
                             prevWeek={ prevWeek }
+                            fetchWeeks={ fetchWeeks }
                             individual={ this.state.individual }
                             setIndividual={ this.setIndividual }
                             removeIndividual={ this.removeIndividual }

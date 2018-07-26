@@ -24,7 +24,7 @@ class TWeek extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    if (this.props.individual !== prevProps.individual || this.props.week !== prevProps.week || this.props.prevWeek !== prevProps.prevWeek) {
+    if (this.props.individual !== prevProps.individual || this.props.week !== prevProps.week) {
       this.setValuesRows()
     }
   }
@@ -183,9 +183,8 @@ class TWeek extends Component {
 
 
   render() {
-    const { weekID, individual } = this.props
+    const { weekID, individual, fetchWeeks } = this.props
     const { valuesRows1, valuesRows2, valuesRows3, weekDates, grandTotalsRow } = this.state
-    // console.log('valuesRows1 from Tweek', valuesRows1)
 
     const shift1 = Object.keys(valuesRows1)
     const shift2 = Object.keys(valuesRows2)
@@ -202,10 +201,10 @@ class TWeek extends Component {
             <div>Total</div>
           </div>
           <div className='values-block-container'>
-            <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-            <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+            <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+            <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+            <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+            <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
           </div>
         </div>
       )
@@ -223,10 +222,10 @@ class TWeek extends Component {
               <div>Total</div>
             </div>
             <div className='values-block-container'>
-              <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
             </div>
           </div>
 
@@ -238,10 +237,10 @@ class TWeek extends Component {
               <div>Total</div>
             </div>
             <div className='values-block-container'>
-              <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
             </div>
           </div>
 
@@ -269,10 +268,10 @@ class TWeek extends Component {
               <div>Total</div>
             </div>
             <div className='values-block-container'>
-              <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='start'  specificRow={ valuesRows1['1'][0] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='break'  specificRow={ valuesRows1['1'][1] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='finish' specificRow={ valuesRows1['1'][2] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='total'  specificRow={ valuesRows1['1'][3] } shift={ shift1 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
             </div>
           </div>
 
@@ -284,10 +283,10 @@ class TWeek extends Component {
               <div>Total</div>
             </div>
             <div className='values-block-container'>
-              <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='start'  specificRow={ valuesRows2['2'][0] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='break'  specificRow={ valuesRows2['2'][1] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='finish' specificRow={ valuesRows2['2'][2] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='total'  specificRow={ valuesRows2['2'][3] } shift={ shift2 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
             </div>
           </div>
 
@@ -299,10 +298,10 @@ class TWeek extends Component {
               <div>Total</div>
             </div>
             <div className='values-block-container'>
-              <ValuesRow lable='start'  specificRow={ valuesRows3['3'][0] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='break'  specificRow={ valuesRows3['3'][1] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='finish' specificRow={ valuesRows3['3'][2] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
-              <ValuesRow lable='total'  specificRow={ valuesRows3['3'][3] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } />
+              <ValuesRow lable='start'  specificRow={ valuesRows3['3'][0] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='break'  specificRow={ valuesRows3['3'][1] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='finish' specificRow={ valuesRows3['3'][2] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
+              <ValuesRow lable='total'  specificRow={ valuesRows3['3'][3] } shift={ shift3 } weekDates={ weekDates } weekID={ weekID } individual={ individual } fetchWeeks={ fetchWeeks } />
             </div>
           </div>
 
