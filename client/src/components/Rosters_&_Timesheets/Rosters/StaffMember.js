@@ -37,21 +37,25 @@ class StaffMember extends Component {
   }
 
   setDaysArray = (dateString, staffMember) => {
-    console.log('staff mem', staffMember)
+    // console.log('staff mem', staffMember)
     const weekDate = new Date(dateString)
     const daysArray = []
     // daysArray has a 'shifts' obj for each day of the week, which allows multiple shifts per day
     for (let i = 0; i < 7; i++) {
+      var dateCopy = new Date()
+      var thisDay = new Date(dateCopy.setDate(weekDate.getDate() + i))
       // loop through days of the week
       let dayPushed = 'no'
       let shiftPushed = false
+
       staffMember.shifts.map((shift) => {
         // for every day loop through shifts looking for shift date matching days date
-        if ( (weekDate.getDate() + i) === new Date(shift.date).getDate() ) {
+        // dateCopy.setDate(dateCopy.getDate() + i)
+        if ( thisDay.getDate() === new Date(shift.date).getDate() ) {
           // loop through daysArray to see if any shifts already added for this date
           // console.log(new Date(day.shifts[0].date).getDate())
           for (let day of daysArray) {
-            if (day && new Date(day.shifts[0].date).getDate() === weekDate.getDate() + i) {
+            if ( day && new Date(day.shifts[0].date).getDate() === thisDay.getDate() ) {
               // if so push the shift to that shifts obj
               day.shifts.push ( {
                                   shiftID: shift._id,
@@ -89,7 +93,7 @@ class StaffMember extends Component {
         daysArray.push( {
                           shifts: [
                                     {
-                                      date: new Date(dateCopy.setDate(weekDate.getDate() + i)),
+                                      date: thisDay,
                                       shiftCategory: '',
                                       start: '',
                                       finish: '',
