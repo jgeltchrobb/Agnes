@@ -3,7 +3,7 @@ MERN stack staffing solutions software
 
 Github Link: https://github.com/jgeltchrobb/Agnes
 
-Heroku Link:
+Netlify Link:
 
 ## Project Management
 
