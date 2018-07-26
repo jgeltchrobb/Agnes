@@ -30,7 +30,6 @@ class Rosters extends Component {
   }
 
   render() {
-    console.log(this.props, 'HERD DAWG')
     const { role, week, users, goToNextWeek, goToPreviousWeek, sideBarHeading, weekDate } = this.props
     if (!this.state.flags) return ''
     return (

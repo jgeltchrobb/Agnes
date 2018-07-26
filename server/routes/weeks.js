@@ -30,7 +30,6 @@ router.get('/update/:date', async (req, res) => {
         weeks.push(week)
       }
     }
-    console.log(weeks)
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -48,6 +47,7 @@ router.get('/all/:id', async (req, res) => {
       let date = new Date(weekDate.setDate(weekDate.getDate() - 7)).toISOString().split('T')[0]
       weeks.push(await Week.findOne({date: date}))
     }
+    console.log(weeks)
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -106,7 +106,6 @@ router.get('/next/:weekDate', async (req, res) => {
     let weekExists = await Week.findOne({date: tempDate})
     if (weekExists) {
       res.send(weekExists)
-      console.log('weekExists!!!!', weekExists)
     } else {
       let users = await User.find()
       let userArr = []
@@ -115,8 +114,6 @@ router.get('/next/:weekDate', async (req, res) => {
       }
       let week = await Week.create({date: tempDate, staff: userArr})
       res.send(week)
-      console.log('New week!!!!', week)
-
     }
   } catch (error) {
     res.status(500).json({ error: error.message })

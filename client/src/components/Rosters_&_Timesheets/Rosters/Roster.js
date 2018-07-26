@@ -11,7 +11,6 @@ class Roster extends Component {
 
   render() {
     const { users, weekDate, weekID, staff } = this.props
-    console.log(this.props)    
     return (
       <div className="rosters-cells">
 

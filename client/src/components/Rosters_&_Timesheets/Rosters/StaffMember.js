@@ -15,23 +15,20 @@ class StaffMember extends Component {
 
   componentDidMount = () => {
     const { weekDate, staffMember, staffID, users } = this.props
-    console.log(this.props)
     this.setStaffName(staffID, users)
     this.setDaysArray(weekDate, staffMember)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
     const { weekDate, staffMember, staffID, users } = this.props
-    console.log(this.props)
 
-    if (this.props !== prevProps) {
+    if (this.props.staffMember !== prevProps.staffMember) {
       this.setStaffName(staffID, users)
       this.setDaysArray(weekDate, staffMember)
     }
   }
 
   setStaffName = (staffID, users) => {
-    console.log(users, 'USERS')
     users.map((user) => {
       if (user._id.toString() === staffID) {
         this.setState({ staffName: user.name })
@@ -40,6 +37,7 @@ class StaffMember extends Component {
   }
 
   setDaysArray = (dateString, staffMember) => {
+    console.log('staff mem', staffMember)
     const weekDate = new Date(dateString)
     const daysArray = []
     // daysArray has a 'shifts' obj for each day of the week, which allows multiple shifts per day
@@ -51,6 +49,7 @@ class StaffMember extends Component {
         // for every day loop through shifts looking for shift date matching days date
         if ( (weekDate.getDate() + i) === new Date(shift.date).getDate() ) {
           // loop through daysArray to see if any shifts already added for this date
+          // console.log(new Date(day.shifts[0].date).getDate())
           for (let day of daysArray) {
             if (day && new Date(day.shifts[0].date).getDate() === weekDate.getDate() + i) {
               // if so push the shift to that shifts obj
@@ -101,10 +100,10 @@ class StaffMember extends Component {
       }
     }
     this.setState({ daysArray: daysArray })
+    console.log(daysArray)
   }
 
   addShift = (day) => {
-    console.log(day, 'DAY')
     if (day.shifts.length < 3) {
       this.setState({
         addShift: true,
@@ -220,9 +219,9 @@ class StaffMember extends Component {
   }
 
   render() {
-    console.log(this.props, 'asas')
     const { role, weekID, staffID, weekDate } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
+    // console.log(this.state.daysArray)
     return (
       <div className="shift-row">
 
