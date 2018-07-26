@@ -237,7 +237,7 @@ console.log(response.data)
             {    (role === 'office-clock') ? '' :
                     <Link to="/" onClick={this.logout} >Logout</Link>     }
                 </div>
-                <Route exact path="/" render={() => (<Redirect to="/rosters" />)} />  
+                <Route exact path="/" render={() => (<Redirect to="/rosters" />)} />
                 <Route path='/rosters' render={(routerprops) => (
                   <Rosters  currentWeek={ this.state.currentWeek }
                             weeks={ this.state.weeks }
@@ -249,7 +249,7 @@ console.log(response.data)
                             role={ role }
                             /> )}
                 />
-                  
+
               <Route path='/timesheets' render={(routerprops) => (
                 <Timesheets currentWeek={ this.state.currentWeek }
                             week={ this.state.currentWeek }
