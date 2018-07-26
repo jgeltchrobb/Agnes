@@ -177,7 +177,7 @@ class Clock extends Component {
 
     await axios.post(api + 'clock/new', timeObj).then((response) => {
     })
-    this.props.clockUpdateCurrentWeek(this.state.week._id)
+    this.props.fetchWeeks(this.state.week._id)
   }
 
   setGreeting = (inOrOut, clockTime) => {
@@ -195,8 +195,8 @@ class Clock extends Component {
   }
 
   render() {
-    const role = 'office-clock'
-    // const role = 'mobile-clock'
+    // const role = 'office-clock'
+    const role = 'mobile-clock'
     const { clockedIn } = this.state
     const { LastNightShiftID, LastNightShiftClockIn, LastNightShiftClockOut } = this.state
     const { shift1ID, shift1clockIn, shift1clockOut } = this.state
@@ -204,8 +204,8 @@ class Clock extends Component {
     const { TonightShiftID, TonightShiftClockIn, TonightShiftClockOut } = this.state
 
     // console.log('last night OUT..', LastNightShiftClockOut)
-    console.log('1 IN..', shift1clockIn)
-    console.log('1 OUT..', shift1clockOut)
+    // console.log('1 IN..', shift1clockIn)
+    // console.log('1 OUT..', shift1clockOut)
     // console.log('2 IN..', shift2clockIn)
     // console.log('2 OUT..', shift2clockOut)
     // console.log('tonight IN..', TonightShiftClockIn)

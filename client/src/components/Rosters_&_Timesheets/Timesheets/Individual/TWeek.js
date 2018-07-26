@@ -173,7 +173,7 @@ class TWeek extends Component {
   render() {
     const { weekID, individual } = this.props
     const { valuesRows1, valuesRows2, valuesRows3, weekDates, grandTotalsRow } = this.state
-    // console.log(valuesRows1)
+    // console.log('valuesRows1 from Tweek', valuesRows1)
 
     const shift1 = Object.keys(valuesRows1)
     const shift2 = Object.keys(valuesRows2)

@@ -13,7 +13,7 @@ class Timesheets extends Component {
     super(props)
 
     this.state = {
-      weekID: this.props.week._id,
+      weekDate: this.props.week.date,
       // columnHeadings: Array of strings - All applicable payRateCategories for the week so far (for which at least one rostered shift exists), followed all entitlements in the database (Entitlements model (Array of strings))
       // e.g. [ 'Ordinary', 'Sat', 'Night', 'Annual Leave', 'Sick Leave',...]
       columnHeadings: [],
@@ -37,21 +37,19 @@ class Timesheets extends Component {
   }
 
   componentDidUpdate = async (prevProps, prevState) => {
-    if (this.props.week !== prevProps.week) {
-      await this.setTimesheets()
-      if (this.props.staffUser) {
-        this.setIndividual(this.props.staffUser._id)
-      }
-      if (this.state.individual) {
-        this.setIndividual(this.state.individual)
-
-      }
-    }
-
+    // if (this.props.week !== prevProps.week) {
+    //   await this.setTimesheets()
+      // if (this.props.staffUser ) {
+      //   this.setIndividual(this.props.staffUser._id)
+      // }
+      // if (this.state.individual) {
+      //   this.setIndividual(this.state.individual)
+      // }
+    // }
   }
 
   setTimesheets = () => {
-    console.log('setTimesheets...running')
+    console.log('setTimesheets...')
      var DayShiftDefinitionClockinBeforeHours = 20
      const milliToHours = 0.00000027777777777778
 
@@ -88,18 +86,22 @@ class Timesheets extends Component {
         if (!shift.start.timesheet || shift.start.flag === false) {
           start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
-console.log('calculated start...', start)
+// console.log('calculated start...', start)
         } else { start = new Date(shift.start.timesheet)
-console.log('existing start...', start)
+// console.log('existing start...', start)
         }
+        // console.log('start...', start)
+
         // calculate timnesheet finish and post. Will also post flag if required
         if (!shift.start.timesheet || shift.start.flag === false) {
           finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
-console.log('calculated finish...', finish)
+// console.log('calculated finish...', finish)
         } else { finish = new Date(shift.finish.timesheet)
-console.log('existing finish...', finish)
+// console.log('existing finish...', finish)
         }
+        // console.log('finish...', finish)
+
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const startFinishDifference = (Number(((finish - start) * milliToHours).toFixed(2)))
         // take off break time (15 or 30 mins)
@@ -223,8 +225,8 @@ console.log('existing finish...', finish)
     }
   }
 
-  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
-    console.log('postTimesheetTime...', )
+  postTimesheetTime = async (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
+    // console.log('postTimesheetTime...', )
     const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
@@ -236,13 +238,13 @@ console.log('existing finish...', finish)
                       time: time,
                     }
 
-    axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
-      console.log(response)
+    await axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
     })
+    this.props.fetchWeeks(this.state.week.date)
   }
 
   postFlag = (shiftID, startOrFinish, staffID, shiftDate, rostered, actual) => {
-    console.log('postFlag...', )
+    // console.log('postFlag...', )
     const server = 'http://localhost:4000'
 
     let flagObj =  {
@@ -289,6 +291,8 @@ console.log('existing finish...', finish)
   render() {
     const { staffUser, role, week, prevWeek, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
     if (!this.state.individual) {
+
+      // console.log('totalsRows from Timesheets..', this.state.totalsRows)
 
       return (
         <div className="timesheets-container">

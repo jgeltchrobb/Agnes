@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Week = new Schema({
-  date: String,
+  date: Date,
   staff: [{
     staffID: String,
     paid: {type: Boolean, default: false},
