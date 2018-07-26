@@ -13,8 +13,8 @@ class Timesheets extends Component {
     super(props)
 
     this.state = {
-      weekID: this.props.week._id,
-      weekDate: this.props.week.date,
+      weekID: '',
+      weekDate: '',
       // columnHeadings: Array of strings - All applicable payRateCategories for the week so far (for which at least one rostered shift exists), followed all entitlements in the database (Entitlements model (Array of strings))
       // e.g. [ 'Ordinary', 'Sat', 'Night', 'Annual Leave', 'Sick Leave',...]
       columnHeadings: [],
@@ -31,6 +31,10 @@ class Timesheets extends Component {
   }
 
   componentDidMount = async () => {
+    await this.setState({
+      weekID: this.props.week._id,
+      weekDate: this.props.week.date,
+    })
     await this.setTimesheets()
     if (this.props.staffUser) {
       this.setIndividual(this.props.staffUser._id)
@@ -38,15 +42,15 @@ class Timesheets extends Component {
   }
 
   componentDidUpdate = async (prevProps, prevState) => {
-    // if (this.props.week !== prevProps.week) {
-    //   await this.setTimesheets()
-      // if (this.props.staffUser ) {
-      //   this.setIndividual(this.props.staffUser._id)
-      // }
-      // if (this.state.individual) {
-      //   this.setIndividual(this.state.individual)
-      // }
-    // }
+    if (this.props.week !== prevProps.week) {
+      await this.setTimesheets()
+      if (this.props.staffUser ) {
+        this.setIndividual(this.props.staffUser._id)
+      }
+      if (this.state.individual) {
+        this.setIndividual(this.state.individual)
+      }
+    }
   }
 
   setTimesheets = () => {
@@ -82,10 +86,12 @@ class Timesheets extends Component {
         prevPrevShiftDate = prevShiftDate
         prevShiftDate = shift.date
 
+        console.log(shift.start.postRequired)
+
         // calculate timnesheet start and post. Will also post flag if required
-        if (!shift.start.timesheet || shift.start.flag === false) {
+        if (!shift.start.timesheet || shift.start.postRequired) {
           start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
-          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id, shift.start.postRequired)
 console.log('calculated start...', start)
         } else { start = new Date(shift.start.timesheet)
 // console.log('existing start...', start)
@@ -93,9 +99,9 @@ console.log('calculated start...', start)
         // console.log('start...', start)
 
         // calculate timnesheet finish and post. Will also post flag if required
-        if (!shift.start.timesheet || shift.start.flag === false) {
+        if (!shift.start.timesheet || shift.start.postRequired) {
           finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
-          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id, shift.start.postRequired)
 console.log('calculated finish...', finish)
         } else { finish = new Date(shift.finish.timesheet)
 // console.log('existing finish...', finish)
@@ -149,7 +155,6 @@ console.log('calculated finish...', finish)
         if (shift.sleepOver === true) {
           // 0.5 because it comes through as two shifts which both start after 5pm so they each add a sleep-over bonus
           totalsRow['Sleep-over Bonus'] ? totalsRow['Sleep-over Bonus'] += 0.5 : totalsRow['Sleep-over Bonus'] = 0.5
-          console.log(rFinish)
         }
       })
       // push totalsRow key to columnHeadings array
@@ -237,8 +242,8 @@ console.log('calculated finish...', finish)
     }
   }
 
-  postTimesheetTime = async (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
-    console.log('postTimesheetTime...', this.state.weekID)
+  postTimesheetTime = async (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID, postRequired) => {
+    // console.log('postTimesheetTime...', this.state.weekID)
     const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
@@ -248,6 +253,7 @@ console.log('calculated finish...', finish)
                       startOrFinish: startOrFinish,
                       shiftID: shiftID,
                       time: time,
+                      postRequired: postRequired,
                     }
 
     await axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {

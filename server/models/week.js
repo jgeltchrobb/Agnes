@@ -17,12 +17,14 @@ const Week = new Schema({
       start: {
         rostered: String,
         actual: String,
+        postRequired: {type: Boolean, default: false},
         timesheet: String,
         flag: {type: Boolean, default: false}
       },
       finish: {
         rostered: String,
         actual: String,
+        postRequired: {type: Boolean, default: false},
         timesheet: String,
         flag: {type: Boolean, default: false}
       }
