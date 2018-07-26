@@ -160,15 +160,13 @@ class Timesheets extends Component {
       for (let cat in totalsRow) {
         columnHeadings.push(cat)
       }
-      // add entitlements to columnHeadings array
-      for (let e of this.props.entitlements) {
-        columnHeadings.push(e)
-      }
       // add staffID to totalsRow
       totalsRow.staffID = staffMember.staffID
       // push totalsRow object to totalsRows array
       totalsRows.push(totalsRow)
     })
+    // add entitlements to columnHeadings array
+    columnHeadings = [...columnHeadings, ...this.props.entitlements]
     // // Remove duplicates from columnHeadings array
     columnHeadings = this.removeDuplicates(columnHeadings)
 
