@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const { initializePassport, requireJwt } = require('./middleware/auth')
 
 const port = 4000
 
@@ -10,6 +11,7 @@ const app = express()
 // Middleware
 app.use(bodyParser.json())
 
+app.use(initializePassport)
 app.use('/', cors())
 
 // Routes
