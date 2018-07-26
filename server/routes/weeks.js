@@ -10,32 +10,60 @@ getMonday = (d) => {
 }
 
 // Get all Weeks
-router.get('/all', async (req, res) => {
-  try {
-    let week = await Week.find()
-    res.send(week)
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
-})
+// router.get('/all', async (req, res) => {
+//   try {
+//     let week = await Week.find()
+//     res.send(week)
+//   } catch (error) {
+//     res.status(500).json({ error: error.message })
+//   }
+// })
 
 
 // Get all Weeks
-router.get('/', async (req, res) => {
+// router.get('/refresh', async (req, res) => {
+//   try {
+//     let weekDates = []
+//     let weeks = []
+//     let d = new Date()
+//     let date = getMonday(d)
+//     for (let i = 0; i < 6; i++) {
+//       if (i === 0) {
+//         weekDates.push(date.getTime())
+//       }
+//       dateCopy = new Date(dateCopy.setDate(dateCopy.getDate() - 7))
+//       weekDates.push(dateCopy.getTime())
+//     }
+//     for (let date of weekDates) {
+//       // date = new Date(date.setHours(date.getHours() + 10)).toISOString().split('T')[0]
+//       date = new Date(date)
+//       let week = await Week.findOne({date: date})
+//       if (week) {
+//         weeks.push(week)
+//       }
+//     }
+//     res.send(weeks)
+//   } catch (error) {
+//     res.status(500).json({ error: error.message })
+//   }
+// })
+
+// Get week by date and previous 6
+router.get('/update/:date', async (req, res) => {
   try {
     let weekDates = []
     let weeks = []
-    let d = new Date()
-    let date = getMonday(d)
-    for (let i = 0; i < 7; i++) {
+    let date = new Date(req.params.date)
+    let dateCopy = new Date(date)
+    for (let i = 0; i < 6; i++) {
       if (i === 0) {
-        weekDates.push(new Date(date))
+        weekDates.push(date.getTime())
       }
-      let newDate = new Date(date.setDate(date.getDate() - 7))
-      weekDates.push(newDate)
+      dateCopy = new Date(dateCopy.setDate(dateCopy.getDate() - 7))
+      weekDates.push(dateCopy.getTime())
     }
     for (let date of weekDates) {
-      date = new Date(date.setHours(date.getHours() + 10)).toISOString().split('T')[0]
+      date = new Date(date)
       let week = await Week.findOne({date: date})
       if (week) {
         weeks.push(week)
@@ -46,6 +74,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: error.message })
   }
 })
+
 // get all weeks by an id.. which ones?
 router.get('/all/:id', async (req, res) => {
   try {
@@ -66,7 +95,6 @@ router.get('/all/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     let week = await Week.findOne({_id: req.params.id})
-    console.log('!!!!!!!!!!!!!get week', week.staff[0].shifts[0])
     res.send(week)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -94,9 +122,7 @@ router.get('/date/:date', async (req, res) => {
 router.get('/previous/:date', async (req, res) => {
   try {
     let date = new Date(req.params.date)
-    console.log(date)
-    date = new Date(date.setDate(date.getDate() - 14)).toISOString().split('T')[0]
-    console.log(date)
+    date = new Date(date.setDate(date.getDate() - 14))
 
     let week = await Week.findOne({date: date})
     if (week) {
@@ -111,21 +137,24 @@ router.get('/previous/:date', async (req, res) => {
 //
 // Create new Week
 
-router.get('/new/:weekDate', async (req, res) => {
+router.get('/next/:weekDate', async (req, res) => {
   try {
     let tempDate = new Date(req.params.weekDate)
-    tempDate = new Date(tempDate.setDate(tempDate.getDate() + 7)).toISOString().split('T')[0]
+    tempDate = new Date(tempDate.setDate(tempDate.getDate() + 7))
     let weekExists = await Week.findOne({date: tempDate})
-    let users = await User.find()
-    let userArr = []
-    for (let user of users) {
-      userArr.push({staffID: user._id, shifts: []})
-    }
-    if (!weekExists) {
+    if (weekExists) {
+      res.send(weekExists)
+      console.log('weekExists!!!!', weekExists)
+    } else {
+      let users = await User.find()
+      let userArr = []
+      for (let user of users) {
+        userArr.push({staffID: user._id, shifts: []})
+      }
       let week = await Week.create({date: tempDate, staff: userArr})
       res.send(week)
-    } else {
-      res.send(weekExists)
+      console.log('New week!!!!', week)
+
     }
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -141,9 +170,6 @@ router.post('/shift/:id', async (req, res) => {
       for (let staff of week.staff) {
         if (staff.staffID === req.body.shiftObj.staffID) {
           for (let shift of staff.shifts) {
-            console.log(shift, 'HERESHIFT')
-            console.log(shift.date)
-            console.log(req.body.shiftObj.shift.date)
             if (shift.date === req.body.shiftObj.shift.date) {
               if (shift._id == req.params.id) {
                 found = true

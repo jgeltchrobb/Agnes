@@ -115,7 +115,11 @@ class TWeek extends Component {
     for (let i=0; i<7; i++) {
       if (starts1[i] && finishes1[i]) {
         let subTotal1 = ((finishes1[i].getTime() - starts1[i].getTime()) * milliToHours).toFixed(2)
-        subTotal1 > 4 ? breaks1.push(30) : breaks1.push(15)
+        if (starts1[i].getHours() < 17) {
+          subTotal1 > 4 ? breaks1.push(30) : breaks1.push(15)
+        } else {
+          breaks1.push('')
+        }
         totals1.push( subTotal1 - (breaks1[i]/60) )
       } else {
         breaks1.push('')
@@ -124,7 +128,11 @@ class TWeek extends Component {
       if (starts2 && finishes2) {
         if (starts2[i] && finishes2[i]) {
           let subTotal2 = ((finishes2[i].getTime() - starts2[i].getTime()) * milliToHours).toFixed(2)
-          subTotal2 > 4 ? breaks2.push(30) : breaks2.push(15)
+          if (starts2[i].getHours() < 17) {
+            subTotal2 > 4 ? breaks2.push(30) : breaks2.push(15)
+          } else {
+            breaks2.push('')
+          }
           totals2.push( subTotal2 - (breaks2[i]/60) )
         } else {
           breaks2.push('')
@@ -134,7 +142,11 @@ class TWeek extends Component {
       if (starts3 && finishes3) {
         if (starts3[i] && finishes3[i]) {
           let subTotal3 = ((finishes3[i].getTime() - starts3[i].getTime()) * milliToHours).toFixed(2)
-          subTotal3 > 4 ? breaks3.push(30) : breaks3.push(15)
+          if (starts3[i].getHours() < 17) {
+            subTotal3 > 4 ? breaks3.push(30) : breaks3.push(15)
+          } else {
+            breaks3.push('')
+          }
           totals3.push( subTotal3 - (breaks3[i]/60) )
         } else {
           breaks3.push('')
@@ -173,7 +185,7 @@ class TWeek extends Component {
   render() {
     const { weekID, individual } = this.props
     const { valuesRows1, valuesRows2, valuesRows3, weekDates, grandTotalsRow } = this.state
-    // console.log(valuesRows1)
+    // console.log('valuesRows1 from Tweek', valuesRows1)
 
     const shift1 = Object.keys(valuesRows1)
     const shift2 = Object.keys(valuesRows2)

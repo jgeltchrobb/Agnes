@@ -145,7 +145,6 @@ class Clock extends Component {
     } else if (TonightShiftID && !TonightShiftClockIn) {
       this.postTime('start', TonightShiftID, clockTime)
     }
-    this.setState({ greeting: `${this.state.user.name} clocked in at ${clockTime}` })
   }
 
   clockOut = () => {
@@ -162,11 +161,18 @@ class Clock extends Component {
     } else if (shift2ID && !shift2clockOut) {
       this.postTime('finish', shift2ID, clockTime)
     }
-    this.setState({ greeting: `${this.state.user.name} clocked out at ${clockTime}` })
   }
 
   postTime = async (startOrFinish, shiftID, time) => {
+<<<<<<< HEAD
     const { week } = this.props
+=======
+    let inOrOut = ''
+    if (startOrFinish === 'start') { inOrOut = 'in' }
+    if (startOrFinish === 'finish') { inOrOut = 'out' }
+    this.setState({ greeting: `${this.state.user.name} clocked ${inOrOut} at ${time}` })
+    const { api, week, } = this.props
+>>>>>>> master
 
     let timeObj =   {
                       weekID: week._id,
@@ -178,7 +184,7 @@ class Clock extends Component {
 
     await api.post('clock/new', timeObj).then((response) => {
     })
-    this.props.clockUpdateCurrentWeek(this.state.week._id)
+    this.props.fetchWeeks(this.state.week.date)
   }
 
   setGreeting = (inOrOut, clockTime) => {
@@ -205,8 +211,8 @@ class Clock extends Component {
     const { TonightShiftID, TonightShiftClockIn, TonightShiftClockOut } = this.state
 
     // console.log('last night OUT..', LastNightShiftClockOut)
-    console.log('1 IN..', shift1clockIn)
-    console.log('1 OUT..', shift1clockOut)
+    // console.log('1 IN..', shift1clockIn)
+    // console.log('1 OUT..', shift1clockOut)
     // console.log('2 IN..', shift2clockIn)
     // console.log('2 OUT..', shift2clockOut)
     // console.log('tonight IN..', TonightShiftClockIn)

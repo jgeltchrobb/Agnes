@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Week = new Schema({
-  date: String,
+  date: Date,
   staff: [{
     staffID: String,
     paid: {type: Boolean, default: false},
@@ -13,16 +13,18 @@ const Week = new Schema({
       wayneShift: {type: Boolean, default: false},
       firstHalfID: String,
       secondHalfID: String,
-      sleepOver: {type: String, default: false},
+      sleepOver: {type: Boolean, default: false},
       start: {
         rostered: String,
         actual: String,
+        postRequired: {type: Boolean, default: false},
         timesheet: String,
         flag: {type: Boolean, default: false}
       },
       finish: {
         rostered: String,
         actual: String,
+        postRequired: {type: Boolean, default: false},
         timesheet: String,
         flag: {type: Boolean, default: false}
       }

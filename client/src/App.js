@@ -80,26 +80,41 @@ class App extends Component {
     }
   }
 
+// get week by date and previous 6. That way app will stay on current week and just make it week[0] of the response
   fetchWeeks = (date) => {
-    api.get('rosters').then(response => {
+    axios.get(api + `rosters/update/${date}`).then(response => {
       let weeks = []
       for (let i=0; i<response.data.length; i++) {
         weeks.push(response.data[i])
       }
       this.setState({
-        weeks: weeks,
         currentWeek: weeks[0],
         clockWeek: weeks[0],
+        weeks: weeks,
       })
     })
   }
 
-  clockUpdateCurrentWeek = (weekID) => {
-    api.get('rosters/' + weekID).then(response => {
-      this.setState({ clockWeek: response.data })
-      console.log(response.data)
-    })
-  }
+  // refreshWeeks = () => {
+  //   axios.get(api + 'rosters/refresh').then(response => {
+  //     let weeks = []
+  //     for (let i=0; i<response.data.length; i++) {
+  //       weeks.push(response.data[i])
+  //     }
+  //     this.setState({
+  //       weeks: weeks,
+  //       currentWeek: weeks[0],
+  //       clockWeek: weeks[0],
+  //     })
+  //   })
+  // }
+
+  // this will only work for a week so needs to be changed to get the week by todays date
+  // clockUpdateCurrentWeek = () => {
+  //   axios.get(api + 'rosters/' + weekID).then(response => {
+  //     this.setState({ clockWeek: response.data })
+  //   })
+  // }
 
   selectRosters = () => {
     this.setState({ sideBarHeading: 'FLAGS' })
@@ -107,14 +122,14 @@ class App extends Component {
   selectTimesheets = () => {
     this.setState({ sideBarHeading: 'STAFF' })
   }
-
+// returns next week in db or creates one then sets current week to weeks[0]
   goToNextWeek = () => {
     let weeks = this.state.weeks
     if (this.state.currentWeek.date === weeks[0].date) {
-      api.get('rosters/new/' + this.state.currentWeek.date).then((response) => {
+      axios.get(api + 'rosters/' + 'next/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.unshift(response.data)
-        if (weeks.length === 8) { weeks.pop() }
+        weeks.pop()
         this.setState({
           weeks: weeks,
           currentWeek: weeks[0]
@@ -134,8 +149,8 @@ class App extends Component {
 
   goToPreviousWeek = () => {
     let weeks = this.state.weeks
-    if (weeks.length === 7 && this.state.currentWeek.date === weeks[5].date) {
-      api.get('rosters/previous/' + this.state.currentWeek.date).then((response) => {
+    if (this.state.currentWeek.date === weeks[5].date) {
+      axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.shift()
         weeks.push(response.data)
@@ -187,8 +202,7 @@ class App extends Component {
     let role = this.state.role
     // let role = 'staff'
     // let role = 'office-clock'
-    let week = this.state.currentWeek
-    let prevWeek = this.state.weeks[this.state.weeks.indexOf(week) + 1]
+    let prevWeek = this.state.weeks[this.state.weeks.indexOf(this.state.currentWeek) + 1]
     // this is to simulate a staff member login - switch between the following two statements
     let staffUser = ''
     // let staffUser = this.state.users[0]
@@ -263,6 +277,7 @@ class App extends Component {
                           users={ this.state.users }
                           api={ api }
                           clockUpdateCurrentWeek={ this.clockUpdateCurrentWeek }
+                          fetchWeeks={ this.fetchWeeks }
                   />
                 )
               }} />

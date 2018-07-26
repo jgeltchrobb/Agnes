@@ -42,6 +42,7 @@ const seedData = async () => {
       []
   })
 
+
   await Week.create({
     date: '2018-07-23',
     staff:  [
@@ -909,7 +910,7 @@ const seedData = async () => {
   await Entitlements.create({
     entitlements:
     [
-      'Annual Leave', 'Sick Leave', 'Long Service Leave', 'Sleep-over Bonus'
+      'Sleep-over Bonus', 'Annual Leave', 'Sick Leave', 'Long Service Leave'
     ]
   })
 

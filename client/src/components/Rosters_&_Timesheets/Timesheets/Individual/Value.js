@@ -83,6 +83,8 @@ class Value extends Component {
   render() {
     const { lable, date, value } = this.props
 
+    // console.log(lable, value)
+
     if (lable === 'break' || lable === 'total' || lable === 'grandTotal') {
       return (
         <div className='value-constainer'>

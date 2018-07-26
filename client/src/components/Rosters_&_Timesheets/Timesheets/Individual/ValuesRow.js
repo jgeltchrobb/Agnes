@@ -3,20 +3,29 @@ import Value from './Value'
 import '../../../../stylesheets/ValuesRow.css'
 
 class ValuesRow extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loaded: false,
+    }
+
+  }
 
   componentDidMount = () => {
+    this.setState({ loaded: true })
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-
-  }
+  // componentDidUpdate = (prevProps, prevState) => {
+  // }
 
 
   render() {
 
     const { lable, specificRow, weekDates, weekID, individual, shift } = this.props
 
-    if (!specificRow || !weekDates) {return ''}
+    // console.log(specificRow)
+
+    if (!specificRow || !weekDates || !this.state.loaded) {return ''}
 
     return (
       <div className='values-row-container'>

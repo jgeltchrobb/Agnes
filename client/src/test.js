@@ -1,4 +1,2 @@
 
-
-
-console.log(100 < ''.getTime())
+console.log(''/60)
