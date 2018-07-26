@@ -13,9 +13,11 @@ router.post('/new', async (req, res) => {
           if (shift._id == req.body.shiftID) {
             if (req.body.startOrFinish === 'start') {
               shift.start.actual = req.body.time
+              shift.start.postRequired = true
               break
             } else {
               shift.finish.actual = req.body.time
+              shift.finish.postRequired = true
               break
             }
           }

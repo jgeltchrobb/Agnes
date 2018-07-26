@@ -169,7 +169,9 @@ class Shift extends Component {
     let weekID = nightResponse.data._id
     let shiftDate = this.state.date
     shiftDate.setDate(shiftDate.getDate() + 1)
-    console.log(shiftObj)
+
+    let newFinishTime = finishTime
+     newFinishTime = new Date(newFinishTime.setDate(newFinishTime.getDate() + 1))
 
     if (sunday) {
       let weekDate = new Date(this.state.weekDate)
@@ -182,16 +184,14 @@ class Shift extends Component {
       shiftObj.shift.firstHalfID = nightResponse.data._id
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
       shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
-      shiftObj.shift.finish.rostered = finishTime
-      console.log(shiftObj)
+      shiftObj.shift.finish.rostered = newFinishTime
       await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
 
     } else {
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
       shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
-      shiftObj.shift.finish.rostered = finishTime
+      shiftObj.shift.finish.rostered = newFinishTime
       shiftObj.shift.firstHalfID = nightResponse.data._id
-      console.log(shiftObj)
 
       await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
     }
@@ -206,23 +206,21 @@ class Shift extends Component {
       let finish = event.target.finish.value
       start = this.formatTime_UserInputToDateObj(start, 'start')
       finish = this.formatTime_UserInputToDateObj(finish, 'finish')
-      
-      
+
+
 //       if (shiftCategory && start && finish) {
 //         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, false, false)
 
       if (finish < start) {
         let shiftDay = this.state.date.getDay()
-        console.log(shiftDay, 'SHIDAT')
         let sunday = false
-        console.log(shiftDay, "DAYDAYDAYDAYDAYD")
         if (shiftDay === 0) { sunday = true }
         this.setNightShift(event, start, finish, shiftCategory, true, sunday)
         //STOP ADD??
       } else if (shiftCategory && start && finish) {
-          
+
         let shiftCheck = this.props.checkShiftTimes(start, finish, this.state.date, false, false)
-        
+
         if (shiftCheck) {
           let shiftObj =  {
             staffID: this.state.staffID,
@@ -287,7 +285,6 @@ class Shift extends Component {
       if (finish < start) {
         let shiftDay = this.state.date.getDay()
         let sunday = false
-        console.log(shiftDay, "DAYDAYDAYDAYDAYD")
         if (shiftDay === 0) { sunday = true }
         this.setNightShift(event, start, finish, shiftCategory, false, sunday)
         //STOP ADD??
@@ -425,7 +422,7 @@ class Shift extends Component {
           </React.Fragment>
       )
     }
-    
+
     else {
       return (
         <React.Fragment>
