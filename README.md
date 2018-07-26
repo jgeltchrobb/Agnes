@@ -1,9 +1,13 @@
 # Agnes Readme
 MERN stack staffing solutions software
 
-Github Link: https://github.com/jgeltchrobb/Agnes
+Due to difficulties in deployment and factors such as mLabs the client and server side of the app were seperated into their own repos.
 
-Netlify Link:
+Client: https://github.com/RyanG91/agnes-client
+
+Server: https://github.com/RyanG91/agnes-server
+
+Heroku Link: https://agnes-client.herokuapp.com/
 
 ## Project Management
 
