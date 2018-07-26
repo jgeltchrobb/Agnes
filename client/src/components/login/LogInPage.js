@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { api, setJwt } from '../../api/init'
+import '../../stylesheets/LoginPage.css'
 
 class LogInPage extends Component {
 
@@ -25,12 +26,18 @@ class LogInPage extends Component {
   render() {
     // Basic login details
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} >
-          <label>Email: <input type="email" name="email" /></label><br />
-          <label>Password: <input type="password" name="password" /></label><br />
+      <div className="login-page">
+        <form className="login-form-container" onSubmit={this.handleSubmit} >
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email" />
+
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password" />
+
           {/* <label>Remember me:<input id="checkbox" name="remember" type="checkbox" /></label><br /> */}
-          <button type="submit">Login</button>
+          <div className="login-button-container">
+            <button type="submit">Login</button>
+          </div>
         </form>
       </div>
     )

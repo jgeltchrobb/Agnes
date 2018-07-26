@@ -1,0 +1,57 @@
+div.login-page {
+  height: 100vh;
+  background: linear-gradient(-45deg, #0435b3, #58e6ff);
+  display: flex;
+  justify-content: center;
+}
+
+form.login-form-container {
+  height: 500px;
+  background-color: #fff4b0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0.5em;
+  margin-top: 5em;
+  padding: 3em 6em;
+}
+
+.login-form-container > label, .login-form-container > input {
+  display: block;
+}
+
+.login-form-container > label {
+  color: #472e07;
+  font-size: 1.3rem;
+  margin-bottom: 0.5em;
+}
+
+.login-form-container > input {
+  width: 400px;
+  color: #472e07;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border: none;
+  padding: 0.5em;
+  margin-bottom: 2em;
+}
+
+div.login-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+div.login-button-container > button {
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+  color: white;
+  background-color: #1932a3;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  padding: 0.5em;
+  margin-top: 1.2em;
+}
+
+div.login-button-container > button:hover {
+  background-color: #161763;
+}
