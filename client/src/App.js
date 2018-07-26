@@ -151,7 +151,7 @@ class App extends Component {
   goToPreviousWeek = () => {
     let weeks = this.state.weeks
     if (this.state.currentWeek.date === weeks[5].date) {
-      axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
+      api.get('rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
 console.log(response.data)
         weeks = [...weeks]
         weeks.shift()
