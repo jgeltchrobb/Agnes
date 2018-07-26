@@ -30,6 +30,7 @@ class App extends Component {
       weeks: [],
       noRoster: false,
       token: '',
+      role: '',
       loggedIn: ''
     }
   }
@@ -37,6 +38,7 @@ class App extends Component {
   componentDidMount() {
     this.setState({
       token: localStorage.getItem('token'),
+      role: localStorage.getItem('role')
     })
     this.fetchWeeks()
     api.get('users').then(response => {
@@ -163,11 +165,16 @@ class App extends Component {
     })
   }
 
+  setUserRole = (role) => {
+    this.setState({role})
+  }
+
   logout = async () => {
     try {
       this.setTokenState('', false)
       await api.post('users/logout', {})
       localStorage.removeItem('token')
+      localStorage.removeItem('role')
     } catch (error) {
       this.setState({ logoutError: error.message })
     }
@@ -177,7 +184,7 @@ class App extends Component {
     console.log(this.state.token, 'TOKEN')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements || !this.state.clockWeek) {return ''}
     // this is to simulate user authenication (roles) - switch between the following three statements
-    let role = 'admin'
+    let role = this.state.role
     // let role = 'staff'
     // let role = 'office-clock'
     let week = this.state.currentWeek
@@ -191,7 +198,7 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path='/' render={(routerProps) => (
-              <LogInPage setTokenState={this.setTokenState} />
+              <LogInPage setTokenState={this.setTokenState} setCurrentUserRole={this.setUserRole}/>
             )}
             />
             <Route path='/' render={() => (

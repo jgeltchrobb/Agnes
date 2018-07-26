@@ -167,29 +167,27 @@ class Shift extends Component {
     let weekID = nightResponse.data._id
     let shiftDate = this.state.date
     shiftDate.setDate(shiftDate.getDate() + 1)
-    console.log(shiftObj)
-
+    let newFinishTime = finishTime
+    newFinishTime = new Date(newFinishTime.setDate(newFinishTime.getDate() + 1))
     if (sunday) {
       let weekDate = new Date(this.state.weekDate)
       weekDate.setDate(weekDate.getDate() + 7)
       let weekResponse = await api.get('rosters/date/' + weekDate)
       shiftDate = new Date(weekResponse.data.date)
       weekID = weekResponse.data._id
-
       shiftObj.weekID = weekID
       shiftObj.shift.firstHalfID = nightResponse.data._id
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
       shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
-      shiftObj.shift.finish.rostered = finishTime
-      console.log(shiftObj)
+      shiftObj.shift.finish.rostered = newFinishTime
+      
       await api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
 
     } else {
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
       shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
-      shiftObj.shift.finish.rostered = finishTime
+      shiftObj.shift.finish.rostered = newFinishTime
       shiftObj.shift.firstHalfID = nightResponse.data._id
-      console.log(shiftObj)
 
       await api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
     }

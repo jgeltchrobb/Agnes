@@ -28,7 +28,8 @@ class Staff extends Component {
       rosteredTotals: [],
       totals: '',
       modalIsOpen: false,
-      addHours: false
+      addHours: false,
+      staffTotals: []
     }
   }
 
@@ -47,9 +48,16 @@ class Staff extends Component {
   }
 
   fetchStandard = () => {
+    let staffTotals = [...this.state.staffTotals]
     api.get('/standardHours').then((response) => {
       for (let staff of response.data) {
-        staff.totalHours = parseInt(localStorage.getItem(`${staff.name}`))
+        for (let total of staffTotals) {
+          if (total.name === staff.name) {
+            staff.totalHours = total.total
+            break
+          }
+        }
+        // staff.totalHours = parseInt(localStorage.getItem(`${staff.name}`))
       }
       return response
     }).then((result) => {
@@ -148,6 +156,7 @@ class Staff extends Component {
   }
 
   passTotal = (total) => {
+    let staffTotals = [...this.state.staffTotals]
     let name = ''
     let currentTotal = ''
     let plus = ''
@@ -166,7 +175,12 @@ class Staff extends Component {
     for (let obj of staffData) {
       if (obj._id === total.standardID) {
         name = obj.name
-        currentTotal = parseFloat(localStorage.getItem(`${name}`))
+        for (let total of staffTotals) {
+          if (total.name === name) {
+            currentTotal = total.total
+          }
+        }
+        // currentTotal = parseFloat(localStorage.getItem(`${name}`))
         for (let cat of obj.categories) {
           if (cat._id === total.id) {
             cat.hoursWorked = total.hours
@@ -179,8 +193,12 @@ class Staff extends Component {
         }
       }
     }
-    localStorage.setItem(`${name}`, currentTotal)
-    this.setState({staffData})
+    // localStorage.setItem(`${name}`, currentTotal)
+    staffTotals.push({name: name, total: currentTotal})
+    this.setState({
+      staffData: staffData,
+      staffTotals: staffTotals
+    })
   }
 
   openModal = () => {
@@ -193,6 +211,7 @@ class Staff extends Component {
 
   render() {
     console.log(this.state.staffData, 'STAFFFFFFFFFFFDATATA')
+    console.log(this.state)
     return (
       <React.Fragment>
         <div className="staff-container">

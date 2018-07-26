@@ -37,13 +37,16 @@ class NewUserModal extends React.Component {
     const email = event.target.email.value
     const password = event.target.password.value
     const pin = event.target.pin.value
+    let role = 'staff'
+    let checkedValue = document.querySelector('#admin-check').checked
+    if (checkedValue) {role = 'admin'}
+    console.log(role)
+    const loginObj = {name: name, email: email, password: password, role: role, pin: parseInt(pin)}
+    if (name && email && password && pin) {
 
-    const loginObj = {name: name, email: email, password: password, pin: pin}
-    if (name && email) {
-
+      this.props.closeModal()
       api.post('users', loginObj).then((response) => {
         this.props.fetchData()
-        this.props.closeModal()
       })
     } else {
       this.setState({validationError: !this.state.validationError})
@@ -61,7 +64,9 @@ class NewUserModal extends React.Component {
             <input autofocus="autofocus" name='name' placeholder='Name' /> <br /> <br />
             <input name='email' placeholder='Email' /> <br /> <br />
             <input name='password' placeholder='Password' /> <br /> <br />
-            <input name='pin' placeholder='PIN' /> <br /> <br />
+            <input name='pin' type='number' placeholder='PIN' /> <br /> <br />
+            <label>Admin user <input id='admin-check' name='admin' type='checkbox' /></label> <br /> <br />
+
             <button type='submit' >Submit</button>
           </form>
         </div>
@@ -75,6 +80,7 @@ class NewUserModal extends React.Component {
           <input name='email' placeholder='Email' /> <br /> <br />
           <input name='password' placeholder='Password' /> <br /> <br />
           <input name='pin' placeholder='PIN' /> <br /> <br />
+          <label>Admin user <input id='admin-check' name='admin' type='checkbox' /></label> <br /> <br />
           <button type='submit' >Submit</button>
         </form>
       </div>

@@ -16,7 +16,9 @@ class LogInPage extends Component {
       console.log(response)
       setJwt(response.data.token)
       this.props.setTokenState(response.data.token, true)
+      this.props.setCurrentUserRole(response.data.role)
       localStorage.setItem('token', response.data.token)
+      localStorage.setItem('role', response.data.role)
     })
   }
 

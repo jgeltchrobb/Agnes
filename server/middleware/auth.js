@@ -30,13 +30,12 @@ passport.use(new PassportJwt.Strategy({
 }))
 
 const register = (req, res, next) => {
-  User.register(new User({ email: req.body.email, role: 'staff', name: req.body.name }), req.body.password, (err, user) => {
+  User.register(new User({ email: req.body.email, name: req.body.name, role: req.body.role, PIN: req.body.pin }), req.body.password, (err, user) => {
     if (err) {
       return res.status(500).send(err.message);
     }
     // Add user to request so that later middleware can access it
     req.user = user
-    console.log(req.user, 'REQUSERR')
     next()
   })
 }
@@ -67,7 +66,7 @@ const signJwtForUser = (req, res) => {
       }
     )
 
-    res.json({token: token})
+    res.json({token: token, role: req.user.role})
 }
 
 module.exports = {

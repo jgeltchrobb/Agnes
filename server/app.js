@@ -21,9 +21,9 @@ app.use('/flags', require('./routes/flags'))
 app.use('/users', require('./routes/users'))
 app.use('/payRateCategories', require('./routes/payRateCategories'))
 app.use('/entitlements', require('./routes/entitlements'))
-app.use('/standardHours', requireJwt, require('./routes/standardHours'))
-app.use('/timesheets', requireJwt, require('./routes/timesheets'))
-app.use('/clock', requireJwt, require('./routes/clock'))
+app.use('/standardHours', require('./routes/standardHours'))
+app.use('/timesheets', require('./routes/timesheets'))
+app.use('/clock', require('./routes/clock'))
 
 
 // Mongoose
