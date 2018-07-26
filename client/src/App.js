@@ -76,7 +76,7 @@ class App extends Component {
     }
   }
 
-// get last 7 weeks
+// get week by date and previous 6. That way app will stay on current week and just make it week[0] of the response
   fetchWeeks = (date) => {
     axios.get(api + `rosters/update/${date}`).then(response => {
       let weeks = []
@@ -118,14 +118,14 @@ class App extends Component {
   selectTimesheets = () => {
     this.setState({ sideBarHeading: 'STAFF' })
   }
-
+// returns next week in db or creates one then sets current week to weeks[0]
   goToNextWeek = () => {
     let weeks = this.state.weeks
     if (this.state.currentWeek.date === weeks[0].date) {
-      axios.get(api + 'rosters/' + 'new/' + this.state.currentWeek.date).then((response) => {
+      axios.get(api + 'rosters/' + 'next/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.unshift(response.data)
-        if (weeks.length === 8) { weeks.pop() }
+        weeks.pop()
         this.setState({
           weeks: weeks,
           currentWeek: weeks[0]
@@ -145,7 +145,7 @@ class App extends Component {
 
   goToPreviousWeek = () => {
     let weeks = this.state.weeks
-    if (weeks.length === 7 && this.state.currentWeek.date === weeks[5].date) {
+    if (this.state.currentWeek.date === weeks[5].date) {
       axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.shift()
