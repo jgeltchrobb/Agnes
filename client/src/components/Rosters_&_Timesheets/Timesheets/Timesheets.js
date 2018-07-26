@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { api, setJwt } from '../../../api/init'
 import axios from 'axios'
 import Header from '../HeaderBar/Header'
 import ColumnHeading from './Common/ColumnHeading'
@@ -225,7 +226,6 @@ console.log('existing finish...', finish)
 
   postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
     console.log('postTimesheetTime...', )
-    const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
                       staffID: staffID,
@@ -236,14 +236,13 @@ console.log('existing finish...', finish)
                       time: time,
                     }
 
-    axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
+    api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
       console.log(response)
     })
   }
 
   postFlag = (shiftID, startOrFinish, staffID, shiftDate, rostered, actual) => {
     console.log('postFlag...', )
-    const server = 'http://localhost:4000'
 
     let flagObj =  {
                       weekID: this.state.weekID,
@@ -257,7 +256,7 @@ console.log('existing finish...', finish)
                     }
                     console.log(flagObj)
 
-    axios.put(server + '/flags/new', {flagObj}).then((response) => {
+    api.put('flags/new', {flagObj}).then((response) => {
     })
   }
 

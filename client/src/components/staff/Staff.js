@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
+import { api, setJwt } from '../../api/init'
 import Modal from 'react-modal';
 import StaffRow from './StaffRow'
 import SideBar from './SideBar'
 import Header from './Header'
-import NewUser from './NewUser'
 import NewUserModal from './Modals/NewUserModal'
-import classNames from 'classnames'
 import '../../stylesheets/Staff.css'
-
-import axios from 'axios'
-
 
 const customStyles = {
   content : {
@@ -22,8 +17,6 @@ const customStyles = {
     transform             : 'translate(-50%, -50%)'
   }
 };
-
-const api = 'http://localhost:4000'
 
 class Staff extends Component {
   constructor() {
@@ -54,7 +47,7 @@ class Staff extends Component {
   }
 
   fetchStandard = () => {
-    axios.get(api + '/standardHours').then((response) => {
+    api.get('/standardHours').then((response) => {
       for (let staff of response.data) {
         staff.totalHours = parseInt(localStorage.getItem(`${staff.name}`))
       }
@@ -67,7 +60,7 @@ class Staff extends Component {
 
   fetchRosters = (staffData) => {
     let date = new Date().toISOString().split('T')[0]
-    axios.get(api + '/rosters' + '/date/' + date).then((response) => {
+    api.get('rosters/date/' + date).then((response) => {
       return response.data
     }).then((obj) => {
       console.log(obj)

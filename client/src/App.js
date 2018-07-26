@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import axios from 'axios'
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom"
 import LogInPage from './components/login/LogInPage'
 import Clock from './components/clock/Clock'
 import Rosters from './components/Rosters_&_Timesheets/Rosters/Rosters'
@@ -8,8 +7,7 @@ import Timesheets from './components/Rosters_&_Timesheets/Timesheets/Timesheets'
 import Staff from './components/staff/Staff'
 // import StaffHeader from './components/staff/Header'
 import './stylesheets/App.css';
-
-const api = 'http://localhost:4000/'
+import { api, setJwt } from './api/init'
 
 class App extends Component {
   constructor(props) {
@@ -30,23 +28,28 @@ class App extends Component {
       staffData: [],
       payRateCategories: [],
       weeks: [],
-      noRoster: false
+      noRoster: false,
+      token: '',
+      loggedIn: ''
     }
   }
 
   componentDidMount() {
+    this.setState({
+      token: localStorage.getItem('token'),
+    })
     this.fetchWeeks()
-    axios.get(api + 'users').then(response => {
+    api.get('users').then(response => {
       this.setState({
         users: response.data,
       })
     })
-    axios.get(api + 'payRateCategories').then(response => {
+    api.get('payRateCategories').then(response => {
       this.setState({
         payRateCategories: response.data.payRateCategories,
       })
     })
-    axios.get(api + 'entitlements').then(response => {
+    api.get('entitlements').then(response => {
       this.setState({
         entitlements: response.data.entitlements,
       })
@@ -59,7 +62,7 @@ class App extends Component {
       for (let week of weeks) {
         if (week) {
           if (weekID === week._id) {
-            axios.get(api + 'rosters/all/' + weekID).then((response) => {
+            api.get('rosters/all/' + weekID).then((response) => {
               let weeks = []
               for (let i=0; i<response.data.length; i++) {
                 weeks.push(response.data[i])
@@ -76,7 +79,7 @@ class App extends Component {
   }
 
   fetchWeeks = (date) => {
-    axios.get(api + 'rosters').then(response => {
+    api.get('rosters').then(response => {
       let weeks = []
       for (let i=0; i<response.data.length; i++) {
         weeks.push(response.data[i])
@@ -90,7 +93,7 @@ class App extends Component {
   }
 
   clockUpdateCurrentWeek = (weekID) => {
-    axios.get(api + 'rosters/' + weekID).then(response => {
+    api.get('rosters/' + weekID).then(response => {
       this.setState({ clockWeek: response.data })
       console.log(response.data)
     })
@@ -106,7 +109,7 @@ class App extends Component {
   goToNextWeek = () => {
     let weeks = this.state.weeks
     if (this.state.currentWeek.date === weeks[0].date) {
-      axios.get(api + 'rosters/' + 'new/' + this.state.currentWeek.date).then((response) => {
+      api.get('rosters/new/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.unshift(response.data)
         if (weeks.length === 8) { weeks.pop() }
@@ -130,7 +133,7 @@ class App extends Component {
   goToPreviousWeek = () => {
     let weeks = this.state.weeks
     if (weeks.length === 7 && this.state.currentWeek.date === weeks[5].date) {
-      axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
+      api.get('rosters/previous/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.shift()
         weeks.push(response.data)
@@ -153,7 +156,25 @@ class App extends Component {
     }
   }
 
+  setTokenState = (token, login) => {
+    this.setState({
+      token: token,
+      loggedIn: login
+    })
+  }
+
+  logout = async () => {
+    try {
+      this.setTokenState('', false)
+      await api.post('users/logout', {})
+      localStorage.removeItem('token')
+    } catch (error) {
+      this.setState({ logoutError: error.message })
+    }
+  }
+
   render() {
+    console.log(this.state.token, 'TOKEN')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements || !this.state.clockWeek) {return ''}
     // this is to simulate user authenication (roles) - switch between the following three statements
     let role = 'admin'
@@ -164,82 +185,90 @@ class App extends Component {
     // this is to simulate a staff member login - switch between the following two statements
     let staffUser = ''
     // let staffUser = this.state.users[0]
-    return (
-      <div>
-
+    console.log(this.state, 'HHHHHHHHHHH')
+    if (!this.state.token) {
+      return (
         <Router>
           <div>
-
-
-              <div className="navbar">
-                <Link to="/rosters" onClick={ this.selectRosters }>Rosters</Link>
-                <Link to="/timesheets" onClick={ this.selectTimesheets }>Timesheets</Link>
-          {    (role !== 'admin') ? '' :
-                  <Link to="/staff">Staff</Link> }
-          {    (role === 'office-clock') ? '' :
-                  <Link to="/">Logout</Link>     }
-
-              </div>
-
-
-
-            <Route path='/rosters' render={(routerprops) => (
-              <Rosters  currentWeek={ this.state.currentWeek }
-                        weeks={ this.state.weeks }
-                        users={ this.state.users }
-                        goToNextWeek={ this.goToNextWeek }
-                        goToPreviousWeek={ this.goToPreviousWeek }
-                        sideBarHeading={ this.state.sideBarHeading }
-                        fetchData={ this.fetchShiftData }
-                        role={ role }
-                        /> )}
+            <Route exact path='/' render={(routerProps) => (
+              <LogInPage setTokenState={this.setTokenState} />
+            )}
             />
-
-            <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets currentWeek={ this.state.currentWeek }
-                          week={ week }
-                          prevWeek={ prevWeek }
-                          users={ this.state.users }
-                          payRateCategories={ this.state.payRateCategories }
-                          entitlements={ this.state.entitlements }
-                          goToNextWeek={ this.goToNextWeek }
-                          goToPreviousWeek={ this.goToPreviousWeek }
-                          sideBarHeading={ this.state.sideBarHeading }
-                          role={ role }
-                          staffUser={ staffUser }
-
-              /> )}
-            />
-
-            <Route path='/staff' render={(routerProps) => {
-              return (
-                <Staff payRates={ this.state.payRateCategories }/>
-              )
-            }} />
-
-            <Route path='/clock' render={(routerProps) => {
-              return (
-                <Clock  week={ this.state.clockWeek }
-                        user={ staffUser }
-                        users={ this.state.users }
-                        api={ api }
-                        clockUpdateCurrentWeek={ this.clockUpdateCurrentWeek }
-                />
-              )
-            }} />
-
-            <Route path='/login' component={ LogInPage } />
-
-
-
+            <Route path='/' render={() => (
+              <Redirect to="/" />
+            )} />
           </div>
         </Router>
+        )
+    } else {
+      return (
+        <div>
+
+          <Router>
+            <div>
+                <div className="navbar">
+                  <Link to="/rosters" onClick={ this.selectRosters }>Rosters</Link>
+                  <Link to="/timesheets" onClick={ this.selectTimesheets }>Timesheets</Link>
+            {    (role !== 'admin') ? '' :
+                    <Link to="/staff">Staff</Link> }
+            {    (role === 'office-clock') ? '' :
+                    <Link to="/" onClick={this.logout} >Logout</Link>     }
+                </div>
+                <Route exact path="/" render={() => (<Redirect to="/rosters" />)} />  
+                <Route path='/rosters' render={(routerprops) => (
+                  <Rosters  currentWeek={ this.state.currentWeek }
+                            weeks={ this.state.weeks }
+                            users={ this.state.users }
+                            goToNextWeek={ this.goToNextWeek }
+                            goToPreviousWeek={ this.goToPreviousWeek }
+                            sideBarHeading={ this.state.sideBarHeading }
+                            fetchData={ this.fetchShiftData }
+                            role={ role }
+                            /> )}
+                />
+                  
+              <Route path='/timesheets' render={(routerprops) => (
+                <Timesheets currentWeek={ this.state.currentWeek }
+                            week={ week }
+                            prevWeek={ prevWeek }
+                            users={ this.state.users }
+                            payRateCategories={ this.state.payRateCategories }
+                            entitlements={ this.state.entitlements }
+                            goToNextWeek={ this.goToNextWeek }
+                            goToPreviousWeek={ this.goToPreviousWeek }
+                            sideBarHeading={ this.state.sideBarHeading }
+                            role={ role }
+                            staffUser={ staffUser }
+
+                /> )}
+              />
+
+              <Route path='/staff' render={(routerProps) => {
+                return (
+                  <Staff payRates={ this.state.payRateCategories }/>
+                )
+              }} />
+
+              <Route path='/clock' render={(routerProps) => {
+                return (
+                  <Clock  week={ this.state.clockWeek }
+                          user={ staffUser }
+                          users={ this.state.users }
+                          api={ api }
+                          clockUpdateCurrentWeek={ this.clockUpdateCurrentWeek }
+                  />
+                )
+              }} />
+
+            </div>
+          </Router>
 
 
 
 
-      </div>
-    );
+        </div>
+      );
+    }
   }
 }
 

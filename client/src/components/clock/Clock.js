@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { api, setJwt } from '../../api/init'
 import axios from 'axios'
 import KeyPad from './KeyPad'
 import '../../stylesheets/Clock.css'
@@ -165,7 +166,7 @@ class Clock extends Component {
   }
 
   postTime = async (startOrFinish, shiftID, time) => {
-    const { api, week, } = this.props
+    const { week } = this.props
 
     let timeObj =   {
                       weekID: week._id,
@@ -175,7 +176,7 @@ class Clock extends Component {
                       time: time,
                     }
 
-    await axios.post(api + 'clock/new', timeObj).then((response) => {
+    await api.post('clock/new', timeObj).then((response) => {
     })
     this.props.clockUpdateCurrentWeek(this.state.week._id)
   }

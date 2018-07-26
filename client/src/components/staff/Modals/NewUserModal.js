@@ -1,8 +1,8 @@
 import React from 'react'
+import { api, setJwt } from '../../../api/init'
 import classNames from 'classnames'
 import axios from 'axios'
 
-const api = 'http://localhost:4000/users'
 
 const customStyles = {
   content : {
@@ -35,9 +35,13 @@ class NewUserModal extends React.Component {
     event.preventDefault()
     const name = event.target.name.value
     const email = event.target.email.value
+    const password = event.target.password.value
+    const pin = event.target.pin.value
+
+    const loginObj = {name: name, email: email, password: password, pin: pin}
     if (name && email) {
 
-      axios.post(api, {name: name, email: email}).then((response) => {
+      api.post('users', loginObj).then((response) => {
         this.props.fetchData()
         this.props.closeModal()
       })
@@ -56,6 +60,8 @@ class NewUserModal extends React.Component {
           <form onSubmit={this.submitHandler}>
             <input autofocus="autofocus" name='name' placeholder='Name' /> <br /> <br />
             <input name='email' placeholder='Email' /> <br /> <br />
+            <input name='password' placeholder='Password' /> <br /> <br />
+            <input name='pin' placeholder='PIN' /> <br /> <br />
             <button type='submit' >Submit</button>
           </form>
         </div>
@@ -67,6 +73,8 @@ class NewUserModal extends React.Component {
         <form onSubmit={this.submitHandler}>
           <input name='name' placeholder='Name' /> <br /> <br />
           <input name='email' placeholder='Email' /> <br /> <br />
+          <input name='password' placeholder='Password' /> <br /> <br />
+          <input name='pin' placeholder='PIN' /> <br /> <br />
           <button type='submit' >Submit</button>
         </form>
       </div>

@@ -28,12 +28,17 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+router.post('/login', login, signJwtForUser)
+
+router.post('/logout', (req, res) => {
+  req.logout();
+  res.sendStatus(200)
+});
+
 // Create new user
-router.post('/', async (req, res) => {
-  // console.log(req, 'REQREQ')
+router.post('/', register, async (req, res) => {
   try {
-    let user = await User.create(req.body)
-    let standard = await StandardHour.create({staffID: user._id, name: user.name,
+    let standard = await StandardHour.create({staffID: req.user._id, name: req.user.name,
       categories: [
         {
           category: 'Ordinary',
@@ -79,26 +84,15 @@ router.post('/', async (req, res) => {
     })
     let rosters = await Roster.find()
     for (let roster of rosters) {
-      // roster.date === todays date - the dif between today and monday
       let today = new Date()
       let dateDif = new Date().getDay() - 1
       let rosterDay = new Date(today.setDate(today.getDate() - dateDif)).toISOString().split('T')[0]
       if (roster.date === rosterDay) {
-        roster.staff.push({staffID: user._id, paid: false, shifts: []})
-        roster.save()
+        roster.staff.push({staffID: req.user._id, paid: false, shifts: []})
+        await roster.save()
       }
-      // console.log(dateDif)
-      // console.log(roster)
-      let date = new Date(roster.date)
-      let tempDate = new Date(date.setDate(date.getDate() - dateDif)).toISOString().split('T')[0]
-      // console.log(tempDate)
     }
-    await Roster.update({
-
-    }, {
-
-    })
-    res.send({standardID: standard._id, user: user})
+    res.send({standardID: standard._id, user: req.user})
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

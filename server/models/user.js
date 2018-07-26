@@ -14,6 +14,6 @@ const User = new Schema({
 });
 
 // connect passportLocalMongoose and use 'email' instead of 'username'
-User.plugin(passportLocalMongoose);
+User.plugin(passportLocalMongoose, { usernameField: 'email' });
 
 module.exports = mongoose.model('User', User);

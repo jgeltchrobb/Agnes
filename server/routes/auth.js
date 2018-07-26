@@ -15,7 +15,7 @@ router.get('/', requireJwt, (req, res) => {
   res.send('You have a valid token: ' + JSON.stringify(req.user.token))
 })
 
-router.post('/register', register, signJwtForUser)
+router.post('/', register)
 
 router.post('/login', login, signJwtForUser)
 

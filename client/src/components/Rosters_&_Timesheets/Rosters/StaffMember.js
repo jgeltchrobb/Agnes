@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
+import { api, setJwt } from '../../../api/init'
 import Day from './Day'
 import axios from 'axios'
 import '../../../stylesheets/StaffMember.css'
-
-const api = 'http://localhost:4000'
 
 class StaffMember extends Component {
   state = {
@@ -29,6 +28,7 @@ class StaffMember extends Component {
   }
 
   setStaffName = (staffID, users) => {
+    console.log(users, 'USERS')
     users.map((user) => {
       if (user._id.toString() === staffID) {
         this.setState({ staffName: user.name })
@@ -123,7 +123,7 @@ class StaffMember extends Component {
   removeShift = (staffID, shiftID) => {
     let daysArray = this.state.daysArray
     if (shiftID) {
-      axios.post(api + '/rosters/' + 'shift/' + 'remove/' + shiftID, {staffID: staffID, weekID: this.props.weekID}).then((response) => {
+      api.post('rosters/shift/remove/' + shiftID, {staffID: staffID, weekID: this.props.weekID}).then((response) => {
       })
       for (let day of daysArray) {
         for (let shift of day.shifts) {

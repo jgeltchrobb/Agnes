@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const { initializePassport, requireJwt } = require('./middleware/auth')
 
 const port = 4000
 
@@ -10,6 +11,7 @@ const app = express()
 // Middleware
 app.use(bodyParser.json())
 
+app.use(initializePassport)
 app.use('/', cors())
 
 // Routes
@@ -19,9 +21,9 @@ app.use('/flags', require('./routes/flags'))
 app.use('/users', require('./routes/users'))
 app.use('/payRateCategories', require('./routes/payRateCategories'))
 app.use('/entitlements', require('./routes/entitlements'))
-app.use('/standardHours', require('./routes/standardHours'))
-app.use('/timesheets', require('./routes/timesheets'))
-app.use('/clock', require('./routes/clock'))
+app.use('/standardHours', requireJwt, require('./routes/standardHours'))
+app.use('/timesheets', requireJwt, require('./routes/timesheets'))
+app.use('/clock', requireJwt, require('./routes/clock'))
 
 
 // Mongoose
