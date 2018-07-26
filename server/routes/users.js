@@ -7,6 +7,11 @@ const router = express.Router()
 
 const { requireJwt, register, signJwtForUser, login, isAdmin } = require('../middleware/auth')
 
+getMonday = (d) => {
+  let day = d.getDay(),
+  diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
 
 // Get all users
 router.get('/', async (req, res) => {
@@ -82,16 +87,19 @@ router.post('/', register, async (req, res) => {
         }
       ]
     })
-    let rosters = await Roster.find()
-    for (let roster of rosters) {
-      let today = new Date()
-      let dateDif = new Date().getDay() - 1
-      let rosterDay = new Date(today.setDate(today.getDate() - dateDif)).toISOString().split('T')[0]
-      if (roster.date === rosterDay) {
-        roster.staff.push({staffID: req.user._id, paid: false, shifts: []})
-        await roster.save()
-      }
-    }
+    // getMonday(new Date())
+    let roster = await Roster.findOne({_id: req.body.weekID})
+    roster.staff.push({staffID: req.user._id, paid: false, shifts: []})
+    await roster.save()
+    // for (let roster of rosters) {
+    //   let today = new Date()
+    //   let dateDif = new Date().getDay() - 1
+    //   let rosterDay = new Date(today.setDate(today.getDate() - dateDif)).toISOString().split('T')[0]
+    //   if (roster.date === rosterDay) {
+    //     roster.staff.push({staffID: req.user._id, paid: false, shifts: []})
+    //     await roster.save()
+    //   }
+    // }
     res.send({standardID: standard._id, user: req.user})
   } catch (error) {
     res.status(500).json({ error: error.message })

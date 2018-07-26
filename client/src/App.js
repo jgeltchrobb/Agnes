@@ -40,7 +40,7 @@ class App extends Component {
       token: localStorage.getItem('token'),
       role: localStorage.getItem('role')
     })
-    this.fetchWeeks()
+    this.fetchWeeks('2018-07-23T00:00:00Z')
     api.get('users').then(response => {
       this.setState({
         users: response.data,
@@ -82,8 +82,9 @@ class App extends Component {
 
 // get week by date and previous 6. That way app will stay on current week and just make it week[0] of the response
   fetchWeeks = (date) => {
-    axios.get(api + `rosters/update/${date}`).then(response => {
+    api.get(`rosters/update/${date}`).then(response => {
       let weeks = []
+      console.log(response, 'RES')
       for (let i=0; i<response.data.length; i++) {
         weeks.push(response.data[i])
       }
@@ -111,7 +112,7 @@ class App extends Component {
 
   // this will only work for a week so needs to be changed to get the week by todays date
   // clockUpdateCurrentWeek = () => {
-  //   axios.get(api + 'rosters/' + weekID).then(response => {
+  //   api.get('rosters/' + weekID).then(response => {
   //     this.setState({ clockWeek: response.data })
   //   })
   // }
@@ -126,7 +127,7 @@ class App extends Component {
   goToNextWeek = () => {
     let weeks = this.state.weeks
     if (this.state.currentWeek.date === weeks[0].date) {
-      axios.get(api + 'rosters/' + 'next/' + this.state.currentWeek.date).then((response) => {
+      api.get('rosters/' + 'next/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.unshift(response.data)
         weeks.pop()
@@ -150,7 +151,7 @@ class App extends Component {
   goToPreviousWeek = () => {
     let weeks = this.state.weeks
     if (this.state.currentWeek.date === weeks[5].date) {
-      axios.get(api + 'rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
+      api.get('rosters/' + 'previous/' + this.state.currentWeek.date).then((response) => {
         weeks = [...weeks]
         weeks.shift()
         weeks.push(response.data)
@@ -196,7 +197,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.token, 'TOKEN')
+    console.log(this.state.users, 'TOKEN')
     if (!this.state.weeks || !this.state.currentWeek || !this.state.users || !this.state.payRateCategories || !this.state.entitlements || !this.state.clockWeek) {return ''}
     // this is to simulate user authenication (roles) - switch between the following three statements
     let role = this.state.role
@@ -250,7 +251,7 @@ class App extends Component {
                   
               <Route path='/timesheets' render={(routerprops) => (
                 <Timesheets currentWeek={ this.state.currentWeek }
-                            week={ week }
+                            week={ this.state.currentWeek }
                             prevWeek={ prevWeek }
                             users={ this.state.users }
                             payRateCategories={ this.state.payRateCategories }
@@ -266,7 +267,9 @@ class App extends Component {
 
               <Route path='/staff' render={(routerProps) => {
                 return (
-                  <Staff payRates={ this.state.payRateCategories }/>
+                  <Staff payRates={ this.state.payRateCategories }
+                         weekID={ this.state.currentWeek._id }
+                  />
                 )
               }} />
 

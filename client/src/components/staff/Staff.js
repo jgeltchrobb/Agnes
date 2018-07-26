@@ -211,14 +211,14 @@ class Staff extends Component {
 
   render() {
     console.log(this.state.staffData, 'STAFFFFFFFFFFFDATATA')
-    console.log(this.state)
+    console.log(this.props, 'lllllllllllllllllllll')
     return (
       <React.Fragment>
         <div className="staff-container">
           <div className="new-staff-button-container">
             <button onClick={this.openModal} >New Staff</button>
             <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Add Staff Modal" >
-              <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} />
+              <NewUserModal fetchData={this.fetchStandard} openModal={this.openModal} afterOpenModal={this.afterOpenModal} closeModal={this.closeModal} weekID={ this.props.weekID } />
             </Modal>
           </div>
           <div className="staff-main" >

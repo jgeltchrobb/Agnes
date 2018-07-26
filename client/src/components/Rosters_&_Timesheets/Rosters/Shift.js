@@ -167,15 +167,8 @@ class Shift extends Component {
     let weekID = nightResponse.data._id
     let shiftDate = this.state.date
     shiftDate.setDate(shiftDate.getDate() + 1)
-<<<<<<< HEAD
     let newFinishTime = finishTime
     newFinishTime = new Date(newFinishTime.setDate(newFinishTime.getDate() + 1))
-=======
-
-    let newFinishTime = finishTime
-     newFinishTime = new Date(newFinishTime.setDate(newFinishTime.getDate() + 1))
-
->>>>>>> master
     if (sunday) {
       let weekDate = new Date(this.state.weekDate)
       weekDate.setDate(weekDate.getDate() + 7)
@@ -187,12 +180,8 @@ class Shift extends Component {
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
       shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
       shiftObj.shift.finish.rostered = newFinishTime
-<<<<<<< HEAD
       
       await api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
-=======
-      await axios.post(api + `/rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
->>>>>>> master
 
     } else {
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
@@ -428,13 +417,7 @@ class Shift extends Component {
           {/* // </div> */}
           </React.Fragment>
       )
-<<<<<<< HEAD
     } else {
-=======
-    }
-
-    else {
->>>>>>> master
       return (
         <React.Fragment>
           <div className="shift-block" onClick={ () => this.currentEdit() } >

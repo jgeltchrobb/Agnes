@@ -41,7 +41,7 @@ class NewUserModal extends React.Component {
     let checkedValue = document.querySelector('#admin-check').checked
     if (checkedValue) {role = 'admin'}
     console.log(role)
-    const loginObj = {name: name, email: email, password: password, role: role, pin: parseInt(pin)}
+    const loginObj = {name: name, email: email, password: password, role: role, pin: parseInt(pin), weekID: this.props.weekID}
     if (name && email && password && pin) {
 
       this.props.closeModal()

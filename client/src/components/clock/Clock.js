@@ -164,15 +164,11 @@ class Clock extends Component {
   }
 
   postTime = async (startOrFinish, shiftID, time) => {
-<<<<<<< HEAD
-    const { week } = this.props
-=======
     let inOrOut = ''
     if (startOrFinish === 'start') { inOrOut = 'in' }
     if (startOrFinish === 'finish') { inOrOut = 'out' }
     this.setState({ greeting: `${this.state.user.name} clocked ${inOrOut} at ${time}` })
     const { api, week, } = this.props
->>>>>>> master
 
     let timeObj =   {
                       weekID: week._id,

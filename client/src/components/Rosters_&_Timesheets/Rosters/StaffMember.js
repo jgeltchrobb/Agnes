@@ -15,12 +15,15 @@ class StaffMember extends Component {
 
   componentDidMount = () => {
     const { weekDate, staffMember, staffID, users } = this.props
+    console.log(this.props)
     this.setStaffName(staffID, users)
     this.setDaysArray(weekDate, staffMember)
   }
 
   componentDidUpdate = (prevProps, prevState) => {
     const { weekDate, staffMember, staffID, users } = this.props
+    console.log(this.props)
+
     if (this.props !== prevProps) {
       this.setStaffName(staffID, users)
       this.setDaysArray(weekDate, staffMember)
@@ -217,6 +220,7 @@ class StaffMember extends Component {
   }
 
   render() {
+    console.log(this.props, 'asas')
     const { role, weekID, staffID, weekDate } = this.props
     if (!this.state.daysArray && !this.state.staffName) { return '' }
     return (
