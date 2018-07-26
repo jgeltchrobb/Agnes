@@ -35,8 +35,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.refreshWeeks()
-    
+    this.fetchWeeks('2018-07-23T00:00:00Z')
+
     axios.get(api + 'users').then(response => {
       this.setState({
         users: response.data,
@@ -79,6 +79,7 @@ class App extends Component {
 // get last 7 weeks
   fetchWeeks = (date) => {
     axios.get(api + `rosters/update/${date}`).then(response => {
+      console.log(response.data)
       let weeks = []
       for (let i=0; i<response.data.length; i++) {
         weeks.push(response.data[i])
@@ -91,19 +92,19 @@ class App extends Component {
     })
   }
 
-  refreshWeeks = () => {
-    axios.get(api + 'rosters/refresh').then(response => {
-      let weeks = []
-      for (let i=0; i<response.data.length; i++) {
-        weeks.push(response.data[i])
-      }
-      this.setState({
-        weeks: weeks,
-        currentWeek: weeks[0],
-        clockWeek: weeks[0],
-      })
-    })
-  }
+  // refreshWeeks = () => {
+  //   axios.get(api + 'rosters/refresh').then(response => {
+  //     let weeks = []
+  //     for (let i=0; i<response.data.length; i++) {
+  //       weeks.push(response.data[i])
+  //     }
+  //     this.setState({
+  //       weeks: weeks,
+  //       currentWeek: weeks[0],
+  //       clockWeek: weeks[0],
+  //     })
+  //   })
+  // }
 
   // this will only work for a week so needs to be changed to get the week by todays date
   // clockUpdateCurrentWeek = () => {
@@ -211,10 +212,9 @@ class App extends Component {
             />
 
             <Route path='/timesheets' render={(routerprops) => (
-              <Timesheets currentWeek={ this.state.currentWeek }
-                          week={ this.state.currentWeek }
+              <Timesheets week={ this.state.currentWeek }
                           prevWeek={ prevWeek }
-                          updateWeeksData={ this.updateWeeksData }
+                          fetchWeeks={ this.fetchWeeks }
                           users={ this.state.users }
                           payRateCategories={ this.state.payRateCategories }
                           entitlements={ this.state.entitlements }
@@ -235,7 +235,7 @@ class App extends Component {
 
             <Route path='/clock' render={(routerProps) => {
               return (
-                <Clock  week={ this.state.clockWeek }
+                <Clock  week={ this.state.currentWeek }
                         user={ staffUser }
                         users={ this.state.users }
                         api={ api }

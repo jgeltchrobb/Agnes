@@ -13,6 +13,7 @@ class Timesheets extends Component {
     super(props)
 
     this.state = {
+      weekID: this.props.week._id,
       weekDate: this.props.week.date,
       // columnHeadings: Array of strings - All applicable payRateCategories for the week so far (for which at least one rostered shift exists), followed all entitlements in the database (Entitlements model (Array of strings))
       // e.g. [ 'Ordinary', 'Sat', 'Night', 'Annual Leave', 'Sick Leave',...]
@@ -86,7 +87,7 @@ class Timesheets extends Component {
         if (!shift.start.timesheet || shift.start.flag === false) {
           start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
-// console.log('calculated start...', start)
+console.log('calculated start...', start)
         } else { start = new Date(shift.start.timesheet)
 // console.log('existing start...', start)
         }
@@ -96,7 +97,7 @@ class Timesheets extends Component {
         if (!shift.start.timesheet || shift.start.flag === false) {
           finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
-// console.log('calculated finish...', finish)
+console.log('calculated finish...', finish)
         } else { finish = new Date(shift.finish.timesheet)
 // console.log('existing finish...', finish)
         }
@@ -197,7 +198,7 @@ class Timesheets extends Component {
   }
 
   timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber, shiftID) => {
-
+// console.log('tsheetEntry runing...')
     if (actual) {
 
       if (actual <= rostered) {
@@ -226,7 +227,7 @@ class Timesheets extends Component {
   }
 
   postTimesheetTime = async (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
-    // console.log('postTimesheetTime...', )
+    console.log('postTimesheetTime...', this.state.weekID)
     const server = 'http://localhost:4000'
     let timeObj =   {
                       weekID: this.state.weekID,
@@ -240,7 +241,7 @@ class Timesheets extends Component {
 
     await axios.post(server + '/timesheets/timesheet-time/update', {timeObj}).then((response) => {
     })
-    this.props.fetchWeeks(this.state.week.date)
+    this.props.fetchWeeks(this.state.weekDate)
   }
 
   postFlag = (shiftID, startOrFinish, staffID, shiftDate, rostered, actual) => {

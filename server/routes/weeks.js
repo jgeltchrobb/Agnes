@@ -32,7 +32,6 @@ router.get('/refresh', async (req, res) => {
         weekDates.push(date.getTime())
       }
       dateCopy = new Date(dateCopy.setDate(dateCopy.getDate() - 7))
-      console.log('running!!!!!!!!!')
       weekDates.push(dateCopy.getTime())
     }
     for (let date of weekDates) {
@@ -71,6 +70,7 @@ router.get('/update/:date', async (req, res) => {
         weeks.push(week)
       }
     }
+    // console.log('running!!!!!!!!!', weeks)
     res.send(weeks)
   } catch (error) {
     res.status(500).json({ error: error.message })

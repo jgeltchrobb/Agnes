@@ -11,16 +11,18 @@ const router = express.Router()
 router.post('/timesheet-time/update', async (req, res) => {
   // same as updating rostered start / finish times in the shifts one you were working on
   // but now start.timesheet instead of start.rostered (same for finish)
+  const timeObj = req.body.timeObj
+  console.log('week!!!!!!', timeObj)
   try {
-    let week = await Week.findOne({_id: req.body.timeObj.weekID})
+    let week = await Week.findOne({_id: timeObj.weekID})
     for (let staff of week.staff) {
-      if (staff.staffID === req.body.timeObj.staffID) {
+      if (staff.staffID === timeObj.staffID) {
         for (let shift of staff.shifts) {
-          if (shift._id == req.body.timeObj.shiftID) {
-            if (req.body.timeObj.startOrFinish === 'start') {
-              shift.start.timesheet = req.body.timeObj.time
+          if (shift._id == timeObj.shiftID) {
+            if (timeObj.startOrFinish === 'start') {
+              shift.start.timesheet = timeObj.time
             } else {
-              shift.finish.timesheet = req.body.timeObj.time
+              shift.finish.timesheet = timeObj.time
             }
           }
         }
