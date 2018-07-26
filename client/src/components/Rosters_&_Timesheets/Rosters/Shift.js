@@ -180,7 +180,7 @@ class Shift extends Component {
       shiftObj.shift.date = shiftDate.toISOString().split('T')[0]
       shiftObj.shift.start.rostered = this.formatTime_UserInputToDateObj('06:00', 'start')
       shiftObj.shift.finish.rostered = newFinishTime
-      
+
       await api.post(`rosters/shift/${this.state.shiftID}`, {shiftObj, pushShift: push})
 
     } else {

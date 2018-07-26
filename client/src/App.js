@@ -164,11 +164,12 @@ class App extends Component {
       })
     } else {
       let weeks = this.state.weeks
-      for (let i=0; i<weeks.length; i++) {
-        if (this.state.currentWeek.date === weeks[i].date) {
-          if (weeks[i + 2]) {
-            this.setState({ currentWeek: weeks[i + 1] })
-          } else { return }
+      for (let week of this.state.weeks) {
+        if (this.state.currentWeek.date === week.date) {
+          let index = this.state.weeks.indexOf(week)
+          this.setState({
+            currentWeek: this.state.weeks[index + 1]
+          })
         }
       }
     }
@@ -242,7 +243,7 @@ class App extends Component {
                             goToNextWeek={ this.goToNextWeek }
                             goToPreviousWeek={ this.goToPreviousWeek }
                             sideBarHeading={ this.state.sideBarHeading }
-                            fetchData={ this.fetchData }
+                            fetchData={ this.fetchShiftData }
                             fetchWeeks={ this.fetchWeeks }
                             role={ role }
                             /> )}
@@ -260,7 +261,7 @@ class App extends Component {
                             sideBarHeading={ this.state.sideBarHeading }
                             role={ role }
                             staffUser={ staffUser }
-                            fetchData={ this.fetchData }
+                            fetchData={ this.fetchShiftData }
                             fetchWeeks={ this.fetchWeeks }
 
 
