@@ -9,45 +9,6 @@ getMonday = (d) => {
   return new Date(d.setDate(diff));
 }
 
-// Get all Weeks
-// router.get('/all', async (req, res) => {
-//   try {
-//     let week = await Week.find()
-//     res.send(week)
-//   } catch (error) {
-//     res.status(500).json({ error: error.message })
-//   }
-// })
-
-
-// Get all Weeks
-// router.get('/refresh', async (req, res) => {
-//   try {
-//     let weekDates = []
-//     let weeks = []
-//     let d = new Date()
-//     let date = getMonday(d)
-//     for (let i = 0; i < 6; i++) {
-//       if (i === 0) {
-//         weekDates.push(date.getTime())
-//       }
-//       dateCopy = new Date(dateCopy.setDate(dateCopy.getDate() - 7))
-//       weekDates.push(dateCopy.getTime())
-//     }
-//     for (let date of weekDates) {
-//       // date = new Date(date.setHours(date.getHours() + 10)).toISOString().split('T')[0]
-//       date = new Date(date)
-//       let week = await Week.findOne({date: date})
-//       if (week) {
-//         weeks.push(week)
-//       }
-//     }
-//     res.send(weeks)
-//   } catch (error) {
-//     res.status(500).json({ error: error.message })
-//   }
-// })
-
 // Get week by date and previous 6
 router.get('/update/:date', async (req, res) => {
   try {

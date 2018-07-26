@@ -45,17 +45,16 @@ class Timesheets extends Component {
   componentDidUpdate = async (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
       await this.setTimesheets()
-      if (this.props.staffUser ) {
-        this.setIndividual(this.props.staffUser._id)
-      }
-      if (this.state.individual) {
-        this.setIndividual(this.state.individual)
-      }
+      // if (this.props.staffUser ) {
+      //   this.setIndividual(this.props.staffUser._id)
+      // }
+      // if (this.state.individual) {
+      //   this.setIndividual(this.state.individual)
+      // }
     }
   }
 
   setTimesheets = () => {
-    console.log('setTimesheets...')
      const milliToHours = 0.00000027777777777778
 
     var columnHeadings = []
@@ -87,13 +86,11 @@ class Timesheets extends Component {
         prevPrevShiftDate = prevShiftDate
         prevShiftDate = shift.date
 
-        console.log(shift.start.postRequired)
-
         // calculate timnesheet start and post. Will also post flag if required
         if (!shift.start.timesheet || shift.start.postRequired) {
           start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id, shift.start.postRequired)
-console.log('calculated start...', start)
+// console.log('calculated start...', start)
 
         } else { start = new Date(shift.start.timesheet)
 // console.log('existing start...', start)
@@ -104,7 +101,7 @@ console.log('calculated start...', start)
         if (!shift.start.timesheet || shift.start.postRequired) {
           finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
           this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id, shift.start.postRequired)
-console.log('calculated finish...', finish)
+// console.log('calculated finish...', finish)
         } else { finish = new Date(shift.finish.timesheet)
 // console.log('existing finish...', finish)
         }
