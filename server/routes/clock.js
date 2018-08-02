@@ -15,7 +15,7 @@ router.post('/new', async (req, res) => {
               shift.start.actual = req.body.time
               shift.start.postRequired = true
               break
-            } else {
+            } else if (req.body.startOrFinish === 'finish') {
               shift.finish.actual = req.body.time
               shift.finish.postRequired = true
               break
@@ -31,15 +31,15 @@ router.post('/new', async (req, res) => {
   }
 })
 
-// Get clock week (current week)
-// router.get('/', async (req, res) => {
-//   try {
-//     var date =
-//     }
-//     res.send(weeks)
-//   } catch (error) {
-//     res.status(500).json({ error: error.message })
-//   }
-// })
+// Get clock week (today's week)
+router.get('/', async (req, res) => {
+  try {
+    let searchDate = getMonday(new Date()).toISOString().split('T')[0] + 'T00:00:00Z'
+    let week = await Week.findOne({date: searchDate})
+    res.send(week)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
 
 module.exports = router

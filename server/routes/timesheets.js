@@ -19,17 +19,14 @@ router.post('/timesheet-time/update', async (req, res) => {
       if (staff.staffID === timeObj.staffID) {
         let counter = 1
         for (let shift of staff.shifts) {
-          if (new Date(shift.date).getDate() == new Date(timeObj.date).getDate()) {
-            if (shiftNumber === counter) {
-              if (timeObj.startOrFinish === 'start') {
-                shift.start.timesheet = timeObj.value
-                if (timeObj.postRequired) { shift.start.postRequired = false }
-              } else {
-                shift.finish.timesheet = timeObj.value
-                if (timeObj.postRequired) { shift.finish.postRequired = false }
-              }
+          if (shift._id == timeObj.shiftID) {
+            if (timeObj.startOrFinish === 'start') {
+              shift.start.timesheet = timeObj.time
+              shift.start.postRequired = false
+            } else if (timeObj.startOrFinish === 'finish') {
+              shift.finish.timesheet = timeObj.time
+              shift.finish.postRequired = false
             }
-            counter += 1
           }
         }
       }

@@ -37,16 +37,16 @@ class Timesheets extends Component {
       weekDate: this.props.week.date,
     })
     await this.setTimesheets()
-    if (this.props.staffUser) {
-      this.setIndividual(this.props.staffUser._id)
+    if (this.props.user) {
+      this.setIndividual(this.props.user._id)
     }
   }
 
   componentDidUpdate = async (prevProps, prevState) => {
     if (this.props.week !== prevProps.week) {
       await this.setTimesheets()
-      if (this.props.staffUser ) {
-        this.setIndividual(this.props.staffUser._id)
+      if (this.props.user ) {
+        this.setIndividual(this.props.user._id)
       }
       if (this.state.individual) {
         this.setIndividual(this.state.individual)
@@ -89,24 +89,15 @@ class Timesheets extends Component {
         // calculate timnesheet start and post. Will also post flag if required
         if (!shift.start.timesheet || shift.start.postRequired) {
           start = this.timesheetEntry('start', rStart, aStart, staffID, shift.date, shiftNumber, shift._id)
-          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id, shift.start.postRequired)
-// console.log('calculated start...', start)
-
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'start', start, shift._id)
         } else { start = new Date(shift.start.timesheet)
-// console.log('existing start...', start)
         }
-        // console.log('start...', start)
-
         // calculate timnesheet finish and post. Will also post flag if required
-        if (!shift.start.timesheet || shift.start.postRequired) {
+        if (!shift.finish.timesheet || shift.finish.postRequired) {
           finish = this.timesheetEntry('finish', rFinish, aFinish, staffID, shift.date, shiftNumber, shift._id)
-          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id, shift.start.postRequired)
-// console.log('calculated finish...', finish)
+          this.postTimesheetTime(staffID, shift.date, shiftNumber, 'finish', finish, shift._id)
         } else { finish = new Date(shift.finish.timesheet)
-// console.log('existing finish...', finish)
         }
-        // console.log('finish...', finish)
-
         // shift hours are just finish - start times converted to a number of hours with two decimal places
         const startFinishDifference = (Number(((finish - start) * milliToHours).toFixed(2)))
         // take off break time (15 or 30 mins)
@@ -211,7 +202,7 @@ class Timesheets extends Component {
   }
 
   timesheetEntry = (startOrFinish, rostered, actual, staffID, shiftDate, shiftNumber, shiftID) => {
-// console.log('tsheetEntry runing...')
+console.log('tsheetEntry runing...')
     if (actual) {
 
       if (actual <= rostered) {
@@ -239,7 +230,7 @@ class Timesheets extends Component {
     }
   }
 
-  postTimesheetTime = async (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID, postRequired) => {
+  postTimesheetTime = (staffID, shiftDate, shiftNumber, startOrFinish, time, shiftID) => {
     let timeObj =   {
                       weekID: this.state.weekID,
                       staffID: staffID,
@@ -248,12 +239,11 @@ class Timesheets extends Component {
                       startOrFinish: startOrFinish,
                       shiftID: shiftID,
                       time: time,
-                      postRequired: postRequired,
                     }
 
-    api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
+    api.post('timesheets/timesheet-time/update', {timeObj}).then(response => {
+      this.props.fetchWeeks(this.state.weekDate)
     })
-    this.props.fetchWeeks(this.state.weekDate)
   }
 
   postFlag = (shiftID, startOrFinish, staffID, shiftDate, rostered, actual) => {
@@ -282,9 +272,7 @@ class Timesheets extends Component {
     this.setState({ individual: '' })
   }
 
-  setIndividual = (userID) => {
-    var staffID = userID
-    if (this.props.staffUser) {staffID = this.props.staffUser._id}
+  setIndividual = (staffID) => {
     this.setState({ individual: staffID })
     this.setIndividualTotalsRow(staffID)
   }
@@ -299,10 +287,9 @@ class Timesheets extends Component {
 
 
   render() {
-    const { staffUser, role, week, prevWeek, fetchWeeks, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
-    if (!this.state.individual) {
+    const { user, role, week, prevWeek, fetchWeeks, users, goToNextWeek, goToPreviousWeek, sideBarHeading } = this.props
 
-      // console.log('totalsRows from Timesheets..', this.state.totalsRows)
+    if (!this.state.individual) {
 
       return (
         <div className="timesheets-container">
@@ -339,6 +326,7 @@ class Timesheets extends Component {
                         individual={ this.state.individual }
                         setIndividual={ this.setIndividual }
                         removeIndividual={ this.removeIndividual }
+                        user={ user }
                   />
                   )
                 })
@@ -398,7 +386,7 @@ class Timesheets extends Component {
                           individual={ this.state.individual }
                           setIndividual={ this.setIndividual }
                           removeIndividual={ this.removeIndividual }
-                          staffUser={ staffUser }
+                          user={ user }
                     />
                   )
                 })
