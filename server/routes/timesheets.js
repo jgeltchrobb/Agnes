@@ -21,10 +21,10 @@ router.post('/timesheet-time/update', async (req, res) => {
           if (shift._id == timeObj.shiftID) {
             if (timeObj.startOrFinish === 'start') {
               shift.start.timesheet = timeObj.time
-              if (timeObj.postRequired) { shift.start.postRequired = false }
-            } else {
+              shift.start.postRequired = false
+            } else if (timeObj.startOrFinish === 'finish') {
               shift.finish.timesheet = timeObj.time
-              if (timeObj.postRequired) { shift.finish.postRequired = false }
+              shift.finish.postRequired = false
 
             }
           }

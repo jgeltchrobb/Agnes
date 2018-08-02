@@ -14,12 +14,14 @@ class LogInPage extends Component {
       // check: checkedValue
     }
     api.post('users/login', login).then((response) => {
-      console.log(response)
       setJwt(response.data.token)
       this.props.setTokenState(response.data.token, true)
       this.props.setCurrentUserRole(response.data.role)
+      console.log(JSON.stringify(response.data.user))
+
+      localStorage.setItem('user', JSON.stringify(response.data.user))
       localStorage.setItem('token', response.data.token)
-      localStorage.setItem('role', response.data.role)
+      localStorage.setItem('role', response.data.user.role)
     })
   }
 

@@ -33,15 +33,15 @@ class Name extends Component {
   }
 
   render() {
-    const { staffUser, staffID } = this.props
+    const { user, staffID } = this.props
 
-    if (staffUser) {
+    if (user.role === 'staff') {
       return (
         <div>
           {this.state.staffName}
         </div>
       )
-    } else {
+    } else if (user.role === 'admin'){
       return (
         <div onClick={() => this.summaryOrIndividual(staffID)}>
           {this.state.staffName}

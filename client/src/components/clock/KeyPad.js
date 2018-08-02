@@ -19,13 +19,11 @@ class KeyPad extends Component {
     const pinInput = [...this.state.pinInput]
     users.map((user) => {
       if (user.PIN.toString() === pinInput.join('')) {
-        if (user) {
-          officeClock(user)
-          return true
-        } else {
-          alert('Incorrect PIN please try again')
-          return false
-        }
+        officeClock(user)
+        return true
+      } else {
+        alert('Incorrect PIN please try again')
+        return false
       }
     })
     this.clearPinInput()

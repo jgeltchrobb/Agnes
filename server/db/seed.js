@@ -44,10 +44,6 @@ const seedData = async () => {
 
 
   await Week.create({
-    date: new Date('2018-06-11'),
-    staff:  []
-  })
-  await Week.create({
     date: new Date('2018-06-18'),
     staff:  []
   })
@@ -69,6 +65,10 @@ const seedData = async () => {
   })
   await Week.create({
     date: new Date('2018-07-23'),
+    staff:  []
+  })
+  await Week.create({
+    date: new Date('2018-07-30'),
     staff:  []
   })
 

@@ -66,7 +66,10 @@ const signJwtForUser = (req, res) => {
       }
     )
 
-    res.json({token: token, role: req.user.role})
+    res.json({
+      token: token,
+      user: req.user
+    })
 }
 
 module.exports = {

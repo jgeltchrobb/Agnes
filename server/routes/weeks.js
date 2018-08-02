@@ -9,6 +9,32 @@ getMonday = (d) => {
   return new Date(d.setDate(diff));
 }
 
+router.get('/refresh', async (req, res) => {
+  try {
+    let weekDates = []
+    let weeks = []
+    let mondayString = getMonday(new Date()).toISOString().split('T')[0] + 'T00:00:00Z'
+    let mondayDate = new Date(mondayString)
+    for (let i = 0; i < 6; i++) {
+      if (i === 0) {
+        weekDates.push(mondayDate.getTime())
+      }
+      mondayDate = new Date(mondayDate.setDate(mondayDate.getDate() - 7))
+      weekDates.push(mondayDate.getTime())
+    }
+    for (let date of weekDates) {
+      date = new Date(date)
+      let week = await Week.findOne({date: date})
+      if (week) {
+        weeks.push(week)
+      }
+    }
+    res.send(weeks)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
 // Get week by date and previous 6
 router.get('/update/:date', async (req, res) => {
   try {
