@@ -37,7 +37,6 @@ class StaffMember extends Component {
   }
 
   setDaysArray = (dateString, staffMember) => {
-    // console.log('staff mem', staffMember)
     const weekDate = new Date(dateString)
     const daysArray = []
     // daysArray has a 'shifts' obj for each day of the week, which allows multiple shifts per day
@@ -104,7 +103,6 @@ class StaffMember extends Component {
       }
     }
     this.setState({ daysArray: daysArray })
-    // console.log(daysArray)
   }
 
   addShift = (day) => {

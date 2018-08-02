@@ -11,7 +11,7 @@ class Value extends Component {
       date: '',
       shift: '',
       lable: '',
-      value: '',
+      value: this.props.value,
       editing: false,
     }
   }
@@ -79,8 +79,7 @@ class Value extends Component {
                       value: this.state.value,
                     }
 
-    api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
-      console.log(response)
+    await api.post('timesheets/timesheet-time/update', {timeObj}).then((response) => {
     })
     this.props.fetchWeeks(this.props.date)
   }
